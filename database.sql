@@ -28,6 +28,7 @@ CREATE TABLE "users" (
 
 
 
+
 CREATE TABLE "user_certifications" (
   "id" serial,
   "user_id" int,
