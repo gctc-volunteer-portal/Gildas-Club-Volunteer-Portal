@@ -24,7 +24,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Routes */
-app.use('/api/users', userRouter);
+app.use('/api/user', userRouter);
 app.use('/api/opportunities', opportunitiesRouter)
 
 // Serve static files
