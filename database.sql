@@ -89,6 +89,8 @@ CREATE TABLE "announcements" (
 	CONSTRAINT announcements_pk PRIMARY KEY ("id")
 );
 
+
+
 ALTER TABLE "user_certifications" ADD CONSTRAINT "user_certifications_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "user_certifications" ADD CONSTRAINT "user_certifications_fk1" FOREIGN KEY ("certification_id") REFERENCES "certifications"("id");
 
@@ -97,3 +99,4 @@ ALTER TABLE "opportunities" ADD CONSTRAINT "opportunities_fk0" FOREIGN KEY ("cer
 
 ALTER TABLE "user_opportunities" ADD CONSTRAINT "user_opportunities_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "user_opportunities" ADD CONSTRAINT "user_opportunities_fk1" FOREIGN KEY ("opportunity_id") REFERENCES "opportunities"("id");
+
