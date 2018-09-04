@@ -29,7 +29,7 @@ class RegisterPage extends Component {
       job_title: '',
       date_of_birth: '',
       active: true,
-      access_level: 0,
+      access_level: 1,
       admin_notes: '',
       message: ''
     }
