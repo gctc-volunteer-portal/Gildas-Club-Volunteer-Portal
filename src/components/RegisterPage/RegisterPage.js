@@ -19,15 +19,15 @@ class RegisterPage extends Component {
       street_address2: '',
       city: '',
       state: '',
-      zip: '',
-      access_level: 0,
-      admin_notes: '',
-      active: true,
+      zip: 0,
       regular_basis: false,
       specific_event: false,
       as_needed: false,
       limitations_allergies: '',
       why_excited: '',
+      active: true,
+      access_level: 0,
+      admin_notes: '',
       message: ''
     }
   }
@@ -43,10 +43,28 @@ class RegisterPage extends Component {
       const body = {
         email: this.state.email,
         password: this.state.password,
+        first_name: this.state.first_name,
+        middle_name: this.state.middle_name,
+        last_name: this.state.last_name,
+        primary_phone: this.state.primary_phone,
+        secondary_phone: this.state.secondary_phone,
+        street_address1: this.state.street_address1,
+        street_address2: this.state.street_address2,
+        city: this.state.city,
+        state: this.state.state,
+        zip: this.state.zip,
+        regular_basis: this.state.regular_basis,
+        specific_event: this.state.specific_event,
+        as_needed: this.state.as_needed,
+        limitations_allergies: this.state.limitations_allergies,
+        why_excited: this.state.why_excited,
+        active: this.state.active,
+        access_level: this.state.access_level,
+        admin_notes: this.state.admin_notes
       };
 
       // making the request to the server to post the new user's registration
-      axios.post('/api/user/register/', body)
+      axios.post('/api/users/register', body)
         .then((response) => {
           if (response.status === 201) {
             this.props.history.push('/home');
@@ -88,7 +106,6 @@ class RegisterPage extends Component {
     return (
       <div>
         {this.renderAlert()}
- registration-feature
        <RegistrationForm
          handleInputChangeFor={this.handleInputChangeFor}
          userRegistrationInfo={this.state}
