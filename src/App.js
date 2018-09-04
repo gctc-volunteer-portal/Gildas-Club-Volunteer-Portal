@@ -11,6 +11,8 @@ import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import UserPage from './components/UserPage/UserPage';
 import InfoPage from './components/InfoPage/InfoPage';
+import ManageOpportunitiesPage from './components/ManageOpportunitiesPage/ManageOpportunitiesPage';
+
 
 import './styles/main.css';
 
@@ -37,8 +39,11 @@ const App = () => (
           component={InfoPage}
         />
         {/* OTHERWISE (no path!) */}
-        <Route render={() => <h1>404</h1>} />
-
+        {/* <Route render={() => <h1>404</h1>} /> */}
+        <Route
+          path="/manage_opportunities"
+          component={ManageOpportunitiesPage}
+        />
       </Switch>
     </Router>
   </div>

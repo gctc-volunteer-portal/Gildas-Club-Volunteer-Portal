@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 import user from './userReducer';
 import login from './loginReducer';
 import volunteerReducer from './volunteerReducer'
+import opportunitiesReducer from './opportunitiesReducer'
 
 const store = combineReducers({
   user,
   login,
-  volunteerReducer
+  volunteerReducer,
+  opportunitiesReducer
 });
 
 export default store;
