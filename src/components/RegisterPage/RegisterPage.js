@@ -111,8 +111,6 @@ class RegisterPage extends Component {
          userRegistrationInfo={this.state}
          registerUser={this.registerUser}
        />
-
-     
       </div>
     );
   }

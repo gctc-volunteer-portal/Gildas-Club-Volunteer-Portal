@@ -11,8 +11,43 @@ const Nav = () => (
           </Link>
         </li>
         <li>
-          <Link to="/info">
-            Info Page
+          <Link to="/register_view">
+            Register View Page
+          </Link>
+        </li>
+        <li>
+          <Link to="/recovery">
+           Password Recovery Page
+          </Link>
+        </li>
+        <li>
+          <Link to="/reset">
+            Password Reset Page
+          </Link>
+        </li>
+        <li>
+          <Link to="/shifts">
+            My Shifts Page
+          </Link>
+        </li>
+        <li>
+          <Link to="/upcoming_opportunities">
+            Upcoming Opportunities Page
+          </Link>
+        </li>
+        <li>
+          <Link to="/manage_volunteers">
+            Manage Volunteers Page
+          </Link>
+        </li>
+        <li>
+          <Link to="/volunteer">
+            Single Volunteer Page
+          </Link>
+        </li>
+        <li>
+          <Link to="/manage_opportunities">
+            Manage Opportunities Page
           </Link>
         </li>
       </ul>
