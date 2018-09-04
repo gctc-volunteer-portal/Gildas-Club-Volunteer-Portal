@@ -25,6 +25,9 @@ class RegisterPage extends Component {
       as_needed: false,
       limitations_allergies: '',
       why_excited: '',
+      employer: '',
+      job_title: '',
+      date_of_birth: '',
       active: true,
       access_level: 0,
       admin_notes: '',
@@ -58,13 +61,16 @@ class RegisterPage extends Component {
         as_needed: this.state.as_needed,
         limitations_allergies: this.state.limitations_allergies,
         why_excited: this.state.why_excited,
+        employer: this.state.employer,
+        job_title: this.state.job_title,
+        date_of_birth: this.state.date_of_birth,
         active: this.state.active,
         access_level: this.state.access_level,
         admin_notes: this.state.admin_notes
       };
 
       // making the request to the server to post the new user's registration
-      axios.post('/api/users/register', body)
+      axios.post('/api/user/register', body)
         .then((response) => {
           if (response.status === 201) {
             this.props.history.push('/home');
