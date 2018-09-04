@@ -6,6 +6,8 @@ import {
   Switch,
 } from 'react-router-dom';
 
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core';
+
 import Header from './components/Header/Header';
 import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
@@ -16,8 +18,31 @@ import ManageOpportunitiesPage from './components/ManageOpportunitiesPage/Manage
 
 import './styles/main.css';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#DE2027',
+    }
+  },
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  }
+})
+
 const App = () => (
   <div>
+    <MuiThemeProvider theme={theme}>
     <Header title="Project Base" />
     <Router>
       <Switch>
@@ -46,6 +71,7 @@ const App = () => (
         />
       </Switch>
     </Router>
+    </MuiThemeProvider>
   </div>
 );
 
