@@ -23,6 +23,9 @@ CREATE TABLE "users" (
   "as_needed" BOOLEAN DEFAULT FALSE,
   "limitations_allergies" varchar(1500),
   "why_excited" varchar(2000),
+  "employer" varchar(300),	  CONSTRAINT users_pk PRIMARY KEY ("id")
+	"job_title" varchar(300),	
+	"date_of_birth" DATE,	
   CONSTRAINT users_pk PRIMARY KEY ("id")
 );
 
