@@ -14,7 +14,7 @@ class InfoPage extends Component {
   }
 
   componentDidUpdate() {
-    if (!this.props.user.isLoading && this.props.user.userName === null) {
+    if (!this.props.user.isLoading && this.props.user.email === null) {
       this.props.history.push('home');
     }
   }
@@ -22,7 +22,7 @@ class InfoPage extends Component {
   render() {
     let content = null;
 
-    if (this.props.user.userName) {
+    if (this.props.user.email) {
       content = (
         <div>
           <p>
