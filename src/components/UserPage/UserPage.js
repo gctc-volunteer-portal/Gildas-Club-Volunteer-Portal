@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Nav from '../Nav/VolunteerNav';
+import VolunteerNav from '../Nav/VolunteerNav/VolunteerNav'
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
@@ -28,6 +28,8 @@ class UserPage extends Component {
   }
 
   render() {
+    
+
     let content = null;
 
     if (this.props.user.email) {
@@ -50,7 +52,7 @@ class UserPage extends Component {
 
     return (
       <div>
-        {/* <Nav /> */}
+        <VolunteerNav />
         { content }
       </div>
     );

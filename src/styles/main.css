@@ -51,6 +51,8 @@ input[type="submit"] {
   background-color: #DE2027;
   width: 100%;
   border-radius: 0px;
+
+  
 }
 
 ul {
@@ -75,6 +77,6 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-    text-decoration: underline;
+    text-decoration: none;
     color: #eee;
 }

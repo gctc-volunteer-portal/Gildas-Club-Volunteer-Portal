@@ -13,8 +13,12 @@ import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import UserPage from './components/UserPage/UserPage';
 import InfoPage from './components/InfoPage/InfoPage';
+import MyShifts from './components/VolunteerViews/MyShifts/MyShifts'
+import Announcements from './components/VolunteerViews/Announcements/Announcements'
+import UpcomingOpportunities from './components/VolunteerViews/UpcomingOpportunities/UpcomingOpportunities';
 
 import './styles/main.css';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -60,6 +64,18 @@ const App = () => (
         <Route
           path="/info"
           component={InfoPage}
+        />
+        <Route
+          path="/myShifts"
+          component={MyShifts}
+        />
+        <Route
+          path="/announcements"
+          component={Announcements}
+        />
+        <Route
+          path="/upcomingOpportunities"
+          component={UpcomingOpportunities}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
