@@ -1,30 +1,34 @@
 CREATE DATABASE "gildasclub";
 
 CREATE TABLE "users" (
-	"id" serial NOT NULL,
-	"dynamics_id" varchar(50) UNIQUE,
-	"password" varchar(200) NOT NULL,
-	"first_name" varchar(50),
-	"middle_name" varchar(50),
-	"last_name" varchar(100),
-	"email" varchar(250) NOT NULL,
-	"primary_phone" varchar(50),
-	"secondary_phone" varchar(50),
-	"street_address1" varchar(200),
-	"street_address2" varchar(200),
-	"city" varchar(200),
-	"state" varchar(200),
-	"zip" int,
-	"access_level" int,
-	"admin_notes" varchar(3000),
-	"active" BOOLEAN,
-	"regular_basis" BOOLEAN,
-	"specific_event" BOOLEAN,
-	"as_needed" BOOLEAN,
-	"limitations_allergies" varchar(1500),
-	"why_excited" varchar(2000),
-	CONSTRAINT users_pk PRIMARY KEY ("id")
+    "id" serial NOT NULL,
+    "dynamics_id" varchar(50) UNIQUE,
+    "password" varchar(200) NOT NULL,
+    "first_name" varchar(50),
+    "middle_name" varchar(50),
+    "last_name" varchar(100),
+    "email" varchar(250) NOT NULL,
+    "primary_phone" varchar(50),
+    "secondary_phone" varchar(50),
+    "street_address1" varchar(200),
+    "street_address2" varchar(200),
+    "city" varchar(200),
+    "state" varchar(200),
+    "zip" int,
+    "access_level" int,
+    "admin_notes" varchar(3000),
+    "active" BOOLEAN,
+    "regular_basis" BOOLEAN,
+    "specific_event" BOOLEAN,
+    "as_needed" BOOLEAN,
+    "limitations_allergies" varchar(1500),
+    "why_excited" varchar(2000),
+	"employer" varchar(300),
+	"job_title" varchar(300),
+	"date_of_birth" DATE,
+    CONSTRAINT users_pk PRIMARY KEY ("id")
 );
+
 
 
 
