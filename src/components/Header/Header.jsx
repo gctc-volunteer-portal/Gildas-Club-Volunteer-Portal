@@ -44,11 +44,17 @@ class Header extends Component {
 
     let tools = null;
 
-    if (this.props.user.access_level === 0) {
+    let initials = "V";
+
+    if (this.props.user.first_initial || this.props.user.last_initial) {
+      initials = `${this.props.user.first_initial}${this.props.user.last_initial}`;   
+    }
+
+    if (this.props.user.access_level === 1) {
       tools = (
         <React.Fragment>
           <div className={this.props.classes.row}>
-            <Avatar className={this.props.classes.avatar}>H</Avatar>
+            <Avatar className={this.props.classes.avatar}>{initials}</Avatar>
           </div>
           <button
             onClick={this.logout}
@@ -59,7 +65,7 @@ class Header extends Component {
       )
     }
 
-    if (this.props.user.access_level === 1) {
+    if (this.props.user.access_level === 2) {
       tools = (
         <React.Fragment>
           <div className={this.props.classes.row}>
@@ -84,7 +90,7 @@ class Header extends Component {
       )
     }
 
-    if (this.props.user.access_level === 2) {
+    if (this.props.user.access_level === 3) {
       tools = (
         <React.Fragment>
           <button
