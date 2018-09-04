@@ -140,16 +140,15 @@ class RegistrationForm extends Component {
               value={this.props.userRegistrationInfo.limitations_allergies}
               onChange={this.props.handleInputChangeFor('limitations_allergies')}
             />
-
             <FormLabel>
-              What makes you excited about volunteering for Gilda/'s Club Twin Cities?
+              What makes you excited about volunteering for Gilda's Club Twin Cities?
               </FormLabel>
             <TextField
               type="text"
-              name="limitations_allergies"
+              name="why_excited"
               fullWidth
-              value={this.props.userRegistrationInfo.limitations_allergies}
-              onChange={this.props.handleInputChangeFor('limitations_allergies')}
+              value={this.props.userRegistrationInfo.why_excited}
+              onChange={this.props.handleInputChangeFor('why_excited')}
             />
             <Button
               type="submit"
@@ -157,7 +156,7 @@ class RegistrationForm extends Component {
               color="primary"
             >
               Register
-              </Button>
+            </Button>
             <Button
               type="button"
               onClick={this.returnHome}
