@@ -17,7 +17,7 @@ class UserPage extends Component {
   }
 
   componentDidUpdate() {
-    if (!this.props.user.isLoading && this.props.user.userName === null) {
+    if (!this.props.user.isLoading && this.props.user.email === null) {
       this.props.history.push('home');
     }
   }
@@ -30,13 +30,13 @@ class UserPage extends Component {
   render() {
     let content = null;
 
-    if (this.props.user.userName) {
+    if (this.props.user.email) {
       content = (
         <div>
           <h1
             id="welcome"
           >
-            Welcome, { this.props.user.userName }!
+            Welcome, { this.props.user.email }!
           </h1>
           <p>Your ID is: {this.props.user.id}</p>
           <button

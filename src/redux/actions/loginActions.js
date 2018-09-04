@@ -13,10 +13,10 @@ export const clearError = () => ({
   type: LOGIN_ACTIONS.CLEAR_LOGIN_ERROR,
 });
 
-export const triggerLogin = (username, password) => ({
+export const triggerLogin = (email, password) => ({
   type: LOGIN_ACTIONS.LOGIN,
   payload: {
-    username,
+    email,
     password,
   },
 });
