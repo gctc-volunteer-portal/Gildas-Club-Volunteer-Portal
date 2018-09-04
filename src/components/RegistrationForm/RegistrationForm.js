@@ -142,7 +142,7 @@ class RegistrationForm extends Component {
             />
 
             <FormLabel>
-              What makes you excited about volunteering for Gilda's Club Twin Cities?
+              What makes you excited about volunteering for Gilda/'s Club Twin Cities?
               </FormLabel>
             <TextField
               type="text"
