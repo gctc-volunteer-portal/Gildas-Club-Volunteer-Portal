@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { triggerLogout } from '../../redux/actions/loginActions';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+import { withRouter } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
@@ -27,7 +28,7 @@ class Header extends Component {
 
   logout = () => {
     this.props.dispatch(triggerLogout());
-    // this.props.history.push('home');
+    // this.props.history.push('/home');
   }
 
   goToVolunteer = () => {
@@ -47,7 +48,7 @@ class Header extends Component {
     let initials = "V";
 
     if (this.props.user.first_initial || this.props.user.last_initial) {
-      initials = `${this.props.user.first_initial}${this.props.user.last_initial}`;   
+      initials = `${this.props.user.first_initial}${this.props.user.last_initial}`;
     }
 
     if (this.props.user.access_level === 1) {
@@ -69,7 +70,7 @@ class Header extends Component {
       tools = (
         <React.Fragment>
           <div className={this.props.classes.row}>
-            <Avatar className={this.props.classes.avatar}>H</Avatar>
+            <Avatar className={this.props.classes.avatar}>{initials}</Avatar>
           </div>
           <button
             onClick={this.goToVolunteer}
@@ -123,5 +124,5 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-const connectedHeader = connect(mapStateToProps)(Header)
+const connectedHeader = withRouter(connect(mapStateToProps)(Header));
 export default withStyles(styles)(connectedHeader);

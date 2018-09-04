@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 
 import Header from './components/Header/Header';
 import LoginPage from './components/LoginPage/LoginPage';
@@ -43,34 +43,34 @@ const theme = createMuiTheme({
 const App = () => (
   <div>
     <MuiThemeProvider theme={theme}>
-    <Header />
-    <Router>
-      <Switch>
-        <Redirect exact from="/" to="/home" />
-        <Route
-          path="/home"
-          component={LoginPage}
-        />
-        <Route
-          path="/register"
-          component={RegisterPage}
-        />
-        <Route
-          path="/user"
-          component={UserPage}
-        />
-        <Route
-          path="/info"
-          component={InfoPage}
-        />
-        {/* OTHERWISE (no path!) */}
-        {/* <Route render={() => <h1>404</h1>} /> */}
-        <Route
-          path="/manage_opportunities"
-          component={ManageOpportunitiesPage}
-        />
-      </Switch>
-    </Router>
+      <Router>
+        <Switch>
+          <Header />
+          <Redirect exact from="/" to="/home" />
+          <Route
+            path="/home"
+            component={LoginPage}
+          />
+          <Route
+            path="/register"
+            component={RegisterPage}
+          />
+          <Route
+            path="/user"
+            component={UserPage}
+          />
+          <Route
+            path="/info"
+            component={InfoPage}
+          />
+          {/* OTHERWISE (no path!) */}
+          {/* <Route render={() => <h1>404</h1>} /> */}
+          <Route
+            path="/manage_opportunities"
+            component={ManageOpportunitiesPage}
+          />
+        </Switch>
+      </Router>
     </MuiThemeProvider>
   </div>
 );
