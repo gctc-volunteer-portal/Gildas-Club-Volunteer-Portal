@@ -28,13 +28,90 @@ class RegistrationForm extends Component {
               value={this.props.userRegistrationInfo.password}
               onChange={this.props.handleInputChangeFor('password')}
             />
+            <TextField
+              label="First Name"
+              type="text"
+              name="first_name"
+              value={this.props.userRegistrationInfo.first_name}
+              onChange={this.props.handleInputChangeFor('first_name')}
+            />
+            <TextField
+              label="Middle Name"
+              type="text"
+              name="middle_name"
+              value={this.props.userRegistrationInfo.middle_name}
+              onChange={this.props.handleInputChangeFor('middle_name')}
+            />
+            <TextField
+              label="Last Name"
+              type="text"
+              name="last_name"
+              value={this.props.userRegistrationInfo.last_name}
+              onChange={this.props.handleInputChangeFor('last_name')}
+            />
+            <TextField
+              label="Primary Phone"
+              type="text"
+              name="primary_phone"
+              value={this.props.userRegistrationInfo.primary_phone}
+              onChange={this.props.handleInputChangeFor('primary_phone')}
+            />
+            <TextField
+              label="Secondary Phone"
+              type="text"
+              name="secondary_phone"
+              value={this.props.userRegistrationInfo.secondary_phone}
+              onChange={this.props.handleInputChangeFor('secondary_phone')}
+            />
+            {/* <TextField
+              label="Password"
+              type="text"
+              name="password"
+              value={this.props.userRegistrationInfo.password}
+              onChange={this.props.handleInputChangeFor('password')}
+            />
+            <TextField
+              label="Password"
+              type="text"
+              name="password"
+              value={this.props.userRegistrationInfo.password}
+              onChange={this.props.handleInputChangeFor('password')}
+            />
+            <TextField
+              label="Password"
+              type="text"
+              name="password"
+              value={this.props.userRegistrationInfo.password}
+              onChange={this.props.handleInputChangeFor('password')}
+            />
+            <TextField
+              label="Password"
+              type="text"
+              name="password"
+              value={this.props.userRegistrationInfo.password}
+              onChange={this.props.handleInputChangeFor('password')}
+            />
+            <TextField
+              label="Password"
+              type="text"
+              name="password"
+              value={this.props.userRegistrationInfo.password}
+              onChange={this.props.handleInputChangeFor('password')}
+            /> */}
             <Button
               type="submit"
-              onClick={this.returnHome}
               variant="raised"
               color="primary"
             >
               Register
+              </Button>
+            <Button
+              type="button"
+              onClick={this.returnHome}
+              variant="raised"
+              color="primary"
+            >
+              Cancel
               </Button>
           </FormControl>
         </form>
