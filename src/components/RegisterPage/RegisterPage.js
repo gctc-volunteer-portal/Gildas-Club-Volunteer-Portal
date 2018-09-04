@@ -106,11 +106,14 @@ class RegisterPage extends Component {
     return (
       <div>
         {this.renderAlert()}
+        
        <RegistrationForm
          handleInputChangeFor={this.handleInputChangeFor}
          userRegistrationInfo={this.state}
          registerUser={this.registerUser}
        />
+
+     
       </div>
     );
   }
