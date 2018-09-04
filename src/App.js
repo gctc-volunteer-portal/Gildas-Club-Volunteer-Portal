@@ -41,7 +41,7 @@ const theme = createMuiTheme({
 const App = () => (
   <div>
     <MuiThemeProvider theme={theme}>
-    <Header title="Project Base" />
+    <Header />
     <Router>
       <Switch>
         <Redirect exact from="/" to="/home" />

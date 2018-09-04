@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { triggerLogout } from '../../redux/actions/loginActions';
+import { USER_ACTIONS } from '../../redux/actions/userActions';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
 
 import './header.css';
-
 
 const styles = {
   avatar: {
@@ -19,6 +20,10 @@ const styles = {
 
 
 class Header extends Component {
+
+  componentDidMount() {
+    this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+  }
 
   logout = () => {
     this.props.dispatch(triggerLogout());
@@ -36,16 +41,27 @@ class Header extends Component {
   }
 
   render() {
-    return (
-      <div className="instructions" id="header">
-        <img src="/images/GCTC_Logo.jpg" alt="Gilda's Club Twin Cities Logo" height="150" />
 
-        <div id="quote">
-          <p>Life is about not knowing, having to change, taking the moment and making the best of it, without knowing what's going to happen next.
-        <br />
-            —Gilda Radner</p>
-        </div>
-        <div id="tools">
+    let tools = null;
+
+    if (this.props.user.access_level === 0) {
+      tools = (
+        <React.Fragment>
+          <div className={this.props.classes.row}>
+            <Avatar className={this.props.classes.avatar}>H</Avatar>
+          </div>
+          <button
+            onClick={this.logout}
+          >
+            Log Out
+          </button>
+        </React.Fragment>
+      )
+    }
+
+    if (this.props.user.access_level === 1) {
+      tools = (
+        <React.Fragment>
           <div className={this.props.classes.row}>
             <Avatar className={this.props.classes.avatar}>H</Avatar>
           </div>
@@ -64,10 +80,42 @@ class Header extends Component {
           >
             Log Out
           </button>
+        </React.Fragment>
+      )
+    }
+
+    if (this.props.user.access_level === 2) {
+      tools = (
+        <React.Fragment>
+          <button
+            onClick={this.logout}
+          >
+            Log Out
+          </button>
+        </React.Fragment>
+      )
+    }
+
+    return (
+      <div className="instructions" id="header">
+        <img src="/images/GCTC_Logo.jpg" alt="Gilda's Club Twin Cities Logo" height="150" />
+
+        <div id="quote">
+          <p>Life is about not knowing, having to change, taking the moment and making the best of it, without knowing what's going to happen next.
+        <br />
+            —Gilda Radner</p>
+        </div>
+        <div id="tools">
+          {tools}
         </div>
       </div>
     )
   }
 }
 
-export default withStyles(styles)(Header);
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const connectedHeader = connect(mapStateToProps)(Header)
+export default withStyles(styles)(connectedHeader);
