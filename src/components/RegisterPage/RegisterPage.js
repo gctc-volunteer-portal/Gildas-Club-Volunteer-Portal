@@ -1,16 +1,35 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import RegistrationForm from '../RegistrationForm/RegistrationForm';
 
 class RegisterPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: '',
+      email: '',
       password: '',
-      message: '',
-    };
+      first_name: '',
+      middle_name: '',
+      last_name: '',
+      primary_phone: '',
+      secondary_phone: '',
+      street_address1: '',
+      street_address2: '',
+      city: '',
+      state: '',
+      zip: '',
+      access_level: 0,
+      admin_notes: '',
+      active: true,
+      regular_basis: false,
+      specific_event: false,
+      as_needed: false,
+      limitations_allergies: '',
+      why_excited: '',
+      message: ''
+    }
   }
 
   registerUser = (event) => {
@@ -69,39 +88,11 @@ class RegisterPage extends Component {
     return (
       <div>
         {this.renderAlert()}
-        <form onSubmit={this.registerUser}>
-          <h1>Register User</h1>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              type="submit"
-              name="submit"
-              value="Register"
-            />
-            <Link to="/home">Cancel</Link>
-          </div>
-        </form>
+       <RegistrationForm
+         handleInputChangeFor={this.handleInputChangeFor}
+         userRegistrationInfo={this.state}
+         registerUser={this.registerUser}
+       />
       </div>
     );
   }
