@@ -42,4 +42,4 @@ class RegistrationForm extends Component {
     )
   }
 }
-export default RegistrationForm
+export default withRouter(RegistrationForm);
