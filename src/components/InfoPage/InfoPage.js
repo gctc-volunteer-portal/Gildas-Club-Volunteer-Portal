@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Header from '../Header/Header';
 import Nav from '../Nav/VolunteerNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 
@@ -25,6 +26,7 @@ class InfoPage extends Component {
     if (this.props.user.email) {
       content = (
         <div>
+          <Header />
           <p>
             Info Page
           </p>

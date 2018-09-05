@@ -45,7 +45,6 @@ const App = () => (
     <MuiThemeProvider theme={theme}>
       <Router>
         <Switch>
-          <Header />
           <Redirect exact from="/" to="/home" />
           <Route
             path="/home"

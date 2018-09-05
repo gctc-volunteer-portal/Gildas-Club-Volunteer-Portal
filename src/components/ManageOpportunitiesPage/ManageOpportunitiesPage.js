@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import Header from '../Header/Header';
 import TextField from '@material-ui/core/TextField'
 import Nav from '../Nav/VolunteerNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
@@ -67,6 +69,7 @@ class InfoPage extends Component {
 
         return (
             <div>
+              <Header />
                 <Nav />
                 <form style={{ height: 60, background: 'rgba(255,255,255,0.5)', borderRadius: 15 }}>
                     <TextField
