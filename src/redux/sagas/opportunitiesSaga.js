@@ -25,6 +25,7 @@ function* getEventVolunteers(action){
         yield console.log(err);
       }
 }
+
 function* opportunitiesSaga(){
     yield takeEvery('GET_EVENTS', getEvents)
     yield takeEvery('GET_EVENT_VOLUNTEERS', getEventVolunteers)

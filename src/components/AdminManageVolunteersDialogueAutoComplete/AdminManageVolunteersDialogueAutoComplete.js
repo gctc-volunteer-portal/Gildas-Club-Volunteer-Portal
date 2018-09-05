@@ -10,46 +10,10 @@ import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
+import { connect } from 'react-redux'
 
-const suggestions = [
-  { label: 'Afghanistan' },
-  { label: 'Aland Islands' },
-  { label: 'Albania' },
-  { label: 'Algeria' },
-  { label: 'American Samoa' },
-  { label: 'Andorra' },
-  { label: 'Angola' },
-  { label: 'Anguilla' },
-  { label: 'Antarctica' },
-  { label: 'Antigua and Barbuda' },
-  { label: 'Argentina' },
-  { label: 'Armenia' },
-  { label: 'Aruba' },
-  { label: 'Australia' },
-  { label: 'Austria' },
-  { label: 'Azerbaijan' },
-  { label: 'Bahamas' },
-  { label: 'Bahrain' },
-  { label: 'Bangladesh' },
-  { label: 'Barbados' },
-  { label: 'Belarus' },
-  { label: 'Belgium' },
-  { label: 'Belize' },
-  { label: 'Benin' },
-  { label: 'Bermuda' },
-  { label: 'Bhutan' },
-  { label: 'Bolivia, Plurinational State of' },
-  { label: 'Bonaire, Sint Eustatius and Saba' },
-  { label: 'Bosnia and Herzegovina' },
-  { label: 'Botswana' },
-  { label: 'Bouvet Island' },
-  { label: 'Brazil' },
-  { label: 'British Indian Ocean Territory' },
-  { label: 'Brunei Darussalam' },
-].map(suggestion => ({
-  value: suggestion.label,
-  label: suggestion.label,
-}));
+
+
 
 const styles = theme => ({
   root: {
@@ -211,6 +175,7 @@ class IntegrationReactSelect extends React.Component {
   state = {
     single: null,
     multi: null,
+
   };
 
   handleChange = name => value => {
@@ -220,6 +185,14 @@ class IntegrationReactSelect extends React.Component {
   };
 
   render() {
+    console.log(this.props.state.volunteerReducer);
+    let volunteerList = this.props.state.volunteerReducer.map((volunteer, index)=>{
+      return ({label: volunteer.first_name})
+    })
+    let list = volunteerList.map(volunteerList => ({
+        value: volunteerList.label,
+        label: volunteerList.label,
+    }))
     const { classes, theme } = this.props;
 
     const selectStyles = {
@@ -235,7 +208,7 @@ class IntegrationReactSelect extends React.Component {
           <Select
             classes={classes}
             styles={selectStyles}
-            options={suggestions}
+            options={list}
             components={components}
             value={this.state.single}
             onChange={this.handleChange('single')}
@@ -251,7 +224,7 @@ class IntegrationReactSelect extends React.Component {
                 shrink: true,
               },
             }}
-            options={suggestions}
+            options={list}
             components={components}
             value={this.state.multi}
             onChange={this.handleChange('multi')}
@@ -269,4 +242,10 @@ IntegrationReactSelect.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(IntegrationReactSelect);
+const mapStateToProps = state => ({
+  user: state.user,
+  state
+});
+
+
+export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(IntegrationReactSelect));
