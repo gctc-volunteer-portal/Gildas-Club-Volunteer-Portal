@@ -21,8 +21,8 @@ router.get('/:id', (req, res) => {
     const queryText = `SELECT * FROM "user_opportunities"
     LEFT OUTER JOIN "users" ON "users".id = "user_opportunities".user_id
     LEFT OUTER JOIN "opportunities" ON "opportunities".id = "user_opportunities".opportunity_id
-    WHERE "user_opportunities"."opportunity_id" = 1;`;
-    pool.query(queryText)
+    WHERE "user_opportunities"."opportunity_id" = $1;` ;
+    pool.query(queryText,[req.params.id])
         .then((results) => {
             res.send(results.rows)
             console.log(results.rows);
