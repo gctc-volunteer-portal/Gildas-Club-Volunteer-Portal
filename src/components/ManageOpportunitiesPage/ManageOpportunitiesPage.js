@@ -6,6 +6,8 @@ import TextField from '@material-ui/core/TextField'
 import Nav from '../Nav/VolunteerNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import OpportunitiesCard_AdminView from '../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView.js';
+import { Button } from '@material-ui/core';
+import CreateOpportunityDialogue from '../CreateOpportunityDialogue/CreateOpportunityDialogue';
 
 const mapStateToProps = state => ({
     opportunitiesList: state.opportunitiesReducer.opportunitiesReducer,
@@ -24,7 +26,8 @@ class InfoPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            term: ''
+            term: '',
+            createEventIsOpen: false,
         }
         this.searchHandler = this.searchHandler.bind(this);
     }
@@ -38,7 +41,7 @@ class InfoPage extends Component {
         if (!this.props.user.isLoading && this.props.user.email === null) {
             this.props.history.push('home');
             console.log(this.props.state);
-            
+
         }
     }
     searchHandler(event) {
@@ -50,11 +53,11 @@ class InfoPage extends Component {
     render() {
         let content = null;
         let opportunitiesArray = this.props.opportunitiesList.filter(searchingFor(this.state.term)).map((opportunity, index) => {
-            return (<OpportunitiesCard_AdminView key = {index}
-                                                 opportunity = {opportunity}
+            return (<OpportunitiesCard_AdminView key={index}
+                opportunity={opportunity}
             />)
         })
-     
+
 
         if (this.props.user.email) {
             content = (
@@ -69,9 +72,19 @@ class InfoPage extends Component {
 
         return (
             <div>
-              <Header />
+                <Header />
                 <Nav />
                 <form style={{ height: 60, background: 'rgba(255,255,255,0.5)', borderRadius: 15 }}>
+                    <Button
+                        variant="raised"
+                        color="primary"
+                    >
+                        Create Opportunity
+                </Button>
+                    <CreateOpportunityDialogue
+                        createEventIsOpen={this.state.createEventIsOpen}
+
+                    />
                     <TextField
                         id="full-width"
                         label=""
