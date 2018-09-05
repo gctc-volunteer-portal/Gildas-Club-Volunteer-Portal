@@ -5,7 +5,7 @@ import Header from '../Header/Header';
 import TextField from '@material-ui/core/TextField'
 import Nav from '../Nav/VolunteerNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-import OpportunitiesCard_AdminView from '../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView';
+import OpportunitiesCard_AdminView from '../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView.js';
 
 const mapStateToProps = state => ({
     opportunitiesList: state.opportunitiesReducer.opportunitiesReducer,

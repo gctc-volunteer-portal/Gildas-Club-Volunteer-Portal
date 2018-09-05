@@ -56,6 +56,7 @@ class MediaCard extends Component {
                     <Button size="small" color="primary">
                         Share
                     </Button>
+                    <Button onClick={this.handleClickOpen}>Edit Opportunity</Button>
                     <AdminManageVolunteersDialogue 
                         opportunity = {this.props.opportunity}
 
