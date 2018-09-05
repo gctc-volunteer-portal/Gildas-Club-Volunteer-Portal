@@ -4,6 +4,31 @@ import { connect } from 'react-redux';
 import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 
+import Header from '../Header/Header';
+
+import { TextField, Button } from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  menu: {
+    width: 200,
+  },
+  button: {
+    margin: 10,
+    display: 'flex',
+    alignItems: 'center',
+  },
+});
+
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -54,7 +79,7 @@ class LoginPage extends Component {
           className="alert"
           role="alert"
         >
-          { this.props.login.message }
+          {this.props.login.message}
         </h2>
       );
     }
@@ -64,43 +89,48 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
-        { this.renderAlert() }
+        <Header />
+        {this.renderAlert()}
         <form onSubmit={this.login}>
           <h1>Login</h1>
-          <div>
-            <label htmlFor="email">
-              Email Address:
-              <input
-                type="text"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleInputChangeFor('email')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              type="submit"
-              name="submit"
-              value="Log In"
+            <TextField
+              id="email"
+              label="Email"
+              className={this.props.classes.textField}
+              helperText={this.props.login.message}
+              placeholder="Email Address"
+              value={this.state.email}
+              onChange={this.handleInputChangeFor('email')}
+              margin="normal"
             />
-            <Link to="/register">Register</Link>
-          </div>
+            <TextField
+              id="password"
+              label="Password"
+              className={this.props.classes.textField}
+              placeholder="Password"
+              value={this.state.password}
+              onChange={this.handleInputChangeFor('password')}
+              margin="normal"
+              type="password"
+            />
+            <div>
+              <Button
+              className={this.props.classes.button}
+                type="submit"
+                name="submit"
+                value="Log In"
+                variant="contained"
+                color="primary"
+              >
+              Log In
+              </Button>
+              <Link to="/register">Register</Link>
+            </div>
         </form>
       </div>
-    );
-  }
-}
-
-export default connect(mapStateToProps)(LoginPage);
+        );
+      }
+    }
+    
+    const connectedLoginPage = connect(mapStateToProps)(LoginPage);
+    export default withStyles(styles)(connectedLoginPage);

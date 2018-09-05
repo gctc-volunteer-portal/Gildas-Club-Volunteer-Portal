@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import RegistrationForm from '../RegistrationForm/RegistrationForm';
 
+import Header from '../Header/Header';
+
 class RegisterPage extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +21,7 @@ class RegisterPage extends Component {
       street_address2: '',
       city: '',
       state: '',
-      zip: 0,
+      zip: '',
       regular_basis: false,
       specific_event: false,
       as_needed: false,
@@ -128,6 +130,7 @@ class RegisterPage extends Component {
     console.log(this.state, 'local state')
     return (
       <div>
+        <Header />
         {this.renderAlert()}
         <RegistrationForm
           handleRegularBasis={this.handleRegularBasis}
