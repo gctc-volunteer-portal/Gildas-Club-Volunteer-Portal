@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import '../VolunteerNav/volunteerNav.css'
 import Announcement from '@material-ui/icons/Announcement';
@@ -12,12 +12,14 @@ const styles = {
   nav:{
     backgroundColor: '#DE2027',
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr'
+    gridTemplateColumns: '1fr 1fr 1fr',
+    color: 'blue'
     //  grid-column: 1 / 1;
   }
 }
 
-class VolunteerNav extends Component {
+class VolunteerNav extends React.Component {
+  
   render(){
 
 return(
@@ -27,14 +29,12 @@ return(
       
   {/* <ul className="nav"> */}
    <BottomNavigation
-    showLabels
+   showLabels
    className={this.props.classes.nav}
    >
    <BottomNavigationAction component={Link} to="/myShifts"  label="My Shifts" icon={ <AssignmentInd />}/>
    <BottomNavigationAction component={Link} to="/announcements" label="Announcements" icon={<Announcement/>}/>
    <BottomNavigationAction component={Link} to="/UpcomingOpportunities" label="Upcoming Opportunities" icon={<Assignment/>}/>
-    
-
     </BottomNavigation>
 </div>
 
