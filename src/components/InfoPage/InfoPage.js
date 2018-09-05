@@ -25,7 +25,7 @@ class InfoPage extends Component {
     if (this.props.user.email) {
       content = (
         <div>
-          <Header />
+        
           <p>
             Info Page
           </p>
