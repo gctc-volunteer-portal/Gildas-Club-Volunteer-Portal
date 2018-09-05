@@ -6,13 +6,15 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 
 import Header from './components/Header/Header';
 import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import UserPage from './components/UserPage/UserPage';
 import InfoPage from './components/InfoPage/InfoPage';
+import ManageOpportunitiesPage from './components/ManageOpportunitiesPage/ManageOpportunitiesPage';
+
 
 import './styles/main.css';
 
@@ -41,31 +43,34 @@ const theme = createMuiTheme({
 const App = () => (
   <div>
     <MuiThemeProvider theme={theme}>
-    <Header title="Project Base" />
-    <Router>
-      <Switch>
-        <Redirect exact from="/" to="/home" />
-        <Route
-          path="/home"
-          component={LoginPage}
-        />
-        <Route
-          path="/register"
-          component={RegisterPage}
-        />
-        <Route
-          path="/user"
-          component={UserPage}
-        />
-        <Route
-          path="/info"
-          component={InfoPage}
-        />
-        {/* OTHERWISE (no path!) */}
-        <Route render={() => <h1>404</h1>} />
-
-      </Switch>
-    </Router>
+      <Router>
+        <Switch>
+          <Header />
+          <Redirect exact from="/" to="/home" />
+          <Route
+            path="/home"
+            component={LoginPage}
+          />
+          <Route
+            path="/register"
+            component={RegisterPage}
+          />
+          <Route
+            path="/user"
+            component={UserPage}
+          />
+          <Route
+            path="/info"
+            component={InfoPage}
+          />
+          {/* OTHERWISE (no path!) */}
+          {/* <Route render={() => <h1>404</h1>} /> */}
+          <Route
+            path="/manage_opportunities"
+            component={ManageOpportunitiesPage}
+          />
+        </Switch>
+      </Router>
     </MuiThemeProvider>
   </div>
 );

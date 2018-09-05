@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import RegistrationForm from '../RegistrationForm/RegistrationForm';
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -9,8 +10,26 @@ class RegisterPage extends Component {
     this.state = {
       email: '',
       password: '',
-      message: '',
-    };
+      first_name: '',
+      middle_name: '',
+      last_name: '',
+      primary_phone: '',
+      secondary_phone: '',
+      street_address1: '',
+      street_address2: '',
+      city: '',
+      state: '',
+      zip: 0,
+      regular_basis: false,
+      specific_event: false,
+      as_needed: false,
+      limitations_allergies: '',
+      why_excited: '',
+      active: true,
+      access_level: 1,
+      admin_notes: '',
+      message: ''
+    }
   }
 
   registerUser = (event) => {
@@ -24,10 +43,28 @@ class RegisterPage extends Component {
       const body = {
         email: this.state.email,
         password: this.state.password,
+        first_name: this.state.first_name,
+        middle_name: this.state.middle_name,
+        last_name: this.state.last_name,
+        primary_phone: this.state.primary_phone,
+        secondary_phone: this.state.secondary_phone,
+        street_address1: this.state.street_address1,
+        street_address2: this.state.street_address2,
+        city: this.state.city,
+        state: this.state.state,
+        zip: this.state.zip,
+        regular_basis: this.state.regular_basis,
+        specific_event: this.state.specific_event,
+        as_needed: this.state.as_needed,
+        limitations_allergies: this.state.limitations_allergies,
+        why_excited: this.state.why_excited,
+        active: this.state.active,
+        access_level: this.state.access_level,
+        admin_notes: this.state.admin_notes
       };
 
       // making the request to the server to post the new user's registration
-      axios.post('/api/user/register/', body)
+      axios.post('/api/user/register', body)
         .then((response) => {
           if (response.status === 201) {
             this.props.history.push('/home');
@@ -69,39 +106,13 @@ class RegisterPage extends Component {
     return (
       <div>
         {this.renderAlert()}
-        <form onSubmit={this.registerUser}>
-          <h1>Register User</h1>
-          <div>
-            <label htmlFor="email">
-              Email Address:
-              <input
-                type="text"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleInputChangeFor('email')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              type="submit"
-              name="submit"
-              value="Register"
-            />
-            <Link to="/home">Cancel</Link>
-          </div>
-        </form>
+       <RegistrationForm
+         handleInputChangeFor={this.handleInputChangeFor}
+         userRegistrationInfo={this.state}
+         registerUser={this.registerUser}
+       />
+
+     
       </div>
     );
   }
