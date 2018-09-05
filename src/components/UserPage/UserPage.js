@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Header from '../Header/Header';
 import VolunteerNav from '../Nav/VolunteerNav';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
@@ -50,6 +51,7 @@ class UserPage extends Component {
 
     return (
       <div>
+        <Header />
         <VolunteerNav />
         { content }
       </div>
