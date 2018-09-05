@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Header from '../../Header/Header';
 import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav'
 import { USER_ACTIONS } from '../../../redux/actions/userActions'
 
@@ -37,6 +38,7 @@ class Announcements extends Component {
 
     return (
       <div>
+        <Header />
         <VolunteerNav />
         <h1>my Announcements!!</h1>
         {/* { content } */}
