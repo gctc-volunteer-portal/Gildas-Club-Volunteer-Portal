@@ -15,7 +15,7 @@ CREATE TABLE "users" (
   "city" varchar(200),
   "state" varchar(200),
   "zip" int,
-  "access_level" int,
+  "access_level" int DEFAULT 1,
   "admin_notes" varchar(3000),
   "active" BOOLEAN DEFAULT TRUE,
   "regular_basis" BOOLEAN DEFAULT FALSE,
@@ -23,9 +23,9 @@ CREATE TABLE "users" (
   "as_needed" BOOLEAN DEFAULT FALSE,
   "limitations_allergies" varchar(1500),
   "why_excited" varchar(2000),
-  "employer" varchar(300),	  CONSTRAINT users_pk PRIMARY KEY ("id")
-	"job_title" varchar(300),	
-	"date_of_birth" DATE,	
+  "employer" varchar(300),
+  "job_title" varchar(300),	
+  "date_of_birth" DATE,	
   CONSTRAINT users_pk PRIMARY KEY ("id")
 );
 
@@ -99,4 +99,3 @@ ALTER TABLE "opportunities" ADD CONSTRAINT "opportunities_fk0" FOREIGN KEY ("cer
 
 ALTER TABLE "user_opportunities" ADD CONSTRAINT "user_opportunities_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 ALTER TABLE "user_opportunities" ADD CONSTRAINT "user_opportunities_fk1" FOREIGN KEY ("opportunity_id") REFERENCES "opportunities"("id");
-
