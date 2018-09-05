@@ -1,0 +1,24 @@
+#header {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr 150px;
+    max-height: 150px;
+}
+
+#quote {
+    grid-column-start: 2;
+    padding: 10px 20px;
+}
+
+#tools {
+    grid-column-start: 4;
+    padding: 20px;
+}
+
+img {
+    display: inline;
+    margin: 0;
+}
+
+p {
+    font-style: italic;
+}
