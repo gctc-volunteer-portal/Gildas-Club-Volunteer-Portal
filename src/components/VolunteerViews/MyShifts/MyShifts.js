@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav'
+import Header from '../../Header/Header';
 
 import { USER_ACTIONS } from '../../../redux/actions/userActions'
 // import { triggerLogout } from '../../redux/actions/loginActions';
@@ -34,7 +35,7 @@ class MyShifts extends Component {
 
     return (
       <div>
-         
+        <Header />
         <VolunteerNav />
         <h1>My Shift!!</h1>
         {/* { content } */}

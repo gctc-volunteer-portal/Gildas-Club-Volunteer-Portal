@@ -53,6 +53,7 @@ class UserPage extends Component {
 
     return (
       <div>
+        <Header />
         <VolunteerNav />
         { content }
       </div>
