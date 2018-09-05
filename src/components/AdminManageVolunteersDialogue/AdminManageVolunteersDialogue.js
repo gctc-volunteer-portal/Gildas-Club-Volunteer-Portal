@@ -29,7 +29,8 @@ class ResponsiveDialog extends React.Component {
 
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Open responsive dialog</Button>
+      <Button onClick={this.handleClickOpen}>Edit Volunteers</Button>
+        <Button onClick={this.handleClickOpen}>Manage Volunteers</Button>
         <Dialog
           fullScreen={fullScreen}
           open={this.state.open}
@@ -37,7 +38,7 @@ class ResponsiveDialog extends React.Component {
           aria-labelledby="responsive-dialog-title"
         >
           <DialogTitle id="responsive-dialog-title">{"Use Google's location service?"}</DialogTitle>
-          <AdminManageVolunteersDialogueTable/>
+          <AdminManageVolunteersDialogueTable opportunity = {this.props.opportunity}/>
           <DialogContent>
             <DialogContentText>
               Let Google help apps determine location. This means sending anonymous location data to

@@ -8,7 +8,11 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
+<<<<<<< HEAD
   pool.query('SELECT id, email, access_level FROM users WHERE id = $1', [id]).then((result) => {
+=======
+  pool.query('SELECT id, email, access_level, first_name, last_name FROM users WHERE id = $1', [id]).then((result) => {
+>>>>>>> 9a1ae5c8e01ccc6a1abbc5eb4053681a9bf43564
     // Handle Errors
     const user = result && result.rows && result.rows[0];
 

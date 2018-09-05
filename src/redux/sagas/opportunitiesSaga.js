@@ -14,9 +14,22 @@ function* getEvents(){
       }
 
 }
-function* volunteerSaga(){
+function* getEventVolunteers(action){
+    try{
+        const opportunityVolunteerList = yield call(axios.get, `/api/opportunities/${action.payload}`)
+        yield dispatch({
+            type: 'GET_OPPORTUNITY_VOLUNTEERS',
+            payload: opportunityVolunteerList.data
+        })
+    } catch  (err) {
+        yield console.log(err);
+      }
+}
+function* opportunitiesSaga(){
     yield takeEvery('GET_EVENTS', getEvents)
+    yield takeEvery('GET_EVENT_VOLUNTEERS', getEventVolunteers)
+
 
 }
 
-export default volunteerSaga;
+export default opportunitiesSaga;

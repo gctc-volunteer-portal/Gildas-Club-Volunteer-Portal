@@ -23,6 +23,39 @@ const email = (state = null, action) => {
   }
 };
 
+const access_level = (state = null, action) =>{
+  switch(action.type) {
+    case USER_ACTIONS.SET_USER:
+      return action.user.access_level || state;
+    case USER_ACTIONS.UNSET_USER:
+      return null;
+    default:
+      return state;
+  }
+}
+
+const first_initial = (state = null, action) =>{
+  switch(action.type) {
+    case USER_ACTIONS.SET_USER:
+      return action.user.first_name.charAt(0) || state;
+    case USER_ACTIONS.UNSET_USER:
+      return null;
+    default:
+      return state;
+  }
+}
+
+const last_initial = (state = null, action) =>{
+  switch(action.type) {
+    case USER_ACTIONS.SET_USER:
+      return action.user.last_name.charAt(0) || state;
+    case USER_ACTIONS.UNSET_USER:
+      return null;
+    default:
+      return state;
+  }
+}
+
 const isLoading = (state = false, action) => {
   switch (action.type) {
     case USER_ACTIONS.REQUEST_START:
@@ -37,5 +70,8 @@ const isLoading = (state = false, action) => {
 export default combineReducers({
   id,
   email,
+  access_level,
+  first_initial,
+  last_initial,
   isLoading,
 });
