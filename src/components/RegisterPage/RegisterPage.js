@@ -27,6 +27,9 @@ class RegisterPage extends Component {
       as_needed: false,
       limitations_allergies: '',
       why_excited: '',
+      employer: '',
+      job_title: '',
+      date_of_birth: '',
       active: true,
       access_level: 1,
       admin_notes: '',
@@ -60,6 +63,9 @@ class RegisterPage extends Component {
         as_needed: this.state.as_needed,
         limitations_allergies: this.state.limitations_allergies,
         why_excited: this.state.why_excited,
+        employer: this.state.employer,
+        job_title: this.state.job_title,
+        date_of_birth: this.state.date_of_birth,
         active: this.state.active,
         access_level: this.state.access_level,
         admin_notes: this.state.admin_notes
@@ -114,8 +120,6 @@ class RegisterPage extends Component {
          userRegistrationInfo={this.state}
          registerUser={this.registerUser}
        />
-
-     
       </div>
     );
   }

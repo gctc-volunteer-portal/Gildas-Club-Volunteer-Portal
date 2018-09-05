@@ -21,8 +21,8 @@ router.post('/register', (req, res, next) => {
   const email = req.body.email;
   const password = encryptLib.encryptPassword(req.body.password);
 
-  const queryText = 'INSERT INTO users (email, password, first_name, middle_name, last_name, primary_phone, secondary_phone, street_address1, street_address2, city, state, zip, regular_basis, specific_event, as_needed, limitations_allergies, why_excited, active, access_level, admin_notes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20) RETURNING id';
-  pool.query(queryText, [email, password, newUser.first_name, newUser.middle_name, newUser.last_name, newUser.primary_phone, newUser.secondary_phone, newUser.street_address1, newUser.street_address2, newUser.city, newUser.state, newUser.zip, newUser.regular_basis, newUser.specific_event, newUser.as_needed, newUser.limitations_allergies, newUser.why_excited, newUser.active, newUser.access_level, newUser.admin_notes,])
+  const queryText = 'INSERT INTO users (email, password, first_name, middle_name, last_name, primary_phone, secondary_phone, street_address1, street_address2, city, state, zip, regular_basis, specific_event, as_needed, limitations_allergies, why_excited, employer, job_title, date_of_birth, active, access_level, admin_notes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23) RETURNING id';
+  pool.query(queryText, [email, password, newUser.first_name, newUser.middle_name, newUser.last_name, newUser.primary_phone, newUser.secondary_phone, newUser.street_address1, newUser.street_address2, newUser.city, newUser.state, newUser.zip, newUser.regular_basis, newUser.specific_event, newUser.as_needed, newUser.limitations_allergies, newUser.why_excited, newUser.employer, newUser.job_title, newUser.date_of_birth, newUser.active, newUser.access_level, newUser.admin_notes,])
     .then(() => { res.sendStatus(201); })
     .catch((err) => { next(err); });
 });
