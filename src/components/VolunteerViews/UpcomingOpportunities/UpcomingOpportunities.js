@@ -38,6 +38,7 @@ class UpcomingOpportunities extends Component {
 
     return (
       <div>
+        <Header />
         <VolunteerNav />
         <h1>my Upcoming Opportunities!!</h1>
         {/* { content } */}
