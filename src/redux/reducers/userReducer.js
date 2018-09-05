@@ -23,8 +23,8 @@ const email = (state = null, action) => {
   }
 };
 
-const access_level = (state = null, action) =>{
-  switch(action.type) {
+const access_level = (state = null, action) => {
+  switch (action.type) {
     case USER_ACTIONS.SET_USER:
       return action.user.access_level || state;
     case USER_ACTIONS.UNSET_USER:
@@ -34,23 +34,29 @@ const access_level = (state = null, action) =>{
   }
 }
 
-const first_initial = (state = null, action) =>{
-  switch(action.type) {
+const first_initial = (state = '', action) => {
+  switch (action.type) {
     case USER_ACTIONS.SET_USER:
-      return action.user.first_name.charAt(0) || state;
+      if (action.user.first_name) {
+        return action.user.first_name.charAt(0)
+      }
+      else { return state };
     case USER_ACTIONS.UNSET_USER:
-      return null;
+      return '';
     default:
       return state;
   }
 }
 
-const last_initial = (state = null, action) =>{
-  switch(action.type) {
+const last_initial = (state = '', action) => {
+  switch (action.type) {
     case USER_ACTIONS.SET_USER:
-      return action.user.last_name.charAt(0) || state;
+      if (action.user.last_name) {
+        return action.user.last_name.charAt(0)
+      }
+      else { return state };
     case USER_ACTIONS.UNSET_USER:
-      return null;
+      return '';
     default:
       return state;
   }
