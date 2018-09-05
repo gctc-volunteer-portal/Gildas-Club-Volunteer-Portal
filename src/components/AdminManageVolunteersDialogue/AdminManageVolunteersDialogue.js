@@ -9,6 +9,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { connect } from 'react-redux'
 import AdminManageVolunteersDialogueTable from '../AdminManageVolunteersDialogueTable/AdminManageVolunteersDialgueTable'
+import AdminManageVolunteersDialogueAutoComplete from '../AdminManageVolunteersDialogueAutoComplete/AdminManageVolunteersDialogueAutoComplete'
+
 
 
 class ResponsiveDialog extends React.Component {
@@ -29,7 +31,7 @@ class ResponsiveDialog extends React.Component {
 
     return (
       <div>
-      <Button onClick={this.handleClickOpen}>Edit Volunteers</Button>
+      
         <Button onClick={this.handleClickOpen}>Manage Volunteers</Button>
         <Dialog
           fullScreen={fullScreen}
@@ -39,6 +41,7 @@ class ResponsiveDialog extends React.Component {
         >
           <DialogTitle id="responsive-dialog-title">{"Use Google's location service?"}</DialogTitle>
           <AdminManageVolunteersDialogueTable opportunity = {this.props.opportunity}/>
+          <AdminManageVolunteersDialogueAutoComplete/>
           <DialogContent>
             <DialogContentText>
               Let Google help apps determine location. This means sending anonymous location data to
