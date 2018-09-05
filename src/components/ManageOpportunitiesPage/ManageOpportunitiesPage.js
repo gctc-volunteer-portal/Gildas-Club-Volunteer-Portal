@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Header from '../Header/Header';
 import TextField from '@material-ui/core/TextField'
-import Nav from '../Nav/VolunteerNav';
+import Nav from '../Nav/AdminNav/AdminNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import OpportunitiesCard_AdminView from '../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView';
 
