@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import RegistrationForm from '../RegistrationForm/RegistrationForm';
 
+import Header from '../Header/Header';
+
 class RegisterPage extends Component {
   constructor(props) {
     super(props);
@@ -111,6 +113,7 @@ class RegisterPage extends Component {
   render() {
     return (
       <div>
+        <Header />
         {this.renderAlert()}
        <RegistrationForm
          handleInputChangeFor={this.handleInputChangeFor}
