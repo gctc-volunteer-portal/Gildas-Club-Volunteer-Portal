@@ -8,7 +8,6 @@ import {
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 
-import Header from './components/Header/Header'
 import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import UserPage from './components/UserPage/UserPage';
@@ -78,7 +77,7 @@ const App = () => (
           path="/upcomingOpportunities"
           component={UpcomingOpportunities}
         />
-         <Route
+        <Route
           path="/manageOpportunities"
           component={ManageOpportunitiesPage}
         />
