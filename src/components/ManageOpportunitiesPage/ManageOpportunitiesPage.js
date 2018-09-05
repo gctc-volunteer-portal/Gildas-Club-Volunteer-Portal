@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Header from '../Header/Header';
 import Nav from '../Nav/VolunteerNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import OpportunitiesCard_AdminView from '../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView';
@@ -36,6 +37,7 @@ class InfoPage extends Component {
 
     return (
       <div>
+        <Header />
         <Nav />
         <OpportunitiesCard_AdminView/>
        

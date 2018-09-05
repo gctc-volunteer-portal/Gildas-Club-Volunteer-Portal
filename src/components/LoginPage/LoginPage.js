@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 
+import Header from '../Header/Header';
+
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -64,6 +66,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
+        <Header />
         { this.renderAlert() }
         <form onSubmit={this.login}>
           <h1>Login</h1>
