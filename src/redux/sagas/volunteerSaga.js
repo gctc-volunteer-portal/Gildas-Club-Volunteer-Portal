@@ -12,7 +12,18 @@ function* getUsers(){
     } catch  (err) {
         yield console.log(err);
       }
+}
 
+function* fetchVolunteerInfo() {
+    try {
+        const volunteerInfo = yield call(axios.get, '/api/volunteers/info')
+        yield dispatch({
+            type: 'SET_VOLUNTEER_INFO',
+            payload: volunteerInfo.data
+        })
+    } catch (error) {
+        yield console.log(error);
+    }
 }
 
 function* UpdateVolunteers(action){
@@ -32,6 +43,7 @@ function* UpdateVolunteers(action){
 function* volunteerSaga(){
     yield takeEvery('GET_USERS', getUsers)
     yield takeEvery('UPDATE_VOLUNTEER_INFO', UpdateVolunteers)
+    yield takeEvery('FETCH_VOLUNTEER_INFO', fetchVolunteerInfo);
 }
 
 

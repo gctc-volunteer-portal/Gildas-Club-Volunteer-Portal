@@ -26,8 +26,19 @@ class ResponsiveDialog extends React.Component {
     this.setState({ open: false });
   };
 
+  componentDidMount(){
+    this.props.dispatch({
+      type: 'GET_USERS'
+    })
+    this.props.dispatch({
+      type: ''
+    })
+  }
+
   render() {
     const { fullScreen } = this.props;
+    console.log(this.props.state);
+    
 
     return (
       <div>
@@ -39,7 +50,7 @@ class ResponsiveDialog extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle id="responsive-dialog-title">{"Use Google's location service?"}</DialogTitle>
+          <DialogTitle id="responsive-dialog-title">{"Volunteers for "}</DialogTitle>
           <AdminManageVolunteersDialogueTable opportunity = {this.props.opportunity}/>
           <AdminManageVolunteersDialogueAutoComplete/>
           <DialogContent>
