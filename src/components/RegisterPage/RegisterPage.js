@@ -94,6 +94,7 @@ class RegisterPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
+  
   }
 
   handleRegularBasis = () => {
