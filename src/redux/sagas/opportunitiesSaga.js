@@ -26,10 +26,18 @@ function* getEventVolunteers(action){
       }
 }
 
+function* addOpportunity(newOpportunity){
+    try{
+        yield call(axios.post, `/api/opportunities/, ${newOpportunity}`)
+    } catch  (err) {
+        yield console.log(err);
+      }
+
+}
 function* opportunitiesSaga(){
     yield takeEvery('GET_EVENTS', getEvents)
     yield takeEvery('GET_EVENT_VOLUNTEERS', getEventVolunteers)
-
+    yield takeEvery('ADD_OPPORTUNITY', addOpportunity)
 
 }
 
