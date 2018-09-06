@@ -18,6 +18,7 @@ import MyShifts from './components/VolunteerViews/MyShifts/MyShifts'
 import Announcements from './components/VolunteerViews/Announcements/Announcements'
 import UpcomingOpportunities from './components/VolunteerViews/UpcomingOpportunities/UpcomingOpportunities';
 
+import AdminSingleVolunteerView from './components/AdminSingleVolunteerView/AdminSingleVolunteerView'
 import './styles/main.css';
 
 
@@ -80,6 +81,10 @@ const App = () => (
         <Route
           path="/manageOpportunities"
           component={ManageOpportunitiesPage}
+        />
+        <Route
+          path="/admin_single_volunteer_view"
+          component={AdminSingleVolunteerView}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />

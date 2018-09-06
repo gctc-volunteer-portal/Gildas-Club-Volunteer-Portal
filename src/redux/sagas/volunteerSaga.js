@@ -14,9 +14,28 @@ function* getUsers(){
       }
 
 }
+
+function* UpdateVolunteers(action){
+    console.log(action.payload);
+        // try{
+        //     const update = yield call(axios.put, `/api/volunteers/updateInfo/`, action.payload)
+        //     // yield dispatch({
+
+        //     // })
+        // }catch(err){
+        //     console.log(err);
+            
+        // }
+}
+
+
 function* volunteerSaga(){
     yield takeEvery('GET_USERS', getUsers)
-
+    yield takeEvery('UPDATE_VOLUNTEER_INFO', UpdateVolunteers)
 }
+
+
+
+
 
 export default volunteerSaga;

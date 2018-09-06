@@ -21,7 +21,7 @@ class RegisterPage extends Component {
       street_address2: '',
       city: '',
       state: '',
-      zip: 0,
+      zip: null,
       regular_basis: false,
       specific_event: false,
       as_needed: false,
@@ -29,7 +29,7 @@ class RegisterPage extends Component {
       why_excited: '',
       employer: '',
       job_title: '',
-      date_of_birth: '',
+      date_of_birth: null,
       active: true,
       access_level: 1,
       admin_notes: '',
@@ -94,6 +94,7 @@ class RegisterPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
+  
   }
 
   renderAlert() {
@@ -111,6 +112,8 @@ class RegisterPage extends Component {
   }
 
   render() {
+    
+    
     return (
       <div>
         <Header />
@@ -120,6 +123,7 @@ class RegisterPage extends Component {
          userRegistrationInfo={this.state}
          registerUser={this.registerUser}
        />
+      
       </div>
     );
   }

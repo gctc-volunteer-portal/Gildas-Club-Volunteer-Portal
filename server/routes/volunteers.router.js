@@ -15,6 +15,13 @@ router.get('/', (req, res) => {
         })
 });
 
+router.patch('/updateInfo', (req, res) => {
+    console.log('I have :', req.body);
+    if(req.isAuthenticated){
+        
+    }
+})
+
 
 
 

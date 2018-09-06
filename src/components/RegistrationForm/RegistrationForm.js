@@ -167,6 +167,7 @@ class RegistrationForm extends Component {
               </Button>
           </FormControl>
         </form>
+        
       </React.Fragment>
     )
   }
