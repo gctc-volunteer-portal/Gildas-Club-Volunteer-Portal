@@ -13,9 +13,9 @@ const mapStateToProps = state => ({
 });
 
 function searchingFor(term) {
-    return function (sponsor) {
-        if (sponsor.title) {
-            return sponsor.title.toLowerCase().includes(term.toLowerCase()) || !term;
+    return function (opportunity) {
+        if (opportunity.title) {
+            return opportunity.title.toLowerCase().includes(term.toLowerCase()) || !term;
         }
     }
 }
@@ -79,7 +79,7 @@ class InfoPage extends Component {
                             shrink: true,
                         }}
                         placeholder="Search..."
-                        helperText="What city are you looking for?"
+                        helperText="What opportunity are you looking for?"
                         width='50'
                         margin="normal"
                         onChange={this.searchHandler}

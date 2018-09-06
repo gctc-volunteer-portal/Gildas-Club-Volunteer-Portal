@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Select from 'react-select';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import NoSsr from '@material-ui/core/NoSsr';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { connect } from 'react-redux'
@@ -33,15 +31,6 @@ const styles = theme => ({
     flexWrap: 'wrap',
     flex: 1,
     alignItems: 'center',
-  },
-  chip: {
-    margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
-  },
-  chipFocused: {
-    backgroundColor: emphasize(
-      theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
-      0.08,
-    ),
   },
   noOptionsMessage: {
     padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
@@ -216,7 +205,6 @@ this.props.dispatch({
             placeholder="Search Volunteers"
           />
           <div className={classes.divider} />
-          
         </NoSsr>
         <Button onClick={()=>this.enrollVolunteer(this.state.single.id)} variant="contained" color="primary" className={classes.button}>
         Add Volunteer

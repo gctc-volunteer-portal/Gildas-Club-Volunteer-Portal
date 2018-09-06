@@ -40,15 +40,18 @@ class MediaCard extends Component {
                     <CardMedia
                         className={classes.media}
                         image="https://www.gildasclubtwincities.org/wp-content/themes/skeleton/images/logo.png"
-                        title="Contemplative Reptile"
+                        title="Opportunity"
                     />
                     <CardContent>
                         <Typography gutterBottom variant="headline" component="h2">
                             {this.props.opportunity.title}
                         </Typography>
                         <Typography component="p">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                            across all continents except Antarctica
+                           {this.props.opportunity.address_line1}<br/>
+                           {this.props.opportunity.city}
+                        </Typography>
+                        <Typography component="p">
+                           {this.props.opportunity.description}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
