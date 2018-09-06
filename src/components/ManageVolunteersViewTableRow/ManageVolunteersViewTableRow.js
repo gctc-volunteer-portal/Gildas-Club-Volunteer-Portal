@@ -44,11 +44,11 @@ class ManageVolunteersViewTableRow extends Component {
 
     editVolunteer = () => {
         console.log('going to edit volunteer view')
-        this.props.history.push('/home')
+        console.log(this.props.volunteer.id)
+        // this.props.history.push('/home')
     }
 
     render() {
-
         let editButton = null;
 
         if (this.props.user.access_level === 3) {

@@ -143,7 +143,6 @@ class RegistrationForm extends Component {
               }
               label="As needed (for volunteer committees, special events, or responding to requests for volunteers)"
             />
-
             <FormLabel>
               List any health/physical limitations, including allergies
               </FormLabel>

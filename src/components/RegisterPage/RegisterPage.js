@@ -21,7 +21,7 @@ class RegisterPage extends Component {
       street_address2: '',
       city: '',
       state: '',
-      zip: '',
+      zip: null,
       regular_basis: false,
       specific_event: false,
       as_needed: false,

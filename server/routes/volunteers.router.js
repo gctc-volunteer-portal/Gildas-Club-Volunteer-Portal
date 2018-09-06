@@ -15,10 +15,16 @@ router.get('/', (req, res) => {
         })
 });
 
-router.patch('/updateInfo', (req, res) => {
+router.put('/updateInfo', (req, res) => {
     console.log('I have :', req.body);
+    let info = req.body
     if(req.isAuthenticated){
-        
+        const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $3, "last_name" = $4, "email"= $5 , "primary_phone"= $6,
+                                            "secondary_phone"= $7, "street_address1"= $8, "street_address2"= $9, "city"= $10,
+                                            "zip"= $11, "admin_notes"= $12, "active"= $13, "regular_basis"= $14, "specific_event"= $15,
+                                            "as_needed"= $16, "limitation_allergies"= $17, "why_excited"= $18, "employer"= $19,
+                                            "job_title"= $20, "date_of_birth" = $21 WHERE user."id" = $22;`,
+                                            [info.first_name,]
     }
 })
 router.get('/info', (req, res)=> {
@@ -27,6 +33,7 @@ router.get('/info', (req, res)=> {
     $$
     SELECT
         "users"."email",
+        "users"."id",
         "users"."first_name",
         "users"."middle_name",
         "users"."last_name",
@@ -46,6 +53,7 @@ router.get('/info', (req, res)=> {
     ) 
     AS final_result(
         email VARCHAR,
+        id INT,
         first_name VARCHAR,
         middle_name VARCHAR,
         last_name VARCHAR,

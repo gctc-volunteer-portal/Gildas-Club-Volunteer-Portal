@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withRouter } from 'react-router';
-import Nav from '../Nav/VolunteerNav/VolunteerNav';
 import Header from '../Header/Header'
 
 import { withStyles, FormControl, Input, Avatar ,FormLabel,Chip, Checkbox, NativeSelect, TextField, Button } from '@material-ui/core';
