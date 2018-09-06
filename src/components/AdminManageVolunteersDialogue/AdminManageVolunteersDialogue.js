@@ -18,7 +18,7 @@ class ResponsiveDialog extends React.Component {
     open: false,
   };
 
-  handleClickOpen = () => {
+  handleClickOpen = (id) => {
     this.setState({ open: true });
   };
 
@@ -30,14 +30,12 @@ class ResponsiveDialog extends React.Component {
     this.props.dispatch({
       type: 'GET_USERS'
     })
-    this.props.dispatch({
-      type: ''
-    })
+
   }
 
   render() {
     const { fullScreen } = this.props;
-    console.log(this.props.state);
+ 
     
 
     return (
@@ -50,21 +48,18 @@ class ResponsiveDialog extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle id="responsive-dialog-title">{"Volunteers for "}</DialogTitle>
+          <DialogTitle id="responsive-dialog-title">{`Volunteers for ${this.props.opportunity.title}`}</DialogTitle>
           <AdminManageVolunteersDialogueTable opportunity = {this.props.opportunity}/>
-          <AdminManageVolunteersDialogueAutoComplete/>
           <DialogContent>
             <DialogContentText>
-              Let Google help apps determine location. This means sending anonymous location data to
-              Google, even when no apps are running.
+             Add a Volunteer!
             </DialogContentText>
+          
+          <AdminManageVolunteersDialogueAutoComplete opportunity = {this.props.opportunity}/>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Disagree
-            </Button>
             <Button onClick={this.handleClose} color="primary" autoFocus>
-              Agree
+              Done
             </Button>
           </DialogActions>
         </Dialog>

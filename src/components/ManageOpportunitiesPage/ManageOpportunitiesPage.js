@@ -59,10 +59,10 @@ class InfoPage extends Component {
         if (this.props.user.email) {
             content = (
                 <div>
-                    <p>
+                    <div>
                         Manage Opportunities Page
                         {opportunitiesArray}
-                    </p>
+                    </div>
                 </div>
             );
         }
