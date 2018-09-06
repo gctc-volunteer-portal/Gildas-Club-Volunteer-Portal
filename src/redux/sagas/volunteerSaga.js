@@ -28,15 +28,15 @@ function* fetchVolunteerInfo() {
 
 function* UpdateVolunteers(action){
     console.log(action.payload);
-        // try{
-        //     const update = yield call(axios.put, `/api/volunteers/updateInfo/`, action.payload)
-        //     // yield dispatch({
+        try{
+            const update = yield call(axios.put, `/api/volunteers/updateInfo/`, action.payload)
+            // yield dispatch({
 
-        //     // })
-        // }catch(err){
-        //     console.log(err);
+            // })
+        }catch(err){
+            console.log(err);
             
-        // }
+        }
 }
 
 
