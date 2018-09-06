@@ -45,7 +45,7 @@ class ManageVolunteersViewTableRow extends Component {
     editVolunteer = () => {
         console.log('going to edit volunteer view')
         console.log(this.props.volunteer.id)
-        // this.props.history.push('/home')
+        this.props.history.push('/admin_single_volunteer_view')
     }
 
     render() {
