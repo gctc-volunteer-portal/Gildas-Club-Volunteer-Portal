@@ -21,6 +21,7 @@ router.get('/info', (req, res)=> {
     $$
     SELECT
         "users"."email",
+        "users"."id",
         "users"."first_name",
         "users"."middle_name",
         "users"."last_name",
@@ -40,6 +41,7 @@ router.get('/info', (req, res)=> {
     ) 
     AS final_result(
         email VARCHAR,
+        id INT,
         first_name VARCHAR,
         middle_name VARCHAR,
         last_name VARCHAR,
