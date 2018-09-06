@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { withStyles, FormControl, FormControlLabel, FormLabel, Checkbox, TextField, Button } from '@material-ui/core';
+import { withStyles, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
+import { RadioButtonUncheckedIcon, RadioButtonCheckedIcon } from '@material-ui/icons/RadioButtonUnchecked';
+
 import '../CreateOpportunityForm/CreateOpportunityForm.css';
 
 const styles = {
@@ -38,7 +40,7 @@ class CreateOpportunityForm extends Component {
       status: 1,
       private_notes: '',
       max_volunteers: null,
-      certifications_needed: null
+      certifications_needed: null,
     }
   }
 
@@ -49,6 +51,7 @@ class CreateOpportunityForm extends Component {
   }
 
   render() {
+    console.log(typeof(this.state.certifications_needed), 'certification id')
     return (
       <React.Fragment>
         <form
@@ -151,6 +154,18 @@ class CreateOpportunityForm extends Component {
               fullWidth
             // onChange={this.handleInputChangeFor('')}
             />
+            <RadioGroup
+              name="deliveryType"
+              value={this.state.certifications_needed}
+              onChange={this.handleInputChangeFor('certifications_needed')}>
+              <FormControlLabel value="1" control={<Radio />} label="AV Support" />
+              <FormControlLabel value="2" control={<Radio />} label="Cash Handling" />
+              <FormControlLabel value="2" control={<Radio />} label="Cash Handling" />
+              <FormControlLabel value="2" control={<Radio />} label="Cash Handling" />
+              <FormControlLabel value="2" control={<Radio />} label="Cash Handling" />
+              <FormControlLabel value="2" control={<Radio />} label="Cash Handling" />
+              <FormControlLabel value="2" control={<Radio />} label="Cash Handling" />
+            </RadioGroup>
             <Button
               className={this.props.classes.button}
               type="submit"
