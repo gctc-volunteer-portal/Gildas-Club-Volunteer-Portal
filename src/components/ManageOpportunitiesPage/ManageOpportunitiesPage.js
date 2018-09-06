@@ -34,19 +34,29 @@ class InfoPage extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'GET_EVENTS' })
-
     }
 
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.email === null) {
             this.props.history.push('home');
             console.log(this.props.state);
-
         }
     }
+
     searchHandler(event) {
         this.setState({
             term: event.target.value
+        })
+    }
+
+    openCreateEvent = () => {
+        this.setState({
+            createEventIsOpen: true,
+        })
+    }
+    closeCreateEvent = () => {
+        this.setState({
+            createEventIsOpen: false,
         })
     }
 
@@ -78,12 +88,13 @@ class InfoPage extends Component {
                     <Button
                         variant="raised"
                         color="primary"
+                        onClick={this.openCreateEvent}
                     >
                         Create Opportunity
                 </Button>
                     <CreateOpportunityDialogue
                         createEventIsOpen={this.state.createEventIsOpen}
-
+                        closeCreateEvent={this.closeCreateEvent}
                     />
                     <TextField
                         id="full-width"
