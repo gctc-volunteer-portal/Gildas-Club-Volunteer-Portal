@@ -27,6 +27,73 @@ router.get('/', (req, res) => {
         })
 });
 
+router.put('/updateInfo', (req, res) => {
+    console.log('I have :', req.body);
+    let info = req.body
+    if(req.isAuthenticated){
+        const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $3, "last_name" = $4, "email"= $5 , "primary_phone"= $6,
+                                            "secondary_phone"= $7, "street_address1"= $8, "street_address2"= $9, "city"= $10,
+                                            "zip"= $11, "admin_notes"= $12, "active"= $13, "regular_basis"= $14, "specific_event"= $15,
+                                            "as_needed"= $16, "limitation_allergies"= $17, "why_excited"= $18, "employer"= $19,
+                                            "job_title"= $20, "date_of_birth" = $21 WHERE user."id" = $22;`,
+                                            [info.first_name,]
+    }
+})
+router.get('/info', (req, res)=> {
+    const queryText = `SELECT * 
+    FROM crosstab(
+    $$
+    SELECT
+        "users"."email",
+        "users"."id",
+        "users"."first_name",
+        "users"."middle_name",
+        "users"."last_name",
+        "users"."primary_phone",
+        "users"."secondary_phone",
+        "certifications"."certification_name",
+        "user_certifications"."is_certified"
+    FROM "users"
+    JOIN "user_certifications" ON "users"."id" = "user_certifications"."user_id"
+    JOIN "certifications" ON "user_certifications"."certification_id" = "certifications"."id"
+    WHERE "users"."access_level" != 3
+    ORDER BY 1
+    $$,
+    $$
+    SELECT DISTINCT "certifications"."certification_name" FROM "certifications" ORDER BY 1
+    $$
+    ) 
+    AS final_result(
+        email VARCHAR,
+        id INT,
+        first_name VARCHAR,
+        middle_name VARCHAR,
+        last_name VARCHAR,
+        primary_phone VARCHAR,
+        secondary_phone VARCHAR,
+        av_support BOOLEAN,
+        cash_handling BOOLEAN,
+        clinic_ambassador BOOLEAN,
+        communications BOOLEAN,
+        data_entry BOOLEAN,
+        gilda_greeter BOOLEAN,
+        instructor BOOLEAN,
+        noogieland BOOLEAN,
+        outreach_ambassador BOOLEAN,
+        special1 BOOLEAN,
+        special2 BOOLEAN,
+        special3 BOOLEAN
+    );`
+    pool.query(queryText)
+        .then((results) => {
+            res.send(results.rows);
+        })
+        .catch((error) => {
+            console.log('Error on /api/volunteers/info GET:', error);
+            res.sendStatus(500);
+        });
+});
+
 
 
 module.exports = router;

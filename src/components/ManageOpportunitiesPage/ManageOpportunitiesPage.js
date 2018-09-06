@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 
 import Header from '../Header/Header';
 import TextField from '@material-ui/core/TextField'
-import Nav from '../Nav/VolunteerNav';
+import Nav from '../Nav/AdminNav/AdminNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import OpportunitiesCard_AdminView from '../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView.js';
+import { Button } from '@material-ui/core';
+import CreateOpportunityDialogue from '../CreateOpportunityDialogue/CreateOpportunityDialogue';
 
 const mapStateToProps = state => ({
     opportunitiesList: state.opportunitiesReducer.opportunitiesReducer,
@@ -24,37 +26,48 @@ class InfoPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            term: ''
+            term: '',
+            createEventIsOpen: false,
         }
         this.searchHandler = this.searchHandler.bind(this);
     }
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'GET_EVENTS' })
-
     }
 
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.email === null) {
             this.props.history.push('home');
             console.log(this.props.state);
-            
         }
     }
+
     searchHandler(event) {
         this.setState({
             term: event.target.value
         })
     }
 
+    openCreateEvent = () => {
+        this.setState({
+            createEventIsOpen: true,
+        })
+    }
+    closeCreateEvent = () => {
+        this.setState({
+            createEventIsOpen: false,
+        })
+    }
+
     render() {
         let content = null;
         let opportunitiesArray = this.props.opportunitiesList.filter(searchingFor(this.state.term)).map((opportunity, index) => {
-            return (<OpportunitiesCard_AdminView key = {index}
-                                                 opportunity = {opportunity}
+            return (<OpportunitiesCard_AdminView key={index}
+                opportunity={opportunity}
             />)
         })
-     
+
 
         if (this.props.user.email) {
             content = (
@@ -69,9 +82,20 @@ class InfoPage extends Component {
 
         return (
             <div>
-              <Header />
+                <Header />
                 <Nav />
                 <form style={{ height: 60, background: 'rgba(255,255,255,0.5)', borderRadius: 15 }}>
+                    <Button
+                        variant="raised"
+                        color="primary"
+                        onClick={this.openCreateEvent}
+                    >
+                        Create Opportunity
+                </Button>
+                    <CreateOpportunityDialogue
+                        createEventIsOpen={this.state.createEventIsOpen}
+                        closeCreateEvent={this.closeCreateEvent}
+                    />
                     <TextField
                         id="full-width"
                         label=""

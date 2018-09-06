@@ -21,7 +21,7 @@ class RegisterPage extends Component {
       street_address2: '',
       city: '',
       state: '',
-      zip: 0,
+      zip: null,
       regular_basis: false,
       specific_event: false,
       as_needed: false,
@@ -29,7 +29,7 @@ class RegisterPage extends Component {
       why_excited: '',
       employer: '',
       job_title: '',
-      date_of_birth: '',
+      date_of_birth: null,
       active: true,
       access_level: 1,
       admin_notes: '',
@@ -94,6 +94,23 @@ class RegisterPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
+  
+  }
+
+  handleRegularBasis = () => {
+    this.setState({
+      regular_basis: !this.state.regular_basis
+    });
+  }
+  handleSpecificEvent = () => {
+    this.setState({
+      specific_event: !this.state.specific_event
+    });
+  }
+  handleAsNeeded = () => {
+    this.setState({
+      as_needed: !this.state.as_needed
+    });
   }
 
   renderAlert() {
@@ -111,15 +128,19 @@ class RegisterPage extends Component {
   }
 
   render() {
+    console.log(this.state, 'local state')
     return (
       <div>
         <Header />
         {this.renderAlert()}
-       <RegistrationForm
-         handleInputChangeFor={this.handleInputChangeFor}
-         userRegistrationInfo={this.state}
-         registerUser={this.registerUser}
-       />
+        <RegistrationForm
+          handleRegularBasis={this.handleRegularBasis}
+          handleSpecificEvent={this.handleSpecificEvent}
+          handleAsNeeded={this.handleAsNeeded}
+          handleInputChangeFor={this.handleInputChangeFor}
+          userRegistrationInfo={this.state}
+          registerUser={this.registerUser}
+        />
       </div>
     );
   }
