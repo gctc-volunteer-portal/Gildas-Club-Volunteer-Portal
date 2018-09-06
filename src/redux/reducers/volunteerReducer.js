@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 const volunteerReducer = (state = [], action) => {
     switch (action.type) {
         case 'GET_VOLUNTEERS':
@@ -7,4 +9,18 @@ const volunteerReducer = (state = [], action) => {
 
     }
 }
-export default volunteerReducer;
+const currentEventVolunteers = (state = [], action) =>{
+    switch (action.type) {
+        case 'CURRENT_EVENT_VOLUNTEERS':
+            return action.payload;
+        default:
+            return state;
+
+    }
+}
+
+
+export default combineReducers({
+    volunteerReducer,
+    currentEventVolunteers
+});

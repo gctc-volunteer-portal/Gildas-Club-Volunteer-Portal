@@ -82,6 +82,10 @@ const App = () => (
           path="/manage_volunteers"
           component={ManageVolunteersView}
         />
+        <Route
+          path="/manageOpportunities"
+          component={ManageOpportunitiesPage}
+        />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
 
