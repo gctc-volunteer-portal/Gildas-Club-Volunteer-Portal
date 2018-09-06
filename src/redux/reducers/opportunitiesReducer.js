@@ -9,6 +9,7 @@ const opportunitiesReducer = (state = [], action) => {
 
     }
 }
+
 const opportunityVolunteerReducer = (state = [], action) => {
     switch (action.type) {
         case 'GET_OPPORTUNITY_VOLUNTEERS':
