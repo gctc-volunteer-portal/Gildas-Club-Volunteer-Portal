@@ -84,18 +84,20 @@ class InfoPage extends Component {
             <div>
                 <Header />
                 <Nav />
+
+                <Button
+                    variant="raised"
+                    color="primary"
+                    onClick={this.openCreateEvent}
+                >
+                    Create Opportunity
+                    </Button>
+                <CreateOpportunityDialogue
+                    createEventIsOpen={this.state.createEventIsOpen}
+                    closeCreateEvent={this.closeCreateEvent}
+                />
                 <form style={{ height: 60, background: 'rgba(255,255,255,0.5)', borderRadius: 15 }}>
-                    <Button
-                        variant="raised"
-                        color="primary"
-                        onClick={this.openCreateEvent}
-                    >
-                        Create Opportunity
-                </Button>
-                    <CreateOpportunityDialogue
-                        createEventIsOpen={this.state.createEventIsOpen}
-                        closeCreateEvent={this.closeCreateEvent}
-                    />
+
                     <TextField
                         id="full-width"
                         label=""
@@ -110,6 +112,7 @@ class InfoPage extends Component {
                         value={this.state.term}
                     />
                 </form>
+
                 {content}
                 {/* <OpportunitiesCard_AdminView /> */}
 
