@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -7,10 +7,14 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { connect } from 'react-redux'
+import Button from '@material-ui/core/Button';
+import RemoveIcon from '@material-ui/icons/Remove';
+
 
 const CustomTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.secondary.main,
     color: theme.palette.common.white,
   },
   body: {
@@ -32,59 +36,82 @@ const styles = theme => ({
       backgroundColor: theme.palette.background.default,
     },
   },
+ 
 });
 
-let id = 0;
-function createData(name, calories, fat, carbs, protein) {
-  id += 1;
-  return { id, name, calories, fat, carbs, protein };
-}
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
-function CustomizedTable(props) {
-  const { classes } = props;
+class CustomizedTable extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <CustomTableCell>Dessert (100g serving)</CustomTableCell>
-            <CustomTableCell numeric>Calories</CustomTableCell>
-            <CustomTableCell numeric>Fat (g)</CustomTableCell>
-            <CustomTableCell numeric>Carbs (g)</CustomTableCell>
-            <CustomTableCell numeric>Protein (g)</CustomTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => {
-            return (
-              <TableRow className={classes.row} key={row.id}>
-                <CustomTableCell component="th" scope="row">
-                  {row.name}
-                </CustomTableCell>
-                <CustomTableCell numeric>{row.calories}</CustomTableCell>
-                <CustomTableCell numeric>{row.fat}</CustomTableCell>
-                <CustomTableCell numeric>{row.carbs}</CustomTableCell>
-                <CustomTableCell numeric>{row.protein}</CustomTableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
-  );
+  componentDidMount() {
+    this.props.dispatch({
+      type: 'GET_EVENT_VOLUNTEERS',
+      payload: this.props.opportunity.id
+    })
+  }
+  handleDelete = (volunteer, opportunity) => {    
+      this.props.dispatch({
+        type: 'DELETE_ITEM',
+        payload: {
+          volunteerId: volunteer,
+          opportunityId: opportunity
+        }
+      })
+    
+      
+  }
+      
+  render() {
+    let currentVolunteers;
+    const { classes } = this.props;
+
+    currentVolunteers = this.props.state.opportunitiesReducer.opportunityVolunteerReducer.map((volunteer, index) => {
+      return (
+        <TableRow>
+        <CustomTableCell>{volunteer.first_name}</CustomTableCell>
+        <CustomTableCell numeric>{volunteer.last_name}</CustomTableCell>
+        <CustomTableCell numeric>{volunteer.email}</CustomTableCell>
+        <CustomTableCell numeric>{volunteer.primary_phone}</CustomTableCell>
+        <Button variant="contained" color="secondary" className={classes.button} onClick={()=>this.handleDelete(volunteer.user_id, this.props.opportunity.id)}>
+          Remove
+        <RemoveIcon className={classes.rightIcon} />
+        </Button>
+         </TableRow>
+      )
+})
+  
+  
+    return (
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <CustomTableCell>First Name</CustomTableCell>
+              <CustomTableCell>Last Name</CustomTableCell>
+              <CustomTableCell>Email</CustomTableCell>
+              <CustomTableCell>Primary Phone</CustomTableCell>
+              <CustomTableCell>Delete</CustomTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+                {currentVolunteers}
+          </TableBody>
+        </Table>
+      </Paper>
+    );
+  }
 }
 
 CustomizedTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CustomizedTable);
+const mapStateToProps = state => ({
+  user: state.user,
+  state
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(CustomizedTable));
