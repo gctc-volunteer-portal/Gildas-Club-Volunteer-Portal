@@ -24,7 +24,7 @@ router.put('/updateInfo', (req, res) => {
                                             "zip"= $11, "admin_notes"= $12, "active"= $13, "regular_basis"= $14, "specific_event"= $15,
                                             "as_needed"= $16, "limitation_allergies"= $17, "why_excited"= $18, "employer"= $19,
                                             "job_title"= $20, "date_of_birth" = $21 WHERE user."id" = $22;`,
-                                            [info.first_name,]
+                                            // [info.first_name,]
     }
 })
 router.get('/info', (req, res)=> {
