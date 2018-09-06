@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
 import { withStyles, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
 import { RadioButtonUncheckedIcon, RadioButtonCheckedIcon } from '@material-ui/icons/RadioButtonUnchecked';
+import { connect } from 'react-redux';
+
 
 import '../CreateOpportunityForm/CreateOpportunityForm.css';
 
 const styles = {
   formContainer: {
     margin: '1rem',
-    height: '50vh',
-    width: '500px',
+    textAlign: 'center',
+    width: '100%',
+    // height: '50vh',
+    // width: '500px',
   },
   formControl: {
     width: '100%',
   },
   button: {
-    textAlign: 'center',
     margin: '1rem'
   },
-  header: {
-    textAlign: 'center',
-
-  }
 };
 
 class CreateOpportunityForm extends Component {
@@ -44,20 +43,32 @@ class CreateOpportunityForm extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
+  }
+
   handleInputChangeFor = propertyName => (event) => {
     this.setState({
       [propertyName]: event.target.value,
     });
   }
 
+  addOpportunity = () => {
+    this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
+  }
   render() {
-    console.log(typeof(this.state.certifications_needed), 'certification id')
+    console.log(this.state, 'local state')
+    const certificationsList = this.props.certificates.map((certificate, index) => {
+      return (
+        <FormControlLabel key={index} value={certificate.id.toString()} control={<Radio />} label={certificate.certification_name} />
+      )
+    })
     return (
       <React.Fragment>
-        <form
+        {/* <form
           className={this.props.classes.formContainer}
           onSubmit={this.props.registerUser}>
-          <FormControl className={this.props.classes.formControl}>
+          <FormControl className={this.props.classes.formControl}> */}
             <TextField
               label="Opportunity Name"
               type="text"
@@ -154,21 +165,17 @@ class CreateOpportunityForm extends Component {
               fullWidth
             // onChange={this.handleInputChangeFor('')}
             />
+
             <RadioGroup
               name="deliveryType"
               value={this.state.certifications_needed}
               onChange={this.handleInputChangeFor('certifications_needed')}>
-              <FormControlLabel value="1" control={<Radio />} label="AV Support" />
-              <FormControlLabel value="2" control={<Radio />} label="Cash Handling" />
-              <FormControlLabel value="2" control={<Radio />} label="Cash Handling" />
-              <FormControlLabel value="2" control={<Radio />} label="Cash Handling" />
-              <FormControlLabel value="2" control={<Radio />} label="Cash Handling" />
-              <FormControlLabel value="2" control={<Radio />} label="Cash Handling" />
-              <FormControlLabel value="2" control={<Radio />} label="Cash Handling" />
+              {certificationsList}
             </RadioGroup>
+
             <Button
               className={this.props.classes.button}
-              type="submit"
+              onClick={this.addOpportunity}
               variant="raised"
               color="primary"
             >
@@ -176,19 +183,24 @@ class CreateOpportunityForm extends Component {
           </Button>
             <Button
               className={this.props.classes.button}
-              type="button"
               onClick={this.props.closeCreateEvent}
               variant="raised"
               color="primary"
             >
               Cancel
             </Button>
-          </FormControl>
-        </form>
+          {/* </FormControl>
+        </form> */}
       </React.Fragment>
     )
   }
 }
+
+const mapStateToProps = state => ({
+  state: state,
+  certificates: state.certificationsReducer.certifications,
+});
+
 const StyledCreateOpportunityForm = withStyles(styles)(CreateOpportunityForm)
 
-export default StyledCreateOpportunityForm
+export default connect(mapStateToProps)(StyledCreateOpportunityForm);
