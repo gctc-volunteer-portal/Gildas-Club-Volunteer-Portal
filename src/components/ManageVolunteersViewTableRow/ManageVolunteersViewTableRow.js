@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { TableCell, TableRow } from '@material-ui/core';
+import {CheckCircle, Cancel} from '@material-ui/icons'
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -32,10 +33,14 @@ const styles = theme => ({
 
 class ManageVolunteersViewTableRow extends Component {
 
+    certified = (certificationStatus) => {
+        if(certificationStatus) {
+            return <CheckCircle nativeColor="green" />
+        }
+        else {return <Cancel nativeColor="red" />}
+    }
 
     render() {
-        console.log(this.props);
-
 
         let tableRow = (
             <TableRow className={this.props.classes.row}>
@@ -45,18 +50,18 @@ class ManageVolunteersViewTableRow extends Component {
                 <CustomTableCell>{this.props.volunteer.email}</CustomTableCell>
                 <CustomTableCell>{this.props.volunteer.primary_phone}</CustomTableCell>
                 <CustomTableCell>{this.props.volunteer.secondary_phone}</CustomTableCell>
-                <CustomTableCell>yes</CustomTableCell>
-                <CustomTableCell>yes</CustomTableCell>
-                <CustomTableCell>yes</CustomTableCell>
-                <CustomTableCell>yes</CustomTableCell>
-                <CustomTableCell>yes</CustomTableCell>
-                <CustomTableCell>yes</CustomTableCell>
-                <CustomTableCell>yes</CustomTableCell>
-                <CustomTableCell>yes</CustomTableCell>
-                <CustomTableCell>yes</CustomTableCell>
-                <CustomTableCell>yes</CustomTableCell>
-                <CustomTableCell>yes</CustomTableCell>
-                <CustomTableCell>yes</CustomTableCell>
+                <CustomTableCell>{this.certified(this.props.volunteer.av_support)}</CustomTableCell>
+                <CustomTableCell>{this.certified(this.props.volunteer.cash_handling)}</CustomTableCell>
+                <CustomTableCell>{this.certified(this.props.volunteer.clinic_ambassador)}</CustomTableCell>
+                <CustomTableCell>{this.certified(this.props.volunteer.communications)}</CustomTableCell>
+                <CustomTableCell>{this.certified(this.props.volunteer.data_entry)}</CustomTableCell>
+                <CustomTableCell>{this.certified(this.props.volunteer.gilda_greeter)}</CustomTableCell>
+                <CustomTableCell>{this.certified(this.props.volunteer.instructor)}</CustomTableCell>
+                <CustomTableCell>{this.certified(this.props.volunteer.noogieland)}</CustomTableCell>
+                <CustomTableCell>{this.certified(this.props.volunteer.outreach_ambassador)}</CustomTableCell>
+                <CustomTableCell>{this.certified(this.props.volunteer.special1)}</CustomTableCell>
+                <CustomTableCell>{this.certified(this.props.volunteer.special2)}</CustomTableCell>
+                <CustomTableCell>{this.certified(this.props.volunteer.special3)}</CustomTableCell>
             </TableRow>
         )
 
@@ -69,19 +74,18 @@ class ManageVolunteersViewTableRow extends Component {
                     <CustomTableCell>{this.props.volunteer.email}</CustomTableCell>
                     <CustomTableCell>{this.props.volunteer.primary_phone}</CustomTableCell>
                     <CustomTableCell>{this.props.volunteer.secondary_phone}</CustomTableCell>
-                    <CustomTableCell>yes</CustomTableCell>
-                    <CustomTableCell>yes</CustomTableCell>
-                    <CustomTableCell>yes</CustomTableCell>
-                    <CustomTableCell>yes</CustomTableCell>
-                    <CustomTableCell>yes</CustomTableCell>
-                    <CustomTableCell>yes</CustomTableCell>
-                    <CustomTableCell>yes</CustomTableCell>
-                    <CustomTableCell>yes</CustomTableCell>
-                    <CustomTableCell>yes</CustomTableCell>
-                    <CustomTableCell>yes</CustomTableCell>
-                    <CustomTableCell>yes</CustomTableCell>
-                    <CustomTableCell>yes</CustomTableCell>
-                    <CustomTableCell>Edit</CustomTableCell>
+                    <CustomTableCell>{this.certified(this.props.volunteer.av_support)}</CustomTableCell>
+                    <CustomTableCell>{this.certified(this.props.volunteer.cash_handling)}</CustomTableCell>
+                    <CustomTableCell>{this.certified(this.props.volunteer.clinic_ambassador)}</CustomTableCell>
+                    <CustomTableCell>{this.certified(this.props.volunteer.communications)}</CustomTableCell>
+                    <CustomTableCell>{this.certified(this.props.volunteer.data_entry)}</CustomTableCell>
+                    <CustomTableCell>{this.certified(this.props.volunteer.gilda_greeter)}</CustomTableCell>
+                    <CustomTableCell>{this.certified(this.props.volunteer.instructor)}</CustomTableCell>
+                    <CustomTableCell>{this.certified(this.props.volunteer.noogieland)}</CustomTableCell>
+                    <CustomTableCell>{this.certified(this.props.volunteer.outreach_ambassador)}</CustomTableCell>
+                    <CustomTableCell>{this.certified(this.props.volunteer.special1)}</CustomTableCell>
+                    <CustomTableCell>{this.certified(this.props.volunteer.special2)}</CustomTableCell>
+                    <CustomTableCell>{this.certified(this.props.volunteer.special3)}</CustomTableCell>
                 </TableRow>
             )
         }

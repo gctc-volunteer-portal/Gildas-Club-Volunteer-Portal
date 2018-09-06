@@ -39,25 +39,25 @@ router.get('/info', (req, res)=> {
     $$
     ) 
     AS final_result(
-        VolunteerEmail VARCHAR,
-        VolunteerFirstName VARCHAR,
-        VolunteerMiddleName VARCHAR,
-        VolunteerLastName VARCHAR,
-        VolunteerPrimaryPhone VARCHAR,
-        VolunteerSecondaryPhone VARCHAR,
-        AVSupport BOOLEAN,
-        CashHandling BOOLEAN,
-        ClinicAmbassador BOOLEAN,
-        Communications BOOLEAN,
-        DataEntry BOOLEAN,
-        GildaGreeter BOOLEAN,
-        Instructor BOOLEAN,
-        Noogieland BOOLEAN,
-        OutreachAmbassador BOOLEAN,
-        Special1 BOOLEAN,
-        Special2 BOOLEAN,
-        Special3 BOOLEAN
-    ) ;`
+        email VARCHAR,
+        first_name VARCHAR,
+        middle_name VARCHAR,
+        last_name VARCHAR,
+        primary_phone VARCHAR,
+        secondary_phone VARCHAR,
+        av_support BOOLEAN,
+        cash_handling BOOLEAN,
+        clinic_ambassador BOOLEAN,
+        communications BOOLEAN,
+        data_entry BOOLEAN,
+        gilda_greeter BOOLEAN,
+        instructor BOOLEAN,
+        noogieland BOOLEAN,
+        outreach_ambassador BOOLEAN,
+        special1 BOOLEAN,
+        special2 BOOLEAN,
+        special3 BOOLEAN
+    );`
     pool.query(queryText)
         .then((results) => {
             res.send(results.rows);
