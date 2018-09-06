@@ -38,6 +38,13 @@ const styles = theme => ({
 });
 
 class ManageVolunteersView extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            columnToSort: '',
+            sortDirection: 'asc',
+        }
+    }
 
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
@@ -48,6 +55,10 @@ class ManageVolunteersView extends Component {
         if (!this.props.user.isLoading && this.props.user.email === null || this.props.user.access_level === 1) {
             this.props.history.push('home');
         }
+    }
+
+    handleSort(columnToSort) {
+
     }
 
     render() {
@@ -67,7 +78,7 @@ class ManageVolunteersView extends Component {
                     <Table className={this.props.classes.table}>
                         <TableHead>
                             <TableRow>
-                                <CustomTableCell>First Name</CustomTableCell>
+                                <CustomTableCell onClick={() => {this.handleSort('first_name')}}>First Name</CustomTableCell>
                                 <CustomTableCell>Middle Name</CustomTableCell>
                                 <CustomTableCell>Last Name</CustomTableCell>
                                 <CustomTableCell>Email</CustomTableCell>
