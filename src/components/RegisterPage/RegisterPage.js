@@ -128,24 +128,11 @@ class RegisterPage extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-    
-    
-=======
     console.log(this.state, 'local state')
->>>>>>> f706f39a6c412fb3f18ad997900df1207b942956
     return (
       <div>
         <Header />
         {this.renderAlert()}
-<<<<<<< HEAD
-       <RegistrationForm
-         handleInputChangeFor={this.handleInputChangeFor}
-         userRegistrationInfo={this.state}
-         registerUser={this.registerUser}
-       />
-      
-=======
         <RegistrationForm
           handleRegularBasis={this.handleRegularBasis}
           handleSpecificEvent={this.handleSpecificEvent}
@@ -154,7 +141,6 @@ class RegisterPage extends Component {
           userRegistrationInfo={this.state}
           registerUser={this.registerUser}
         />
->>>>>>> f706f39a6c412fb3f18ad997900df1207b942956
       </div>
     );
   }
