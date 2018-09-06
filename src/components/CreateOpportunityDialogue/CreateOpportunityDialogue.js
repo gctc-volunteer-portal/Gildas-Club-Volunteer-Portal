@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
-import { withStyles, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import { withStyles, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import CreateOpportunityForm from '../CreateOpportunityForm/CreateOpportunityForm';
+
+const styles = {
+  dialogTitle: {
+    textAlign: 'center',
+  },
+};
 class CreateOpportunityDialogue extends Component {
+
   render() {
     return (
       <React.Fragment>
         <Dialog
-          fullScreen
           open={this.props.createEventIsOpen}
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle></DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Let Google help apps determine location. This means sending anonymous location data to
-              Google, even when no apps are running.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Disagree
-            </Button>
-            <Button onClick={this.handleClose} color="primary" autoFocus>
-              Agree
-            </Button>
-          </DialogActions>
+          <DialogTitle className={this.props.classes.dialogTitle}>Create Event</DialogTitle>
+
+          <CreateOpportunityForm
+            closeCreateEvent={this.props.closeCreateEvent}
+
+          />
         </Dialog>
       </React.Fragment>
     )
   }
 }
-export default CreateOpportunityDialogue
+
+const StyledCreateOpportunityDialogue = withStyles(styles)(CreateOpportunityDialogue)
+
+export default StyledCreateOpportunityDialogue
