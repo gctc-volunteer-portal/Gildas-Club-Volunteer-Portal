@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import { withStyles, FormControl, Input, FormLabel, Checkbox, NativeSelect, TextField, Button } from '@material-ui/core';
+import { withStyles, FormControl, FormControlLabel, FormLabel, Checkbox, TextField, Button } from '@material-ui/core';
 class RegistrationForm extends Component {
 
   returnHome = () => {
@@ -125,11 +125,24 @@ class RegistrationForm extends Component {
             <FormLabel>
               Are you interested in volunteering:
               </FormLabel>
-
-            <Checkbox value={this.props.regular_basis}>On A Regular Basis (once a week, twice a month, etc.)</Checkbox>
-            <Checkbox value={this.props.specific_event}>For One Specific Event (Annual Breakfast, Golf Event, etc.)</Checkbox>
-            <Checkbox value={this.props.as_needed}>As needed (for volunteer committees, special events, or responding to requests for volunteers)</Checkbox>
-
+            <FormControlLabel
+              control={
+                <Checkbox onChange={this.props.handleRegularBasis} value={this.props.regular_basis} />
+              }
+              label="On A Regular Basis (once a week, twice a month, etc.)"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox onChange={this.props.handleSpecificEvent} value={this.props.regular_basis} />
+              }
+              label="For One Specific Event (Annual Breakfast, Golf Event, etc.)"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox onChange={this.props.handleAsNeeded} value={this.props.as_needed} />
+              }
+              label="As needed (for volunteer committees, special events, or responding to requests for volunteers)"
+            />
             <FormLabel>
               List any health/physical limitations, including allergies
               </FormLabel>
@@ -167,6 +180,7 @@ class RegistrationForm extends Component {
               </Button>
           </FormControl>
         </form>
+        
       </React.Fragment>
     )
   }

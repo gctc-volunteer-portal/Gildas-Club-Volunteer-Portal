@@ -57,9 +57,18 @@ console.log(action.payload)
       }
   }
 
+function* addOpportunity(newOpportunity){
+    try{
+        yield call(axios.post, `/api/opportunities/, ${newOpportunity}`)
+    } catch  (err) {
+        yield console.log(err);
+      }
+
+}
 function* opportunitiesSaga(){
     yield takeEvery('GET_EVENTS', getEvents)
     yield takeEvery('GET_EVENT_VOLUNTEERS', getEventVolunteers)
+    yield takeEvery('ADD_OPPORTUNITY', addOpportunity)
     yield takeEvery('DELETE_ITEM', deleteItem)
     yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer)
 
