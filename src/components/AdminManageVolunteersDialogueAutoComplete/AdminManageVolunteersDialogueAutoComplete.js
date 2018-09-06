@@ -11,6 +11,10 @@ import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { connect } from 'react-redux'
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+
+
 
 
 
@@ -136,22 +140,6 @@ function ValueContainer(props) {
   return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
 }
 
-function MultiValue(props) {
-  return (
-    <Chip
-      tabIndex={-1}
-      label={props.children}
-      className={classNames(props.selectProps.classes.chip, {
-        [props.selectProps.classes.chipFocused]: props.isFocused,
-      })}
-      onDelete={event => {
-        props.removeProps.onClick();
-        props.removeProps.onMouseDown(event);
-      }}
-    />
-  );
-}
-
 function Menu(props) {
   return (
     <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
@@ -163,7 +151,6 @@ function Menu(props) {
 const components = {
   Control,
   Menu,
-  MultiValue,
   NoOptionsMessage,
   Option,
   Placeholder,
@@ -174,10 +161,19 @@ const components = {
 class IntegrationReactSelect extends React.Component {
   state = {
     single: null,
-    multi: null,
+
+    
 
   };
-
+enrollVolunteer = (volunteerId) =>{
+this.props.dispatch({
+  type: 'ENROLL_VOLUNTEER',
+  payload: {
+    volunteerId: volunteerId,
+    opportunityId: this.props.opportunity.id
+  }
+})
+}
   handleChange = name => value => {
     this.setState({
       [name]: value,
@@ -185,14 +181,19 @@ class IntegrationReactSelect extends React.Component {
   };
 
   render() {
-    console.log(this.props.state.volunteerReducer);
-    let volunteerList = this.props.state.volunteerReducer.map((volunteer, index)=>{
-      return ({label: volunteer.first_name})
+ 
+    let volunteerList = this.props.state.volunteerReducer.volunteerReducer.map((volunteer, index)=>{
+      return ({label: volunteer.first_name, id: volunteer.id})
     })
+ 
     let list = volunteerList.map(volunteerList => ({
         value: volunteerList.label,
         label: volunteerList.label,
+        id: volunteerList.id
+        
     }))
+  console.log(this.state);
+  
     const { classes, theme } = this.props;
 
     const selectStyles = {
@@ -212,26 +213,15 @@ class IntegrationReactSelect extends React.Component {
             components={components}
             value={this.state.single}
             onChange={this.handleChange('single')}
-            placeholder="Search a country (start with a)"
+            placeholder="Search Volunteers"
           />
           <div className={classes.divider} />
-          <Select
-            classes={classes}
-            styles={selectStyles}
-            textFieldProps={{
-              label: 'Label',
-              InputLabelProps: {
-                shrink: true,
-              },
-            }}
-            options={list}
-            components={components}
-            value={this.state.multi}
-            onChange={this.handleChange('multi')}
-            placeholder="Select multiple countries"
-            isMulti
-          />
+          
         </NoSsr>
+        <Button onClick={()=>this.enrollVolunteer(this.state.single.id)} variant="contained" color="primary" className={classes.button}>
+        Add Volunteer
+        <AddIcon className={classes.rightIcon}/>
+      </Button>
       </div>
     );
   }
