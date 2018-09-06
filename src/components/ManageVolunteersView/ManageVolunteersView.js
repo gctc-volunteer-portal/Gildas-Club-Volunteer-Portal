@@ -45,7 +45,7 @@ class ManageVolunteersView extends Component {
     }
 
     componentDidUpdate() {
-        if (!this.props.user.isLoading && this.props.user.email === null) {
+        if (!this.props.user.isLoading && this.props.user.email === null || this.props.user.access_level === 1) {
             this.props.history.push('home');
         }
     }
