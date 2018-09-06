@@ -35,17 +35,6 @@ class CreateOpportunityDialogue extends Component {
             />
           </DialogContent>
         </Dialog>
-        {/* <Dialog
-          className={this.props.classes.dialog}
-          open={this.props.createEventIsOpen}
-          onClose={this.handleClose}
-          aria-labelledby="responsive-dialog-title"
-        >
-          <DialogTitle className={this.props.classes.dialogTitle}>Create Event</DialogTitle>
-          <DialogContent>
-            
-          </DialogContent>
-        </Dialog> */}
       </React.Fragment>
     )
   }
