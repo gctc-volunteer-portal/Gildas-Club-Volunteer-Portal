@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 
 import Header from '../Header/Header';
 import VolunteerNav from '../Nav/VolunteerNav/VolunteerNav';
+import ManageVolunteersViewTableRow from '../ManageVolunteersViewTableRow/ManageVolunteersViewTableRow';
+
+import { USER_ACTIONS } from '../../redux/actions/userActions';
 
 import { withStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TableHead, TableRow, Paper } from '@material-ui/core';
@@ -33,7 +38,26 @@ const styles = theme => ({
 });
 
 class ManageVolunteersView extends Component {
+
+    componentDidMount() {
+        this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+        this.props.dispatch({ type: 'FETCH_VOLUNTEER_INFO' });
+    }
+
+    componentDidUpdate() {
+        if (!this.props.user.isLoading && this.props.user.email === null) {
+            this.props.history.push('home');
+        }
+    }
+
     render() {
+
+        let mappedVolunteers = this.props.volunteers.map((volunteer, index) =>{
+            return (
+                <ManageVolunteersViewTableRow volunteer={volunteer} key={index} />
+            )
+        });
+
         return (
             <React.Fragment>
                 <Header />
@@ -43,27 +67,29 @@ class ManageVolunteersView extends Component {
                     <Table className={this.props.classes.table}>
                         <TableHead>
                             <TableRow>
-                                <CustomTableCell>Dessert (100g serving)</CustomTableCell>
-                                <CustomTableCell numeric>Calories</CustomTableCell>
-                                <CustomTableCell numeric>Fat (g)</CustomTableCell>
-                                <CustomTableCell numeric>Carbs (g)</CustomTableCell>
-                                <CustomTableCell numeric>Protein (g)</CustomTableCell>
+                                <CustomTableCell>First Name</CustomTableCell>
+                                <CustomTableCell>Middle Name</CustomTableCell>
+                                <CustomTableCell>Last Name</CustomTableCell>
+                                <CustomTableCell>Email</CustomTableCell>
+                                <CustomTableCell>Primary Phone</CustomTableCell>
+                                <CustomTableCell>Secondary Phone</CustomTableCell>
+                                <CustomTableCell>A/V Support</CustomTableCell>
+                                <CustomTableCell>Cash Handling</CustomTableCell>
+                                <CustomTableCell>Clinic Ambassador</CustomTableCell>
+                                <CustomTableCell>Communications</CustomTableCell>
+                                <CustomTableCell>Data Entry</CustomTableCell>
+                                <CustomTableCell>Gilda Greeter</CustomTableCell>
+                                <CustomTableCell>Instructor</CustomTableCell>
+                                <CustomTableCell>Noogieland</CustomTableCell>
+                                <CustomTableCell>Outreach Ambassador</CustomTableCell>
+                                <CustomTableCell>Special 1</CustomTableCell>
+                                <CustomTableCell>Special 2</CustomTableCell>
+                                <CustomTableCell>Special 3</CustomTableCell>
+                                <CustomTableCell></CustomTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {/* {rows.map(row => { */}
-                                {/* return ( */}
-                                    <TableRow className={this.props.classes.row}>
-                                        <CustomTableCell component="th" scope="row">
-                                            row.name
-                                        </CustomTableCell>
-                                        <CustomTableCell numeric>calories</CustomTableCell>
-                                        <CustomTableCell numeric>row.fat</CustomTableCell>
-                                        <CustomTableCell numeric>row.carbs</CustomTableCell>
-                                        <CustomTableCell numeric>row.protein</CustomTableCell>
-                                    </TableRow>
-                                {/* ); */}
-                            {/* })} */}
+                            {mappedVolunteers}
                         </TableBody>
                     </Table>
                 </Paper>
@@ -72,4 +98,10 @@ class ManageVolunteersView extends Component {
     }
 }
 
-export default withStyles(styles)(ManageVolunteersView);
+const mapStateToProps = state => ({
+    user: state.user,
+    volunteers: state.volunteerInfo,
+});
+
+const connectedManageVolunteersView = connect(mapStateToProps)(ManageVolunteersView)
+export default withStyles(styles)(connectedManageVolunteersView);
