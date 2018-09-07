@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withStyles, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
 import { RadioButtonUncheckedIcon, RadioButtonCheckedIcon } from '@material-ui/icons/RadioButtonUnchecked';
 import { connect } from 'react-redux';
-
+import moment from 'moment';
 
 import '../CreateOpportunityForm/CreateOpportunityForm.css';
 
@@ -27,19 +27,19 @@ class CreateOpportunityForm extends Component {
     super(props);
     this.state = {
       title: '',
-      start_time: '',
-      end_time: '',
+      start_time: null,
+      end_time: null,
       address_line1: '',
       address_line2: '',
       city: '',
       state: '',
-      zip: '',
+      zip: null,
       description: '',
       date: null,
       status: 1,
       private_notes: '',
       max_volunteers: null,
-      certifications_needed: null,
+      certification_needed: null,
     }
   }
 
@@ -54,8 +54,9 @@ class CreateOpportunityForm extends Component {
   }
 
   addOpportunity = () => {
-    this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
+    this.props.dispatch({ type: 'ADD_OPPORTUNITY', payload: this.state });
   }
+
   render() {
     console.log(this.state, 'local state')
     const certificationsList = this.props.certificates.map((certificate, index) => {
@@ -69,127 +70,127 @@ class CreateOpportunityForm extends Component {
           className={this.props.classes.formContainer}
           onSubmit={this.props.registerUser}>
           <FormControl className={this.props.classes.formControl}> */}
-            <TextField
-              label="Opportunity Name"
-              type="text"
-              name="title"
-              fullWidth
-              // value={this.props.userRegistrationInfo.email}
-              onChange={this.handleInputChangeFor('title')}
-            />
-            <TextField
-              label="Date"
-              type="date"
-              name="date"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              fullWidth
-              // value={this.props.userRegistrationInfo.password}
-              onChange={this.handleInputChangeFor('date')}
-            />
-            <TextField
-              label="Start Time"
-              type="time"
-              name="start_time"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              fullWidth
-              // value={this.props.userRegistrationInfo.first_name}
-              onChange={this.handleInputChangeFor('start_time')}
-            />
-            <TextField
-              label="End Time"
-              type="time"
-              name="end_time"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              fullWidth
-              // value={this.props.userRegistrationInfo.middle_name}
-              onChange={this.handleInputChangeFor('end_time')}
-            />
-            <TextField
-              label="Street Address 1"
-              type="text"
-              name="address_line1"
-              fullWidth
-              // value={this.props.userRegistrationInfo.street_address1}
-              onChange={this.handleInputChangeFor('address_line1')}
-            />
-            <TextField
-              label="Street Address 2"
-              type="text"
-              name="address_line2"
-              fullWidth
-              // value={this.props.userRegistrationInfo.street_address2}
-              onChange={this.handleInputChangeFor('address_line2')}
-            />
-            <TextField
-              label="City"
-              type="text"
-              name="city"
-              fullWidth
-              // value={this.props.userRegistrationInfo.city}
-              onChange={this.handleInputChangeFor('city')}
-            />
-            <TextField
-              label="State"
-              type="text"
-              name="state"
-              fullWidth
-              // value={this.props.userRegistrationInfo.state}
-              onChange={this.handleInputChangeFor('state')}
-            />
-            <TextField
-              label="Zip Code"
-              type="text"
-              name="zip"
-              fullWidth
-              // value={this.props.userRegistrationInfo.zip}
-              onChange={this.handleInputChangeFor('zip')}
-            />
-            <TextField
-              label="# of Volunteers Needed"
-              type="number"
-              name="max_volunteers"
-              fullWidth
-              // value={this.props.userRegistrationInfo.max_volunteers}
-              onChange={this.handleInputChangeFor('max_volunteers')}
-            />
-            <TextField
-              label="Upload Image"
-              type="text"
-              name=""
-              fullWidth
-            // onChange={this.handleInputChangeFor('')}
-            />
+        <TextField
+          label="Opportunity Name"
+          type="text"
+          name="title"
+          fullWidth
+          // value={this.props.userRegistrationInfo.email}
+          onChange={this.handleInputChangeFor('title')}
+        />
+        <TextField
+          label="Date"
+          type="date"
+          name="date"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          fullWidth
+          // value={this.props.userRegistrationInfo.password}
+          onChange={this.handleInputChangeFor('date')}
+        />
+        <TextField
+          label="Start Time"
+          type="time"
+          name="start_time"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          fullWidth
+          // value={this.props.userRegistrationInfo.first_name}
+          onChange={this.handleInputChangeFor('start_time')}
+        />
+        <TextField
+          label="End Time"
+          type="time"
+          name="end_time"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          fullWidth
+          // value={this.props.userRegistrationInfo.middle_name}
+          onChange={this.handleInputChangeFor('end_time')}
+        />
+        <TextField
+          label="Street Address 1"
+          type="text"
+          name="address_line1"
+          fullWidth
+          // value={this.props.userRegistrationInfo.street_address1}
+          onChange={this.handleInputChangeFor('address_line1')}
+        />
+        <TextField
+          label="Street Address 2"
+          type="text"
+          name="address_line2"
+          fullWidth
+          // value={this.props.userRegistrationInfo.street_address2}
+          onChange={this.handleInputChangeFor('address_line2')}
+        />
+        <TextField
+          label="City"
+          type="text"
+          name="city"
+          fullWidth
+          // value={this.props.userRegistrationInfo.city}
+          onChange={this.handleInputChangeFor('city')}
+        />
+        <TextField
+          label="State"
+          type="text"
+          name="state"
+          fullWidth
+          // value={this.props.userRegistrationInfo.state}
+          onChange={this.handleInputChangeFor('state')}
+        />
+        <TextField
+          label="Zip Code"
+          type="text"
+          name="zip"
+          fullWidth
+          // value={this.props.userRegistrationInfo.zip}
+          onChange={this.handleInputChangeFor('zip')}
+        />
+        <TextField
+          label="# of Volunteers Needed"
+          type="number"
+          name="max_volunteers"
+          fullWidth
+          // value={this.props.userRegistrationInfo.max_volunteers}
+          onChange={this.handleInputChangeFor('max_volunteers')}
+        />
+        <TextField
+          label="Upload Image"
+          type="text"
+          name=""
+          fullWidth
+        // onChange={this.handleInputChangeFor('')}
+        />
 
-            <RadioGroup
-              name="deliveryType"
-              value={this.state.certifications_needed}
-              onChange={this.handleInputChangeFor('certifications_needed')}>
-              {certificationsList}
-            </RadioGroup>
+        <RadioGroup
+          name="deliveryType"
+          value={this.state.certification_needed}
+          onChange={this.handleInputChangeFor('certification_needed')}>
+          {certificationsList}
+        </RadioGroup>
 
-            <Button
-              className={this.props.classes.button}
-              onClick={this.addOpportunity}
-              variant="raised"
-              color="primary"
-            >
-              Create
+        <Button
+          className={this.props.classes.button}
+          onClick={this.addOpportunity}
+          variant="raised"
+          color="primary"
+        >
+          Create
           </Button>
-            <Button
-              className={this.props.classes.button}
-              onClick={this.props.closeCreateEvent}
-              variant="raised"
-              color="primary"
-            >
-              Cancel
+        <Button
+          className={this.props.classes.button}
+          onClick={this.props.closeCreateEvent}
+          variant="raised"
+          color="primary"
+        >
+          Cancel
             </Button>
-          {/* </FormControl>
+        {/* </FormControl>
         </form> */}
       </React.Fragment>
     )

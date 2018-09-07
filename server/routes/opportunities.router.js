@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
     pool.query(queryText)
         .then((results) => {
             res.send(results.rows)
-            console.log(results.rows);
 
         }).catch((err) => {
             console.log(err);
@@ -27,67 +26,71 @@ router.get('/:id', (req, res) => {
     pool.query(queryText, [req.params.id])
         .then((results) => {
             res.send(results.rows)
-            console.log(results.rows);
 
         }).catch((err) => {
             console.log(err);
             res.sendStatus(500);
         })
 });
-router.post('/', (req, res) => {
-    console.log('got to post', req.body);
-    console.log('event body', req.body);
-    
-    if (req.isAuthenticated) {
-        const queryText = `INSERT INTO "user_opportunities" ("user_id", "opportunity_id") VALUES ($1, $2)`
-        pool.query(queryText, [req.body.volunteerId, req.body.opportunityId])
-            .then(() => {
-                res.sendStatus(200);
-            })
-            .catch((error) => {
-                console.log(error);
-                res.sendStatus(500)
-            })
-    } else {
-        res.sendStatus(403);
-    }
 
-});
+// router.post('/', (req, res) => {
+//     console.log('got to post', req.body);
+//     console.log('event body', req.body);
+
+//     if (req.isAuthenticated) {
+//         const queryText = `INSERT INTO "user_opportunities" ("user_id", "opportunity_id") VALUES ($1, $2)`
+//         pool.query(queryText, [req.body.volunteerId, req.body.opportunityId])
+//             .then(() => {
+//                 res.sendStatus(200);
+//             })
+//             .catch((error) => {
+//                 console.log(error);
+//                 res.sendStatus(500)
+//             })
+//     } else {
+//         res.sendStatus(403);
+//     }
+
+// });
 
 router.delete('/:id', (req, res) => {
 
-    
+
 
     if (req.isAuthenticated) {
         const queryText = `DELETE FROM "user_opportunities" WHERE user_id=$2 AND "opportunity_id" = $1 RETURNING "user_opportunities".opportunity_id`;
         pool.query(queryText, [req.params.id, req.body.volunteerId])
             .then((response) => {
-                console.log(response.rows)
                 res.send(response.rows)
             })
             .catch((err) => {
                 console.log('Error deleting', err);
                 res.sendStatus(500);
-                
+
             });
     } else {
         res.sendStatus(403);
     }
 });
 
-/**
- * POST route template
- */
 router.post('/', rejectUnauthenticated, (req, res) => {
     const newOpportunity = req.body;
+    const certId = parseInt(newOpportunity.certification_needed);
+
     console.log(req.body, 'req body');
-    const queryText = ``;
-    const serializedData = []
+
+    const queryText = `INSERT INTO "opportunities"("title","start_time","end_time","address_line1","address_line2","city","state","zip","description","date","status","private_notes","max_volunteers","certification_needed")
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);`;
+    
+    const serializedData = [newOpportunity.title, newOpportunity.start_time, newOpportunity.end_time, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers, certId];
+    console.log(serializedData)
+
     pool.query(queryText, serializedData)
         .then((results) => {
             res.sendStatus(201);
         })
         .catch((error) => {
+            console.log('error on /api/opportunities POST:', error)
             res.sendStatus(500);
         })
 });
