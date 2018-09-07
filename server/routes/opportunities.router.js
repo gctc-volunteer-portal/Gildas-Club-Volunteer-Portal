@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const { rejectUnauthorizedManager } = require ('../modules/manager-authorization');
 
 /**
  * GET route template
@@ -54,9 +55,6 @@ router.get('/:id', (req, res) => {
 // });
 
 router.delete('/:id', (req, res) => {
-
-
-
     if (req.isAuthenticated) {
         const queryText = `DELETE FROM "user_opportunities" WHERE user_id=$2 AND "opportunity_id" = $1 RETURNING "user_opportunities".opportunity_id`;
         pool.query(queryText, [req.params.id, req.body.volunteerId])
@@ -73,7 +71,7 @@ router.delete('/:id', (req, res) => {
     }
 });
 
-router.post('/', rejectUnauthenticated, (req, res) => {
+router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
     const newOpportunity = req.body;
     const certId = parseInt(newOpportunity.certification_needed);
 
