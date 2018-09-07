@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM opportunities;`;
     pool.query(queryText)
         .then((results) => {
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
             res.sendStatus(500);
         })
 });
-router.get('/:id', (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM "user_opportunities"
     LEFT OUTER JOIN "users" ON "users".id = "user_opportunities".user_id
     LEFT OUTER JOIN "opportunities" ON "opportunities".id = "user_opportunities".opportunity_id
@@ -33,7 +33,7 @@ router.get('/:id', (req, res) => {
         })
 });
 
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('got to post', req.body);
     console.log('event body', req.body);
 
@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
         res.sendStatus(403);
     }
 })
-    router.post('/add_volunteer', (req, res) => {
+    router.post('/add_volunteer', rejectUnauthenticated, (req, res) => {
         console.log('got to post', req.body);
         console.log('event body', req.body);
 
@@ -71,7 +71,7 @@ router.post('/', (req, res) => {
 
     });
 
-    router.delete('/:id', (req, res) => {
+    router.delete('/:id', rejectUnauthenticated, (req, res) => {
 
         if (req.isAuthenticated) {
             const queryText = `DELETE FROM "user_opportunities" WHERE user_id=$2 AND "opportunity_id" = $1 RETURNING "user_opportunities".opportunity_id`;

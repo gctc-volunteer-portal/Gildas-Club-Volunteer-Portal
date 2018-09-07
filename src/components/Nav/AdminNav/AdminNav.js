@@ -33,8 +33,8 @@ return(
    className={this.props.classes.nav}
    >
    <BottomNavigationAction component={Link} to="/manage_volunteers"  label="Manage Volunteers" icon={ <AssignmentInd />}/>
-   <BottomNavigationAction component={Link} to="/" label="Manage Announcements" icon={<Announcement/>}/>
-   <BottomNavigationAction component={Link} to="/" label="Manage Opportunities" icon={<Assignment/>}/>
+   <BottomNavigationAction component={Link} to="/manage_announcements" label="Manage Announcements" icon={<Announcement/>}/>
+   <BottomNavigationAction component={Link} to="/manage_opportunities" label="Manage Opportunities" icon={<Assignment/>}/>
     </BottomNavigation>
 </div>
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import { USER_ACTIONS } from '../../redux/actions/userActions';
+
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import NoSsr from '@material-ui/core/NoSsr';
@@ -150,20 +152,21 @@ class IntegrationReactSelect extends React.Component {
   state = {
     single: null,
 
-    
+
 
   };
 
 
-  enrollVolunteer = (volunteerId) =>{
-this.props.dispatch({
-  type: 'ENROLL_VOLUNTEER',
-  payload: {
-    volunteerId: volunteerId,
-    opportunityId: this.props.opportunity.id
+  enrollVolunteer = (volunteerId) => {
+    this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+    this.props.dispatch({
+      type: 'ENROLL_VOLUNTEER',
+      payload: {
+        volunteerId: volunteerId,
+        opportunityId: this.props.opportunity.id
+      }
+    })
   }
-})
-}
   handleChange = name => value => {
     this.setState({
       [name]: value,
@@ -171,24 +174,24 @@ this.props.dispatch({
   };
 
   render() {
- console.log(this.props.state.opportunitiesReducer.certifiedVolunteers);
- 
-  let volunteerList = this.props.state.opportunitiesReducer.certifiedVolunteers.map((volunteer, i)=>{
-      if( volunteer.certification_id == this.props.opportunity.certification_needed && volunteer.is_certified == true){
-      return ({label: volunteer.first_name, id: volunteer.id})
-    } 
-  })
-  console.log(volunteerList);
-  
+    console.log(this.props.state.opportunitiesReducer.certifiedVolunteers);
 
-    let list = volunteerList.filter(volunteer =>(volunteer !== undefined)).map(volunteerList => ({
-        value: volunteerList.label,
-        label: volunteerList.label,
-        id: volunteerList.id
-        
+    let volunteerList = this.props.state.opportunitiesReducer.certifiedVolunteers.map((volunteer, i) => {
+      if (volunteer.certification_id == this.props.opportunity.certification_needed && volunteer.is_certified == true) {
+        return ({ label: volunteer.first_name, id: volunteer.id })
+      }
+    })
+    console.log(volunteerList);
+
+
+    let list = volunteerList.filter(volunteer => (volunteer !== undefined)).map(volunteerList => ({
+      value: volunteerList.label,
+      label: volunteerList.label,
+      id: volunteerList.id
+
     }))
-  console.log(list);
-  
+    console.log(list);
+
     const { classes, theme } = this.props;
 
     const selectStyles = {
@@ -212,10 +215,10 @@ this.props.dispatch({
           />
           <div className={classes.divider} />
         </NoSsr>
-        <Button onClick={()=>this.enrollVolunteer(this.state.single.id)} variant="contained" color="primary" className={classes.button}>
-        Add Volunteer
-        <AddIcon className={classes.rightIcon}/>
-      </Button>
+        <Button onClick={() => this.enrollVolunteer(this.state.single.id)} variant="contained" color="primary" className={classes.button}>
+          Add Volunteer
+        <AddIcon className={classes.rightIcon} />
+        </Button>
       </div>
     );
   }

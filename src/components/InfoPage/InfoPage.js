@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import Header from '../Header/Header';
 import VolunteerNav from '../Nav/VolunteerNav/VolunteerNav'
+import AdminNav from '../Nav/AdminNav/AdminNav';
+import ManagerNav from '../Nav/ManagerNav/ManagerNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 
 const mapStateToProps = state => ({
@@ -37,7 +38,7 @@ class InfoPage extends Component {
     return (
       <div>
         <Header />
-        <VolunteerNav />
+        <VolunteerNav/>
         { content }
       </div>
     );
