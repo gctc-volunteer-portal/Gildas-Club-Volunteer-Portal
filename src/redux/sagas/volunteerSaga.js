@@ -26,6 +26,19 @@ function* fetchVolunteerInfo() {
     }
 }
 
+function* getEventCurrentVolunteers(){
+    try{
+        const currentVolunteerList = yield call(axios.get, '/api/volunteers')
+        yield dispatch({
+            type: 'CURRENT_EVENT_VOLUNTEERS',
+            payload: currentVolunteerList.data
+        })
+    } catch  (err) {
+        yield console.log(err);
+      }
+
+}
+
 function* UpdateVolunteers(action){
     console.log(action.payload);
         try{
