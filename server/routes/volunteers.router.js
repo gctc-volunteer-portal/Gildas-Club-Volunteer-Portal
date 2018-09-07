@@ -3,13 +3,8 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-<<<<<<< HEAD
-router.get('/', rejectUnauthenticated, (req, res) => {
-    //if certifcation
-=======
 router.get('/', (req, res) => {
     //if certification
->>>>>>> master
     const queryText = `SELECT distinct on (users.first_name)
                         users.id,
                         users.first_name, 
