@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM opportunities;`;
     pool.query(queryText)
         .then((results) => {
@@ -18,7 +18,22 @@ router.get('/', (req, res) => {
             res.sendStatus(500);
         })
 });
-router.get('/:id', (req, res) => {
+
+router.get('/volunteer', rejectUnauthenticated, (req, res) => {
+    const queryText = `SELECT * FROM "opportunities"
+    JOIN "user_opportunities" on "opportunities"."id" = "user_opportunities"."opportunity_id"
+    WHERE "user_opportunities"."user_id" = $1;`;
+    pool.query(queryText, [req.user.id])
+        .then((results) => {
+            res.send(results.rows)
+        })
+        .catch((error) => {
+            console('Error on /api/opportunities/volunteer GET:', error);
+            res.sendStatus(500);
+        });
+});
+
+router.get('/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM "user_opportunities"
     LEFT OUTER JOIN "users" ON "users".id = "user_opportunities".user_id
     LEFT OUTER JOIN "opportunities" ON "opportunities".id = "user_opportunities".opportunity_id
@@ -34,6 +49,8 @@ router.get('/:id', (req, res) => {
             res.sendStatus(500);
         })
 });
+
+
 router.post('/', (req, res) => {
     console.log('got to post', req.body);
     console.log('event body', req.body);

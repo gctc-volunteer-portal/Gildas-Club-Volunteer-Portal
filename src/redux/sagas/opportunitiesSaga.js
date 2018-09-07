@@ -14,6 +14,7 @@ function* getEvents(){
       }
 
 }
+
 function* getEventVolunteers(action){
     try{
         const opportunityVolunteerList = yield call(axios.get, `/api/opportunities/${action.payload}`)
@@ -25,6 +26,19 @@ function* getEventVolunteers(action){
         yield console.log(err);
       }
 }
+
+function* fetchSingleVolunteerOpportunities(action) {
+    try {
+        const singleVolunteerOpportunities = yield call(axios.get, `/api/opportunities/volunteer`);
+        yield dispatch({
+            type: 'SET_SINGLE_VOLUNTEER_OPPORTUNITIES',
+            payload: singleVolunteerOpportunities.data
+        })
+    } catch (error) {
+        yield console.log(error);
+    }
+}
+
 function* deleteItem(action) {
 console.log(action.payload)
     try {
@@ -40,7 +54,8 @@ console.log(action.payload)
       yield console.log(err);
   
     }
-  }
+}
+
   function* enrollVolunteer(action){
     try {
         yield call(axios.post, `/api/opportunities`, action.payload);
@@ -65,13 +80,14 @@ function* addOpportunity(newOpportunity){
       }
 
 }
+
 function* opportunitiesSaga(){
     yield takeEvery('GET_EVENTS', getEvents)
     yield takeEvery('GET_EVENT_VOLUNTEERS', getEventVolunteers)
     yield takeEvery('ADD_OPPORTUNITY', addOpportunity)
     yield takeEvery('DELETE_ITEM', deleteItem)
-    yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer)
-
+    yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer),
+    yield takeEvery('FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES', fetchSingleVolunteerOpportunities)
 }
 
 export default opportunitiesSaga;

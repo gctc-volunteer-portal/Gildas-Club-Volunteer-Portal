@@ -15,6 +15,7 @@ const mapStateToProps = state => ({
 class MyShifts extends Component {
   componentDidMount() {
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+    this.props.dispatch({ type: 'FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES'})
   }
   componentDidUpdate() {
     if (!this.props.user.isLoading && this.props.user.email === null) {

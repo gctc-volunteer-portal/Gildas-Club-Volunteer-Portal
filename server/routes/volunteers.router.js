@@ -1,8 +1,9 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     //if certifcation
     const queryText = `SELECT distinct on (users.first_name)
                         users.id,
@@ -35,11 +36,12 @@ router.put('/updateInfo', (req, res) => {
                                             "secondary_phone"= $7, "street_address1"= $8, "street_address2"= $9, "city"= $10,
                                             "zip"= $11, "admin_notes"= $12, "active"= $13, "regular_basis"= $14, "specific_event"= $15,
                                             "as_needed"= $16, "limitation_allergies"= $17, "why_excited"= $18, "employer"= $19,
-                                            "job_title"= $20, "date_of_birth" = $21 WHERE user."id" = $22;`,
+                                            "job_title"= $20, "date_of_birth" = $21 WHERE user."id" = $22;`
                                             // [info.first_name,]
     }
-})
-router.get('/info', (req, res)=> {
+});
+
+router.get('/info', rejectUnauthenticated, (req, res)=> {
     const queryText = `SELECT * 
     FROM crosstab (
     $$
