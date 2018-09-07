@@ -30,9 +30,12 @@ class ResponsiveDialog extends React.Component {
     this.props.dispatch({
       type: 'GET_USERS'
     })
+    this.props.dispatch({
+      type: 'GET_CERTIFIED_VOLUNTEERS'
+    })
 
   }
-
+  
   render() {
     const { fullScreen } = this.props;
  

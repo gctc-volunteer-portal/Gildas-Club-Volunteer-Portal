@@ -7,7 +7,6 @@ import NoSsr from '@material-ui/core/NoSsr';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
-import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { connect } from 'react-redux'
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -154,7 +153,9 @@ class IntegrationReactSelect extends React.Component {
     
 
   };
-enrollVolunteer = (volunteerId) =>{
+
+
+  enrollVolunteer = (volunteerId) =>{
 this.props.dispatch({
   type: 'ENROLL_VOLUNTEER',
   payload: {
@@ -170,18 +171,23 @@ this.props.dispatch({
   };
 
   render() {
+ console.log(this.props.state.opportunitiesReducer.certifiedVolunteers);
  
-    let volunteerList = this.props.state.volunteerReducer.volunteerReducer.map((volunteer, index)=>{
+  let volunteerList = this.props.state.opportunitiesReducer.certifiedVolunteers.map((volunteer, i)=>{
+      if( volunteer.certification_id == this.props.opportunity.certification_needed && volunteer.is_certified == true){
       return ({label: volunteer.first_name, id: volunteer.id})
-    })
- 
-    let list = volunteerList.map(volunteerList => ({
+    } 
+  })
+  console.log(volunteerList);
+  
+
+    let list = volunteerList.filter(volunteer =>(volunteer !== undefined)).map(volunteerList => ({
         value: volunteerList.label,
         label: volunteerList.label,
         id: volunteerList.id
         
     }))
-  console.log(this.state);
+  console.log(list);
   
     const { classes, theme } = this.props;
 

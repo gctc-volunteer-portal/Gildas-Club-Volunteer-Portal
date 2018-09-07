@@ -13,6 +13,7 @@ const userRouter = require('./routes/user.router');
 const opportunitiesRouter = require('./routes/opportunities.router')
 const volunteersRouter = require('./routes/volunteers.router')
 const certificationsRouter = require('./routes/certifications.router')
+const templateRouter = require('./routes/template.router')
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -30,6 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/opportunities', opportunitiesRouter)
 app.use('/api/volunteers', volunteersRouter)
 app.use('/api/certifications', certificationsRouter)
+app.use('/api/test', templateRouter)
 
 // Serve static files
 app.use(express.static('build'));

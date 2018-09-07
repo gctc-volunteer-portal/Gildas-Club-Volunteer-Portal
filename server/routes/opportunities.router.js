@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
             res.sendStatus(500);
         })
 });
-router.post('/', (req, res) => {
+router.post('/add_volunteer', (req, res) => {
     console.log('got to post', req.body);
     console.log('event body', req.body);
     
