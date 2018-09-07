@@ -149,6 +149,7 @@ class RegistrationForm extends Component {
             <TextField
               type="text"
               name="limitations_allergies"
+              multiline
               fullWidth
               value={this.props.userRegistrationInfo.limitations_allergies}
               onChange={this.props.handleInputChangeFor('limitations_allergies')}
@@ -159,6 +160,7 @@ class RegistrationForm extends Component {
             <TextField
               type="text"
               name="why_excited"
+              multiline
               fullWidth
               value={this.props.userRegistrationInfo.why_excited}
               onChange={this.props.handleInputChangeFor('why_excited')}
