@@ -47,28 +47,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         })
 });
-<<<<<<< HEAD
-
-
-router.post('/', (req, res) => {
-    console.log('got to post', req.body);
-    console.log('event body', req.body);
-    
-    if (req.isAuthenticated) {
-        const queryText = `INSERT INTO "user_opportunities" ("user_id", "opportunity_id") VALUES ($1, $2)`
-        pool.query(queryText, [req.body.volunteerId, req.body.opportunityId])
-            .then(() => {
-                res.sendStatus(200);
-            })
-            .catch((error) => {
-                console.log(error);
-                res.sendStatus(500)
-            })
-    } else {
-        res.sendStatus(403);
-    }
-=======
->>>>>>> master
 
 // router.post('/', (req, res) => {
 //     console.log('got to post', req.body);
