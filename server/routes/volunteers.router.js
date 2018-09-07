@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    //if certifcation
+    //if certification
     const queryText = `SELECT distinct on (users.first_name)
                         users.id,
                         users.first_name, 
