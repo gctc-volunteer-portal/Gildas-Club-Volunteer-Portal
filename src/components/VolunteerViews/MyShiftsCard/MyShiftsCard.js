@@ -30,20 +30,25 @@ function MediaCard(props) {
         />
         <CardContent>
           <Typography gutterBottom variant="headline" component="h2">
-            Lizard
+            {props.shift.title}
+          </Typography>
+          <Typography gutterBottom component="h2">
+            Date: {props.shift.date}
+          </Typography>
+          <Typography gutterBottom component="h2">
+            Start Time: {props.shift.start_time}
+          </Typography>
+          <Typography gutterBottom component="h2">
+            End Time: {props.shift.end_time}
           </Typography>
           <Typography component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            {props.description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
+          More Details
         </Button>
       </CardActions>
     </Card>
