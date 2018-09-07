@@ -121,13 +121,27 @@ import { withStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TablePagination, TableRow, Paper } from '@material-ui/core';
 
 function desc(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-        return 1;
+
+    if ((b[orderBy] === true || b[orderBy] === false) && (a[orderBy] === true || a[orderBy] === false)) {
+        if (b[orderBy] < a[orderBy]) {
+            return 1;
+        }
+        else if (b[orderBy] > a[orderBy]) {
+            return -1;
+        }
+        else return 0;
     }
-    if (b[orderBy] > a[orderBy]) {
-        return -1;
+    else {
+        if (b[orderBy] < a[orderBy]) {
+            return -1;
+        }
+        else if (b[orderBy] > a[orderBy]) {
+            return 1;
+        }
+        else return 0;
     }
-    return 0;
+
+
 }
 
 function stableSort(array, cmp) {
@@ -170,8 +184,6 @@ class ManageVolunteersTable extends Component {
         }
     }
 
-
-
     state = {
         order: 'asc',
         orderBy: 'last_name',
@@ -181,10 +193,10 @@ class ManageVolunteersTable extends Component {
 
     handleRequestSort = (event, property) => {
         const orderBy = property;
-        let order = 'desc';
+        let order = 'asc';
 
-        if (this.state.orderBy === property && this.state.order === 'desc') {
-            order = 'asc';
+        if (this.state.orderBy === property && this.state.order === 'asc') {
+            order = 'desc';
         }
 
         this.setState({ order, orderBy });
@@ -201,7 +213,7 @@ class ManageVolunteersTable extends Component {
     render() {
 
         const data = this.props.volunteers;
-        const { order, orderBy, rowsPerPage, page } = this.state; 
+        const { order, orderBy, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
         console.log(this.state)
@@ -223,12 +235,12 @@ class ManageVolunteersTable extends Component {
                             <TableBody>
                                 {
                                     stableSort(data, getSorting(order, orderBy))
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((volunteer, index) => {
-                                        return (
-                                            <ManageVolunteersViewTableRow volunteer={volunteer} key={index} />
-                                        );
-                                    })}
+                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        .map((volunteer, index) => {
+                                            return (
+                                                <ManageVolunteersViewTableRow volunteer={volunteer} key={index} />
+                                            );
+                                        })}
                                 {emptyRows > 0 && (
                                     <TableRow style={{ height: 49 * emptyRows }}>
                                         <TableCell colSpan={6} />
