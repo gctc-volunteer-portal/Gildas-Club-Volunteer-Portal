@@ -26,11 +26,13 @@ function MediaCard(props) {
         <CardMedia
           className={classes.media}
           image={props.shift.image}
-          title="Contemplative Reptile"
         />
         <CardContent>
           <Typography gutterBottom variant="headline" component="h2">
             {props.shift.title}
+          </Typography>
+          <Typography gutterBottom variant="headline" component="h2">
+            {props.shift.certification_name}
           </Typography>
           <Typography gutterBottom component="h2">
             Date: {props.shift.date}

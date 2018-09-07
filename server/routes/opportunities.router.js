@@ -21,7 +21,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.get('/volunteer', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM "opportunities"
     JOIN "user_opportunities" on "opportunities"."id" = "user_opportunities"."opportunity_id"
-    WHERE "user_opportunities"."user_id" = $1;`;
+    JOIN "certifications" on "opportunities"."certification_needed" = "certifications"."id"
+    WHERE "user_opportunities"."user_id" = $1 AND "opportunities"."status" = 2
+    ORDER BY "opportunities"."date";`;
     pool.query(queryText, [req.user.id])
         .then((results) => {
             res.send(results.rows)
