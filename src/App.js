@@ -85,10 +85,6 @@ const App = () => (
           path="/manage_volunteers"
           component={ManageVolunteersView}
         />
-        {/* <Route
-          path="/manage_volunteers_test"
-          component={ManageVolunteersViewTableHeader}
-        /> */}
         <Route
           path="/manageOpportunities"
           component={ManageOpportunitiesPage}
