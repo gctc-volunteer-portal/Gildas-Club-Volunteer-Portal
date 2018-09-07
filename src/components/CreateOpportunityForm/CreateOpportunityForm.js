@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withStyles, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
 import { RadioButtonUncheckedIcon, RadioButtonCheckedIcon } from '@material-ui/icons/RadioButtonUnchecked';
 import { connect } from 'react-redux';
-
+import moment from 'moment';
 
 import '../CreateOpportunityForm/CreateOpportunityForm.css';
 
@@ -27,19 +27,19 @@ class CreateOpportunityForm extends Component {
     super(props);
     this.state = {
       title: '',
-      start_time: '',
-      end_time: '',
+      start_time: null,
+      end_time: null,
       address_line1: '',
       address_line2: '',
       city: '',
       state: '',
-      zip: '',
+      zip: null,
       description: '',
       date: null,
       status: 1,
       private_notes: '',
       max_volunteers: null,
-      certifications_needed: null,
+      certification_needed: null,
     }
   }
 
@@ -56,6 +56,7 @@ class CreateOpportunityForm extends Component {
   addOpportunity = () => {
     this.props.dispatch({ type: 'ADD_OPPORTUNITY', payload: this.state });
   }
+
   render() {
     console.log(this.state, 'local state')
     const certificationsList = this.props.certificates.map((certificate, index) => {
@@ -168,8 +169,8 @@ class CreateOpportunityForm extends Component {
 
         <RadioGroup
           name="deliveryType"
-          value={this.state.certifications_needed}
-          onChange={this.handleInputChangeFor('certifications_needed')}>
+          value={this.state.certification_needed}
+          onChange={this.handleInputChangeFor('certification_needed')}>
           {certificationsList}
         </RadioGroup>
 
