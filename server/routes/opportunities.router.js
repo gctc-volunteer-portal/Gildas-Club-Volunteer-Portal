@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM opportunities;`;
     pool.query(queryText)
         .then((results) => {
@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
             res.sendStatus(500);
         })
 });
+
 router.get('/:id', (req, res) => {
     const queryText = `SELECT * FROM "user_opportunities"
     LEFT OUTER JOIN "users" ON "users".id = "user_opportunities".user_id
