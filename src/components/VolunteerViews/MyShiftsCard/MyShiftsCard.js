@@ -22,10 +22,10 @@ function MediaCard(props) {
   const { classes } = props;
   return (
     <Card className={classes.card}>
-      <CardActionArea>
+      {/* <CardActionArea> */}
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image={props.shift.image}
           title="Contemplative Reptile"
         />
         <CardContent>
@@ -45,7 +45,7 @@ function MediaCard(props) {
             {props.description}
           </Typography>
         </CardContent>
-      </CardActionArea>
+      {/* </CardActionArea> */}
       <CardActions>
         <Button size="small" color="primary">
           More Details
