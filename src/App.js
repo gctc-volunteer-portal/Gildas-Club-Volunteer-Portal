@@ -29,7 +29,10 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#DE2027',
-    }
+    },
+    secondary: {
+      main: '#d3d3d3',
+    },
   },
   typography: {
     fontFamily: [

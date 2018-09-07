@@ -3,7 +3,19 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    const queryText = `SELECT * FROM users;`;
+    //if certifcation
+    const queryText = `SELECT distinct on (users.first_name)
+                        users.id,
+                        users.first_name, 
+                        users.last_name, 
+                        users.email, 
+                        users.primary_phone, 
+                        user_certifications.user_id, 
+                        user_certifications.certification_id
+                        FROM users
+                        LEFT OUTER JOIN "user_certifications" ON "users".id= user_certifications.user_id
+                        ORDER BY users.first_name;`;
+    // else query text = select* from users
     pool.query(queryText)
         .then((results) => {
             res.send(results.rows)
@@ -15,22 +27,21 @@ router.get('/', (req, res) => {
         })
 });
 
-// router.put('/updateInfo', (req, res) => {
-//     console.log('I have :', req.body);
-//     let info = req.body
-//     if(req.isAuthenticated){
-//         const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $3, "last_name" = $4, "email"= $5 , "primary_phone"= $6,
-//                                             "secondary_phone"= $7, "street_address1"= $8, "street_address2"= $9, "city"= $10,
-//                                             "zip"= $11, "admin_notes"= $12, "active"= $13, "regular_basis"= $14, "specific_event"= $15,
-//                                             "as_needed"= $16, "limitation_allergies"= $17, "why_excited"= $18, "employer"= $19,
-//                                             "job_title"= $20, "date_of_birth" = $21 WHERE user."id" = $22;`,
-//                                             // [info.first_name,]
-//     // }
-// })
-
+router.put('/updateInfo', (req, res) => {
+    console.log('I have :', req.body);
+    let info = req.body
+    if(req.isAuthenticated){
+        const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $3, "last_name" = $4, "email"= $5 , "primary_phone"= $6,
+                                            "secondary_phone"= $7, "street_address1"= $8, "street_address2"= $9, "city"= $10,
+                                            "zip"= $11, "admin_notes"= $12, "active"= $13, "regular_basis"= $14, "specific_event"= $15,
+                                            "as_needed"= $16, "limitation_allergies"= $17, "why_excited"= $18, "employer"= $19,
+                                            "job_title"= $20, "date_of_birth" = $21 WHERE user."id" = $22;`,
+                                            // [info.first_name,]
+    }
+})
 router.get('/info', (req, res)=> {
     const queryText = `SELECT * 
-    FROM crosstab(
+    FROM crosstab (
     $$
     SELECT
         "users"."email",
@@ -82,8 +93,6 @@ router.get('/info', (req, res)=> {
             res.sendStatus(500);
         });
 });
-
-
 
 
 
