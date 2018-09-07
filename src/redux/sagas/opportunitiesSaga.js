@@ -1,5 +1,5 @@
 import { put as dispatch, takeEvery, call } from 'redux-saga/effects';
-import axios from 'axios'
+import axios from 'axios';
 
 function* getEvents() {
     try {
@@ -13,13 +13,8 @@ function* getEvents() {
     }
 }
 
-<<<<<<< HEAD
-function* getEventVolunteers(action){
-    try{
-=======
 function* getEventVolunteers(action) {
     try {
->>>>>>> master
         const opportunityVolunteerList = yield call(axios.get, `/api/opportunities/${action.payload}`)
         yield dispatch({
             type: 'GET_OPPORTUNITY_VOLUNTEERS',
@@ -30,7 +25,6 @@ function* getEventVolunteers(action) {
     }
 }
 
-<<<<<<< HEAD
 function* fetchSingleVolunteerOpportunities(action) {
     try {
         const singleVolunteerOpportunities = yield call(axios.get, `/api/opportunities/volunteer`);
@@ -43,8 +37,6 @@ function* fetchSingleVolunteerOpportunities(action) {
     }
 }
 
-=======
->>>>>>> master
 function* deleteItem(action) {
     try {
         let returnedOpportunity = yield call(axios.delete, `/api/opportunities/${action.payload.opportunityId}`, { data: { volunteerId: action.payload.volunteerId } });
@@ -57,11 +49,7 @@ function* deleteItem(action) {
     }
 }
 
-<<<<<<< HEAD
-  function* enrollVolunteer(action){
-=======
 function* enrollVolunteer(action) {
->>>>>>> master
     try {
         yield call(axios.post, `/api/opportunities`, action.payload);
         yield dispatch({
@@ -82,21 +70,13 @@ function* addOpportunity(action) {
     }
 }
 
-<<<<<<< HEAD
-function* opportunitiesSaga(){
-=======
 function* opportunitiesSaga() {
->>>>>>> master
-    yield takeEvery('GET_EVENTS', getEvents)
-    yield takeEvery('GET_EVENT_VOLUNTEERS', getEventVolunteers)
-    yield takeEvery('ADD_OPPORTUNITY', addOpportunity)
-    yield takeEvery('DELETE_ITEM', deleteItem)
-<<<<<<< HEAD
-    yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer),
-    yield takeEvery('FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES', fetchSingleVolunteerOpportunities)
-=======
-    yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer)
->>>>>>> master
+    yield takeEvery('GET_EVENTS', getEvents);
+    yield takeEvery('GET_EVENT_VOLUNTEERS', getEventVolunteers);
+    yield takeEvery('ADD_OPPORTUNITY', addOpportunity);
+    yield takeEvery('DELETE_ITEM', deleteItem);
+    yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer);
+    yield takeEvery('FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES', fetchSingleVolunteerOpportunities);
 }
 
 export default opportunitiesSaga;
