@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav'
 import Header from '../../Header/Header';
 import MyShiftsCard from '../MyShiftsCard/MyShiftsCard';
+import VolunteerOpportunityDialog from '../VolunteerOpportunityDialog/VolunteerOpportunityDialog';
 
 import { USER_ACTIONS } from '../../../redux/actions/userActions'
 // import { triggerLogout } from '../../redux/actions/loginActions';
