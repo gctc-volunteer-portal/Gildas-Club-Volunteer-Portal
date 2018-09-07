@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { TableCell, TableRow, Button } from '@material-ui/core';
 import { CheckCircle, Cancel } from '@material-ui/icons'
 
-
 const CustomTableCell = withStyles(theme => ({
     head: {
         backgroundColor: theme.palette.common.black,
