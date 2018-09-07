@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { withStyles, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
-import { RadioButtonUncheckedIcon, RadioButtonCheckedIcon } from '@material-ui/icons/RadioButtonUnchecked';
+import { withStyles, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
@@ -11,8 +10,6 @@ const styles = {
     margin: '1rem',
     textAlign: 'center',
     width: '100%',
-    // height: '50vh',
-    // width: '500px',
   },
   formControl: {
     width: '100%',
@@ -53,31 +50,32 @@ class CreateOpportunityForm extends Component {
     });
   }
 
+  // Post new volunteer opportunity to the database
   addOpportunity = () => {
     this.props.dispatch({ type: 'ADD_OPPORTUNITY', payload: this.state });
+    this.props.closeCreateEvent();
   }
 
   render() {
-    console.log(this.state, 'local state')
+    // map through certifications list, which is stored on redux store, and display them on DOM
     const certificationsList = this.props.certificates.map((certificate, index) => {
       return (
-        <FormControlLabel key={index} value={certificate.id.toString()} control={<Radio />} label={certificate.certification_name} />
+        <FormControlLabel key={index} value=
+          {certificate.id.toString()} control={<Radio />} label={certificate.certification_name} />
       )
     })
+
     return (
       <React.Fragment>
-        {/* <form
-          className={this.props.classes.formContainer}
-          onSubmit={this.props.registerUser}>
-          <FormControl className={this.props.classes.formControl}> */}
+        {/* Input for volunteer opportunity name */}
         <TextField
           label="Opportunity Name"
           type="text"
           name="title"
           fullWidth
-          // value={this.props.userRegistrationInfo.email}
           onChange={this.handleInputChangeFor('title')}
         />
+        {/* Input for volunteer opportunity date */}
         <TextField
           label="Date"
           type="date"
@@ -86,9 +84,9 @@ class CreateOpportunityForm extends Component {
             shrink: true,
           }}
           fullWidth
-          // value={this.props.userRegistrationInfo.password}
           onChange={this.handleInputChangeFor('date')}
         />
+        {/* Input for volunteer opportunity start time */}
         <TextField
           label="Start Time"
           type="time"
@@ -97,9 +95,9 @@ class CreateOpportunityForm extends Component {
             shrink: true,
           }}
           fullWidth
-          // value={this.props.userRegistrationInfo.first_name}
           onChange={this.handleInputChangeFor('start_time')}
         />
+        {/* Input for volunteer opportunity end time */}
         <TextField
           label="End Time"
           type="time"
@@ -108,57 +106,57 @@ class CreateOpportunityForm extends Component {
             shrink: true,
           }}
           fullWidth
-          // value={this.props.userRegistrationInfo.middle_name}
           onChange={this.handleInputChangeFor('end_time')}
         />
+        {/* Input for volunteer opportunity street address 1 */}
         <TextField
           label="Street Address 1"
           type="text"
           name="address_line1"
           fullWidth
-          // value={this.props.userRegistrationInfo.street_address1}
           onChange={this.handleInputChangeFor('address_line1')}
         />
+        {/* Input for volunteer opportunity street address 2 */}
         <TextField
           label="Street Address 2"
           type="text"
           name="address_line2"
           fullWidth
-          // value={this.props.userRegistrationInfo.street_address2}
           onChange={this.handleInputChangeFor('address_line2')}
         />
+        {/* Input for volunteer opportunity location city */}
         <TextField
           label="City"
           type="text"
           name="city"
           fullWidth
-          // value={this.props.userRegistrationInfo.city}
           onChange={this.handleInputChangeFor('city')}
         />
+        {/* Input for volunteer opportunity location State */}
         <TextField
           label="State"
           type="text"
           name="state"
           fullWidth
-          // value={this.props.userRegistrationInfo.state}
           onChange={this.handleInputChangeFor('state')}
         />
+        {/* Input for volunteer opportunity location zipcode  */}
         <TextField
           label="Zip Code"
           type="text"
           name="zip"
           fullWidth
-          // value={this.props.userRegistrationInfo.zip}
           onChange={this.handleInputChangeFor('zip')}
         />
+        {/* Input for # of volunteers needed for this volunteer opportunity */}
         <TextField
           label="# of Volunteers Needed"
           type="number"
           name="max_volunteers"
           fullWidth
-          // value={this.props.userRegistrationInfo.max_volunteers}
           onChange={this.handleInputChangeFor('max_volunteers')}
         />
+        {/* Input to upload image for volunteer opportunity */}
         <TextField
           label="Upload Image"
           type="text"
@@ -166,14 +164,23 @@ class CreateOpportunityForm extends Component {
           fullWidth
         // onChange={this.handleInputChangeFor('')}
         />
-
+        {/* Input for description of volunteer opportunity */}
+        <TextField
+          label="Opportunity Description"
+          type="text"
+          name=""
+          fullWidth
+          multiline
+          onChange={this.handleInputChangeFor('description')}
+        />
+        {/* Radio inputs to select required certification */}
         <RadioGroup
           name="deliveryType"
           value={this.state.certification_needed}
           onChange={this.handleInputChangeFor('certification_needed')}>
           {certificationsList}
         </RadioGroup>
-
+        {/* Create Volunteer Opportunity */}
         <Button
           className={this.props.classes.button}
           onClick={this.addOpportunity}
@@ -182,6 +189,7 @@ class CreateOpportunityForm extends Component {
         >
           Create
           </Button>
+        {/* Cancel Creating Volunteer Opportunity */}
         <Button
           className={this.props.classes.button}
           onClick={this.props.closeCreateEvent}
@@ -190,8 +198,6 @@ class CreateOpportunityForm extends Component {
         >
           Cancel
             </Button>
-        {/* </FormControl>
-        </form> */}
       </React.Fragment>
     )
   }
