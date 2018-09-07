@@ -19,6 +19,8 @@ import MyShifts from './components/VolunteerViews/MyShifts/MyShifts'
 import Announcements from './components/VolunteerViews/Announcements/Announcements'
 import UpcomingOpportunities from './components/VolunteerViews/UpcomingOpportunities/UpcomingOpportunities';
 
+import ManageVolunteersViewTableHeader from './components/ManageVolunteersViewTableHeader/ManageVolunteersViewTableHeader';
+
 import AdminSingleVolunteerView from './components/AdminSingleVolunteerView/AdminSingleVolunteerView'
 import './styles/main.css';
 
@@ -83,6 +85,10 @@ const App = () => (
           path="/manage_volunteers"
           component={ManageVolunteersView}
         />
+        {/* <Route
+          path="/manage_volunteers_test"
+          component={ManageVolunteersViewTableHeader}
+        /> */}
         <Route
           path="/manageOpportunities"
           component={ManageOpportunitiesPage}
