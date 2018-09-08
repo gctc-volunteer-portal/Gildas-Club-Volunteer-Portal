@@ -37,6 +37,7 @@ class MediaCard extends Component {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'GET_EVENT_VOLUNTEERS', payload: this.props.opportunity.id })
     }
+    
     render() {
         const { classes } = this.props;
 console.log(this.props.state);

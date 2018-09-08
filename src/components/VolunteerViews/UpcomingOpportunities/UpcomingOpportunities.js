@@ -68,7 +68,6 @@ class UpcomingOpportunities extends Component {
           content = (
               <div>
                   <div>
-                      Upcoming Opportunities
                       {myOpportunities}
                   </div>
               </div>
@@ -79,8 +78,8 @@ class UpcomingOpportunities extends Component {
           <div>
               <Header />
               <VolunteerNav />
-              <div>
-              <form style={{ height: 60, background: 'rgba(255,255,255,0.5)', borderRadius: 15 }}>
+              
+              <div style={{ height: 100 }}>
 
                   <TextField
                       id="full-width"
@@ -95,11 +94,8 @@ class UpcomingOpportunities extends Component {
                       onChange={this.searchHandler}
                       value={this.state.term}
                   />
-              </form>
               </div>
               {content}
-
-
           </div>
       );
   }
@@ -109,8 +105,6 @@ const mapStateToProps = state => ({
   myEvents: state.myAvailableEventsReducer,
   user: state.user
 });
-
-
 
 // this allows us to use <App /> in index.js
 export default connect(mapStateToProps)(UpcomingOpportunities);

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios'
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Csv from '../Csv/Csv'
 
 
 import Header from '../Header/Header';
@@ -42,6 +46,7 @@ class ManageVolunteersView extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'FETCH_VOLUNTEER_INFO' });
+      
     }
 
     componentDidUpdate() {
@@ -49,10 +54,21 @@ class ManageVolunteersView extends Component {
             this.props.history.push('home');
         }
     }
+    // exportCsv = ()=>{
+    //     axios.get('/api/csv')
+    //     .then(response => {
+    //         console.log(response)
+    //     }).catch(err => {
+    //         console.log(err);
+            
+    //     })
+    // }
 
     render() {
+        const { classes } = this.props;
+console.log(this.props.volunteers);
 
-        let mappedVolunteers = this.props.volunteers.map((volunteer, index) =>{
+        let mappedVolunteers = this.props.volunteers.map((volunteer, index) => {
             return (
                 <ManageVolunteersViewTableRow volunteer={volunteer} key={index} />
             )
@@ -93,6 +109,14 @@ class ManageVolunteersView extends Component {
                         </TableBody>
                     </Table>
                 </Paper>
+                {/* <Button onClick={this.exportCsv} variant="contained" color="default" className={classes.button}>
+                    Download
+        <CloudUploadIcon className={classes.rightIcon} />
+                </Button> */}
+                {/* <a href="/api/csv" download="file.csv">Download</a> */}
+                <Csv
+                    data= {this.props.volunteers}
+                />
             </React.Fragment>
         )
     }
