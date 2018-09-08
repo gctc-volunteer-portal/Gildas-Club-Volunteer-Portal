@@ -1,5 +1,5 @@
 import { put as dispatch, takeEvery, call } from 'redux-saga/effects';
-import axios from 'axios'
+import axios from 'axios';
 
 function* getEvents() {
     try {
@@ -25,8 +25,21 @@ function* getEventVolunteers(action) {
     }
 }
 
+function* fetchSingleVolunteerOpportunities(action) {
+    try {
+        const singleVolunteerOpportunities = yield call(axios.get, `/api/opportunities/volunteer`);
+        yield dispatch({
+            type: 'SET_SINGLE_VOLUNTEER_OPPORTUNITIES',
+            payload: singleVolunteerOpportunities.data
+        })
+    } catch (error) {
+        yield console.log(error);
+    }
+}
+
 function* deleteItem(action) {
     try {
+        console.log(action.payload)
         let returnedOpportunity = yield call(axios.delete, `/api/opportunities/${action.payload.opportunityId}`, { data: { volunteerId: action.payload.volunteerId } });
         yield dispatch({
             type: 'GET_EVENT_VOLUNTEERS',
@@ -53,7 +66,10 @@ function* enrollVolunteer(action) {
 
 function* addOpportunity(action) {
     try {
-        yield call(axios.post, `/api/opportunities`, action.payload)
+        yield call(axios.post, `/api/opportunities`, action.payload);
+        yield dispatch({
+            type: 'GET_EVENTS'
+        })
     } catch (err) {
         yield console.log(err);
     }
@@ -78,13 +94,13 @@ function* getCertifiedVolunteers(certificationId){
 
 
 function* opportunitiesSaga() {
-    yield takeEvery('GET_EVENTS', getEvents)
-    yield takeEvery('GET_EVENT_VOLUNTEERS', getEventVolunteers)
-    yield takeEvery('ADD_OPPORTUNITY', addOpportunity)
-    yield takeEvery('DELETE_ITEM', deleteItem)
-    yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer)
-    yield takeEvery('GET_CERTIFIED_VOLUNTEERS', getCertifiedVolunteers)
-
+    yield takeEvery('GET_EVENTS', getEvents);
+    yield takeEvery('GET_EVENT_VOLUNTEERS', getEventVolunteers);
+    yield takeEvery('ADD_OPPORTUNITY', addOpportunity);
+    yield takeEvery('DELETE_ITEM', deleteItem);
+    yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer);
+    yield takeEvery('FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES', fetchSingleVolunteerOpportunities);
+    yield takeEvery('GET_CERTIFIED_VOLUNTEERS', getCertifiedVolunteers);
 }
 
 export default opportunitiesSaga;

@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { connect } from 'react-redux'
+import {
+    withStyles, Card, CardMedia, CardActionArea, CardContent,
+    CardActions, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography
+} from '@material-ui/core/';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+import { connect } from 'react-redux'
 import AdminManageVolunteersDialogue from '../AdminManageVolunteersDialogue/AdminManageVolunteersDialogue';
+import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
 
 
 const styles = {
@@ -24,11 +21,21 @@ const styles = {
         height: 350,
         width: 300
     },
+    dialog: {
+        textAlign: 'center',
+        height: '100vh',
+    }
+
 };
 
 class MediaCard extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            editEventIsOpen: false,
+            opportunityToUpdate: {},
+            opportunityId: '',
+        }
     }
 
     componentDidMount() {
@@ -36,7 +43,23 @@ class MediaCard extends Component {
         this.props.dispatch({ type: 'GET_EVENT_VOLUNTEERS', payload: this.props.opportunity.id })
     }
 
+    openEditOpportunity = (opportunityId, opportunityToUpdate) => {
+        this.setState({
+            editEventIsOpen: true,
+            opportunityId: opportunityId,
+            opportunityToUpdate: opportunityToUpdate,
+        })
+    }
+
+
+    closeEditOpportunity = () => {
+        this.setState({
+            editEventIsOpen: false,
+        });
+    };
+
     render() {
+        console.log(this.state, 'local state')
         const { classes } = this.props;
         let buttons;
         if (this.props.state.user.access_level == 3) {
@@ -55,34 +78,56 @@ class MediaCard extends Component {
             )}
 
         return (
-            <Card className={classes.card}>
-                    <CardMedia
-                        className={classes.media}
-                        image="https://www.gildasclubtwincities.org/wp-content/themes/skeleton/images/logo.png"
-                        title="Opportunity"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="headline" component="h2">
-                            {this.props.opportunity.title}
-                        </Typography>
-                        <Typography component="p">
-                            {this.props.opportunity.address_line1}<br />
-                            {this.props.opportunity.city}
-                        </Typography>
-                        <Typography component="p">
-                            {this.props.opportunity.description}
-                        </Typography>
-                    </CardContent>
+            <React.Fragment>
+                <Card className={classes.card}>
                     <CardActionArea>
-                <CardActions>
-                    {/* <Button size="small" color="primary">
-                        Volunteer
-                    </Button>
-                    <Button onClick={this.handleClickOpen}>More Info</Button> */}
-                    {buttons}
-                </CardActions>
-                </CardActionArea>
-            </Card>
+                        <CardMedia
+                            className={classes.media}
+                            image="https://www.gildasclubtwincities.org/wp-content/themes/skeleton/images/logo.png"
+                            title="Opportunity"
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="headline" component="h2">
+                                {this.props.opportunity.title}
+                            </Typography>
+                        <Typography component="p">	
+                            {this.props.opportunity.address_line1}<br />	
+                            {this.props.opportunity.city}	
+                        </Typography>
+                                    <Typography component="p">	
+                            {this.props.opportunity.description}	
+                        </Typography>	
+                        </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+//                         <Button size="small" color="primary">
+//                             Share
+//                     </Button>
+                        <Button
+                            onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
+
+                        >Edit Opportunity</Button>
+                        <AdminManageVolunteersDialogue
+                            opportunity={this.props.opportunity}
+                        />
+                    </CardActions>
+                </Card>
+                <Dialog
+                    className={this.props.classes.dialog}
+                    aria-labelledby="edit a volunteer event"
+                    open={this.state.editEventIsOpen}
+                    onClose={this.handleCloseDialog}
+                >
+                    <DialogTitle>{"Edit Opportunity"}</DialogTitle>
+                    <DialogContent>
+                        <EditOpportunityForm
+                            eventId={this.state.eventId}
+                            eventToUpdate={this.state.eventToUpdate}
+                            closeEditOpportunity={this.closeEditOpportunity}
+                        />
+                    </DialogContent>
+                </Dialog>
+            </React.Fragment>
         );
     }
 }

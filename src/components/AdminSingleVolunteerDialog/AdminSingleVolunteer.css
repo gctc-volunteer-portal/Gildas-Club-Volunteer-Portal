@@ -15,4 +15,6 @@ form {
     padding: 30px;
     border-radius: 2px;
     float: right;
+    margin-bottom: 10px;
+    margin-left:'-80px',
 }
