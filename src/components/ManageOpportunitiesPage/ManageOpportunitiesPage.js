@@ -26,17 +26,17 @@ class InfoPage extends Component {
         this.state = {
             term: '',
             createEventIsOpen: false,
-      
+
         }
         this.searchHandler = this.searchHandler.bind(this);
     }
-    
+
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         if (this.props.user.access_level < 2 ) {
             this.props.history.push('/home');
-        this.props.dispatch({ type: 'GET_EVENTS' })
-    }
+            this.props.dispatch({ type: 'GET_EVENTS' })
+        }
     }
     // componentDidUpdate() {
     //     if (!this.props.user.isLoading && this.props.user.email === null) {

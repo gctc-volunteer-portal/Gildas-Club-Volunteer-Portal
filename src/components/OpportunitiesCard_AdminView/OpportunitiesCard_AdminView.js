@@ -102,9 +102,6 @@ class MediaCard extends Component {
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
-//                         <Button size="small" color="primary">
-//                             Share
-//                     </Button>
                         <Button
                             color="primary"
                             variant="raised"
