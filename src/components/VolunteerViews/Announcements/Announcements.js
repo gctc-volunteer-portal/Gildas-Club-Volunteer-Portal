@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import Header from '../../Header/Header';
 import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav'
 import { USER_ACTIONS } from '../../../redux/actions/userActions'
-
-
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -24,8 +21,6 @@ class Announcements extends Component {
 
 
   render() {
-    
-
     let content = null;
 
     if (this.props.user.email) {

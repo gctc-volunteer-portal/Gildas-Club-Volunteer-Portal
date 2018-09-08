@@ -15,7 +15,7 @@ import MyShifts from './components/VolunteerViews/MyShifts/MyShifts'
 import ManageAnnouncements from './components/ManageAnnouncements/ManageAnnouncements'
 import Announcements from './components/VolunteerViews/Announcements/Announcements'
 import UpcomingOpportunities from './components/VolunteerViews/UpcomingOpportunities/UpcomingOpportunities';
-import AdminSingleVolunteerView from './components/AdminSingleVolunteerView/AdminSingleVolunteerView'
+
 import './styles/main.css';
 
 
@@ -77,11 +77,6 @@ const App = () => (
         <Route
           path="/manage_volunteers"
           component={ManageVolunteersView}
-        />
-      
-        <Route
-          path="/admin_single_volunteer_view"
-          component={AdminSingleVolunteerView}
         />
         <Route
           path="/manage_opportunities"
