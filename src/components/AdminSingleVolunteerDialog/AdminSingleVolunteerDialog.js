@@ -88,16 +88,17 @@ class AdminSingleVolunteerDialog extends Component {
           city: this.props.volunteer.city,
           state: this.props.volunteer.state,
           zip: this.props.volunteer.zip,
-          regular_basis: false,
-          specific_event: false,
-          as_needed: false,
+          regular_basis: this.props.volunteer.regular_basis,
+          specific_event: this.props.volunteer.specific_event,
+          as_needed: this.props.volunteer.as_needed,
           limitations_allergies: this.props.volunteer.limitations_allergies,
           why_excited: this.props.volunteer.why_excited,
           employer: this.props.volunteer.employer,
           job_title: this.props.volunteer.job_title,
           date_of_birth: this.props.volunteer.date_of_birth,
           active: this.props.volunteer.active,
-          access_level: true,
+          access_level: 2,
+          // this.props.access_level,
           admin_notes: this.props.volunteer.admin_notes,
           message: this.props.volunteer.message,
           open: false,
@@ -113,59 +114,9 @@ class AdminSingleVolunteerDialog extends Component {
   //   this.props.history.push('/')
   // }
  
-    
-
   
-// componentDidMount(){
- 
-//  let id = this.props.match.params.id
-//  this.props.dispatch({ type:'GET_ALL_VOLUNTEER_INFO', payload: id})
 
- 
- 
 
-// }
-
-getDerivedStateFromProps(props, state){
-
-  //   let id = this.props.match.params.id
-  //   this.props.dispatch({
-  //     type:'GET_ALL_VOLUNTEER_INFO',
-  //     payload: id
-  // })
-  // SET STATE TO WHAT IS IN REDUX, IF IT HAS CHANGED
-  // IF this.props.currentVoulenteer !== this.state.currentVoulenteer
-  if( this.props.currentVolunteer.email !== this.state.email){
-    console.log('different!');
-    
-    this.setState({
-      email: this.props.currentVolunteer.email
-      // first_name: this.props.currentVolunteer.first_name,
-      // middle_name: this.props.currentVolunteer.middle_name,
-      // last_name: this.props.currentVolunteer.last_name,
-      // primary_phone: this.props.currentVolunteer.primary_phone,
-      // secondary_phone: this.props.currentVolunteer.secondary_phone,
-      // street_address1: this.props.currentVolunteer.street_address1,
-      // street_address2: this.props.currentVolunteer.street_address2,
-      // city: this.props.currentVolunteer.city,
-      // state: this.props.currentVolunteer.state,
-      // zip: this.props.currentVolunteer.zip,
-      // regular_basis: this.props.currentVolunteer.regular_basis,
-      // specific_event: this.props.currentVolunteer.specific_event,
-      // as_needed: this.props.currentVolunteer.as_needed,
-      // limitations_allergies: this.props.currentVolunteer.limitations_allergies,
-      // why_excited: this.props.currentVolunteer.why_excited,
-      // employer: this.props.currentVolunteer.employer,
-      // job_title: this.props.currentVolunteer.job_title,
-      // date_of_birth: this.props.currentVolunteer.date_of_birth,
-      // active: this.props.currentVolunteer.active,
-      // access_level: this.props.currentVolunteer.access_level,
-      // admin_notes: this.props.currentVolunteer.admin_notes,
-      // message: this.props.currentVolunteer.message,
-    })
-  }
-   
-}
 
 
 handleClickOpen = () => {
@@ -219,11 +170,15 @@ handleClose = () => {
   }
   editAccess = () => {
     console.log(this.state.show);
-    this.setState(prevState => ({
-      access_level: !prevState.access_level
-    
-  
-    }));
+    if (this.state.access_level === 1){
+    this.setState({
+      access_level: 2
+    });
+  } else {
+    this.setState({
+      access_level: 1
+    });
+  }
     console.log(this.state.access_level);
     
   }
@@ -231,7 +186,28 @@ handleClose = () => {
 
   render() {
     console.log(this.props.currentVolunteer)
-    
+    let toggleAccess;
+    if(this.state.access_level == 2){
+      toggleAccess = (<div>
+        <FormControlLabel control={ <Switch 
+            checked={true}
+            // onClick={this.editAccess}
+            onChange={this.editAccess}
+            value="access_level"
+           />}  label="Manager Capabilities on/off"
+           />
+      </div>)
+    } else if (this.state.access_level == 1){
+      toggleAccess = (<div>
+        <FormControlLabel control={ <Switch 
+            checked={false}
+            // onClick={this.editAccess}
+            onChange={this.editAccess}
+            value="access_level"
+           />}  label="Manager Capabilities on/off"
+           />
+      </div>)
+    }
     
     return (
       <React.Fragment>
@@ -249,8 +225,8 @@ handleClose = () => {
         <form onSubmit={this.updateVolunteerInfo}>
         
        
+        <p>{JSON.stringify(this.props.volunteer)}</p>
         <p>{JSON.stringify(this.state.access_level)}</p>
-        <p>{JSON.stringify(this.state.regular_basis)}</p>
           <h1>Edit volunteer Info</h1>
           <FormControl>
             
@@ -563,14 +539,14 @@ handleClose = () => {
           </div>
             
           <div className={this.props.classes.switch}>
-
-           <FormControlLabel control={ <Switch 
-            checked={this.state.access_level}
-            onClick={this.editAccess}
+          {toggleAccess}
+           {/* <FormControlLabel control={ <Switch 
+            checked={true}
+            // onClick={this.editAccess}
             onChange={this.handleChange('access_level')}
             value="access_level"
            />}  label="Manager Capabilities on/off"
-           />
+           /> */}
                 <br />
             <FormControlLabel control={ <Switch 
            
