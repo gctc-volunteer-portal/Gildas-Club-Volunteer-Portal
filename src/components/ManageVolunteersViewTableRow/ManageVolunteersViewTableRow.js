@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { TableCell, TableRow, Button } from '@material-ui/core';
 import { CheckCircle, Cancel } from '@material-ui/icons'
+import AdminSingleVolunteerDialog from '../AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -41,21 +42,15 @@ class ManageVolunteersViewTableRow extends Component {
         else { return <Cancel nativeColor="red" /> }
     }
 
-    editVolunteer = () => {
-        console.log('going to edit volunteer view')
-        console.log(this.props.volunteer.id)
-        // this.props.history.push('/home')
-    }
-
     render() {
+
         let editButton = null;
 
         if (this.props.user.access_level === 3) {
             editButton = (
-                <Button onClick={this.editVolunteer}>Edit</Button>
+                <AdminSingleVolunteerDialog volunteer={this.props.volunteer}/>
             )
         }
-
         return (
             <TableRow className={this.props.classes.row}>
                 <CustomTableCell>{this.props.volunteer.first_name}</CustomTableCell>
@@ -84,6 +79,7 @@ class ManageVolunteersViewTableRow extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
+    state
 });
 
 const connectedManageVolunteersViewTableRow = withRouter(connect(mapStateToProps)(ManageVolunteersViewTableRow));
