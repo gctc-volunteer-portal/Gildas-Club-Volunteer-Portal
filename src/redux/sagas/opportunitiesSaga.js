@@ -39,6 +39,7 @@ function* fetchSingleVolunteerOpportunities(action) {
 
 function* deleteItem(action) {
     try {
+        console.log(action.payload)
         let returnedOpportunity = yield call(axios.delete, `/api/opportunities/${action.payload.opportunityId}`, { data: { volunteerId: action.payload.volunteerId } });
         yield dispatch({
             type: 'GET_EVENT_VOLUNTEERS',
