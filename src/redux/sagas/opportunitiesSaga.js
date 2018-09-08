@@ -87,7 +87,6 @@ function* opportunitiesSaga() {
     yield takeEvery('DELETE_ITEM', deleteItem)
     yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer)
     yield takeEvery('GET_CERTIFIED_VOLUNTEERS', getCertifiedVolunteers)
-
 }
 
 export default opportunitiesSaga;

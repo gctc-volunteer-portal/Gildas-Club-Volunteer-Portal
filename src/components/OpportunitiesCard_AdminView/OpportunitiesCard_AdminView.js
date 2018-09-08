@@ -39,7 +39,10 @@ class MediaCard extends Component {
         }
     }
 
-
+    componentDidMount() {
+        this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+        this.props.dispatch({ type: 'GET_EVENT_VOLUNTEERS', payload: this.props.opportunity.id })
+    }
 
     openEditOpportunity = (opportunityId, opportunityToUpdate) => {
         this.setState({
@@ -48,10 +51,7 @@ class MediaCard extends Component {
             opportunityToUpdate: opportunityToUpdate,
         })
     }
-    componentDidMount() {
-        this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-        this.props.dispatch({ type: 'GET_EVENT_VOLUNTEERS', payload: this.props.opportunity.id })
-    }
+
 
     closeEditOpportunity = () => {
         this.setState({
