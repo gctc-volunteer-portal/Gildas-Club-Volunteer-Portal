@@ -19,6 +19,7 @@ const opportunityVolunteerReducer = (state = [], action) => {
 
     }
 }
+<<<<<<< HEAD
 
 const singleVolunteerOpportunities = (state = [], action) => {
     switch(action.type) {
@@ -33,4 +34,19 @@ export default combineReducers({
     opportunitiesReducer,
     opportunityVolunteerReducer,
     singleVolunteerOpportunities,
+=======
+const certifiedVolunteers = (state = [], action)=> {
+    switch (action.type) {
+        case 'CERTIFIED_VOLUNTEERS':
+            return action.payload;
+        default:
+            return state;
+
+    }
+}
+export default combineReducers({
+    opportunitiesReducer,
+    opportunityVolunteerReducer,
+    certifiedVolunteers
+>>>>>>> master
 });

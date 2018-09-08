@@ -113,6 +113,7 @@ class ManageVolunteersTable extends Component {
             <React.Fragment>
                 <Header />
                 <AdminNav />
+                <h1>Volunteers</h1>
                 <Paper className={this.props.classes.root}>
                     <div className={this.props.classes.tableWrapper}>
                         <Table className={this.props.classes.table} aria-labelledby="tableTitle">

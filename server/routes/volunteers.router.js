@@ -3,7 +3,8 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-router.get('/', (req, res) => {
+
+router.get('/', rejectUnauthenticated, (req, res) => {
     //if certification
     const queryText = `SELECT distinct on (users.first_name)
                         users.id,
@@ -41,7 +42,7 @@ router.get('/', (req, res) => {
 //     }	
 // });
 
-router.get('/info', (req, res)=> {
+router.get('/info', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * 
     FROM crosstab (
     $$
@@ -95,7 +96,20 @@ router.get('/info', (req, res)=> {
             res.sendStatus(500);
         });
 });
-
+router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
+    const queryText = `SELECT * FROM opportunities 
+                       JOIN user_certifications ON certification_needed = certification_id
+                       JOIN users ON user_certifications.user_id = users.id
+                       WHERE users.id = $1 AND is_certified = true`
+    pool.query(queryText, [req.user.id])
+        .then((results) => {
+            res.send(results.rows);
+        })
+        .catch((error) => {
+            console.log('Error on /api/volunteers/my_available_events GET:', error);
+            res.sendStatus(500);
+        });
+});
 
 
 module.exports = router;

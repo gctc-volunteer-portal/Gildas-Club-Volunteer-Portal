@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Select from 'react-select';
+import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import NoSsr from '@material-ui/core/NoSsr';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
-import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import { connect } from 'react-redux'
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -33,15 +31,6 @@ const styles = theme => ({
     flexWrap: 'wrap',
     flex: 1,
     alignItems: 'center',
-  },
-  chip: {
-    margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
-  },
-  chipFocused: {
-    backgroundColor: emphasize(
-      theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
-      0.08,
-    ),
   },
   noOptionsMessage: {
     padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
@@ -162,18 +151,21 @@ class IntegrationReactSelect extends React.Component {
   state = {
     single: null,
 
-    
+
 
   };
-enrollVolunteer = (volunteerId) =>{
-this.props.dispatch({
-  type: 'ENROLL_VOLUNTEER',
-  payload: {
-    volunteerId: volunteerId,
-    opportunityId: this.props.opportunity.id
+
+
+  enrollVolunteer = (volunteerId) => {
+    this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+    this.props.dispatch({
+      type: 'ENROLL_VOLUNTEER',
+      payload: {
+        volunteerId: volunteerId,
+        opportunityId: this.props.opportunity.id
+      }
+    })
   }
-})
-}
   handleChange = name => value => {
     this.setState({
       [name]: value,
@@ -181,19 +173,24 @@ this.props.dispatch({
   };
 
   render() {
- 
-    let volunteerList = this.props.state.volunteerReducer.volunteerReducer.map((volunteer, index)=>{
-      return ({label: volunteer.first_name, id: volunteer.id})
+    console.log(this.props.state.opportunitiesReducer.certifiedVolunteers);
+
+    let volunteerList = this.props.state.opportunitiesReducer.certifiedVolunteers.map((volunteer, i) => {
+      if (volunteer.certification_id == this.props.opportunity.certification_needed && volunteer.is_certified == true) {
+        return ({ label: `${volunteer.first_name} ${volunteer.last_name}`, id: volunteer.id })
+      }
     })
- 
-    let list = volunteerList.map(volunteerList => ({
-        value: volunteerList.label,
-        label: volunteerList.label,
-        id: volunteerList.id
-        
+    console.log(volunteerList);
+
+
+    let list = volunteerList.filter(volunteer => (volunteer !== undefined)).map(volunteerList => ({
+      value: volunteerList.label,
+      label: volunteerList.label,
+      id: volunteerList.id
+
     }))
-  console.log(this.state);
-  
+    console.log(list);
+
     const { classes, theme } = this.props;
 
     const selectStyles = {
@@ -216,12 +213,11 @@ this.props.dispatch({
             placeholder="Search Volunteers"
           />
           <div className={classes.divider} />
-          
         </NoSsr>
-        <Button onClick={()=>this.enrollVolunteer(this.state.single.id)} variant="contained" color="primary" className={classes.button}>
-        Add Volunteer
-        <AddIcon className={classes.rightIcon}/>
-      </Button>
+        <Button onClick={() => this.enrollVolunteer(this.state.single.id)} variant="contained" color="primary" className={classes.button}>
+          Add Volunteer
+        <AddIcon className={classes.rightIcon} />
+        </Button>
       </div>
     );
   }
