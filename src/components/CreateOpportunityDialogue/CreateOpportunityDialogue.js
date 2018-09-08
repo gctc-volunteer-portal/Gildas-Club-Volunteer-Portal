@@ -4,9 +4,6 @@ import CreateOpportunityForm from '../CreateOpportunityForm/CreateOpportunityFor
 
 
 const styles = {
-  dialogTitle: {
-    // textAlign: 'center',
-  },
   dialog: {
     textAlign: 'center',
     height: '100vh',
@@ -19,17 +16,14 @@ class CreateOpportunityDialogue extends Component {
     return (
       <React.Fragment>
         <Dialog
-          // fullScreen
-          // maxWidth={"lg"}
           scroll={"body"}
           className={this.props.classes.dialog}
           open={this.props.createEventIsOpen}
           onClose={this.handleClose}
-          aria-labelledby="responsive-dialog-title"
+          aria-labelledby="create a volunteer opportunity"
         >
-          <DialogTitle id="responsive-dialog-title">{"Volunteers for "}</DialogTitle>
+          <DialogTitle>{"Create Volunteer Opportunity"}</DialogTitle>
           <DialogContent>
-
             <CreateOpportunityForm
               closeCreateEvent={this.props.closeCreateEvent}
             />

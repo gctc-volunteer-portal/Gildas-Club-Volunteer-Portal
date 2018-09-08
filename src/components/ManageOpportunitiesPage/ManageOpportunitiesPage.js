@@ -20,16 +20,17 @@ function searchingFor(term) {
         }
     }
 }
-
 class InfoPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             term: '',
             createEventIsOpen: false,
+      
         }
         this.searchHandler = this.searchHandler.bind(this);
     }
+    
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         if (this.props.user.access_level < 2 ) {
