@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {
+    withStyles, Card, CardMedia, CardActionArea, CardContent,
+    CardActions, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography
+} from '@material-ui/core/';
+
 import { connect } from 'react-redux'
-import { USER_ACTIONS } from '../../redux/actions/userActions';
+
 import AdminManageVolunteersDialogue from '../AdminManageVolunteersDialogue/AdminManageVolunteersDialogue';
+import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
 
 
 const styles = {
@@ -22,22 +20,46 @@ const styles = {
     },
     media: {
         height: 350,
-        width: 300
-
+       width: '100%'
     },
+    dialog: {
+        textAlign: 'center',
+        height: '100vh',
+    }
 
 };
 
 class MediaCard extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            editEventIsOpen: false,
+            opportunityToUpdate: {},
+            opportunityId: '',
+        }
     }
+
+
+    openEditOpportunity = (opportunityId, opportunityToUpdate) => {
+        this.setState({
+            editEventIsOpen: true,
+            opportunityId: opportunityId,
+            opportunityToUpdate: opportunityToUpdate,
+        })
 
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'GET_EVENT_VOLUNTEERS', payload: this.props.opportunity.id })
     }
+
+    closeEditOpportunity = () => {
+        this.setState({
+            editEventIsOpen: false,
+        });
+    };
+
     render() {
+        console.log(this.state, 'local state')
         const { classes } = this.props;
 console.log(this.props.state);
         let buttons;
@@ -58,34 +80,54 @@ console.log(this.props.state);
             )}
 
         return (
-            <Card className={classes.card}>
-                    <CardMedia
-                        className={classes.media}
-                        image="https://www.gildasclubtwincities.org/wp-content/themes/skeleton/images/logo.png"
-                        title="Opportunity"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="headline" component="h2">
-                            {this.props.opportunity.title}
-                        </Typography>
-                        <Typography component="p">
-                            {this.props.opportunity.address_line1}<br />
-                            {this.props.opportunity.city}
-                        </Typography>
-                        <Typography component="p">
-                            {this.props.opportunity.description}
-                        </Typography>
-                    </CardContent>
+            <React.Fragment>
+                <Card className={classes.card}>
                     <CardActionArea>
-                <CardActions>
-                    {/* <Button size="small" color="primary">
-                        Volunteer
+                        <CardMedia
+                            className={classes.media}
+                            image="https://www.gildasclubtwincities.org/wp-content/themes/skeleton/images/logo.png"
+                            title="Contemplative Reptile"
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="headline" component="h2">
+                                {this.props.opportunity.title}
+                            </Typography>
+                            <Typography component="p">
+                                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                                across all continents except Antarctica
+                        </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                        <Button size="small" color="primary">
+                            Share
                     </Button>
-                    <Button onClick={this.handleClickOpen}>More Info</Button> */}
-                    {buttons}
-                </CardActions>
-                </CardActionArea>
-            </Card>
+                        <Button
+                            onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
+
+                        >Edit Opportunity</Button>
+                        <AdminManageVolunteersDialogue
+                            opportunity={this.props.opportunity}
+                        />
+                    </CardActions>
+                </Card>
+                <Dialog
+                    className={this.props.classes.dialog}
+                    aria-labelledby="edit a volunteer event"
+                    open={this.state.editEventIsOpen}
+                    onClose={this.handleCloseDialog}
+                >
+                    <DialogTitle>{"Edit Opportunity"}</DialogTitle>
+                    <DialogContent>
+                        <EditOpportunityForm
+                            eventId={this.state.eventId}
+                            eventToUpdate={this.state.eventToUpdate}
+                            closeEditOpportunity={this.closeEditOpportunity}
+                        />
+                    </DialogContent>
+                </Dialog>
+            </React.Fragment>
+
         );
     }
 }

@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const { rejectUnauthorizedManager } = require ('../modules/manager-authorization');
 
 /**
  * GET route template
@@ -32,7 +33,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         })
 });
-
 
     router.post('/add_volunteer', rejectUnauthenticated, (req, res) => {
         console.log('got to post', req.body);
@@ -72,26 +72,25 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         }
     });
 
-    router.post('/', rejectUnauthenticated, (req, res) => {
-        const newOpportunity = req.body;
-        const certId = parseInt(newOpportunity.certification_needed);
+router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
+    const newOpportunity = req.body;
+    const certId = parseInt(newOpportunity.certification_needed);
 
-        console.log(req.body, 'req body');
+    console.log(req.body, 'req body');
 
-        const queryText = `INSERT INTO "opportunities"("title","start_time","end_time","address_line1","address_line2","city","state","zip","description","date","status","private_notes","max_volunteers","certification_needed")
+    const queryText = `INSERT INTO "opportunities"("title","start_time","end_time","address_line1","address_line2","city","state","zip","description","date","status","private_notes","max_volunteers","certification_needed")
     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);`;
+    
+    const serializedData = [newOpportunity.title, newOpportunity.start_time, newOpportunity.end_time, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers, certId];
+    console.log(serializedData)
 
-        const serializedData = [newOpportunity.title, newOpportunity.start_time, newOpportunity.end_time, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers, certId];
-        console.log(serializedData)
-
-        pool.query(queryText, serializedData)
-            .then((results) => {
-                res.sendStatus(201);
+    pool.query(queryText, serializedData)
+        .then((results) => {
+            res.sendStatus(201);
             })
             .catch((error) => {
                 console.log('error on /api/opportunities POST:', error)
                 res.sendStatus(500);
             })
     });
-
-    module.exports = router;
+module.exports = router;
