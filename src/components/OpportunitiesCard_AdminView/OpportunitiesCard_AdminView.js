@@ -59,7 +59,6 @@ class MediaCard extends Component {
     };
 
     render() {
-        console.log(this.state, 'local state')
         const { classes } = this.props;
         let buttons;
         if (this.props.state.user.access_level == 3) {
@@ -100,13 +99,14 @@ class MediaCard extends Component {
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
-//                         <Button size="small" color="primary">
-//                             Share
-//                     </Button>
                         <Button
+                            color="primary"
+                            variant="raised"
+                            size="small"
                             onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
-
-                        >Edit Opportunity</Button>
+                        >
+                            Edit Opportunity
+                    </Button>
                         <AdminManageVolunteersDialogue
                             opportunity={this.props.opportunity}
                         />
@@ -121,8 +121,8 @@ class MediaCard extends Component {
                     <DialogTitle>{"Edit Opportunity"}</DialogTitle>
                     <DialogContent>
                         <EditOpportunityForm
-                            eventId={this.state.eventId}
-                            eventToUpdate={this.state.eventToUpdate}
+                            opportunityId={this.state.opportunityId}
+                            opportunityToUpdate={this.state.opportunityToUpdate}
                             closeEditOpportunity={this.closeEditOpportunity}
                         />
                     </DialogContent>
