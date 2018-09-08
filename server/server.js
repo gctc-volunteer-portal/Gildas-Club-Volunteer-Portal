@@ -15,6 +15,7 @@ const volunteersRouter = require('./routes/volunteers.router')
 const certificationsRouter = require('./routes/certifications.router')
 const autocompleteRouter = require('./routes/autocomplete.router')
 
+
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
