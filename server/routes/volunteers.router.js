@@ -70,7 +70,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
     SELECT
         "users"."email",
         "users"."id",
-        "users"."dynamics_id"
+        "users"."dynamics_id",
         "users"."first_name",
         "users"."middle_name",
         "users"."last_name",
@@ -152,6 +152,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         });
 });
+
 router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM opportunities 
                        JOIN user_certifications ON certification_needed = certification_id
