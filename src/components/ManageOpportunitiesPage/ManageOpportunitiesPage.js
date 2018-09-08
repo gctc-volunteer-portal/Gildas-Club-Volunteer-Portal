@@ -32,17 +32,11 @@ class InfoPage extends Component {
         this.searchHandler = this.searchHandler.bind(this);
     }
 
-<<<<<<< HEAD
-=======
     
->>>>>>> master
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         if (this.props.user.access_level < 2 ) {
             this.props.history.push('/home');
-<<<<<<< HEAD
-            this.props.dispatch({ type: 'GET_EVENTS' })
-=======
         }
         this.props.dispatch({ type: 'GET_EVENTS' })
     }
@@ -51,7 +45,6 @@ class InfoPage extends Component {
         if (!this.props.user.isLoading && this.props.user.email === null) {
             this.props.history.push('home');
             console.log(this.props.state);
->>>>>>> master
         }
     }
 
