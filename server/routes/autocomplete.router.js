@@ -8,7 +8,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  * GET route template
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
-    pool.query(`SELECT distinct users.id, users.first_name, user_certifications.certification_id, user_certifications.is_certified
+    pool.query(`SELECT distinct users.id, users.first_name, users.last_name, user_certifications.certification_id, user_certifications.is_certified
     FROM users
     LEFT OUTER JOIN "user_certifications" ON "users".id= user_certifications.user_id
     LEFT OUTER JOIN "user_opportunities" ON "users".id = user_opportunities.user_id

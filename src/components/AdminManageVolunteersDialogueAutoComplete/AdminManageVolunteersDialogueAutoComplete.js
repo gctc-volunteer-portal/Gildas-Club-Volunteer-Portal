@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import NoSsr from '@material-ui/core/NoSsr';
@@ -178,7 +177,7 @@ class IntegrationReactSelect extends React.Component {
 
     let volunteerList = this.props.state.opportunitiesReducer.certifiedVolunteers.map((volunteer, i) => {
       if (volunteer.certification_id == this.props.opportunity.certification_needed && volunteer.is_certified == true) {
-        return ({ label: volunteer.first_name, id: volunteer.id })
+        return ({ label: `${volunteer.first_name} ${volunteer.last_name}`, id: volunteer.id })
       }
     })
     console.log(volunteerList);

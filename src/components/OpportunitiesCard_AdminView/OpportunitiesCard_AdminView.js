@@ -44,14 +44,14 @@ console.log(this.props.state);
         if (this.props.state.user.access_level == 3) {
             buttons = (<div>
                             
-                            <Button onClick={this.handleClickOpen}>More Info</Button>
+                            <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
                             <AdminManageVolunteersDialogue
                                 opportunity={this.props.opportunity}
                             />
                             </div>)
         } else{
             buttons = ( <div>
-                            <Button size="small" color="primary">
+                            <Button size="small" color="primary" variant="raised">
                              Volunteer
                             </Button>
                         </div>
@@ -76,6 +76,7 @@ console.log(this.props.state);
                             {this.props.opportunity.description}
                         </Typography>
                     </CardContent>
+                    <CardActionArea>
                 <CardActions>
                     {/* <Button size="small" color="primary">
                         Volunteer
@@ -83,6 +84,7 @@ console.log(this.props.state);
                     <Button onClick={this.handleClickOpen}>More Info</Button> */}
                     {buttons}
                 </CardActions>
+                </CardActionArea>
             </Card>
         );
     }

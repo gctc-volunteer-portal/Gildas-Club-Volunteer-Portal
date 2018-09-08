@@ -60,7 +60,7 @@ function* addOpportunity(action) {
 }
 function* getCertifiedVolunteers(certificationId){
     try{
-        const certifiedVolunteers = yield call(axios.get, '/api/test',{
+        const certifiedVolunteers = yield call(axios.get, '/api/autocomplete',{
             params:{
             certificationId: certificationId
             }

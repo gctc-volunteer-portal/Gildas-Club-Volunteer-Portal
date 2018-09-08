@@ -33,16 +33,16 @@ class InfoPage extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         if (this.props.user.access_level < 2 ) {
-            this.props.history.push('home');
+            this.props.history.push('/home');
         this.props.dispatch({ type: 'GET_EVENTS' })
     }
     }
-    componentDidUpdate() {
-        if (!this.props.user.isLoading && this.props.user.email === null) {
-            this.props.history.push('home');
-            console.log(this.props.state);
-        }
-    }
+    // componentDidUpdate() {
+    //     if (!this.props.user.isLoading && this.props.user.email === null) {
+    //         this.props.history.push('home');
+    //         console.log(this.props.state);
+    //     }
+    // }
 
     searchHandler(event) {
         this.setState({

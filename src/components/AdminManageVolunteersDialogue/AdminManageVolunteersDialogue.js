@@ -47,7 +47,7 @@ class ResponsiveDialog extends React.Component {
     return (
       <div>
       
-        <Button onClick={this.handleClickOpen}>Manage Volunteers</Button>
+        <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>Manage Volunteers</Button>
         <Dialog
           fullScreen={fullScreen}
           open={this.state.open}
