@@ -60,7 +60,6 @@ class MediaCard extends Component {
     };
 
     render() {
-        console.log(this.state, 'local state')
         const { classes } = this.props;
         console.log(this.props.state);
         let buttons;
@@ -125,8 +124,8 @@ class MediaCard extends Component {
                     <DialogTitle>{"Edit Opportunity"}</DialogTitle>
                     <DialogContent>
                         <EditOpportunityForm
-                            eventId={this.state.eventId}
-                            eventToUpdate={this.state.eventToUpdate}
+                            opportunityId={this.state.opportunityId}
+                            opportunityToUpdate={this.state.opportunityToUpdate}
                             closeEditOpportunity={this.closeEditOpportunity}
                         />
                     </DialogContent>
