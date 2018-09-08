@@ -7,7 +7,7 @@ const { rejectUnauthorizedManager } = require ('../modules/manager-authorization
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM opportunities;`;
     pool.query(queryText)
         .then((results) => {
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
             res.sendStatus(500);
         })
 });
-router.get('/:id', (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM "user_opportunities"
     LEFT OUTER JOIN "users" ON "users".id = "user_opportunities".user_id
     LEFT OUTER JOIN "opportunities" ON "opportunities".id = "user_opportunities".opportunity_id
@@ -34,42 +34,43 @@ router.get('/:id', (req, res) => {
         })
 });
 
-// router.post('/', (req, res) => {
-//     console.log('got to post', req.body);
-//     console.log('event body', req.body);
+    router.post('/add_volunteer', rejectUnauthenticated, (req, res) => {
+        console.log('got to post', req.body);
+        console.log('event body', req.body);
 
-//     if (req.isAuthenticated) {
-//         const queryText = `INSERT INTO "user_opportunities" ("user_id", "opportunity_id") VALUES ($1, $2)`
-//         pool.query(queryText, [req.body.volunteerId, req.body.opportunityId])
-//             .then(() => {
-//                 res.sendStatus(200);
-//             })
-//             .catch((error) => {
-//                 console.log(error);
-//                 res.sendStatus(500)
-//             })
-//     } else {
-//         res.sendStatus(403);
-//     }
+        if (req.isAuthenticated) {
+            const queryText = `INSERT INTO "user_opportunities" ("user_id", "opportunity_id") VALUES ($1, $2)`
+            pool.query(queryText, [req.body.volunteerId, req.body.opportunityId])
+                .then(() => {
+                    res.sendStatus(200);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    res.sendStatus(500)
+                })
+        } else {
+            res.sendStatus(403);
+        }
 
-// });
+    });
 
-router.delete('/:id', (req, res) => {
-    if (req.isAuthenticated) {
-        const queryText = `DELETE FROM "user_opportunities" WHERE user_id=$2 AND "opportunity_id" = $1 RETURNING "user_opportunities".opportunity_id`;
-        pool.query(queryText, [req.params.id, req.body.volunteerId])
-            .then((response) => {
-                res.send(response.rows)
-            })
-            .catch((err) => {
-                console.log('Error deleting', err);
-                res.sendStatus(500);
+    router.delete('/:id', rejectUnauthenticated, (req, res) => {
 
-            });
-    } else {
-        res.sendStatus(403);
-    }
-});
+        if (req.isAuthenticated) {
+            const queryText = `DELETE FROM "user_opportunities" WHERE user_id=$2 AND "opportunity_id" = $1 RETURNING "user_opportunities".opportunity_id`;
+            pool.query(queryText, [req.params.id, req.body.volunteerId])
+                .then((response) => {
+                    res.send(response.rows)
+                })
+                .catch((err) => {
+                    console.log('Error deleting', err);
+                    res.sendStatus(500);
+
+                });
+        } else {
+            res.sendStatus(403);
+        }
+    });
 
 router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
     const newOpportunity = req.body;
@@ -86,11 +87,10 @@ router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) =>
     pool.query(queryText, serializedData)
         .then((results) => {
             res.sendStatus(201);
-        })
-        .catch((error) => {
-            console.log('error on /api/opportunities POST:', error)
-            res.sendStatus(500);
-        })
-});
-
+            })
+            .catch((error) => {
+                console.log('error on /api/opportunities POST:', error)
+                res.sendStatus(500);
+            })
+    });
 module.exports = router;

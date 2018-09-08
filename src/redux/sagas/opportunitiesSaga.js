@@ -39,7 +39,8 @@ function* deleteItem(action) {
 
 function* enrollVolunteer(action) {
     try {
-        yield call(axios.post, `/api/opportunities`, action.payload);
+        yield call(axios.post, `/api/opportunities/add_volunteer`, action.payload);
+
         yield dispatch({
             type: 'GET_EVENT_VOLUNTEERS',
             payload: action.payload.opportunityId
@@ -60,13 +61,32 @@ function* addOpportunity(action) {
         yield console.log(err);
     }
 }
+function* getCertifiedVolunteers(certificationId){
+    try{
+        const certifiedVolunteers = yield call(axios.get, '/api/autocomplete',{
+            params:{
+            certificationId: certificationId
+            }
+        })
+        yield dispatch({
+            type: 'CERTIFIED_VOLUNTEERS',
+            payload: certifiedVolunteers.data
+        })
+    } catch  (err) {
+        yield console.log(err);
+      }
+
+}
+
+
 
 function* opportunitiesSaga() {
-    yield takeEvery('GET_EVENTS', getEvents);
-    yield takeEvery('GET_EVENT_VOLUNTEERS', getEventVolunteers);
-    yield takeEvery('ADD_OPPORTUNITY', addOpportunity);
-    yield takeEvery('DELETE_ITEM', deleteItem);
-    yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer);
+    yield takeEvery('GET_EVENTS', getEvents)
+    yield takeEvery('GET_EVENT_VOLUNTEERS', getEventVolunteers)
+    yield takeEvery('ADD_OPPORTUNITY', addOpportunity)
+    yield takeEvery('DELETE_ITEM', deleteItem)
+    yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer)
+    yield takeEvery('GET_CERTIFIED_VOLUNTEERS', getCertifiedVolunteers)
 }
 
 export default opportunitiesSaga;
