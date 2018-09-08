@@ -26,7 +26,7 @@ class InfoPage extends Component {
         this.state = {
             term: '',
             createEventIsOpen: false,
-      
+
         }
 
         this.searchHandler = this.searchHandler.bind(this);
