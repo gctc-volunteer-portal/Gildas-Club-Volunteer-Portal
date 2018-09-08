@@ -5,9 +5,7 @@ import {withRouter} from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { TableCell, TableRow, Button } from '@material-ui/core';
 import { CheckCircle, Cancel } from '@material-ui/icons'
-import AdminManageVolunteersDialgueTable from '../AdminManageVolunteersDialogueTable/AdminManageVolunteersDialgueTable';
 import AdminSingleVolunteerDialog from '../AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
-
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -37,31 +35,12 @@ const styles = theme => ({
 
 class ManageVolunteersViewTableRow extends Component {
 
-    // componentDidMount(){
-    //     let volunteer = this.props.volunteer.id
-    //     let id = volunteer.id
-    //     this.props.dispatch({ type:'GET_ALL_VOLUNTEER_INFO',payload: id})
-    // }
     certified = (certificationStatus) => {
         if (certificationStatus) {
             return <CheckCircle nativeColor="green" />
         }
         else { return <Cancel nativeColor="red" /> }
     }
-
-    // editVolunteer = () => {
-    //     console.log(this.props.volunteer);
-    //     let volunteer = this.props.volunteer
-    //     console.log('going to edit volunteer view')
-    //     console.log(this.props.volunteer.id)
-    //     let id = volunteer.id
-    //     // this.props.dispatch({
-    //     //    type:'GET_ALL_VOLUNTEER_INFO',
-    //     //    payload: volunteer.id
-    //     //    })
-    //     this.props.history.push(`/admin_single_volunteer_view/${volunteer.id}`)
-       
-    // }
 
     render() {
 
@@ -93,7 +72,7 @@ class ManageVolunteersViewTableRow extends Component {
                 <CustomTableCell>{this.certified(this.props.volunteer.special1)}</CustomTableCell>
                 <CustomTableCell>{this.certified(this.props.volunteer.special2)}</CustomTableCell>
                 <CustomTableCell>{this.certified(this.props.volunteer.special3)}</CustomTableCell>
-                <CustomTableCell><AdminSingleVolunteerDialog volunteer={this.props.volunteer}/></CustomTableCell>
+                <CustomTableCell>{editButton}</CustomTableCell>
             </TableRow>
         )
     }
