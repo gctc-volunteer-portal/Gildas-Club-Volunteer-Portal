@@ -19,7 +19,17 @@ const opportunityVolunteerReducer = (state = [], action) => {
 
     }
 }
+const certifiedVolunteers = (state = [], action)=> {
+    switch (action.type) {
+        case 'CERTIFIED_VOLUNTEERS':
+            return action.payload;
+        default:
+            return state;
+
+    }
+}
 export default combineReducers({
     opportunitiesReducer,
-    opportunityVolunteerReducer
+    opportunityVolunteerReducer,
+    certifiedVolunteers
 });

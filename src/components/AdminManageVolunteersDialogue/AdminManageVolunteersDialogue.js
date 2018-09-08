@@ -8,6 +8,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { connect } from 'react-redux'
+import { USER_ACTIONS } from '../../redux/actions/userActions';
+
 import AdminManageVolunteersDialogueTable from '../AdminManageVolunteersDialogueTable/AdminManageVolunteersDialgueTable'
 import AdminManageVolunteersDialogueAutoComplete from '../AdminManageVolunteersDialogueAutoComplete/AdminManageVolunteersDialogueAutoComplete'
 
@@ -27,12 +29,16 @@ class ResponsiveDialog extends React.Component {
   };
 
   componentDidMount(){
+    this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
     this.props.dispatch({
       type: 'GET_USERS'
     })
+    this.props.dispatch({
+      type: 'GET_CERTIFIED_VOLUNTEERS'
+    })
 
   }
-
+  
   render() {
     const { fullScreen } = this.props;
  
@@ -41,7 +47,7 @@ class ResponsiveDialog extends React.Component {
     return (
       <div>
       
-        <Button onClick={this.handleClickOpen}>Manage Volunteers</Button>
+        <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>Manage Volunteers</Button>
         <Dialog
           fullScreen={fullScreen}
           open={this.state.open}
