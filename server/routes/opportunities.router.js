@@ -19,7 +19,24 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/volunteer', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT * FROM "opportunities"
+    const queryText = `SELECT
+    "opportunities"."id",
+	"opportunities"."image",
+	"opportunities"."title",
+	"opportunities"."start_time",
+	"opportunities"."end_time",
+	"opportunities"."address_line1",
+	"opportunities"."address_line2",
+	"opportunities"."city",
+	"opportunities"."state",
+	"opportunities"."zip",
+	"opportunities"."description",
+	"opportunities"."date",
+	"opportunities"."status",
+	"opportunities"."private_notes",
+	"opportunities"."max_volunteers",
+	"certifications"."certification_name"
+    FROM "opportunities"
     JOIN "user_opportunities" on "opportunities"."id" = "user_opportunities"."opportunity_id"
     JOIN "certifications" on "opportunities"."certification_needed" = "certifications"."id"
     WHERE "user_opportunities"."user_id" = $1 AND "opportunities"."status" = 2
@@ -98,7 +115,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
     const queryText = `INSERT INTO "opportunities"("title","start_time","end_time","address_line1","address_line2","city","state","zip","description","date","status","private_notes","max_volunteers","certification_needed")
     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);`;
-    
+
     const serializedData = [newOpportunity.title, newOpportunity.start_time, newOpportunity.end_time, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers, certId];
     console.log(serializedData)
 

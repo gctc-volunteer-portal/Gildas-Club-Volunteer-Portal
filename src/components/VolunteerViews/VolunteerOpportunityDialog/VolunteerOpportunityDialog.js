@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {connect} from 'react-redux';
 
 class VolunteerOpportunityDialog extends React.Component {
   state = {
@@ -18,6 +19,17 @@ class VolunteerOpportunityDialog extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
+  signUp = () => {
+    this.props.dispatch({
+        type: 'SIGN_UP_VOLUNTEER',
+        payload: this.props.shift.id
+    });
+  }
+
+  withdraw = () => {
+
+  }
 
   render() {
     return (
@@ -59,8 +71,11 @@ class VolunteerOpportunityDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Close
             </Button>
-            <Button onClick={this.handleClose} color="primary" autoFocus>
-              Sign Up / Withdraw
+            <Button onClick={this.signUp} color="primary" autoFocus>
+              Sign Up
+            </Button>
+            <Button onClick={this.withdraw} color="primary" autoFocus>
+              Withdraw
             </Button>
           </DialogActions>
         </Dialog>
@@ -69,4 +84,4 @@ class VolunteerOpportunityDialog extends React.Component {
   }
 }
 
-export default VolunteerOpportunityDialog;
+export default connect()(VolunteerOpportunityDialog);
