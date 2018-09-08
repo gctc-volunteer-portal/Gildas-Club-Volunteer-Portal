@@ -29,6 +29,45 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         })
 });
 
+router.get('/indVolunteer/:id/', (req, res) => {
+    console.log('i made it',req.params.id);
+    if(req.isAuthenticated){
+    const queryText =`SELECT * FROM users WHERE users."id" = $1`;
+    pool.query(queryText, [req.params.id]).then((results) => {
+        res.send(results.rows)
+        console.log(results.rows);
+        
+        })
+    }
+})
+
+//edting volunteer
+router.put('/updateInfo', (req, res) => {
+    console.log('I have :', req.body.state);
+   let info = req.body.state
+    if(req.isAuthenticated){
+        const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $2, "last_name" = $3, "email"= $4 , "primary_phone"= $5,
+                                            "secondary_phone"= $6, "street_address1"= $7, "street_address2"= $8, "city"= $9,
+                                            "zip"= $10, "admin_notes"= $11, "active"= $12, "regular_basis"= $13, "specific_event"= $14,
+                                            "as_needed"= $15, "limitations_allergies"= $16, "why_excited"= $17, "employer"= $18,
+                                             "job_title"= $19, "date_of_birth" = $20 WHERE users."id" = $21;`
+                                            pool.query(queryText, [info.first_name, info.middle_name, info.last_name, info.email, info.primary_phone, 
+                                                info.secondary_phone, info.street_address1, info.street_address2, info.city, info.zip, info.admin_notes, 
+                                                info.active, info.regular_basis, info.specific_event, info.as_needed, 
+                                                info.limitations_allergies, info.why_excited, info.employer, info.job_title, info.date_of_birth, req.body.id ])
+                                                .then(() => {
+                                                    res.sendStatus(201)
+                                                })
+         }else{
+             res.sendStatus(403)
+         }
+})
+
+
+router.get('/info', (req, res)=> {
+    console.log('got to get')
+    const queryText = `SELECT * FROM crosstab(
+=======
 // router.put('/updateInfo', (req, res) => {	
 //     console.log('I have :', req.body);	
 //     let info = req.body	
@@ -89,6 +128,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
     );`
     pool.query(queryText)
         .then((results) => {
+            console.log('here are the results:', results.rows)
             res.send(results.rows);
         })
         .catch((error) => {
