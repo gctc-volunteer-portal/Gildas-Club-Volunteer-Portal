@@ -17,9 +17,8 @@ const store = combineReducers({
   opportunitiesReducer,
   volunteerInfo,
   certificationsReducer,
-  indVolunteerInfo
-  myAvailableEventsReducer
-
+  indVolunteerInfo,
+  myAvailableEventsReducer,
 });
 
 export default store;

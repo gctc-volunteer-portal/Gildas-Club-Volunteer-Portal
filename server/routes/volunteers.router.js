@@ -61,25 +61,7 @@ router.put('/updateInfo', (req, res) => {
          }else{
              res.sendStatus(403)
          }
-})
-
-
-router.get('/info', (req, res)=> {
-    console.log('got to get')
-    const queryText = `SELECT * FROM crosstab(
-=======
-// router.put('/updateInfo', (req, res) => {	
-//     console.log('I have :', req.body);	
-//     let info = req.body	
-//     if(req.isAuthenticated){	
-//         const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $3, "last_name" = $4, "email"= $5 , "primary_phone"= $6,	
-//                                             "secondary_phone"= $7, "street_address1"= $8, "street_address2"= $9, "city"= $10,	
-//                                             "zip"= $11, "admin_notes"= $12, "active"= $13, "regular_basis"= $14, "specific_event"= $15,	
-//                                             "as_needed"= $16, "limitation_allergies"= $17, "why_excited"= $18, "employer"= $19,	
-//                                             "job_title"= $20, "date_of_birth" = $21 WHERE user."id" = $22;`,	
-//                                             [info.first_name,]	
-//     }	
-// });
+});
 
 router.get('/info', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * 
@@ -88,11 +70,28 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
     SELECT
         "users"."email",
         "users"."id",
+        "users"."dynamics_id",
         "users"."first_name",
         "users"."middle_name",
         "users"."last_name",
         "users"."primary_phone",
         "users"."secondary_phone",
+        "users"."street_address1",
+        "users"."street_address2",
+        "users"."city",
+        "users"."state",
+        "users"."zip",
+        "users"."access_level",
+        "users"."admin_notes",
+        "users"."active",
+        "users"."regular_basis",
+        "users"."specific_event",
+        "users"."as_needed",
+        "users"."limitations_allergies",
+        "users"."why_excited",
+        "users"."employer",
+        "users"."job_title",
+        "users"."date_of_birth",
         "certifications"."certification_name",
         "user_certifications"."is_certified"
     FROM "users"
@@ -108,11 +107,28 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
     AS final_result(
         email VARCHAR,
         id INT,
+        dynamics_id INT,
         first_name VARCHAR,
         middle_name VARCHAR,
         last_name VARCHAR,
         primary_phone VARCHAR,
         secondary_phone VARCHAR,
+        street_address1 VARCHAR,
+        street_address2 VARCHAR,
+        city VARCHAR,
+        state VARCHAR,
+        zip INT,
+        access_level INT,
+        admin_notes VARCHAR,
+        active BOOLEAN,
+        regular_basis BOOLEAN,
+        specific_event BOOLEAN,
+        as_needed BOOLEAN,
+        limitations_allergies VARCHAR,
+        why_excited VARCHAR,
+        employer VARCHAR,
+        job_title VARCHAR,
+        date_of_birth DATE,
         av_support BOOLEAN,
         cash_handling BOOLEAN,
         clinic_ambassador BOOLEAN,
@@ -136,6 +152,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         });
 });
+
 router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM opportunities 
                        JOIN user_certifications ON certification_needed = certification_id

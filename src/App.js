@@ -16,11 +16,6 @@ import ManageAnnouncements from './components/ManageAnnouncements/ManageAnnounce
 import Announcements from './components/VolunteerViews/Announcements/Announcements'
 import UpcomingOpportunities from './components/VolunteerViews/UpcomingOpportunities/UpcomingOpportunities';
 
-
-// import AdminSingleVolunteerDialog from './components/AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
-
-import AdminSingleVolunteerDialog from './components/AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
-
 import './styles/main.css';
 
 
