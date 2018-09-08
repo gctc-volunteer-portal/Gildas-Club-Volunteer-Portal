@@ -40,7 +40,7 @@ class Announcements extends Component {
       <div>
         <Header />
         <VolunteerNav />
-        <h1>my Announcements!!</h1>
+        <h1>My Announcements!!</h1>
         {/* { content } */}
       </div>
     );

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import Header from '../Header/Header';
 import TextField from '@material-ui/core/TextField'
-import Nav from '../Nav/AdminNav/AdminNav';
+import AdminNav from '../Nav/AdminNav/AdminNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import OpportunitiesCard_AdminView from '../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView.js';
 import { Button } from '@material-ui/core';
@@ -15,9 +14,9 @@ const mapStateToProps = state => ({
 });
 
 function searchingFor(term) {
-    return function (sponsor) {
-        if (sponsor.title) {
-            return sponsor.title.toLowerCase().includes(term.toLowerCase()) || !term;
+    return function (opportunity) {
+        if (opportunity.title) {
+            return opportunity.title.toLowerCase().includes(term.toLowerCase()) || !term;
         }
     }
 }
@@ -34,15 +33,17 @@ class InfoPage extends Component {
     
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+        if (this.props.user.access_level < 2 ) {
+            this.props.history.push('/home');
         this.props.dispatch({ type: 'GET_EVENTS' })
     }
-
-    componentDidUpdate() {
-        if (!this.props.user.isLoading && this.props.user.email === null) {
-            this.props.history.push('home');
-            console.log(this.props.state);
-        }
     }
+    // componentDidUpdate() {
+    //     if (!this.props.user.isLoading && this.props.user.email === null) {
+    //         this.props.history.push('home');
+    //         console.log(this.props.state);
+    //     }
+    // }
 
     searchHandler(event) {
         this.setState({
@@ -84,7 +85,7 @@ class InfoPage extends Component {
         return (
             <div>
                 <Header />
-                <Nav />
+                <AdminNav />
 
                 <Button
                     variant="raised"
@@ -106,7 +107,7 @@ class InfoPage extends Component {
                             shrink: true,
                         }}
                         placeholder="Search..."
-                        helperText="What city are you looking for?"
+                        helperText="What opportunity are you looking for?"
                         width='50'
                         margin="normal"
                         onChange={this.searchHandler}

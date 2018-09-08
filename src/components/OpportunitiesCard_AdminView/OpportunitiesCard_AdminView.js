@@ -4,7 +4,7 @@ import {
     withStyles, Card, CardMedia, CardActionArea, CardContent,
     CardActions, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography
 } from '@material-ui/core/';
-
+import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { connect } from 'react-redux'
 import AdminManageVolunteersDialogue from '../AdminManageVolunteersDialogue/AdminManageVolunteersDialogue';
 import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
@@ -12,11 +12,15 @@ import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
 
 const styles = {
     card: {
-        maxWidth: 345,
+        width: '80%',
+        height: 350,
+        display: 'flex',
+        margin: 30
     },
     media: {
         height: 350,
-        width: '100%'
+        width: 300
+
     },
     dialog: {
         textAlign: 'center',
@@ -35,9 +39,7 @@ class MediaCard extends Component {
         }
     }
 
-    componentDidMount() {
-        this.props.dispatch({ type: 'GET_EVENT_VOLUNTEERS', payload: this.props.opportunity.id })
-    }
+
 
     openEditOpportunity = (opportunityId, opportunityToUpdate) => {
         this.setState({
@@ -45,6 +47,10 @@ class MediaCard extends Component {
             opportunityId: opportunityId,
             opportunityToUpdate: opportunityToUpdate,
         })
+    }
+    componentDidMount() {
+        this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+        this.props.dispatch({ type: 'GET_EVENT_VOLUNTEERS', payload: this.props.opportunity.id })
     }
 
     closeEditOpportunity = () => {
@@ -56,6 +62,24 @@ class MediaCard extends Component {
     render() {
         console.log(this.state, 'local state')
         const { classes } = this.props;
+        console.log(this.props.state);
+        let buttons;
+        if (this.props.state.user.access_level == 3) {
+            buttons = (<div>
+
+                <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
+                <AdminManageVolunteersDialogue
+                    opportunity={this.props.opportunity}
+                />
+            </div>)
+        } else {
+            buttons = (<div>
+                <Button size="small" color="primary" variant="raised">
+                    Volunteer
+               </Button>
+            </div>
+            )
+        }
         return (
             <React.Fragment>
                 <Card className={classes.card}>
@@ -104,7 +128,6 @@ class MediaCard extends Component {
                     </DialogContent>
                 </Dialog>
             </React.Fragment>
-
         );
     }
 }
@@ -113,4 +136,8 @@ MediaCard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default connect()(withStyles(styles)(MediaCard));
+const mapStateToProps = state => ({
+    state
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(MediaCard));
