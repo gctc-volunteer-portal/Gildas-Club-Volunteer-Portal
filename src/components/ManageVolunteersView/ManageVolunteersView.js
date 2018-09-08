@@ -66,6 +66,7 @@ class ManageVolunteersTable extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'FETCH_VOLUNTEER_INFO' });
+       
     }
 
     componentDidUpdate() {
