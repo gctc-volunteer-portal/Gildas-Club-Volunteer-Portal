@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 
 import Header from '../Header/Header';
-import VolunteerNav from '../Nav/VolunteerNav/VolunteerNav';
+import AdminNav from '../Nav/AdminNav/AdminNav';
 import ManageVolunteersViewTableRow from '../ManageVolunteersViewTableRow/ManageVolunteersViewTableRow';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
@@ -62,7 +62,7 @@ class ManageVolunteersView extends Component {
         return (
             <React.Fragment>
                 <Header />
-                <VolunteerNav />
+                <AdminNav />
                 <h1>Volunteers</h1>
                 <Paper className={this.props.classes.root}>
                     <Table className={this.props.classes.table}>

@@ -44,20 +44,22 @@ function* fetchVolunteerInfo() {
     }
 }
 
-function* getEventCurrentVolunteers(){
-    try{
-        const currentVolunteerList = yield call(axios.get, '/api/volunteers')
+
+ function* getMyVolunteerEvents(){
+         try{
+        const myAvailableEvents = yield call(axios.get, '/api/volunteers/my_available_events')
+        console.log(myAvailableEvents);
+    
         yield dispatch({
-            type: 'CURRENT_EVENT_VOLUNTEERS',
-            payload: currentVolunteerList.data
+            type: 'MY_AVAILABLE_EVENTS',
+            payload: myAvailableEvents.data
         })
     } catch  (err) {
         yield console.log(err);
       }
 
-}
-
-function* UpdateVolunteers(action){
+ }
+function* updateVolunteers(action){
     console.log(action.payload);
         try{
             const update = yield call(axios.put, `/api/volunteers/updateInfo/`, action.payload)
@@ -71,6 +73,7 @@ function* UpdateVolunteers(action){
 
 function* volunteerSaga(){
     yield takeEvery('GET_USERS', getUsers)
+
     yield takeEvery('UPDATE_VOLUNTEER_INFO', UpdateVolunteers)
     yield takeEvery('FETCH_VOLUNTEER_INFO', fetchVolunteerInfo)
     yield takeEvery('GET_ALL_VOLUNTEER_INFO', getIndVolunteerInfo) 

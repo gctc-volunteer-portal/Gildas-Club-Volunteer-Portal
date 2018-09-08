@@ -1,9 +1,11 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-router.get('/', (req, res) => {
-    //if certifcation
+
+router.get('/', rejectUnauthenticated, (req, res) => {
+    //if certification
     const queryText = `SELECT distinct on (users.first_name)
                         users.id,
                         users.first_name, 
@@ -65,6 +67,23 @@ router.put('/updateInfo', (req, res) => {
 router.get('/info', (req, res)=> {
     console.log('got to get')
     const queryText = `SELECT * FROM crosstab(
+=======
+// router.put('/updateInfo', (req, res) => {	
+//     console.log('I have :', req.body);	
+//     let info = req.body	
+//     if(req.isAuthenticated){	
+//         const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $3, "last_name" = $4, "email"= $5 , "primary_phone"= $6,	
+//                                             "secondary_phone"= $7, "street_address1"= $8, "street_address2"= $9, "city"= $10,	
+//                                             "zip"= $11, "admin_notes"= $12, "active"= $13, "regular_basis"= $14, "specific_event"= $15,	
+//                                             "as_needed"= $16, "limitation_allergies"= $17, "why_excited"= $18, "employer"= $19,	
+//                                             "job_title"= $20, "date_of_birth" = $21 WHERE user."id" = $22;`,	
+//                                             [info.first_name,]	
+//     }	
+// });
+
+router.get('/info', rejectUnauthenticated, (req, res) => {
+    const queryText = `SELECT * 
+    FROM crosstab (
     $$
     SELECT
         "users"."email",
@@ -117,7 +136,20 @@ router.get('/info', (req, res)=> {
             res.sendStatus(500);
         });
 });
-
+router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
+    const queryText = `SELECT * FROM opportunities 
+                       JOIN user_certifications ON certification_needed = certification_id
+                       JOIN users ON user_certifications.user_id = users.id
+                       WHERE users.id = $1 AND is_certified = true`
+    pool.query(queryText, [req.user.id])
+        .then((results) => {
+            res.send(results.rows);
+        })
+        .catch((error) => {
+            console.log('Error on /api/volunteers/my_available_events GET:', error);
+            res.sendStatus(500);
+        });
+});
 
 
 module.exports = router;

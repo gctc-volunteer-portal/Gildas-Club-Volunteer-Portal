@@ -5,21 +5,22 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
-
 import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import UserPage from './components/UserPage/UserPage';
-import InfoPage from './components/InfoPage/InfoPage';
 import ManageOpportunitiesPage from './components/ManageOpportunitiesPage/ManageOpportunitiesPage';
 import ManageVolunteersView from './components/ManageVolunteersView/ManageVolunteersView';
-
 import MyShifts from './components/VolunteerViews/MyShifts/MyShifts'
+import ManageAnnouncements from './components/ManageAnnouncements/ManageAnnouncements'
 import Announcements from './components/VolunteerViews/Announcements/Announcements'
 import UpcomingOpportunities from './components/VolunteerViews/UpcomingOpportunities/UpcomingOpportunities';
 
-// import AdminSingleVolunteerView from './components/AdminSingleVolunteerView/AdminSingleVolunteerView'
+
+// import AdminSingleVolunteerDialog from './components/AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
+
+import AdminSingleVolunteerDialog from './components/AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
+
 import './styles/main.css';
 
 
@@ -67,33 +68,34 @@ const App = () => (
           component={UserPage}
         />
         <Route
-          path="/info"
-          component={InfoPage}
-        />
-        <Route
-          path="/myShifts"
+          path="/my_shifts"
           component={MyShifts}
         />
         <Route
-          path="/announcements"
-          component={Announcements}
+          path="/manage_announcements"
+          component={ManageAnnouncements}
         />
         <Route
-          path="/upcomingOpportunities"
+          path="/upcoming_opportunities"
           component={UpcomingOpportunities}
         />
         <Route
           path="/manage_volunteers"
           component={ManageVolunteersView}
         />
+
         <Route
           path="/manageOpportunities"
           component={ManageOpportunitiesPage}
         />
-        {/* <Route
-          path="/admin_single_volunteer_view/:id"
-          component={AdminSingleVolunteerView}
-        /> */}
+        <Route
+          path="/manage_opportunities"
+          component={ManageOpportunitiesPage}
+        />
+         <Route
+          path="/announcements"
+          component={Announcements}
+        />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
 
