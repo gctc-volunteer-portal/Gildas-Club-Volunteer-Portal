@@ -22,8 +22,11 @@ class VolunteerOpportunityDialog extends React.Component {
 
   signUp = () => {
     this.props.dispatch({
-        type: 'SIGN_UP_VOLUNTEER',
-        payload: this.props.shift.id
+        type: 'ENROLL_VOLUNTEER',
+        payload: {
+            volunteerId: this.props.user.id,
+            opportunityId: this.props.shift.id,
+        }
     });
   }
 
@@ -84,4 +87,8 @@ class VolunteerOpportunityDialog extends React.Component {
   }
 }
 
-export default connect()(VolunteerOpportunityDialog);
+const mapStateToProps = (state) => ({
+    user: state.user
+})
+
+export default connect(mapStateToProps)(VolunteerOpportunityDialog);
