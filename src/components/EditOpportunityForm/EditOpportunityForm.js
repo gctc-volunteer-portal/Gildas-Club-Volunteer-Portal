@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { withStyles, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
+//date picker component and css file from react-datepicker
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 const styles = {
   formContainer: {
@@ -38,7 +42,6 @@ class EditOpportunityForm extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
     this.setOldValues();
   }
 
@@ -56,7 +59,7 @@ class EditOpportunityForm extends Component {
     const oldOpportunityStatus = this.props.opportunityToUpdate.status;
     const oldOpportunityPrivateNotes = this.props.opportunityToUpdate.private_notes;
     const oldOpportunityMaxVolunteers = this.props.opportunityToUpdate.max_volunteers;
-    const oldOpportunityCertficationNeeded = this.props.opportunityToUpdate.certification_needed;
+    const oldOpportunityCertificationNeeded = this.props.opportunityToUpdate.certification_needed;
 
     this.setState({
       title: oldOpportunityTitle,
@@ -72,8 +75,26 @@ class EditOpportunityForm extends Component {
       status: oldOpportunityStatus,
       private_notes: oldOpportunityPrivateNotes,
       max_volunteers: oldOpportunityMaxVolunteers,
-      certification_needed: oldOpportunityCertficationNeeded,
+      certification_needed: oldOpportunityCertificationNeeded.toString(),
     })
+  }
+
+  handleDateChange = (date) => {
+    this.setState({
+      date: date
+    });
+  }
+
+  handleEndTimeChange = (time) => {
+    this.setState({
+      end_time: time
+    });
+  }
+
+  handleStartTimeChange = (time) => {
+    this.setState({
+      start_time: time
+    });
   }
 
   handleInputChangeFor = propertyName => (event) => {
@@ -82,14 +103,19 @@ class EditOpportunityForm extends Component {
     });
   }
 
+  // updateEvent = (event) => {
+  //   event.preventDefault();
+  //   this.props.dispatch(triggerUpdateEvent(this.props.eventId, this.state))
+  //   this.props.handleCloseModal();
+  // }
+
   render() {
     console.log(this.props.opportunityToUpdate, 'opportunity to update')
     console.log(this.state, 'local state edit opportunity form')
     // map through certifications list, which is stored on redux store, and display them on DOM
     const certificationsList = this.props.certificates.map((certificate, index) => {
       return (
-        <FormControlLabel key={index} value=
-          {certificate.id.toString()} control={<Radio />} label={certificate.certification_name} />
+        <FormControlLabel key={index} value={certificate.id.toString()} control={<Radio />} label={certificate.certification_name} />
       )
     })
 
@@ -100,20 +126,32 @@ class EditOpportunityForm extends Component {
           type="text"
           name="title"
           fullWidth
-          onChange={this.handleInputChangeFor('title')}
-        />
-        {/* Input for volunteer opportunity date */}
-        <TextField
-          label="Date"
-          type="date"
-          name="date"
           InputLabelProps={{
             shrink: true,
           }}
-          fullWidth
-          onChange={this.handleInputChangeFor('date')}
+          placeholder={this.props.opportunityToUpdate.title}
+          onChange={this.handleInputChangeFor('title')}
         />
+        {/* Input for volunteer opportunity date */}
+        <DatePicker
+          selected={moment(this.state.date).utc()}
+          onChange={this.handleDateChange}
+          dateFormat="ddd, MMM D, YYYY"
+          placeholderText={
+            moment(this.props.opportunityToUpdate.date).utc()
+              .format("ddd, MMM D, YYYY")}
+        />
+
         {/* Input for volunteer opportunity start time */}
+
+        {/* <DatePicker
+          selected={moment(this.state.start_time).utc()}
+          onChange={this.handleStartTimeChange}
+          dateFormat="h:mm A"
+          placeholderText={
+            moment(this.props.opportunityToUpdate.start_time).utc().format("h:mm A")}
+        /> */}
+
         <TextField
           label="Start Time"
           type="time"
@@ -122,8 +160,10 @@ class EditOpportunityForm extends Component {
             shrink: true,
           }}
           fullWidth
+          placeholder={moment(this.props.opportunityToUpdate.start_time).utc().format("h:mm A")}
           onChange={this.handleInputChangeFor('start_time')}
         />
+
         {/* Input for volunteer opportunity end time */}
         <TextField
           label="End Time"
@@ -133,6 +173,7 @@ class EditOpportunityForm extends Component {
             shrink: true,
           }}
           fullWidth
+          placeholder={this.props.opportunityToUpdate.end_time}
           onChange={this.handleInputChangeFor('end_time')}
         />
         {/* Input for volunteer opportunity street address 1 */}
@@ -141,6 +182,10 @@ class EditOpportunityForm extends Component {
           type="text"
           name="address_line1"
           fullWidth
+          InputLabelProps={{
+            shrink: true,
+          }}
+          placeholder={this.props.opportunityToUpdate.address_line1}
           onChange={this.handleInputChangeFor('address_line1')}
         />
         {/* Input for volunteer opportunity street address 2 */}
@@ -149,6 +194,10 @@ class EditOpportunityForm extends Component {
           type="text"
           name="address_line2"
           fullWidth
+          InputLabelProps={{
+            shrink: true,
+          }}
+          placeholder={this.props.opportunityToUpdate.address_line2}
           onChange={this.handleInputChangeFor('address_line2')}
         />
         {/* Input for volunteer opportunity location city */}
@@ -157,6 +206,10 @@ class EditOpportunityForm extends Component {
           type="text"
           name="city"
           fullWidth
+          InputLabelProps={{
+            shrink: true,
+          }}
+          placeholder={this.props.opportunityToUpdate.city}
           onChange={this.handleInputChangeFor('city')}
         />
         {/* Input for volunteer opportunity location State */}
@@ -165,14 +218,22 @@ class EditOpportunityForm extends Component {
           type="text"
           name="state"
           fullWidth
+          InputLabelProps={{
+            shrink: true,
+          }}
+          placeholder={this.props.opportunityToUpdate.state}
           onChange={this.handleInputChangeFor('state')}
         />
         {/* Input for volunteer opportunity location zipcode  */}
         <TextField
           label="Zip Code"
-          type="text"
+          type="number"
           name="zip"
           fullWidth
+          InputLabelProps={{
+            shrink: true,
+          }}
+          placeholder={this.props.opportunityToUpdate.zip.toString()}
           onChange={this.handleInputChangeFor('zip')}
         />
         {/* Input for # of volunteers needed for this volunteer opportunity */}
@@ -181,6 +242,10 @@ class EditOpportunityForm extends Component {
           type="number"
           name="max_volunteers"
           fullWidth
+          InputLabelProps={{
+            shrink: true,
+          }}
+          placeholder={this.props.opportunityToUpdate.max_volunteers.toString()}
           onChange={this.handleInputChangeFor('max_volunteers')}
         />
         {/* Input to upload image for volunteer opportunity */}
@@ -189,6 +254,9 @@ class EditOpportunityForm extends Component {
           type="text"
           name=""
           fullWidth
+          InputLabelProps={{
+            shrink: true,
+          }}
         // onChange={this.handleInputChangeFor('')}
         />
         {/* Input for description of volunteer opportunity */}
@@ -198,23 +266,28 @@ class EditOpportunityForm extends Component {
           name=""
           fullWidth
           multiline
+          InputLabelProps={{
+            shrink: true,
+          }}
+          placeholder={this.props.opportunityToUpdate.description}
           onChange={this.handleInputChangeFor('description')}
         />
         {/* Radio inputs to select required certification */}
         <RadioGroup
           name="deliveryType"
           value={this.state.certification_needed}
+          placeholder={this.props.opportunityToUpdate.certification_needed.toString()}
           onChange={this.handleInputChangeFor('certification_needed')}>
           {certificationsList}
         </RadioGroup>
         {/* Create Volunteer Opportunity */}
         <Button
           className={this.props.classes.button}
-          onClick={this.addOpportunity}
+          // onClick={this.addOpportunity}
           variant="raised"
           color="primary"
         >
-          Create
+          Update
           </Button>
         {/* Cancel Creating Volunteer Opportunity */}
         <Button
