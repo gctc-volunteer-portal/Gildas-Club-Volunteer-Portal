@@ -23,9 +23,7 @@ const styles = {
     media: {
         height: 350,
         width: 300
-
     },
-
 };
 
 class MediaCard extends Component {
@@ -37,14 +35,12 @@ class MediaCard extends Component {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'GET_EVENT_VOLUNTEERS', payload: this.props.opportunity.id })
     }
-    
+
     render() {
         const { classes } = this.props;
-console.log(this.props.state);
         let buttons;
         if (this.props.state.user.access_level == 3) {
-            buttons = (<div>
-                            
+            buttons = (<div>                           
                             <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
                             <AdminManageVolunteersDialogue
                                 opportunity={this.props.opportunity}
