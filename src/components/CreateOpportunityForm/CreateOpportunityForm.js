@@ -108,7 +108,7 @@ class CreateOpportunityForm extends Component {
         />
         {/* Input for volunteer opportunity start time */}
 
-        <DatePicker
+        {/* <DatePicker
           selected={this.state.start_time}
           onChange={this.handleStartTimeChange}
           showTimeSelect
@@ -116,9 +116,9 @@ class CreateOpportunityForm extends Component {
           timeIntervals={30}
           dateFormat="h:mm A"
           timeCaption="Please Start Time"
-        />
+        /> */}
 
-        {/* <TextField
+        <TextField
           label="Start Time"
           type="time"
           name="start_time"
@@ -127,7 +127,7 @@ class CreateOpportunityForm extends Component {
           }}
           fullWidth
           onChange={this.handleInputChangeFor('start_time')}
-        /> */}
+        />
         {/* Input for volunteer opportunity end time */}
         <TextField
           label="End Time"
