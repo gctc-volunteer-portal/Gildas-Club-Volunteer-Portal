@@ -16,7 +16,6 @@ const styles = {
   },
 };
 
-
 class EditOpportunityForm extends Component {
   constructor(props) {
     super(props);
@@ -38,26 +37,27 @@ class EditOpportunityForm extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
+  }
+
   handleInputChangeFor = propertyName => (event) => {
     this.setState({
       [propertyName]: event.target.value,
     });
   }
 
-
   render() {
-    const certificationsList = this.props.certificates.map((certificate, index) => {
-      return (
-        <FormControlLabel key={index} value={certificate.id.toString()} control={<Radio />} label={certificate.certification_name} />
-      )
-    })
+   // map through certifications list, which is stored on redux store, and display them on DOM
+   const certificationsList = this.props.certificates.map((certificate, index) => {
+    return (
+      <FormControlLabel key={index} value=
+        {certificate.id.toString()} control={<Radio />} label={certificate.certification_name} />
+    )
+  })
+
     return (
       <React.Fragment>
-        {/* <form
-          className={this.props.classes.formContainer}
-          onSubmit={this.props.registerUser}> */}
-        {/* <FormControl className={this.props.classes.formControl}> */}
-          {/* Input for volunteer opportunity name */}
           <TextField
             label="Opportunity Name"
             type="text"
@@ -188,8 +188,6 @@ class EditOpportunityForm extends Component {
           >
             Cancel
             </Button>
-        {/* </FormControl> */}
-        {/* </form> */}
       </React.Fragment>
     )
   }

@@ -104,9 +104,13 @@ class MediaCard extends Component {
                             Share
                     </Button>
                         <Button
+                            color="primary"
+                            variant="raised"
+                            size="small"
                             onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
-
-                        >Edit Opportunity</Button>
+                        >
+                            Edit Opportunity
+                    </Button>
                         <AdminManageVolunteersDialogue
                             opportunity={this.props.opportunity}
                         />
