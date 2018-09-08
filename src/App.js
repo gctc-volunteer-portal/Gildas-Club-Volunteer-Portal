@@ -83,11 +83,6 @@ const App = () => (
           path="/manage_volunteers"
           component={ManageVolunteersView}
         />
-
-        <Route
-          path="/manageOpportunities"
-          component={ManageOpportunitiesPage}
-        />
         <Route
           path="/manage_opportunities"
           component={ManageOpportunitiesPage}
