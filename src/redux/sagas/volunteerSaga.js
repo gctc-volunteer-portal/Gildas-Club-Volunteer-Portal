@@ -14,6 +14,24 @@ function* getUsers(){
       }
 }
 
+function* getIndVolunteerInfo(action){
+    console.log(action.payload);
+    let id = action.payload
+    try{
+        yield dispatch({
+            type:'CLEAR'  
+            });
+        const individualVolunteerInfo = yield call(axios.get, `/api/volunteers/indVolunteer/${id}`)
+        yield dispatch({
+            type:'VOLUNTEER_INFO',
+            payload: individualVolunteerInfo.data[0]
+        })
+    }catch(err){
+        console.log(err);
+        
+    }
+}
+
 function* fetchVolunteerInfo() {
     try {
         const volunteerInfo = yield call(axios.get, '/api/volunteers/info')
@@ -43,9 +61,7 @@ function* UpdateVolunteers(action){
     console.log(action.payload);
         try{
             const update = yield call(axios.put, `/api/volunteers/updateInfo/`, action.payload)
-            // yield dispatch({
 
-            // })
         }catch(err){
             console.log(err);
             
@@ -56,7 +72,8 @@ function* UpdateVolunteers(action){
 function* volunteerSaga(){
     yield takeEvery('GET_USERS', getUsers)
     yield takeEvery('UPDATE_VOLUNTEER_INFO', UpdateVolunteers)
-    yield takeEvery('FETCH_VOLUNTEER_INFO', fetchVolunteerInfo);
+    yield takeEvery('FETCH_VOLUNTEER_INFO', fetchVolunteerInfo)
+    yield takeEvery('GET_ALL_VOLUNTEER_INFO', getIndVolunteerInfo) 
 }
 
 

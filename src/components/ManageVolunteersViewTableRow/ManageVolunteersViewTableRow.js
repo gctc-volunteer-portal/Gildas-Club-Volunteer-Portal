@@ -5,6 +5,8 @@ import {withRouter} from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { TableCell, TableRow, Button } from '@material-ui/core';
 import { CheckCircle, Cancel } from '@material-ui/icons'
+import AdminManageVolunteersDialgueTable from '../AdminManageVolunteersDialogueTable/AdminManageVolunteersDialgueTable';
+import AdminSingleVolunteerDialog from '../AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -35,6 +37,11 @@ const styles = theme => ({
 
 class ManageVolunteersViewTableRow extends Component {
 
+    // componentDidMount(){
+    //     let volunteer = this.props.volunteer.id
+    //     let id = volunteer.id
+    //     this.props.dispatch({ type:'GET_ALL_VOLUNTEER_INFO',payload: id})
+    // }
     certified = (certificationStatus) => {
         if (certificationStatus) {
             return <CheckCircle nativeColor="green" />
@@ -42,13 +49,22 @@ class ManageVolunteersViewTableRow extends Component {
         else { return <Cancel nativeColor="red" /> }
     }
 
-    editVolunteer = () => {
-        console.log('going to edit volunteer view')
-        console.log(this.props.volunteer.id)
-        this.props.history.push('/admin_single_volunteer_view')
-    }
+    // editVolunteer = () => {
+    //     console.log(this.props.volunteer);
+    //     let volunteer = this.props.volunteer
+    //     console.log('going to edit volunteer view')
+    //     console.log(this.props.volunteer.id)
+    //     let id = volunteer.id
+    //     // this.props.dispatch({
+    //     //    type:'GET_ALL_VOLUNTEER_INFO',
+    //     //    payload: volunteer.id
+    //     //    })
+    //     this.props.history.push(`/admin_single_volunteer_view/${volunteer.id}`)
+       
+    // }
 
     render() {
+
         let editButton = null;
 
         if (this.props.user.access_level === 3) {
@@ -56,7 +72,7 @@ class ManageVolunteersViewTableRow extends Component {
                 <Button onClick={this.editVolunteer}>Edit</Button>
             )
         }
-
+        // <Card key={index} className={this.props.classes.card} onClick={()=> this.props.history.push(`/question/${question.id}`)}>
         return (
             <TableRow className={this.props.classes.row}>
                 <CustomTableCell>{this.props.volunteer.first_name}</CustomTableCell>
@@ -77,7 +93,7 @@ class ManageVolunteersViewTableRow extends Component {
                 <CustomTableCell>{this.certified(this.props.volunteer.special1)}</CustomTableCell>
                 <CustomTableCell>{this.certified(this.props.volunteer.special2)}</CustomTableCell>
                 <CustomTableCell>{this.certified(this.props.volunteer.special3)}</CustomTableCell>
-                <CustomTableCell>{editButton}</CustomTableCell>
+                <CustomTableCell><AdminSingleVolunteerDialog volunteer={this.props.volunteer}/></CustomTableCell>
             </TableRow>
         )
     }
@@ -85,6 +101,7 @@ class ManageVolunteersViewTableRow extends Component {
 
 const mapStateToProps = state => ({
     user: state.user,
+    state
 });
 
 const connectedManageVolunteersViewTableRow = withRouter(connect(mapStateToProps)(ManageVolunteersViewTableRow));
