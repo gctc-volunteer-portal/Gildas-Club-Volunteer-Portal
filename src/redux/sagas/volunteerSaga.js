@@ -74,7 +74,7 @@ function* updateVolunteers(action){
 function* volunteerSaga(){
     yield takeEvery('GET_USERS', getUsers)
 
-    yield takeEvery('UPDATE_VOLUNTEER_INFO', UpdateVolunteers)
+    yield takeEvery('UPDATE_VOLUNTEER_INFO', updateVolunteers)
     yield takeEvery('FETCH_VOLUNTEER_INFO', fetchVolunteerInfo)
     yield takeEvery('GET_ALL_VOLUNTEER_INFO', getIndVolunteerInfo) 
 }

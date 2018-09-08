@@ -18,7 +18,7 @@ const store = combineReducers({
   volunteerInfo,
   certificationsReducer,
   indVolunteerInfo
-  myAvailableEventsReducer
+  
 
 });
 
