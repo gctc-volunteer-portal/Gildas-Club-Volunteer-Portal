@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 class VolunteerOpportunityDialog extends React.Component {
   state = {
     open: false,
+    enrolled: false,
   };
 
   handleClickOpen = () => {
@@ -17,6 +18,13 @@ class VolunteerOpportunityDialog extends React.Component {
   };
 
   handleClose = () => {
+    this.props.dispatch({
+        type: 'CHECK_ENROLLED',
+        payload: {
+          volunteerId: this.props.user.id,
+          opportunityId: this.props.shift.id,
+        }
+    })
     this.setState({ open: false });
   };
 

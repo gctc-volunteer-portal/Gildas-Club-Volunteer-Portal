@@ -91,6 +91,14 @@ function* getCertifiedVolunteers(certificationId){
 
 }
 
+function* checkEnrolled(){
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
 
 
 function* opportunitiesSaga() {
@@ -101,6 +109,7 @@ function* opportunitiesSaga() {
     yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer);
     yield takeEvery('FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES', fetchSingleVolunteerOpportunities);
     yield takeEvery('GET_CERTIFIED_VOLUNTEERS', getCertifiedVolunteers);
+    yield takeEvery('CHECK_ENROLLED', checkEnrolled);
 }
 
 export default opportunitiesSaga;
