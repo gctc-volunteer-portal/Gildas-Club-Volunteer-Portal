@@ -48,10 +48,11 @@ class ManageVolunteersViewTableRow extends Component {
 
         if (this.props.user.access_level === 3) {
             editButton = (
-                <Button onClick={this.editVolunteer}>Edit</Button>
-            )``
+                <AdminSingleVolunteerDialog volunteer={this.props.volunteer} />
+            )
         }
-        // <Card key={index} className={this.props.classes.card} onClick={()=> this.props.history.push(`/question/${question.id}`)}>
+
+      
         return (
             <TableRow className={this.props.classes.row}>
                 <CustomTableCell>{this.props.volunteer.first_name}</CustomTableCell>
