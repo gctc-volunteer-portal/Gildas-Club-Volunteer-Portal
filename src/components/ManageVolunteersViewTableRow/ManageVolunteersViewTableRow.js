@@ -44,13 +44,13 @@ class ManageVolunteersViewTableRow extends Component {
 
     render() {
 
-        // let editButton = null;
+        let editButton = null;
 
-        // if (this.props.user.access_level === 3) {
-        //     editButton = (
-        //         <Button onClick={this.editVolunteer}>Edit</Button>
-        //     )``
-        // }
+        if (this.props.user.access_level === 3) {
+            editButton = (
+                <Button onClick={this.editVolunteer}>Edit</Button>
+            )``
+        }
         // <Card key={index} className={this.props.classes.card} onClick={()=> this.props.history.push(`/question/${question.id}`)}>
         return (
             <TableRow className={this.props.classes.row}>
