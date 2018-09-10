@@ -1,10 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { connect } from 'react-redux';
+import AnnouncementCardDialog from '../AnnouncementsCardDialog/AnnouncementsCardDialog';
+import moment from 'moment';
+
+
+
 import Typography from '@material-ui/core/Typography';
 
 const styles = {
@@ -25,31 +31,57 @@ const styles = {
   },
 };
 
-function SimpleCard(props) {
-  const { classes } = props;
-  const bull = <span className={classes.bullet}>•</span>;
 
+class SimpleCard extends Component {
+    constructor(props){
+        super(props);
+    }
+
+
+    handleDelete = (announcementId) => { 
+        console.log(announcementId);
+         this.props.dispatch({
+            type: 'DELETE_ANNOUNCEMENT',
+            payload: announcementId
+          });
+        }
+
+
+  render(){
+    let button;
+    const { classes } = this.props;
+    if (this.props.user.access_level === 3){
+          button = (<Button onClick={()=>this.handleDelete(this.props.announcement.id)}variant="small" color="secondary" className={classes.button}>
+              Delete
+              <DeleteIcon className={classes.rightIcon} />
+              </Button>)
+    }
   return (
     <Card className={classes.card}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary">
-         {props.announcement.date}
+         {moment(this.props.announcement.date).format("dddd, MMM D, YYYY")}
         </Typography>
         <Typography variant="headline" component="h2">
-         {props.announcement.title}
+         {this.props.announcement.title}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+       <AnnouncementCardDialog
+           announcement = {this.props.announcement}
+       />
+        {button}
       </CardActions>
     </Card>
   );
 }
+}
 
-SimpleCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(SimpleCard);
+const mapStateToProps = state => ({
+    user: state.user
+  });
+
+export default connect(mapStateToProps)(withStyles(styles)(SimpleCard));
