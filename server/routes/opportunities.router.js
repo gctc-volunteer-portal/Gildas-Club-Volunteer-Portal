@@ -8,7 +8,8 @@ const { rejectUnauthorizedManager } = require('../modules/manager-authorization'
  * GET route template
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT * FROM opportunities;`;
+    const queryText = `SELECT * FROM opportunities
+    JOIN certifications on opportunities.certification_needed = certifications.id;`;
     pool.query(queryText)
         .then((results) => {
             res.send(results.rows)

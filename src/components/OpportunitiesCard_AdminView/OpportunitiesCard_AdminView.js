@@ -63,7 +63,7 @@ class MediaCard extends Component {
         let buttons;
         if (this.props.state.user.access_level == 3) {
             buttons = (<div>                           
-                            <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
+                            <VolunteerOpportunityDialog opportunity={this.props.opportunity} />
                             <AdminManageVolunteersDialogue
                                 opportunity={this.props.opportunity}
                             />
