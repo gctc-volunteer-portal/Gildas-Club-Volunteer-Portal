@@ -91,7 +91,6 @@ function* getCertifiedVolunteers(certificationId) {
 
 }
 
-
 function* checkEnrolled(action){
     try {
         let enrolledStatus = false;
@@ -105,10 +104,10 @@ function* checkEnrolled(action){
             payload: enrolledStatus
         })
     } catch (error) {
-        console.log(error);
+              yield console.log(error);
     }
-}       
-
+}
+        
 function* updateOpportunity(action) {
     try {
         yield call(axios.put, `/api/opportunities/${action.payload.opportunityId}`, action.payload.updateOpportunityData)
