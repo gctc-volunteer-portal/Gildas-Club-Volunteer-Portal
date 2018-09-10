@@ -24,59 +24,35 @@ class EditOpportunityForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      start_time: null,
-      end_time: null,
-      address_line1: '',
-      address_line2: '',
-      city: '',
-      state: '',
-      zip: null,
-      description: '',
-      date: null,
-      status: 1,
-      private_notes: '',
-      max_volunteers: null,
-      certification_needed: null,
+      title: this.props.opportunityToUpdate.title,
+      start_time: this.props.opportunityToUpdate.start_time,
+      end_time: this.props.opportunityToUpdate.end_time,
+      address_line1: this.props.opportunityToUpdate.address_line1,
+      address_line2: this.props.opportunityToUpdate.address_line2,
+      city: this.props.opportunityToUpdate.city,
+      state: this.props.opportunityToUpdate.state,
+      zip: this.props.opportunityToUpdate.zip,
+      description: this.props.opportunityToUpdate.description,
+      date: this.props.opportunityToUpdate.date,
+      status: this.props.opportunityToUpdate.status,
+      private_notes: this.props.opportunityToUpdate.private_notes,
+      max_volunteers: this.props.opportunityToUpdate.max_volunteers,
+      certification_needed: this.props.opportunityToUpdate.certification_needed.toString(),
+      // title: '',
+      // start_time: null,
+      // end_time: null,
+      // address_line1: '',
+      // address_line2: '',
+      // city: '',
+      // state: '',
+      // zip: null,
+      // description: '',
+      // date: null,
+      // status: 1,
+      // private_notes: '',
+      // max_volunteers: null,
+      // certification_needed: null,
     }
-  }
-
-  componentDidMount() {
-    this.setOldValues();
-  }
-
-  setOldValues = () => {
-    const oldOpportunityTitle = this.props.opportunityToUpdate.title;
-    const oldOpportunityStartTime = this.props.opportunityToUpdate.start_time;
-    const oldOpportunityEndTime = this.props.opportunityToUpdate.end_time;
-    const oldOpportunityAddressLine1 = this.props.opportunityToUpdate.address_line1;
-    const oldOpportunityAddressLine2 = this.props.opportunityToUpdate.address_line2;
-    const oldOpportunityCity = this.props.opportunityToUpdate.city;
-    const oldOpportunityState = this.props.opportunityToUpdate.state;
-    const oldOpportunityZip = this.props.opportunityToUpdate.zip;
-    const oldOpportunityDescription = this.props.opportunityToUpdate.description;
-    const oldOpportunityDate = this.props.opportunityToUpdate.date;
-    const oldOpportunityStatus = this.props.opportunityToUpdate.status;
-    const oldOpportunityPrivateNotes = this.props.opportunityToUpdate.private_notes;
-    const oldOpportunityMaxVolunteers = this.props.opportunityToUpdate.max_volunteers;
-    const oldOpportunityCertificationNeeded = this.props.opportunityToUpdate.certification_needed;
-
-    this.setState({
-      title: oldOpportunityTitle,
-      start_time: oldOpportunityStartTime,
-      end_time: oldOpportunityEndTime,
-      address_line1: oldOpportunityAddressLine1,
-      address_line2: oldOpportunityAddressLine2,
-      city: oldOpportunityCity,
-      state: oldOpportunityState,
-      zip: oldOpportunityZip,
-      description: oldOpportunityDescription,
-      date: oldOpportunityDate,
-      status: oldOpportunityStatus,
-      private_notes: oldOpportunityPrivateNotes,
-      max_volunteers: oldOpportunityMaxVolunteers,
-      certification_needed: oldOpportunityCertificationNeeded.toString(),
-    })
   }
 
   handleDateChange = (date) => {
@@ -103,11 +79,17 @@ class EditOpportunityForm extends Component {
     });
   }
 
-  // updateEvent = (event) => {
-  //   event.preventDefault();
-  //   this.props.dispatch(triggerUpdateEvent(this.props.eventId, this.state))
-  //   this.props.handleCloseModal();
-  // }
+  updateOpportunity = () => {
+    this.props.dispatch({
+      type: 'UPDATE_OPPORTUNITY', payload:
+      {
+        opportunityId: this.props.opportunityId,
+        updateOpportunityData: this.state
+      }
+    })
+
+    this.props.closeEditOpportunity();
+  }
 
   render() {
     console.log(this.props.opportunityToUpdate, 'opportunity to update')
@@ -160,7 +142,7 @@ class EditOpportunityForm extends Component {
             shrink: true,
           }}
           fullWidth
-          placeholder={moment(this.props.opportunityToUpdate.start_time).utc().format("h:mm A")}
+          placeholder={this.props.opportunityToUpdate.start_time}
           onChange={this.handleInputChangeFor('start_time')}
         />
 
@@ -233,7 +215,7 @@ class EditOpportunityForm extends Component {
           InputLabelProps={{
             shrink: true,
           }}
-          placeholder={this.props.opportunityToUpdate.zip.toString()}
+          placeholder={this.props.opportunityToUpdate.zip.toString() || ''}
           onChange={this.handleInputChangeFor('zip')}
         />
         {/* Input for # of volunteers needed for this volunteer opportunity */}
@@ -245,7 +227,7 @@ class EditOpportunityForm extends Component {
           InputLabelProps={{
             shrink: true,
           }}
-          placeholder={this.props.opportunityToUpdate.max_volunteers.toString()}
+          placeholder={this.props.opportunityToUpdate.max_volunteers.toString() || ''}
           onChange={this.handleInputChangeFor('max_volunteers')}
         />
         {/* Input to upload image for volunteer opportunity */}
@@ -283,7 +265,7 @@ class EditOpportunityForm extends Component {
         {/* Create Volunteer Opportunity */}
         <Button
           className={this.props.classes.button}
-          // onClick={this.addOpportunity}
+          onClick={this.updateOpportunity}
           variant="raised"
           color="primary"
         >
