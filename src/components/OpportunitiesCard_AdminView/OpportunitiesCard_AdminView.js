@@ -8,7 +8,7 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { connect } from 'react-redux'
 import AdminManageVolunteersDialogue from '../AdminManageVolunteersDialogue/AdminManageVolunteersDialogue';
 import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
-
+import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDialog/VolunteerOpportunityDialog';
 
 const styles = {
     card: {
@@ -18,7 +18,7 @@ const styles = {
         margin: 30
     },
     media: {
-        height: 350,
+        height: 50,
         width: 300
     },
     dialog: {
@@ -67,12 +67,18 @@ class MediaCard extends Component {
                             <AdminManageVolunteersDialogue
                                 opportunity={this.props.opportunity}
                             />
+                            <Button
+                            color="primary"
+                            variant="raised"
+                            size="small"
+                            onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
+                        >
+                            Edit Opportunity
+                    </Button>
                             </div>)
         } else{
             buttons = ( <div>
-                            <Button size="small" color="primary" variant="raised">
-                             Volunteer
-                            </Button>
+                            <VolunteerOpportunityDialog opportunity={this.props.opportunity} />
                         </div>
             )}
 
@@ -82,7 +88,7 @@ class MediaCard extends Component {
                     <CardActionArea>
                         <CardMedia
                             className={classes.media}
-                            image="https://www.gildasclubtwincities.org/wp-content/themes/skeleton/images/logo.png"
+                            image={this.props.opportunity.image}
                             title="Opportunity"
                         />
                         <CardContent>
@@ -99,17 +105,7 @@ class MediaCard extends Component {
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
-                        <Button
-                            color="primary"
-                            variant="raised"
-                            size="small"
-                            onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
-                        >
-                            Edit Opportunity
-                        </Button>
-                        <AdminManageVolunteersDialogue
-                            opportunity={this.props.opportunity}
-                        />
+                        {buttons}
                     </CardActions>
                 </Card>
                 <Dialog

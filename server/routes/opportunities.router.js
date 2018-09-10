@@ -47,7 +47,22 @@ router.get('/volunteer', rejectUnauthenticated, (req, res) => {
             res.send(results.rows)
         })
         .catch((error) => {
-            console('Error on /api/opportunities/volunteer GET:', error);
+            console.log('Error on /api/opportunities/volunteer GET:', error);
+            res.sendStatus(500);
+        });
+});
+
+router.get('/enrolled/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.user.id, req.params.id)
+    const queryText = `SELECT * FROM "user_opportunities"
+    WHERE "user_id" = $1 AND "opportunity_id" = $2;`
+    pool.query(queryText, [req.user.id, req.params.id])
+        .then(results => {
+            console.log(results.rows)
+            res.send(results.rows)
+        })
+        .catch(error => {
+            console.log('Error on /api/opportunities/enrolled GET:', error);
             res.sendStatus(500);
         });
 });
@@ -125,6 +140,25 @@ router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) =>
         })
         .catch((error) => {
             console.log('error on /api/opportunities POST:', error)
+            res.sendStatus(500);
+        })
+});
+
+router.put('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
+    const updateOpportunityData = req.body;
+    console.log(req.params.id, 'req params')
+    console.log(req.body, 'req body');
+
+    const queryText = `UPDATE "opportunities" SET "title" = $2, "start_time" = $3, "end_time" = $4, "address_line1" = $5, "address_line2" = $6, "city" = $7, "state" =$8, "zip" = $9, "description" = $10, "date" = $11, "status" = $12, "private_notes" = $13, "max_volunteers" = $14, "certification_needed" = $15
+    WHERE "id" = $1;`;
+
+    const serializedData = [req.params.id, updateOpportunityData.title, updateOpportunityData.start_time, updateOpportunityData.end_time, updateOpportunityData.address_line1, updateOpportunityData.address_line2, updateOpportunityData.city, updateOpportunityData.state, updateOpportunityData.zip, updateOpportunityData.description, updateOpportunityData.date, updateOpportunityData.status, updateOpportunityData.private_notes, updateOpportunityData.max_volunteers, updateOpportunityData.certification_needed];
+
+    pool.query(queryText, serializedData)
+        .then((result) => {
+            res.sendStatus(201);
+        })
+        .catch((error) => {
             res.sendStatus(500);
         })
 });
