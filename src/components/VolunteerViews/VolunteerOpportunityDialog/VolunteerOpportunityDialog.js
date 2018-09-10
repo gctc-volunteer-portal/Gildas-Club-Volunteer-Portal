@@ -34,12 +34,26 @@ class VolunteerOpportunityDialog extends React.Component {
                 volunteerId: this.props.user.id,
                 opportunityId: this.props.shift.id,
             }
+        })
+        this.props.dispatch({
+            type: 'CHECK_ENROLLED',
+            payload: {
+                volunteerId: this.props.user.id,
+                opportunityId: this.props.shift.id,
+            }
         });
     }
 
     withdraw = () => {
         this.props.dispatch({
             type: 'DELETE_ITEM',
+            payload: {
+                volunteerId: this.props.user.id,
+                opportunityId: this.props.shift.id,
+            }
+        })
+        this.props.dispatch({
+            type: 'CHECK_ENROLLED',
             payload: {
                 volunteerId: this.props.user.id,
                 opportunityId: this.props.shift.id,
