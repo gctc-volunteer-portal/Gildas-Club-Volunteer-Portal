@@ -3,6 +3,8 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const { rejectUnauthorizedManager } = require('../modules/manager-authorization');
+const moment = require('moment');
+
 
 /**
  * GET route template
@@ -47,7 +49,22 @@ router.get('/volunteer', rejectUnauthenticated, (req, res) => {
             res.send(results.rows)
         })
         .catch((error) => {
-            console('Error on /api/opportunities/volunteer GET:', error);
+            console.log('Error on /api/opportunities/volunteer GET:', error);
+            res.sendStatus(500);
+        });
+});
+
+router.get('/enrolled/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.user.id, req.params.id)
+    const queryText = `SELECT * FROM "user_opportunities"
+    WHERE "user_id" = $1 AND "opportunity_id" = $2;`
+    pool.query(queryText, [req.user.id, req.params.id])
+        .then(results => {
+            console.log(results.rows)
+            res.send(results.rows)
+        })
+        .catch(error => {
+            console.log('Error on /api/opportunities/enrolled GET:', error);
             res.sendStatus(500);
         });
 });
@@ -115,8 +132,10 @@ router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) =>
 
     const queryText = `INSERT INTO "opportunities"("title","start_time","end_time","address_line1","address_line2","city","state","zip","description","date","status","private_notes","max_volunteers","certification_needed")
     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);`;
+    const momentStartTime = moment(newOpportunity.start_time).format('HH:mm');
+    const momentEndTime = moment(newOpportunity.end_time).format('HH:mm');
 
-    const serializedData = [newOpportunity.title, newOpportunity.start_time, newOpportunity.end_time, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers, certId];
+    const serializedData = [newOpportunity.title, momentStartTime, momentEndTime, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers, certId];
     console.log(serializedData)
 
     pool.query(queryText, serializedData)
