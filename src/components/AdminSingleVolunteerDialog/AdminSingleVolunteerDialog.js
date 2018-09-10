@@ -33,11 +33,11 @@ const styles = {
     },
     indChip:{
       marginBottom:'10px',
-      color: ' #DE2027'
+      // color: ' #DE2027'
       
     },
     thisOneChip:{
-      backgroundColor:'#DE2027'
+      // backgroundColor:'#DE2027'
     },
     chip:{
       marginBottom:'10px',
@@ -107,8 +107,9 @@ class AdminSingleVolunteerDialog extends Component {
           admin_notes: this.props.volunteer.admin_notes,
           message: this.props.volunteer.message,
           open: false,
+          noogieland: this.props.noogieland,
           chip:{
-           
+           color:'primary',
             onDelete: 'none',
             avatar: 'none',
             variant: 'default',
@@ -177,15 +178,20 @@ handleClose = () => {
     });
   }
 
-  handleColor =() =>{
-    this.setState({
-      chip:{
-        color: ''
-      }
-    })
-    console.log('this');
+  handleNuggieLand = () => {
+    if(this.state.noogieland === true){
+      this.setState({
+        noogieland: false
+      })
+    }else{
+      this.setState({
+        noogieland:true
+    });
+  }
     
   }
+    
+  
 
 
 
@@ -222,6 +228,7 @@ handleClose = () => {
  
 
   render() {
+    console.log(this.state.noogieland);
     
     // console.log(this.props.currentVolunteer)
     let toggleAccess;
@@ -266,6 +273,32 @@ handleClose = () => {
       label="Inactive" />
       </div>)
     }
+
+    let myColor 
+    if(this.state.noogieland === true){
+      myColor= (<div>
+        <Chip  
+          
+          // className={this.props.classes.thisOneChip} 
+          label="Awesome Chip Component"
+          clickable
+          color= "primary"
+          onClick={this.handleNuggieLand}
+          // onChange={this.handleChange('color')}
+          />
+      </div>)
+    }else{
+      myColor =( <div>
+      <Chip  
+          // className={this.props.classes.thisOneChip} 
+          label="Awesome Chip Component"
+          clickable
+          color='default'
+          onClick={this.handleNuggieLand}
+          // onChange={this.handleChange('color')}
+          />
+      </div>)
+    }
    
     return (
       <React.Fragment>
@@ -283,18 +316,20 @@ handleClose = () => {
         <form onSubmit={this.updateVolunteerInfo}>
         
         
-        {/* <p>{JSON.stringify(this.props.volunteer)}</p> */}
+        <p>{JSON.stringify(this.state.noogieland)}</p>
         <p>{JSON.stringify(this.state.chip.color)}</p> 
+
           <h1>Edit volunteer Info</h1>
           <FormControl>
-          <Chip  
-          clickable={false}
-          className={this.props.classes.thisOneChip} 
+          {/* <Chip  
+          
+          // className={this.props.classes.thisOneChip} 
           label="Awesome Chip Component"
           color={this.state.chip.color}
           onClick={this.handleColor}
           // onChange={this.handleChange('color')}
-          />
+          /> */}
+          {myColor}
           
             <TextField
               label= "email"
