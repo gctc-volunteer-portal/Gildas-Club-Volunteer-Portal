@@ -28,17 +28,17 @@ class CreateOpportunityForm extends Component {
       title: '',
       start_time: null,
       end_time: null,
-      address_line1: '',
+      address_line1: '10560 Wayzata Blvd',
       address_line2: '',
-      city: '',
-      state: '',
-      zip: null,
+      city: 'Minnetonka',
+      state: 'MN',
+      zip: 55305,
       description: '',
       date: null,
       status: 1,
       private_notes: '',
-      max_volunteers: null,
-      certification_needed: null,
+      max_volunteers: 1,
+      certification_needed: 13,
     }
   }
 
