@@ -6,8 +6,6 @@ import TextField from '@material-ui/core/TextField'
 import OpportunitiesCard_AdminView from '../../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView.js';
 import { USER_ACTIONS } from '../../../redux/actions/userActions'
 
-
-
 function searchingFor(term) {
   return function (opportunity) {
       if (opportunity.title) {
@@ -15,6 +13,7 @@ function searchingFor(term) {
       }
   }
 }
+
 class UpcomingOpportunities extends Component {
   constructor(props) {
       super(props);
@@ -22,8 +21,9 @@ class UpcomingOpportunities extends Component {
           term: '',
          
       }
-      this.searchHandler = this.searchHandler.bind(this);
+    this.searchHandler = this.searchHandler.bind(this);
   }
+
   componentDidMount() {
       this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
       this.props.dispatch({ type: 'GET_MY_VOLUNTEER_EVENTS' })
@@ -50,12 +50,8 @@ class UpcomingOpportunities extends Component {
     this.setState({ open: false });
   };
 
-
-
-
   render() {
       let content = null;
-      console.log(this.props.myEvents);
       
       let myOpportunities = this.props.myEvents.filter(searchingFor(this.state.term)).map((opportunity, index) => {
           return (<OpportunitiesCard_AdminView key={index}
@@ -63,12 +59,10 @@ class UpcomingOpportunities extends Component {
           />)
       })
 
-
       if (this.props.user.email) {
           content = (
               <div>
                   <div>
-                      Upcoming Opportunities
                       {myOpportunities}
                   </div>
               </div>
@@ -79,9 +73,7 @@ class UpcomingOpportunities extends Component {
           <div>
               <Header />
               <VolunteerNav />
-              <div>
-              <form style={{ height: 60, background: 'rgba(255,255,255,0.5)', borderRadius: 15 }}>
-
+              <div style={{ height: 100 }}>
                   <TextField
                       id="full-width"
                       label=""
@@ -95,11 +87,8 @@ class UpcomingOpportunities extends Component {
                       onChange={this.searchHandler}
                       value={this.state.term}
                   />
-              </form>
               </div>
               {content}
-
-
           </div>
       );
   }
@@ -109,8 +98,6 @@ const mapStateToProps = state => ({
   myEvents: state.myAvailableEventsReducer,
   user: state.user
 });
-
-
 
 // this allows us to use <App /> in index.js
 export default connect(mapStateToProps)(UpcomingOpportunities);

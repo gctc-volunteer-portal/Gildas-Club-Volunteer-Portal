@@ -20,7 +20,6 @@ const styles = {
     media: {
         height: 350,
         width: 300
-
     },
     dialog: {
         textAlign: 'center',
@@ -60,26 +59,23 @@ class MediaCard extends Component {
     };
 
     render() {
-        console.log(this.state, 'local state')
         const { classes } = this.props;
-        console.log(this.props.state);
         let buttons;
         if (this.props.state.user.access_level == 3) {
-            buttons = (<div>
+            buttons = (<div>                           
+                            <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
+                            <AdminManageVolunteersDialogue
+                                opportunity={this.props.opportunity}
+                            />
+                            </div>)
+        } else{
+            buttons = ( <div>
+                            <Button size="small" color="primary" variant="raised">
+                             Volunteer
+                            </Button>
+                        </div>
+            )}
 
-                <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
-                <AdminManageVolunteersDialogue
-                    opportunity={this.props.opportunity}
-                />
-            </div>)
-        } else {
-            buttons = (<div>
-                <Button size="small" color="primary" variant="raised">
-                    Volunteer
-               </Button>
-            </div>
-            )
-        }
         return (
             <React.Fragment>
                 <Card className={classes.card}>
@@ -103,13 +99,14 @@ class MediaCard extends Component {
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
-//                         <Button size="small" color="primary">
-//                             Share
-//                     </Button>
                         <Button
+                            color="primary"
+                            variant="raised"
+                            size="small"
                             onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
-
-                        >Edit Opportunity</Button>
+                        >
+                            Edit Opportunity
+                    </Button>
                         <AdminManageVolunteersDialogue
                             opportunity={this.props.opportunity}
                         />
@@ -124,8 +121,8 @@ class MediaCard extends Component {
                     <DialogTitle>{"Edit Opportunity"}</DialogTitle>
                     <DialogContent>
                         <EditOpportunityForm
-                            eventId={this.state.eventId}
-                            eventToUpdate={this.state.eventToUpdate}
+                            opportunityId={this.state.opportunityId}
+                            opportunityToUpdate={this.state.opportunityToUpdate}
                             closeEditOpportunity={this.closeEditOpportunity}
                         />
                     </DialogContent>

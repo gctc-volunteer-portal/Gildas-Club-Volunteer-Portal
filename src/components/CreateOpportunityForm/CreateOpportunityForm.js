@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withStyles, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import '../CreateOpportunityForm/CreateOpportunityForm.css';
 
@@ -50,6 +52,24 @@ class CreateOpportunityForm extends Component {
     });
   }
 
+  handleDateChange = (date) => {
+    this.setState({
+      date: date
+    });
+  }
+
+  handleEndTimeChange = (time) => {
+    this.setState({
+      end_time: time
+    });
+  }
+
+  handleStartTimeChange = (time) => {
+    this.setState({
+      start_time: time
+    });
+  }
+
   // Post new volunteer opportunity to the database
   addOpportunity = () => {
     this.props.dispatch({ type: 'ADD_OPPORTUNITY', payload: this.state });
@@ -87,6 +107,17 @@ class CreateOpportunityForm extends Component {
           onChange={this.handleInputChangeFor('date')}
         />
         {/* Input for volunteer opportunity start time */}
+
+        {/* <DatePicker
+          selected={this.state.start_time}
+          onChange={this.handleStartTimeChange}
+          showTimeSelect
+          showTimeSelectOnly
+          timeIntervals={30}
+          dateFormat="h:mm A"
+          timeCaption="Please Start Time"
+        /> */}
+
         <TextField
           label="Start Time"
           type="time"
@@ -143,7 +174,7 @@ class CreateOpportunityForm extends Component {
         {/* Input for volunteer opportunity location zipcode  */}
         <TextField
           label="Zip Code"
-          type="text"
+          type="number"
           name="zip"
           fullWidth
           onChange={this.handleInputChangeFor('zip')}
