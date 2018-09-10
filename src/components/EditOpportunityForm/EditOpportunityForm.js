@@ -38,20 +38,6 @@ class EditOpportunityForm extends Component {
       private_notes: this.props.opportunityToUpdate.private_notes,
       max_volunteers: this.props.opportunityToUpdate.max_volunteers,
       certification_needed: this.props.opportunityToUpdate.certification_needed.toString(),
-      // title: '',
-      // start_time: null,
-      // end_time: null,
-      // address_line1: '',
-      // address_line2: '',
-      // city: '',
-      // state: '',
-      // zip: null,
-      // description: '',
-      // date: null,
-      // status: 1,
-      // private_notes: '',
-      // max_volunteers: null,
-      // certification_needed: null,
     }
   }
 
@@ -124,15 +110,19 @@ class EditOpportunityForm extends Component {
               .format("ddd, MMM D, YYYY")}
         />
 
-        {/* Input for volunteer opportunity start time */}
+        <TextField
+          label="Date"
+          type="date"
+          name="date"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          fullWidth
+          placeholder={this.props.opportunityToUpdate.date}
+          onChange={this.handleInputChangeFor('date')}
+        />
 
-        {/* <DatePicker
-          selected={moment(this.state.start_time).utc()}
-          onChange={this.handleStartTimeChange}
-          dateFormat="h:mm A"
-          placeholderText={
-            moment(this.props.opportunityToUpdate.start_time).utc().format("h:mm A")}
-        /> */}
+        {/* Input for volunteer opportunity start time */}
 
         <TextField
           label="Start Time"
