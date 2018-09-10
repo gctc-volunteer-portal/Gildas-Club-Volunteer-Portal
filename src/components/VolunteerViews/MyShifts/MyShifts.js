@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav'
 import Header from '../../Header/Header';
-import MyShiftsCard from '../MyShiftsCard/MyShiftsCard';
+import OpportunitiesCard from '../../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView';
 import VolunteerOpportunityDialog from '../VolunteerOpportunityDialog/VolunteerOpportunityDialog';
 
 import { USER_ACTIONS } from '../../../redux/actions/userActions'
@@ -31,7 +31,7 @@ class MyShifts extends Component {
 
     let mappedMyShfits = this.props.shifts.map((shift, index) => {
       return (
-        <MyShiftsCard shift={shift} key={index} />
+        <OpportunitiesCard opportunity={shift} key={index} />
       )
     })
 
