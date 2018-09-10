@@ -91,6 +91,23 @@ function* getCertifiedVolunteers(certificationId) {
 
 }
 
+function* checkEnrolled(action){
+    try {
+        let enrolledStatus = false;
+        console.log(action.payload)
+        const enrollment = yield call(axios.get, `/api/opportunities/enrolled/${action.payload.opportunityId}`);
+        if(enrollment.data.length > 0) {
+            enrolledStatus = true;
+        }
+        yield dispatch({
+            type: 'SET_ENROLLMENT',
+            payload: enrolledStatus
+        })
+    } catch (error) {
+              yield console.log(error);
+    }
+}
+        
 function* updateOpportunity(action) {
     try {
         yield call(axios.put, `/api/opportunities/${action.payload.opportunityId}`, action.payload.updateOpportunityData)
@@ -112,6 +129,7 @@ function* opportunitiesSaga() {
     yield takeEvery('ENROLL_VOLUNTEER', enrollVolunteer);
     yield takeEvery('FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES', fetchSingleVolunteerOpportunities);
     yield takeEvery('GET_CERTIFIED_VOLUNTEERS', getCertifiedVolunteers);
+    yield takeEvery('CHECK_ENROLLED', checkEnrolled);
     yield takeEvery('UPDATE_OPPORTUNITY', updateOpportunity);
 }
 

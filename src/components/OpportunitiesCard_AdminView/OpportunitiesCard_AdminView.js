@@ -10,6 +10,7 @@ import AdminManageVolunteersDialogue from '../AdminManageVolunteersDialogue/Admi
 import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
+import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDialog/VolunteerOpportunityDialog';
 
 const styles = {
     card: {
@@ -19,7 +20,7 @@ const styles = {
         margin: 30
     },
     media: {
-        height: 150,
+        height: 50,
         width: 300
     },
     dialog: {
@@ -109,7 +110,7 @@ class MediaCard extends Component {
                         
                         <CardMedia
                             className={classes.media}
-                            image="https://www.gildasclubtwincities.org/wp-content/themes/skeleton/images/logo.png"
+                            image={this.props.opportunity.image}
                             title="Opportunity"
                         />
                        
@@ -128,7 +129,6 @@ class MediaCard extends Component {
 
                     <CardActions>
                         {buttons}
-
                     </CardActions>
                     </CardActionArea>
                 </Card>
