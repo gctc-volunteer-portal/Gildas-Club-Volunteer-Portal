@@ -39,9 +39,19 @@ const certifiedVolunteers = (state = [], action)=> {
     }
 }
 
+const enrolledStatus = (state = false, action) => {
+    switch(action.type) {
+        case 'SET_ENROLLMENT':
+            return action.payload;
+        default: 
+            return state;
+    }
+}
+
 export default combineReducers({
     opportunitiesReducer,
     opportunityVolunteerReducer,
     certifiedVolunteers,
     singleVolunteerOpportunities,
+    enrolledStatus,
 });
