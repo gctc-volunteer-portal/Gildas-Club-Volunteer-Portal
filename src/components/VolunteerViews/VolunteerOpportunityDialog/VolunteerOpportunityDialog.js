@@ -17,7 +17,7 @@ class VolunteerOpportunityDialog extends React.Component {
             type: 'CHECK_ENROLLED',
             payload: {
                 volunteerId: this.props.user.id,
-                opportunityId: this.props.shift.id,
+                opportunityId: this.props.opportunity.id,
             }
         })
         this.setState({ open: true });
@@ -32,14 +32,14 @@ class VolunteerOpportunityDialog extends React.Component {
             type: 'ENROLL_VOLUNTEER',
             payload: {
                 volunteerId: this.props.user.id,
-                opportunityId: this.props.shift.id,
+                opportunityId: this.props.opportunity.id,
             }
         })
         this.props.dispatch({
             type: 'CHECK_ENROLLED',
             payload: {
                 volunteerId: this.props.user.id,
-                opportunityId: this.props.shift.id,
+                opportunityId: this.props.opportunity.id,
             }
         });
     }
@@ -49,14 +49,14 @@ class VolunteerOpportunityDialog extends React.Component {
             type: 'DELETE_ITEM',
             payload: {
                 volunteerId: this.props.user.id,
-                opportunityId: this.props.shift.id,
+                opportunityId: this.props.opportunity.id,
             }
         })
         this.props.dispatch({
             type: 'CHECK_ENROLLED',
             payload: {
                 volunteerId: this.props.user.id,
-                opportunityId: this.props.shift.id,
+                opportunityId: this.props.opportunity.id,
             }
         });
     }
@@ -90,30 +90,30 @@ class VolunteerOpportunityDialog extends React.Component {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">{this.props.shift.title}</DialogTitle>
-                    <img src={this.props.shift.image} height="150" />
+                    <DialogTitle id="alert-dialog-title">{this.props.opportunity.title}</DialogTitle>
+                    <img src={this.props.opportunity.image} height="150" />
                     <DialogContent>
-                        <DialogTitle id="alert-dialog-title">{this.props.shift.certification_name}</DialogTitle>
+                        <DialogTitle id="alert-dialog-title">{this.props.opportunity.certification_name}</DialogTitle>
                         <DialogContentText id="alert-dialog-description">
-                            Date: {this.props.shift.date}
+                            Date: {this.props.opportunity.date}
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
-                            Time: {this.props.shift.start_time} – {this.props.shift.end_time}
+                            Time: {this.props.opportunity.start_time} – {this.props.opportunity.end_time}
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
                             Location:
             </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
-                            {this.props.shift.address_line1}
+                            {this.props.opportunity.address_line1}
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
-                            {this.props.shift.address_line2}
+                            {this.props.opportunity.address_line2}
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
-                            {this.props.shift.city}, {this.props.shift.state} {this.props.shift.zip}
+                            {this.props.opportunity.city}, {this.props.opportunity.state} {this.props.opportunity.zip}
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
-                            {this.props.shift.description}
+                            {this.props.opportunity.description}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
