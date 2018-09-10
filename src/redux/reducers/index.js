@@ -5,7 +5,7 @@ import volunteerReducer from './volunteerReducer';
 import opportunitiesReducer from './opportunitiesReducer';
 import volunteerInfo from './volunteerInfoReducer';
 import certificationsReducer from './certificationsReducer';
-
+import announcementsReducer from './announcementsReducer'
 import indVolunteerInfo from './indVolunteerInfo'
 import myAvailableEventsReducer from './myAvailableEventsReducer'
 
@@ -19,6 +19,7 @@ const store = combineReducers({
   certificationsReducer,
   indVolunteerInfo,
   myAvailableEventsReducer,
+  announcementsReducer
 });
 
 export default store;

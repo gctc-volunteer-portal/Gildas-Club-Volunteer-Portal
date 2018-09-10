@@ -8,6 +8,8 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { connect } from 'react-redux'
 import AdminManageVolunteersDialogue from '../AdminManageVolunteersDialogue/AdminManageVolunteersDialogue';
 import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
+import CardHeader from '@material-ui/core/CardHeader';
+import Avatar from '@material-ui/core/Avatar';
 import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDialog/VolunteerOpportunityDialog';
 
 const styles = {
@@ -61,52 +63,74 @@ class MediaCard extends Component {
     render() {
         const { classes } = this.props;
         let buttons;
-        if (this.props.state.user.access_level == 3) {
-            buttons = (<div>                           
-                            <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
-                            <AdminManageVolunteersDialogue
-                                opportunity={this.props.opportunity}
-                            />
-                            <Button
-                            color="primary"
-                            variant="raised"
-                            size="small"
-                            onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
-                        >
-                            Edit Opportunity
-                    </Button>
-                            </div>)
-        } else{
-            buttons = ( <div>
-                            <VolunteerOpportunityDialog opportunity={this.props.opportunity} />
-                        </div>
-            )}
+        let status;
+        if (this.props.opportunity.status = 1) {
+            status = 'Staging'
+        } else if (this.props.opportunity.status = 2) {
+            status = 'Active'
+        } else {
+            status = 'Inactive'
+        }
+        if (this.props.state.user.access_level >= 2) {
+            buttons = (<div>
+                <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
+                <AdminManageVolunteersDialogue
+                    opportunity={this.props.opportunity}
+                />
+                <Button
+                    onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
+
+                >Edit Opportunity
+                        </Button>
+            </div>)
+        } else {
+            buttons = (<div>
+                <Button size="small" color="primary" variant="raised">
+                    Sign Up!
+                            </Button>
+            </div>
+            )
+        }
 
         return (
             <React.Fragment>
                 <Card className={classes.card}>
-                    <CardActionArea>
+                <CardContent>
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label="Recipe" className={classes.avatar}>
+                                GC
+                            </Avatar>
+                            }
+                      
+                    
+                        title={this.props.opportunity.title}
+                        subheader={status}
+                    />
+                        
                         <CardMedia
                             className={classes.media}
                             image={this.props.opportunity.image}
                             title="Opportunity"
                         />
-                        <CardContent>
-                            <Typography gutterBottom variant="headline" component="h2">
-                                {this.props.opportunity.title}
+                       
+
+                            <Typography component="p">
+                                {this.props.opportunity.address_line1}<br />
+                                {this.props.opportunity.city}
                             </Typography>
-                        <Typography component="p">	
-                            {this.props.opportunity.address_line1}<br />	
-                            {this.props.opportunity.city}	
-                        </Typography>
-                                    <Typography component="p">	
-                            {this.props.opportunity.description}	
-                        </Typography>	
+                            <Typography component="p">
+                                {this.props.opportunity.description}
+                            </Typography>
                         </CardContent>
-                    </CardActionArea>
+                        <CardActionArea>
+
+                   
+
                     <CardActions>
                         {buttons}
                     </CardActions>
+                    </CardActionArea>
                 </Card>
                 <Dialog
                     className={this.props.classes.dialog}
