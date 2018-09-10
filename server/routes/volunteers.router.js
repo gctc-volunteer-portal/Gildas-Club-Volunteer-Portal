@@ -144,7 +144,8 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
         outreach_ambassador BOOLEAN,
         special1 BOOLEAN,
         special2 BOOLEAN,
-        special3 BOOLEAN
+        special3 BOOLEAN,
+        open_to_all_volunteers BOOLEAN
     );`
     pool.query(queryText)
         .then((results) => {
