@@ -8,7 +8,7 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { connect } from 'react-redux'
 import AdminManageVolunteersDialogue from '../AdminManageVolunteersDialogue/AdminManageVolunteersDialogue';
 import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
-
+import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDialog/VolunteerOpportunityDialog';
 
 const styles = {
     card: {
@@ -18,9 +18,8 @@ const styles = {
         margin: 30
     },
     media: {
-        height: 350,
+        height: 50,
         width: 300
-
     },
     dialog: {
         textAlign: 'center',
@@ -60,33 +59,36 @@ class MediaCard extends Component {
     };
 
     render() {
-        console.log(this.state, 'local state')
         const { classes } = this.props;
-        console.log(this.props.state);
         let buttons;
         if (this.props.state.user.access_level == 3) {
-            buttons = (<div>
+            buttons = (<div>                           
+                            <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
+                            <AdminManageVolunteersDialogue
+                                opportunity={this.props.opportunity}
+                            />
+                            <Button
+                            color="primary"
+                            variant="raised"
+                            size="small"
+                            onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
+                        >
+                            Edit Opportunity
+                    </Button>
+                            </div>)
+        } else{
+            buttons = ( <div>
+                            <VolunteerOpportunityDialog opportunity={this.props.opportunity} />
+                        </div>
+            )}
 
-                <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
-                <AdminManageVolunteersDialogue
-                    opportunity={this.props.opportunity}
-                />
-            </div>)
-        } else {
-            buttons = (<div>
-                <Button size="small" color="primary" variant="raised">
-                    Volunteer
-               </Button>
-            </div>
-            )
-        }
         return (
             <React.Fragment>
                 <Card className={classes.card}>
                     <CardActionArea>
                         <CardMedia
                             className={classes.media}
-                            image="https://www.gildasclubtwincities.org/wp-content/themes/skeleton/images/logo.png"
+                            image={this.props.opportunity.image}
                             title="Opportunity"
                         />
                         <CardContent>
@@ -103,16 +105,7 @@ class MediaCard extends Component {
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
-//                         <Button size="small" color="primary">
-//                             Share
-//                     </Button>
-                        <Button
-                            onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
-
-                        >Edit Opportunity</Button>
-                        <AdminManageVolunteersDialogue
-                            opportunity={this.props.opportunity}
-                        />
+                        {buttons}
                     </CardActions>
                 </Card>
                 <Dialog
@@ -124,8 +117,8 @@ class MediaCard extends Component {
                     <DialogTitle>{"Edit Opportunity"}</DialogTitle>
                     <DialogContent>
                         <EditOpportunityForm
-                            eventId={this.state.eventId}
-                            eventToUpdate={this.state.eventToUpdate}
+                            opportunityId={this.state.opportunityId}
+                            opportunityToUpdate={this.state.opportunityToUpdate}
                             closeEditOpportunity={this.closeEditOpportunity}
                         />
                     </DialogContent>

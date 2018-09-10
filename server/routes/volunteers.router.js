@@ -145,7 +145,8 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
         special1 BOOLEAN,
         special2 BOOLEAN,
         special3 BOOLEAN,
-        open_to_all_volunteers BOOLEAN
+        open_to_all BOOLEAN
+
     );`
     pool.query(queryText)
         .then((results) => {
@@ -162,6 +163,7 @@ router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM opportunities 
                        JOIN user_certifications ON certification_needed = certification_id
                        JOIN users ON user_certifications.user_id = users.id
+                       JOIN certifications ON opportunities.certification_needed = certifications.id
                        WHERE users.id = $1 AND is_certified = true`
     pool.query(queryText, [req.user.id])
         .then((results) => {

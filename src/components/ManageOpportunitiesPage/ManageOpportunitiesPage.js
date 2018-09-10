@@ -26,24 +26,26 @@ class InfoPage extends Component {
         this.state = {
             term: '',
             createEventIsOpen: false,
-      
         }
+
         this.searchHandler = this.searchHandler.bind(this);
     }
+
     
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         if (this.props.user.access_level < 2 ) {
             this.props.history.push('/home');
+        }
         this.props.dispatch({ type: 'GET_EVENTS' })
     }
+
+    componentDidUpdate() {
+        if (!this.props.user.isLoading && this.props.user.email === null) {
+            this.props.history.push('home');
+            console.log(this.props.state);
+        }
     }
-    // componentDidUpdate() {
-    //     if (!this.props.user.isLoading && this.props.user.email === null) {
-    //         this.props.history.push('home');
-    //         console.log(this.props.state);
-    //     }
-    // }
 
     searchHandler(event) {
         this.setState({
@@ -75,7 +77,6 @@ class InfoPage extends Component {
             content = (
                 <div>
                     <div>
-                        Manage Opportunities Page
                         {opportunitiesArray}
                     </div>
                 </div>
@@ -98,7 +99,7 @@ class InfoPage extends Component {
                     createEventIsOpen={this.state.createEventIsOpen}
                     closeCreateEvent={this.closeCreateEvent}
                 />
-                <form style={{ height: 60, background: 'rgba(255,255,255,0.5)', borderRadius: 15 }}>
+                <div style={{ height: 60, borderRadius: 15 }}>
 
                     <TextField
                         id="full-width"
@@ -113,10 +114,9 @@ class InfoPage extends Component {
                         onChange={this.searchHandler}
                         value={this.state.term}
                     />
-                </form>
+                </div>
 
                 {content}
-                {/* <OpportunitiesCard_AdminView /> */}
 
 
             </div>

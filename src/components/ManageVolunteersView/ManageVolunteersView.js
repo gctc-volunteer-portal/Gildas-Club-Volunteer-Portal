@@ -6,7 +6,7 @@ import Header from '../Header/Header';
 import AdminNav from '../Nav/AdminNav/AdminNav';
 import ManageVolunteersViewTableHeader from '../ManageVolunteersViewTableHeader/ManageVolunteersViewTableHeader';
 import ManageVolunteersViewTableRow from '../ManageVolunteersViewTableRow/ManageVolunteersViewTableRow';
-
+import Csv from '../Csv/Csv'
 import { withStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TablePagination, TableRow, Paper } from '@material-ui/core';
 
@@ -66,6 +66,7 @@ class ManageVolunteersTable extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'FETCH_VOLUNTEER_INFO' });
+      
        
     }
 
@@ -74,6 +75,15 @@ class ManageVolunteersTable extends Component {
             this.props.history.push('home');
         }
     }
+    // exportCsv = ()=>{
+    //     axios.get('/api/csv')
+    //     .then(response => {
+    //         console.log(response)
+    //     }).catch(err => {
+    //         console.log(err);
+            
+    //     })
+    // }
 
     state = {
         order: 'asc',
@@ -102,6 +112,8 @@ class ManageVolunteersTable extends Component {
     };
 
     render() {
+        const { classes } = this.props;
+console.log(this.props.volunteers);
 
         const data = this.props.volunteers;
         const { order, orderBy, rowsPerPage, page } = this.state;
@@ -157,6 +169,9 @@ class ManageVolunteersTable extends Component {
                         rowsPerPageOptions={[25, 50, 100]}
                     />
                 </Paper>
+                <Csv
+                    data= {this.props.volunteers}
+                />
             </React.Fragment>
         );
     }
