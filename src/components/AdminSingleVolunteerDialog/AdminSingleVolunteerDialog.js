@@ -568,7 +568,7 @@ handleClose = () => {
             checked={this.state.access_level}
             onClick={this.editAccess}
             onChange={this.handleChange('access_level')}
-            value="access_level"
+            value={"access_level"}
            />}  label="Manager Capabilities on/off"
            />
                 <br />
