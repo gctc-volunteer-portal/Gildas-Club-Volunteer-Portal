@@ -72,7 +72,7 @@ class ManageVolunteersTable extends Component {
 
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.email === null || this.props.user.access_level === 1) {
-            this.props.history.push('home');
+            this.props.history.push('/home');
         }
     }
     // exportCsv = ()=>{
@@ -124,7 +124,7 @@ console.log(this.props.volunteers);
 
         return (
             <React.Fragment>
-                <Header />
+                <Header admin={true} />
                 <AdminNav />
                 <h1>Volunteers</h1>
                 <Paper className={this.props.classes.root}>

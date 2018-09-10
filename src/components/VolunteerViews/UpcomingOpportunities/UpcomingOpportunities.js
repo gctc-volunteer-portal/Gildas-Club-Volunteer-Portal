@@ -31,7 +31,7 @@ class UpcomingOpportunities extends Component {
 
   componentDidUpdate() {
       if (!this.props.user.isLoading && this.props.user.email === null) {
-          this.props.history.push('home');
+          this.props.history.push('/home');
           console.log(this.props.state);
       }
   }
@@ -71,7 +71,7 @@ class UpcomingOpportunities extends Component {
 
       return (
           <div>
-              <Header />
+              <Header admin={false} />
               <VolunteerNav />
               <div style={{ height: 100 }}>
                   <TextField

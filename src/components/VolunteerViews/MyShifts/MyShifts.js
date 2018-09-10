@@ -22,7 +22,7 @@ class MyShifts extends Component {
   }
   componentDidUpdate() {
     if (!this.props.user.isLoading && this.props.user.email === null) {
-      this.props.history.push('home');
+      this.props.history.push('/home');
     }
   }
 
@@ -43,7 +43,7 @@ class MyShifts extends Component {
 
     return (
       <div>
-        <Header />
+        <Header admin={false} />
         <VolunteerNav />
         <h1>My Shift!!</h1>
         { content }

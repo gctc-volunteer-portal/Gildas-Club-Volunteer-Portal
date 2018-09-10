@@ -42,7 +42,7 @@ class InfoPage extends Component {
 
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.email === null) {
-            this.props.history.push('home');
+            this.props.history.push('/home');
             console.log(this.props.state);
         }
     }
@@ -85,7 +85,7 @@ class InfoPage extends Component {
 
         return (
             <div>
-                <Header />
+                <Header admin={true} />
                 <AdminNav />
 
                 <Button

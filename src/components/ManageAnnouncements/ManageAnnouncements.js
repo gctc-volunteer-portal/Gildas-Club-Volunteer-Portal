@@ -18,7 +18,7 @@ class Announcements extends Component {
 
   componentDidUpdate() {
     if (!this.props.user.isLoading && this.props.user.email === null) {
-      this.props.history.push('home');
+      this.props.history.push('/home');
     }
   }
 
@@ -38,7 +38,7 @@ class Announcements extends Component {
 
     return (
       <div>
-        <Header />
+        <Header admin={true} />
         <AdminNav />
         <h1>My Announcements!!</h1>
         {/* { content } */}

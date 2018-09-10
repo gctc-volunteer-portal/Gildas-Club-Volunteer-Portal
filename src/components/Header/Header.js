@@ -33,22 +33,43 @@ class Header extends Component {
 
   goToVolunteer = () => {
     console.log('going to volunteer tools');
-    this.props.history.push('/home');
+    this.props.history.push('/my_shifts');
   }
 
   goToAdmin = () => {
     console.log('going to admin tools');
-    this.props.history.push('/home');
+    this.props.history.push('/manage_volunteers');
   }
 
   render() {
 
     let tools = null;
 
+    let viewButton = null;
+
     let initials = "V";
 
     if (this.props.user.first_initial || this.props.user.last_initial) {
       initials = `${this.props.user.first_initial}${this.props.user.last_initial}`;
+    }
+
+    if (this.props.admin) {
+      viewButton = (
+        <button
+          onClick={this.goToVolunteer}
+        >
+          My Volunteer Tools
+      </button>
+      )
+    }
+    else {
+      viewButton = (
+        <button
+          onClick={this.goToAdmin}
+        >
+          My Manager Tools
+    </button>
+      )
     }
 
     if (this.props.user.access_level === 1) {
@@ -72,16 +93,8 @@ class Header extends Component {
           <div className={this.props.classes.row}>
             <Avatar className={this.props.classes.avatar}>{initials}</Avatar>
           </div>
-          <button
-            onClick={this.goToVolunteer}
-          >
-            My Volunteer Tools
-          </button>
-          <button
-            onClick={this.goToAdmin}
-          >
-            My Manager Tools
-          </button>
+          {viewButton}
+
           <button
             onClick={this.logout}
           >
@@ -102,7 +115,7 @@ class Header extends Component {
         </React.Fragment>
       )
     }
-
+    console.log(this.props.admin)
     return (
       <div className="instructions" id="header">
         <img src="/images/GCTC_Logo.jpg" alt="Gilda's Club Twin Cities Logo" height="150" />
