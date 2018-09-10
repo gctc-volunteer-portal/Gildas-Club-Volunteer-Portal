@@ -18,7 +18,7 @@ const styles = {
         margin: 30
     },
     media: {
-        height: 350,
+        height: 150,
         width: 300
     },
     dialog: {
@@ -62,12 +62,17 @@ class MediaCard extends Component {
         console.log(this.state, 'local state')
         const { classes } = this.props;
         let buttons;
-        if (this.props.state.user.access_level == 3) {
+        if (this.props.state.user.access_level >= 2) {
             buttons = (<div>                           
                             <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
                             <AdminManageVolunteersDialogue
                                 opportunity={this.props.opportunity}
                             />
+                              <Button
+                            onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
+
+                        >Edit Opportunity
+                        </Button>
                             </div>)
         } else{
             buttons = ( <div>
@@ -99,17 +104,10 @@ class MediaCard extends Component {
                         </Typography>	
                         </CardContent>
                     </CardActionArea>
+                   
                     <CardActions>
-//                         <Button size="small" color="primary">
-//                             Share
-//                     </Button>
-                        <Button
-                            onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
-
-                        >Edit Opportunity</Button>
-                        <AdminManageVolunteersDialogue
-                            opportunity={this.props.opportunity}
-                        />
+                    {buttons}
+                    
                     </CardActions>
                 </Card>
                 <Dialog

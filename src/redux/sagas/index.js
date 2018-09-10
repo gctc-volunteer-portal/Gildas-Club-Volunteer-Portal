@@ -4,6 +4,7 @@ import loginSaga from './loginSaga';
 import volunteerSaga from './volunteerSaga';
 import opportunitiesSaga from './opportunitiesSaga';
 import certificationsSaga from './certificationsSaga';
+import announcementsSaga from './announcementsSaga'
 
 
 export default function* rootSaga() {
@@ -13,6 +14,7 @@ export default function* rootSaga() {
     volunteerSaga(),
     opportunitiesSaga(),
     certificationsSaga(),
+    announcementsSaga()
     // watchIncrementAsync()
   ]);
 }
