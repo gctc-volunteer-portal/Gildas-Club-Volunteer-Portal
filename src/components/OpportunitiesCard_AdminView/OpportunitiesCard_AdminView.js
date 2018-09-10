@@ -59,11 +59,12 @@ class MediaCard extends Component {
     };
 
     render() {
+        console.log('I have match props:', this.props.admin)
         const { classes } = this.props;
         let buttons;
-        if (this.props.state.user.access_level == 3) {
+        if (this.props.state.user.access_level >= 2 && this.props.admin) {
             buttons = (<div>                           
-                            <VolunteerOpportunityDialog opportunity={this.props.opportunity} />
+                            {/* <VolunteerOpportunityDialog opportunity={this.props.opportunity} /> */}
                             <AdminManageVolunteersDialogue
                                 opportunity={this.props.opportunity}
                             />
@@ -95,13 +96,20 @@ class MediaCard extends Component {
                             <Typography gutterBottom variant="headline" component="h2">
                                 {this.props.opportunity.title}
                             </Typography>
+                            <Typography component="p">	
+                            {this.props.opportunity.certification_name}	
+                        </Typography>
+                        <Typography component="p">
+                        {this.props.opportunity.date}	<br />
+                        {this.props.opportunity.start_time} <br />
+                        {this.props.opportunity.end_time} <br />	
+                        </Typography>
+
                         <Typography component="p">	
                             {this.props.opportunity.address_line1}<br />	
                             {this.props.opportunity.city}	
                         </Typography>
-                                    <Typography component="p">	
-                            {this.props.opportunity.description}	
-                        </Typography>	
+
                         </CardContent>
                     </CardActionArea>
                     <CardActions>

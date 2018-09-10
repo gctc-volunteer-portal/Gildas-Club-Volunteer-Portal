@@ -68,7 +68,7 @@ class InfoPage extends Component {
         let content = null;
         let opportunitiesArray = this.props.opportunitiesList.filter(searchingFor(this.state.term)).map((opportunity, index) => {
             return (<OpportunitiesCard_AdminView key={index}
-                opportunity={opportunity}
+                opportunity={opportunity} admin={true}
             />)
         })
 

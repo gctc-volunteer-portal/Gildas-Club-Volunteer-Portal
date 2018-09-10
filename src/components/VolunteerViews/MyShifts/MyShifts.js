@@ -31,7 +31,7 @@ class MyShifts extends Component {
 
     let mappedMyShfits = this.props.shifts.map((shift, index) => {
       return (
-        <OpportunitiesCard opportunity={shift} key={index} />
+        <OpportunitiesCard opportunity={shift} key={index} admin={false} />
       )
     })
 

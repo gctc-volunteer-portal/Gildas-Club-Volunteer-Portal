@@ -102,7 +102,7 @@ class VolunteerOpportunityDialog extends React.Component {
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
                             Location:
-            </DialogContentText>
+                        </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
                             {this.props.opportunity.address_line1}
                         </DialogContentText>

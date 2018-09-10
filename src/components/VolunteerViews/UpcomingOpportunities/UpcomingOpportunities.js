@@ -55,7 +55,7 @@ class UpcomingOpportunities extends Component {
       
       let myOpportunities = this.props.myEvents.filter(searchingFor(this.state.term)).map((opportunity, index) => {
           return (<OpportunitiesCard_AdminView key={index}
-              opportunity={opportunity}
+              opportunity={opportunity} admin={false}
           />)
       })
 
