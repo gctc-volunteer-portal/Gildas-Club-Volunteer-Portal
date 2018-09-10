@@ -47,7 +47,22 @@ router.get('/volunteer', rejectUnauthenticated, (req, res) => {
             res.send(results.rows)
         })
         .catch((error) => {
-            console('Error on /api/opportunities/volunteer GET:', error);
+            console.log('Error on /api/opportunities/volunteer GET:', error);
+            res.sendStatus(500);
+        });
+});
+
+router.get('/enrolled/:id', rejectUnauthenticated, (req, res) => {
+    console.log(req.user.id, req.params.id)
+    const queryText = `SELECT * FROM "user_opportunities"
+    WHERE "user_id" = $1 AND "opportunity_id" = $2;`
+    pool.query(queryText, [req.user.id, req.params.id])
+        .then(results => {
+            console.log(results.rows)
+            res.send(results.rows)
+        })
+        .catch(error => {
+            console.log('Error on /api/opportunities/enrolled GET:', error);
             res.sendStatus(500);
         });
 });
