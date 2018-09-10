@@ -75,15 +75,6 @@ class ManageVolunteersTable extends Component {
             this.props.history.push('/home');
         }
     }
-    // exportCsv = ()=>{
-    //     axios.get('/api/csv')
-    //     .then(response => {
-    //         console.log(response)
-    //     }).catch(err => {
-    //         console.log(err);
-            
-    //     })
-    // }
 
     state = {
         order: 'asc',

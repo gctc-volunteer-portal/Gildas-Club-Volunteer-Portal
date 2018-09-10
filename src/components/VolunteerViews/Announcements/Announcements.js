@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../../Header/Header';
-import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav'
-import { USER_ACTIONS } from '../../../redux/actions/userActions'
+import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav';
+import { USER_ACTIONS } from '../../../redux/actions/userActions';
+import AnnouncementCard from '../../AnnouncementsCard/AnnouncementCard';
+
+
 
 const mapStateToProps = state => ({
   user: state.user,
+  state
 });
 
 class Announcements extends Component {
   componentDidMount() {
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+    this.props.dispatch({ type: 'GET_ANNOUNCEMENTS_LIST'})
   }
 
   componentDidUpdate() {
@@ -21,27 +26,27 @@ class Announcements extends Component {
 
 
   render() {
-    let content = null;
+   
+    let announcementList = this.props.state.announcementsReducer.announcements.map((announcement, index) => {
+      return (<AnnouncementCard
+                  announcement = {announcement}
+                 
+      />
+      
+       
+      )
+  })
 
-    if (this.props.user.email) {
-      content = (
-        <div>
-         
-        </div>
-      );
-    }
 
-    return (
-      <div>
-        <Header admin={false} />
-        <VolunteerNav />
-        <h1>My Announcements!!</h1>
-        {/* { content } */}
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Header />
+      <VolunteerNav />
+      {announcementList}
+    </div>
+  );
+}
 }
 
 // this allows us to use <App /> in index.js
 export default connect(mapStateToProps)(Announcements);
-

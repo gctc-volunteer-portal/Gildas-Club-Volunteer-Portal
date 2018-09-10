@@ -7,7 +7,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET route for certifications to show up on create opportunities form
 
 router.get('/', rejectUnauthenticated, (req, res, next) => {
-  const opportunityData = req.body
+
 
   const queryText = `SELECT * FROM "certifications";`;
 
