@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withRouter } from 'react-router';
 import Header from '../Header/Header'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { withStyles, FormControl, Input, Avatar ,FormLabel,Chip, Checkbox, NativeSelect, TextField, Button, Dialog, ListItem, ListItemText, List, Divder, AppBar, Typography, closeIcon, Slide, Switch } from '@material-ui/core';
 import '../AdminSingleVolunteerDialog/AdminSingleVolunteer.css'
 import VolunteerNav from '../Nav/VolunteerNav/VolunteerNav';
+import { Z_DEFAULT_COMPRESSION } from 'zlib';
 
 const mapStateToProps = state =>({
    currentVolunteer: state.indVolunteerInfo.indVolunteerInfo
@@ -31,7 +33,11 @@ const styles = {
     },
     indChip:{
       marginBottom:'10px',
+      color: ' #DE2027'
       
+    },
+    thisOneChip:{
+      backgroundColor:'#DE2027'
     },
     chip:{
       marginBottom:'10px',
@@ -97,13 +103,12 @@ class AdminSingleVolunteerDialog extends Component {
           job_title: this.props.volunteer.job_title,
           date_of_birth: this.props.volunteer.date_of_birth,
           active: this.props.volunteer.active,
-          access_level: 2,
-          // this.props.access_level,
+          access_level: this.props.volunteer.access_level,
           admin_notes: this.props.volunteer.admin_notes,
           message: this.props.volunteer.message,
           open: false,
           chip:{
-            color: 'default',
+           
             onDelete: 'none',
             avatar: 'none',
             variant: 'default',
@@ -162,30 +167,63 @@ handleClose = () => {
      });
 
 
-    //  this.props.dispatch({
-    //    type:'CLEAR',
-       
-    //  })
-     this.props.history.push('/manage_volunteers')
+ 
+    this.handleClose()
+  } 
+ 
+  handleChange = key => (event, value) => {
+    this.setState({
+      [key]: value,
+    });
   }
+
+  handleColor =() =>{
+    this.setState({
+      chip:{
+        color: ''
+      }
+    })
+    console.log('this');
+    
+  }
+
+
+
+
+
+ editActive = () => {
+   if(this.state.active){
+     this.setState({
+       active: false
+     })
+   }else {
+     this.setState({
+       active: true
+     })
+   }
+ }
+  
+
+
   editAccess = () => {
-    console.log(this.state.show);
     if (this.state.access_level === 1){
     this.setState({
       access_level: 2
     });
-  } else {
+  } 
+  else {
     this.setState({
       access_level: 1
     });
   }
-    console.log(this.state.access_level);
+    
     
   }
  
 
   render() {
-    console.log(this.props.currentVolunteer)
+    
+    // console.log(this.props.currentVolunteer)
     let toggleAccess;
     if(this.state.access_level == 2){
       toggleAccess = (<div>
@@ -194,7 +232,7 @@ handleClose = () => {
             // onClick={this.editAccess}
             onChange={this.editAccess}
             value="access_level"
-           />}  label="Manager Capabilities on/off"
+           />}  label="Manager Capabilities on"
            />
       </div>)
     } else if (this.state.access_level == 1){
@@ -204,18 +242,38 @@ handleClose = () => {
             // onClick={this.editAccess}
             onChange={this.editAccess}
             value="access_level"
-           />}  label="Manager Capabilities on/off"
+           />}  label="Manager Capabilities off"
            />
       </div>)
     }
-    
+
+    let active 
+    if(this.state.active){
+      active = (<div> 
+         <FormControlLabel 
+         control={ <Switch 
+         checked={true}
+         onChange={this.editActive}
+       />} label="Active"
+       /></div>)
+    }else{
+      active = (<div> 
+        <FormControlLabel 
+        control={ <Switch 
+        checked={false}
+        onChange={this.editActive}
+      />} 
+      label="Inactive" />
+      </div>)
+    }
+   
     return (
       <React.Fragment>
         <Button onClick={this.handleClickOpen}>edit</Button>
         <Dialog
             fullScreen
             open={this.state.open}
-            onclose={this.handleClose}
+            onClose={this.handleClose}
             TransitionComponent={Transition}
           >
         <div>
@@ -224,12 +282,20 @@ handleClose = () => {
         
         <form onSubmit={this.updateVolunteerInfo}>
         
-       
-        <p>{JSON.stringify(this.props.volunteer)}</p>
-        <p>{JSON.stringify(this.state.access_level)}</p>
+        
+        {/* <p>{JSON.stringify(this.props.volunteer)}</p> */}
+        <p>{JSON.stringify(this.state.chip.color)}</p> 
           <h1>Edit volunteer Info</h1>
           <FormControl>
-            
+          <Chip  
+          clickable={false}
+          className={this.props.classes.thisOneChip} 
+          label="Awesome Chip Component"
+          color={this.state.chip.color}
+          onClick={this.handleColor}
+          // onChange={this.handleChange('color')}
+          />
+          
             <TextField
               label= "email"
               type="text"
@@ -446,7 +512,7 @@ handleClose = () => {
             </Button>
             <Button
               type="button"
-              onClick={this.returnHome}
+              onClick={this.handleClose}
               variant="raised"
               color="primary"
             >
@@ -461,8 +527,9 @@ handleClose = () => {
           <div>
           <Chip  
           className={this.props.classes.indChip}
+          clickable={true}
           label="Awesome Chip Component"
-          color={this.state.chip.color} 
+          
           />
           <br />
            <Chip 
@@ -540,18 +607,9 @@ handleClose = () => {
             
           <div className={this.props.classes.switch}>
           {toggleAccess}
-           {/* <FormControlLabel control={ <Switch 
-            checked={true}
-            // onClick={this.editAccess}
-            onChange={this.handleChange('access_level')}
-            value="access_level"
-           />}  label="Manager Capabilities on/off"
-           /> */}
-                <br />
-            <FormControlLabel control={ <Switch 
            
-           />} label="active/inactive"
-           />
+               
+           {active}
            </div>
            </section>
          
