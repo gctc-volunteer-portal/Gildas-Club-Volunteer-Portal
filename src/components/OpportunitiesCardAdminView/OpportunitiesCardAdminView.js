@@ -64,9 +64,9 @@ class MediaCard extends Component {
         const { classes } = this.props;
         let buttons;
         let status;
-        if (this.props.opportunity.status === 1) {
+        if (this.props.opportunity.status == 1) {
             status = 'Staging'
-        } else if (this.props.opportunity.status === 2) {
+        } else if (this.props.opportunity.status == 2) {
             status = 'Active'
         } else {
             status = 'Inactive'

@@ -7,6 +7,13 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import OpportunitiesCardAdminView from '../OpportunitiesCardAdminView/OpportunitiesCardAdminView.js';
 import { Button } from '@material-ui/core';
 import CreateOpportunityDialogue from '../CreateOpportunityDialogue/CreateOpportunityDialogue';
+import { withStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+
 
 const mapStateToProps = state => ({
     opportunitiesList: state.opportunitiesReducer.opportunitiesReducer,
@@ -20,21 +27,42 @@ function searchingFor(term) {
         }
     }
 }
+function searchStatus(status) {
+    return function (opportunity) {
+        if (opportunity.status) {
+            return opportunity.status == status || !status;
+        }
+    }
+}
+const styles = theme => ({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    formControl: {
+      margin: theme.spacing.unit,
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing.unit * 2,
+    },
+  });
 class InfoPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             term: '',
             createEventIsOpen: false,
+            status: ''
         }
 
         this.searchHandler = this.searchHandler.bind(this);
     }
 
-    
+
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-        if (this.props.user.access_level < 2 ) {
+        if (this.props.user.access_level < 2) {
             this.props.history.push('/home');
         }
         this.props.dispatch({ type: 'GET_EVENTS' })
@@ -63,8 +91,14 @@ class InfoPage extends Component {
             createEventIsOpen: false,
         })
     }
+    handleChange = event => {
+        this.setState({ status: event.target.value });
+      };
 
     render() {
+        console.log(this.state.status);
+        
+        const { classes } = this.props;
         let content = null;
         let opportunitiesArray = this.props.opportunitiesList.filter(searchingFor(this.state.term)).map((opportunity, index) => {
             return (<OpportunitiesCardAdminView key={index}
@@ -115,6 +149,21 @@ class InfoPage extends Component {
                         value={this.state.term}
                     />
                 </div>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel>Status</InputLabel>
+                        <Select
+                            value={this.state.status}
+                            onChange={this.handleChange}
+                            InputLabelProps={{
+                                  shrink: true,
+            }}
+                        >
+                            <MenuItem value=""><em>All</em></MenuItem>
+                            <MenuItem value="1">Staging</MenuItem>
+                            <MenuItem value="2">Active</MenuItem>
+                            <MenuItem value="3">Inactive</MenuItem>
+                        </Select>
+                    </FormControl>
 
                 {content}
 
@@ -125,4 +174,4 @@ class InfoPage extends Component {
 }
 
 
-export default connect(mapStateToProps)(InfoPage);
+export default connect(mapStateToProps)(withStyles(styles)(InfoPage));
