@@ -103,16 +103,6 @@ class CreateOpportunityForm extends Component {
             onChange={this.handleInputChangeFor('title')}
           />
           {/* Input for volunteer opportunity date */}
-          {/* <TextField
-            label="Date"
-            type="date"
-            name="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            fullWidth
-            onChange={this.handleInputChangeFor('date')}
-          /> */}
 
           <DatePicker
             label="Select Date"
@@ -123,7 +113,11 @@ class CreateOpportunityForm extends Component {
             onChange={this.handleDateChange}
             animateYearScrolling={false}
             className={this.props.classes.datePicker}
+            autoOk
           />
+
+          {/* Input for volunteer opportunity start time */}
+
 
           <TimePicker
             autoOk
@@ -134,17 +128,7 @@ class CreateOpportunityForm extends Component {
             onChange={this.handleStartTimeChange}
             className={this.props.classes.datePicker}
           />
-          {/* Input for volunteer opportunity start time */}
-          {/* <TextField
-            label="Start Time"
-            type="time"
-            name="start_time"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            fullWidth
-            onChange={this.handleInputChangeFor('start_time')}
-          /> */}
+          
           {/* Input for volunteer opportunity end time */}
           <TimePicker
             autoOk
@@ -155,16 +139,7 @@ class CreateOpportunityForm extends Component {
             onChange={this.handleEndTimeChange}
             className={this.props.classes.datePicker}
           />
-          {/* <TextField
-            label="End Time"
-            type="time"
-            name="end_time"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            fullWidth
-            onChange={this.handleInputChangeFor('end_time')}
-          /> */}
+
           {/* Input for volunteer opportunity street address 1 */}
           <TextField
             label="Street Address 1"
@@ -221,6 +196,7 @@ class CreateOpportunityForm extends Component {
             fullWidth
           // onChange={this.handleInputChangeFor('')}
           />
+
           {/* Input for description of volunteer opportunity */}
           <TextField
             label="Opportunity Description"
@@ -229,6 +205,14 @@ class CreateOpportunityForm extends Component {
             fullWidth
             multiline
             onChange={this.handleInputChangeFor('description')}
+          />
+          <TextField
+            label="Admin Notes"
+            type="text"
+            name=""
+            fullWidth
+            multiline
+            onChange={this.handleInputChangeFor('private_notes')}
           />
           {/* Radio inputs to select required certification */}
           <RadioGroup
