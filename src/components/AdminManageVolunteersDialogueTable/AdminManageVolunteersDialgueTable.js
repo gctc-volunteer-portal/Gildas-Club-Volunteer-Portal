@@ -70,7 +70,7 @@ class CustomizedTable extends Component {
 
     currentVolunteers = this.props.state.opportunitiesReducer.opportunityVolunteerReducer.map((volunteer, index) => {
       return (
-        <TableRow>
+        <TableRow key={index}>
         <CustomTableCell>{volunteer.first_name}</CustomTableCell>
         <CustomTableCell numeric>{volunteer.last_name}</CustomTableCell>
         <CustomTableCell numeric>{volunteer.email}</CustomTableCell>

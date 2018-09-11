@@ -94,7 +94,6 @@ function* getCertifiedVolunteers(certificationId) {
 function* checkEnrolled(action){
     try {
         let enrolledStatus = false;
-        console.log(action.payload)
         const enrollment = yield call(axios.get, `/api/opportunities/enrolled/${action.payload.opportunityId}`);
         if(enrollment.data.length > 0) {
             enrolledStatus = true;

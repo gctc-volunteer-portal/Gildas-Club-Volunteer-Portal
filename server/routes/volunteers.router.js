@@ -160,11 +160,46 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT * FROM opportunities 
+    const queryText = `SELECT opportunities.id,
+    opportunities.image,
+    opportunities.title,
+    opportunities.start_time,
+    opportunities.end_time,
+    opportunities.address_line1,
+    opportunities.address_line1,
+    opportunities.city,
+    opportunities.state,
+    opportunities.zip,
+    opportunities.description,
+    opportunities.date,
+    opportunities.status,
+    opportunities.private_notes,
+    opportunities.max_volunteers,
+    user_certifications.user_id,
+    user_certifications.certification_id,
+    user_certifications.is_certified,
+    users.first_name,
+    users.middle_name,
+    users.last_name,
+    users.email,
+    users.primary_phone,
+    users.secondary_phone,
+    users.access_level,
+    users.admin_notes,
+    users.active,
+    users.regular_basis,
+    users.specific_event,
+    users.as_needed,
+    users.limitations_allergies,
+    users.why_excited,
+    users.employer,
+    users.job_title,
+    users.date_of_birth,
+    certifications.certification_name FROM opportunities 
                        JOIN user_certifications ON certification_needed = certification_id
                        JOIN users ON user_certifications.user_id = users.id
                        JOIN certifications ON opportunities.certification_needed = certifications.id
-                       WHERE users.id = $1 AND is_certified = true`
+                       WHERE users.id = $1 AND is_certified = true;`
     pool.query(queryText, [req.user.id])
         .then((results) => {
             res.send(results.rows);
