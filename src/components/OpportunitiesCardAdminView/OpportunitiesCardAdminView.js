@@ -9,26 +9,50 @@ import { connect } from 'react-redux'
 import AdminManageVolunteersDialogue from '../AdminManageVolunteersDialogue/AdminManageVolunteersDialogue';
 import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
 import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
 import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDialog/VolunteerOpportunityDialog';
+import moment from 'moment';
 import OpportunityAdminNoteDialogue from '../OpportunityAdminNoteDialogue/OpportunityAdminNoteDialogue';
 
 const styles = {
+
     card: {
-        width: '80%',
-        height: 350,
-        display: 'flex',
-        margin: 30
+        width: '90%',
+        position: 'relative',
+        minHeight: 350,
+        margin: 20,
+        display: 'grid',
+        gridTemplateColumns: '350px 1fr 1fr',
+        gridTemplateRows: '350 px'
     },
     media: {
-        height: 50,
-        width: 300
+        height: 350,
+        width: 350,
     },
     dialog: {
         textAlign: 'center',
         height: '100vh',
-    }
-
+    },
+    typography: {
+        paddingLeft: 16,
+        paddingTop: 16,
+        paddingBottom: 16,
+    },
+    actions: {
+        display: 'flex',
+        gridColumnStart: 3,
+        alignItems: 'flex-end',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        padding: 20,
+    },
+    detail: {
+        gridColumnStart: 2,
+    },
+    button: {
+        padding: 5,
+        display: 'flex',
+        alignItems: 'flex-end',
+    },
 };
 
 class MediaCard extends Component {
@@ -80,6 +104,7 @@ class MediaCard extends Component {
                     opportunity={this.props.opportunity}
                 />
                 <Button
+                    className={classes.button}
                     color="primary"
                     variant="raised"
                     size="small"
@@ -104,42 +129,37 @@ class MediaCard extends Component {
             <React.Fragment>
                 <Card className={classes.card}>
                     <CardContent>
-                        <CardHeader
-                            avatar={
-                                <Avatar aria-label="Recipe" className={classes.avatar}>
-                                    GC
-                            </Avatar>
-                            }
-
-
-                            title={this.props.opportunity.title}
-                            subheader={status}
-                        />
-
                         <CardMedia
                             className={classes.media}
                             image={this.props.opportunity.image}
                             title="Opportunity"
                         />
-
-                        <Typography component="p">
-                            {this.props.opportunity.certification_name}
+                    </CardContent>
+                    <React.Fragment>    
+                    <CardContent className={classes.detail}>
+                        <CardHeader
+                            title={this.props.opportunity.title}
+                            subheader={`Role: ${this.props.opportunity.certification_name}`}
+                        />
+                        <Typography className={classes.typography} component="p">
+                            {moment(this.props.opportunity.date).format("dddd, MMMM D, YYYY")}	<br />
+                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} <br />
+                            {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
                         </Typography>
-                        <Typography component="p">
-                            {this.props.opportunity.date}	<br />
-                            {this.props.opportunity.start_time} <br />
-                            {this.props.opportunity.end_time} <br />
-                        </Typography>
-
-                        <Typography component="p">
+                        <Typography className={classes.typography} component="p">
+                            Location: <br />
                             {this.props.opportunity.address_line1}<br />
                             {this.props.opportunity.city}
                         </Typography>
                     </CardContent>
+                    </React.Fragment>
+                    <CardActions className={classes.actions}>
+                    <CardHeader
+                            subheader={status}
+                        />
+
                     <CardActions>
                         {buttons}
-                    </CardActions>
-                </Card>
                 <Dialog
                     className={this.props.classes.dialog}
                     aria-labelledby="edit a volunteer event"
@@ -155,6 +175,9 @@ class MediaCard extends Component {
                         />
                     </DialogContent>
                 </Dialog>
+                    </CardActions>
+                </Card>
+
             </React.Fragment >
         );
     }

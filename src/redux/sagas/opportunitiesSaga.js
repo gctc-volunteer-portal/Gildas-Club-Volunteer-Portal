@@ -55,7 +55,10 @@ function* volunteerDeleteItem(action) {
         yield dispatch({
             type: 'SET_ENROLLMENT',
             payload: false
-        })
+        });
+        yield dispatch({
+            type: 'FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES',
+        });
     } catch (err) {
         yield console.log(err);
     }
@@ -81,6 +84,9 @@ function* volunteerEnrollVolunteer(action) {
         yield dispatch({
             type: 'SET_ENROLLMENT',
             payload: true
+        });
+        yield dispatch({
+            type: 'FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES',
         });
     } catch (err) {
         yield console.log(err);
