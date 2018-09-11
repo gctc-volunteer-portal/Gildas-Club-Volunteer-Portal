@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
+import moment from 'moment';
 
 const styles = {
     button: {
