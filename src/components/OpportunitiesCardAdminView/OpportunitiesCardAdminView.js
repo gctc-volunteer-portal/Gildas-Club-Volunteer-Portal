@@ -64,15 +64,9 @@ class MediaCard extends Component {
         const { classes } = this.props;
         let buttons;
         let status;
-<<<<<<< HEAD:src/components/OpportunitiesCard_AdminView/OpportunitiesCard_AdminView.js
         if (this.props.opportunity.status == 1) {
             status = 'Staging'
         } else if (this.props.opportunity.status == 2) {
-=======
-        if (this.props.opportunity.status === 1) {
-            status = 'Staging'
-        } else if (this.props.opportunity.status === 2) {
->>>>>>> 92a9e23e0feb8d16f66bbe70af5d9757a6c27510:src/components/OpportunitiesCardAdminView/OpportunitiesCardAdminView.js
             status = 'Active'
         } else {
             status = 'Inactive'
