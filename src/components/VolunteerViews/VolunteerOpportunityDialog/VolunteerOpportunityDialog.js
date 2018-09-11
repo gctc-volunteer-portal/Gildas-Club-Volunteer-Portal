@@ -35,6 +35,7 @@ class VolunteerOpportunityDialog extends React.Component {
                 opportunityId: this.props.opportunity.id,
             }
         });
+        this.handleClose();
     }
 
     withdraw = () => {
@@ -45,6 +46,7 @@ class VolunteerOpportunityDialog extends React.Component {
                 opportunityId: this.props.opportunity.id,
             }
         });
+        this.handleClose();
     }
 
     render() {
