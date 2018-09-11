@@ -9,16 +9,19 @@ import { connect } from 'react-redux'
 import AdminManageVolunteersDialogue from '../AdminManageVolunteersDialogue/AdminManageVolunteersDialogue';
 import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
 import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
 import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDialog/VolunteerOpportunityDialog';
+import moment from 'moment';
 
 const styles = {
+
     card: {
-        width: '100%',
-        height: 350,
-        display: 'flex',
-        margin: 30,
-        flexDirection: 'row',
+        width: '90%',
+        position: 'relative',
+        minHeight: 350,
+        margin: 20,
+        display: 'grid',
+        gridTemplateColumns: '350px 1fr 1fr',
+        gridTemplateRows: '350 px'
     },
     media: {
         height: 350,
@@ -33,7 +36,22 @@ const styles = {
         paddingTop: 16,
         paddingBottom: 16,
     },
-
+    actions: {
+        display: 'flex',
+        gridColumnStart: 3,
+        alignItems: 'flex-end',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        padding: 20,
+    },
+    detail: {
+        gridColumnStart: 2,
+    },
+    button: {
+        padding: 5,
+        display: 'flex',
+        alignItems: 'flex-end',
+    },
 };
 
 class MediaCard extends Component {
@@ -83,6 +101,7 @@ class MediaCard extends Component {
                     opportunity={this.props.opportunity}
                 />
                 <Button
+                    className={classes.button}
                     color="primary"
                     variant="raised"
                     size="small"
@@ -109,23 +128,28 @@ class MediaCard extends Component {
                             title="Opportunity"
                         />
                     </CardContent>
-                    <CardContent>
+                    <React.Fragment>    
+                    <CardContent className={classes.detail}>
                         <CardHeader
                             title={this.props.opportunity.title}
                             subheader={`Role: ${this.props.opportunity.certification_name}`}
                         />
                         <Typography className={classes.typography} component="p">
-                            {this.props.opportunity.date}	<br />
-                            {this.props.opportunity.start_time} <br />
-                            {this.props.opportunity.end_time} <br />
+                            {moment(this.props.opportunity.date).format("dddd, MMMM D, YYYY")}	<br />
+                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} <br />
+                            {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
                         </Typography>
                         <Typography className={classes.typography} component="p">
+                            Location: <br />
                             {this.props.opportunity.address_line1}<br />
                             {this.props.opportunity.city}
                         </Typography>
                     </CardContent>
-
-                    <CardActions>
+                    </React.Fragment>
+                    <CardActions className={classes.actions}>
+                    <CardHeader
+                            subheader={status}
+                        />
                         {buttons}
                     </CardActions>
                 </Card>
