@@ -2,7 +2,15 @@ import React, { Component } from 'react'
 import { withStyles, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, withMobileDialog, Button, TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 
+const styles = {
+  dialog: {
+    textAlign: 'center',
+    height: '100vh',
+  }
+}
+
 class OpportunityAdminNoteDialogue extends Component {
+
   state = {
     open: false,
     edit: false,
@@ -52,12 +60,13 @@ class OpportunityAdminNoteDialogue extends Component {
           View Notes
         </Button>
         <Dialog
+          className={this.props.classes.dialog}
+
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="responsive dialog containing admin notes"
         >
           <DialogTitle >{'Administrative Notes'}</DialogTitle>
-
           <DialogContent>
             <DialogContentText>
               {this.props.opportunityNote}
@@ -81,6 +90,7 @@ class OpportunityAdminNoteDialogue extends Component {
 
         {/* Edit Dialog */}
         <Dialog
+          className={this.props.classes.dialog}
           open={this.state.edit}
           onClose={this.handleClose}
           aria-labelledby="responsive dialog containing admin notes"
@@ -88,18 +98,18 @@ class OpportunityAdminNoteDialogue extends Component {
           <DialogTitle >{'Administrative Notes'}</DialogTitle>
 
           <DialogContent>
-              <TextField
-                label="Admin Notes"
-                type="text"
-                name=""
-                fullWidth
-                multiline
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                placeholder={this.props.opportunityNote}
-                onChange={this.handleInputChangeFor('private_notes')}
-              />
+            <TextField
+              label="Admin Notes"
+              type="text"
+              name=""
+              fullWidth
+              multiline
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder={this.props.opportunityNote}
+              onChange={this.handleInputChangeFor('private_notes')}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleCloseEdit}
@@ -121,6 +131,6 @@ class OpportunityAdminNoteDialogue extends Component {
   }
 }
 
-const StyledEditOpportunityForm = withStyles(styles)(OpportunityAdminNoteDialogue)
+const StyledOpportunityAdminNoteDialogue = withStyles(styles)(OpportunityAdminNoteDialogue)
 
-export default OpportunityAdminNoteDialogue;
+export default StyledOpportunityAdminNoteDialogue;
