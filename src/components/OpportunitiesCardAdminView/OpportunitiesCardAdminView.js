@@ -17,16 +17,22 @@ const styles = {
         width: '100%',
         height: 350,
         display: 'flex',
-        margin: 30
+        margin: 30,
+        flexDirection: 'row',
     },
     media: {
-        height: 50,
-        width: 300
+        height: 350,
+        width: 350,
     },
     dialog: {
         textAlign: 'center',
         height: '100vh',
-    }
+    },
+    typography: {
+        paddingLeft: 16,
+        paddingTop: 16,
+        paddingBottom: 16,
+    },
 
 };
 
@@ -97,57 +103,47 @@ class MediaCard extends Component {
             <React.Fragment>
                 <Card className={classes.card}>
                     <CardContent>
-                        <CardHeader
-                            avatar={
-                                <Avatar aria-label="Recipe" className={classes.avatar}>
-                                    GC
-                            </Avatar>
-                            }
-
-
-                            title={this.props.opportunity.title}
-                            subheader={status}
-                        />
-
                         <CardMedia
                             className={classes.media}
                             image={this.props.opportunity.image}
                             title="Opportunity"
                         />
+                    </CardContent>
+                    <CardContent>
+                        <CardHeader
+                            title={this.props.opportunity.title}
+                            subheader={`Role: ${this.props.opportunity.certification_name}`}
+                        />
+                        <Typography className={classes.typography} component="p">
+                            {this.props.opportunity.date}	<br />
+                            {this.props.opportunity.start_time} <br />
+                            {this.props.opportunity.end_time} <br />
+                        </Typography>
+                        <Typography className={classes.typography} component="p">
+                            {this.props.opportunity.address_line1}<br />
+                            {this.props.opportunity.city}
+                        </Typography>
+                    </CardContent>
 
-                    <Typography component="p">
-                        {this.props.opportunity.certification_name}
-                    </Typography>
-                    <Typography component="p">
-                        {this.props.opportunity.date}	<br />
-                        {this.props.opportunity.start_time} <br />
-                        {this.props.opportunity.end_time} <br />
-                    </Typography>
-
-                    <Typography component="p">
-                        {this.props.opportunity.address_line1}<br />
-                        {this.props.opportunity.city}
-                    </Typography>
-                        </CardContent>
                     <CardActions>
                         {buttons}
                     </CardActions>
                 </Card>
-            <Dialog
-                className={this.props.classes.dialog}
-                aria-labelledby="edit a volunteer event"
-                open={this.state.editEventIsOpen}
-                onClose={this.handleCloseDialog}
-            >
-                <DialogTitle>{"Edit Opportunity"}</DialogTitle>
-                <DialogContent>
-                    <EditOpportunityForm
-                        opportunityId={this.state.opportunityId}
-                        opportunityToUpdate={this.state.opportunityToUpdate}
-                        closeEditOpportunity={this.closeEditOpportunity}
-                    />
-                </DialogContent>
-            </Dialog>
+                <Dialog
+                    className={this.props.classes.dialog}
+                    aria-labelledby="edit a volunteer event"
+                    open={this.state.editEventIsOpen}
+                    onClose={this.handleCloseDialog}
+                >
+                    <DialogTitle>{"Edit Opportunity"}</DialogTitle>
+                    <DialogContent>
+                        <EditOpportunityForm
+                            opportunityId={this.state.opportunityId}
+                            opportunityToUpdate={this.state.opportunityToUpdate}
+                            closeEditOpportunity={this.closeEditOpportunity}
+                        />
+                    </DialogContent>
+                </Dialog>
             </React.Fragment >
         );
     }

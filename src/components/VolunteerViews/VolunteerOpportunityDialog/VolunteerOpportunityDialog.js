@@ -71,7 +71,7 @@ class VolunteerOpportunityDialog extends React.Component {
 
         return (
             <div>
-                <Button onClick={this.handleClickOpen}>More Info</Button>
+                <Button variant="raised" color="primary" onClick={this.handleClickOpen}>More Info</Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
