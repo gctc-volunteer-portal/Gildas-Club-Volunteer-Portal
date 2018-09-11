@@ -29,14 +29,7 @@ class VolunteerOpportunityDialog extends React.Component {
 
     signUp = () => {
         this.props.dispatch({
-            type: 'ENROLL_VOLUNTEER',
-            payload: {
-                volunteerId: this.props.user.id,
-                opportunityId: this.props.opportunity.id,
-            }
-        })
-        this.props.dispatch({
-            type: 'CHECK_ENROLLED',
+            type: 'VOLUNTEER_ENROLL_VOLUNTEER',
             payload: {
                 volunteerId: this.props.user.id,
                 opportunityId: this.props.opportunity.id,
@@ -46,14 +39,7 @@ class VolunteerOpportunityDialog extends React.Component {
 
     withdraw = () => {
         this.props.dispatch({
-            type: 'DELETE_ITEM',
-            payload: {
-                volunteerId: this.props.user.id,
-                opportunityId: this.props.opportunity.id,
-            }
-        })
-        this.props.dispatch({
-            type: 'CHECK_ENROLLED',
+            type: 'VOLUNTEER_DELETE_ITEM',
             payload: {
                 volunteerId: this.props.user.id,
                 opportunityId: this.props.opportunity.id,
