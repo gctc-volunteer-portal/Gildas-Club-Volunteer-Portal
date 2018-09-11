@@ -5,7 +5,7 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { withRouter } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
-import { Avatar } from '@material-ui/core';
+import { Avatar, Button } from '@material-ui/core';
 
 import './header.css';
 
@@ -45,6 +45,13 @@ class Header extends Component {
 
     let viewButton = null;
 
+    let logoutButton = (
+      <Button variant="outlined" color="secondary"
+        onClick={this.logout}
+      >
+        Log Out
+      </Button>)
+
     let initials = "V";
 
     if (this.props.user.first_initial || this.props.user.last_initial) {
@@ -53,20 +60,20 @@ class Header extends Component {
 
     if (this.props.admin) {
       viewButton = (
-        <button
+        <Button variant="outlined" color="secondary"
           onClick={this.goToVolunteer}
         >
           My Volunteer Tools
-      </button>
+      </Button>
       )
     }
     else {
       viewButton = (
-        <button
+        <Button variant="outlined" color="secondary"
           onClick={this.goToAdmin}
         >
           My Manager Tools
-    </button>
+    </Button>
       )
     }
 
@@ -76,11 +83,7 @@ class Header extends Component {
           <div className={this.props.classes.row}>
             <Avatar className={this.props.classes.avatar}>{initials}</Avatar>
           </div>
-          <button
-            onClick={this.logout}
-          >
-            Log Out
-          </button>
+          {logoutButton}
         </React.Fragment>
       )
     }
@@ -92,12 +95,7 @@ class Header extends Component {
             <Avatar className={this.props.classes.avatar}>{initials}</Avatar>
           </div>
           {viewButton}
-
-          <button
-            onClick={this.logout}
-          >
-            Log Out
-          </button>
+          {logoutButton}
         </React.Fragment>
       )
     }
@@ -105,15 +103,11 @@ class Header extends Component {
     if (this.props.user.access_level === 3) {
       tools = (
         <React.Fragment>
-          <button
-            onClick={this.logout}
-          >
-            Log Out
-          </button>
+          {logoutButton}
         </React.Fragment>
       )
     }
-    
+
     return (
       <div className="instructions" id="header">
         <img src="/images/GCTC_Logo.jpg" alt="Gilda's Club Twin Cities Logo" height="150" />
