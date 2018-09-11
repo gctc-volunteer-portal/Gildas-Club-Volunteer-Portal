@@ -71,8 +71,8 @@ class ManageVolunteersTable extends Component {
     }
 
     componentDidUpdate() {
-        if (!this.props.user.isLoading && this.props.user.email === null || this.props.user.access_level === 1) {
-            this.props.history.push('home');
+        if ((!this.props.user.isLoading && this.props.user.email === null) || this.props.user.access_level === 1) {
+            this.props.history.push('/home');
         }
     }
 
@@ -103,19 +103,14 @@ class ManageVolunteersTable extends Component {
     };
 
     render() {
-        const { classes } = this.props;
-console.log(this.props.volunteers);
 
         const data = this.props.volunteers;
         const { order, orderBy, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
-        console.log(this.state)
-        console.log(stableSort(data, getSorting(order, orderBy)))
-
         return (
             <React.Fragment>
-                <Header />
+                <Header admin={true} />
                 <AdminNav />
                 <h1>Volunteers</h1>
                 <Paper className={this.props.classes.root}>

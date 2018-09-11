@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withStyles, Dialog, DialogContent, DialogContentText, DialogTitle, withMobileDialog } from '@material-ui/core';
+import { withStyles, Dialog, DialogContent, DialogTitle, withMobileDialog } from '@material-ui/core';
 import CreateOpportunityForm from '../CreateOpportunityForm/CreateOpportunityForm';
 
 

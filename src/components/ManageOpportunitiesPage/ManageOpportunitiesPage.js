@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 import TextField from '@material-ui/core/TextField'
 import AdminNav from '../Nav/AdminNav/AdminNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-import OpportunitiesCard_AdminView from '../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView.js';
+import OpportunitiesCardAdminView from '../OpportunitiesCardAdminView/OpportunitiesCardAdminView.js';
 import { Button } from '@material-ui/core';
 import CreateOpportunityDialogue from '../CreateOpportunityDialogue/CreateOpportunityDialogue';
 import { withStyles } from '@material-ui/core/styles';
@@ -70,8 +70,8 @@ class InfoPage extends Component {
 
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.email === null) {
-            this.props.history.push('home');
-            console.log(this.props.state);
+            this.props.history.push('/home');
+            // console.log(this.props.state);
         }
     }
 
@@ -100,10 +100,16 @@ class InfoPage extends Component {
         
         const { classes } = this.props;
         let content = null;
+<<<<<<< HEAD
         let opportunitiesArray = this.props.opportunitiesList.filter(searchStatus(this.state.status)).filter(searchingFor(this.state.term)).map((opportunity, index) => {
             return (<OpportunitiesCard_AdminView key={index}
                 opportunity={opportunity}
                 
+=======
+        let opportunitiesArray = this.props.opportunitiesList.filter(searchingFor(this.state.term)).map((opportunity, index) => {
+            return (<OpportunitiesCardAdminView key={index}
+                opportunity={opportunity} admin={true}
+>>>>>>> 92a9e23e0feb8d16f66bbe70af5d9757a6c27510
             />)
         })
 
@@ -120,7 +126,7 @@ class InfoPage extends Component {
 
         return (
             <div>
-                <Header />
+                <Header admin={true} />
                 <AdminNav />
 
                 <Button
