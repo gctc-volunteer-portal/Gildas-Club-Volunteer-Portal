@@ -173,14 +173,14 @@ class IntegrationReactSelect extends React.Component {
   };
 
   render() {
-    console.log(this.props.state.opportunitiesReducer.certifiedVolunteers);
+    // console.log(this.props.state.opportunitiesReducer.certifiedVolunteers);
 
     let volunteerList = this.props.state.opportunitiesReducer.certifiedVolunteers.map((volunteer, i) => {
       if (volunteer.certification_id === this.props.opportunity.certification_needed && volunteer.is_certified === true) {
         return ({ label: `${volunteer.first_name} ${volunteer.last_name}`, id: volunteer.id })
       }
     })
-    console.log(volunteerList);
+    // console.log(volunteerList);
 
 
     let list = volunteerList.filter(volunteer => (volunteer !== undefined)).map(volunteerList => ({
@@ -189,7 +189,7 @@ class IntegrationReactSelect extends React.Component {
       id: volunteerList.id
 
     }))
-    console.log(list);
+    // console.log(list);
 
     const { classes, theme } = this.props;
 

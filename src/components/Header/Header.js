@@ -32,12 +32,10 @@ class Header extends Component {
   }
 
   goToVolunteer = () => {
-    console.log('going to volunteer tools');
     this.props.history.push('/my_shifts');
   }
 
   goToAdmin = () => {
-    console.log('going to admin tools');
     this.props.history.push('/manage_volunteers');
   }
 
@@ -115,7 +113,7 @@ class Header extends Component {
         </React.Fragment>
       )
     }
-    console.log(this.props.admin)
+    
     return (
       <div className="instructions" id="header">
         <img src="/images/GCTC_Logo.jpg" alt="Gilda's Club Twin Cities Logo" height="150" />

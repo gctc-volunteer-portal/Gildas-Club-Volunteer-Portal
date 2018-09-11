@@ -108,9 +108,6 @@ class ManageVolunteersTable extends Component {
         const { order, orderBy, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
-        console.log(this.state)
-        console.log(stableSort(data, getSorting(order, orderBy)))
-
         return (
             <React.Fragment>
                 <Header admin={true} />

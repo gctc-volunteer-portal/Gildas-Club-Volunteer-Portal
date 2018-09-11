@@ -56,12 +56,10 @@ router.get('/volunteer', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/enrolled/:id', rejectUnauthenticated, (req, res) => {
-    console.log(req.user.id, req.params.id)
     const queryText = `SELECT * FROM "user_opportunities"
     WHERE "user_id" = $1 AND "opportunity_id" = $2;`
     pool.query(queryText, [req.user.id, req.params.id])
         .then(results => {
-            console.log(results.rows)
             res.send(results.rows)
         })
         .catch(error => {
@@ -87,8 +85,8 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 router.post('/add_volunteer', rejectUnauthenticated, (req, res) => {
-    console.log('got to post', req.body);
-    console.log('event body', req.body);
+    // console.log('got to post', req.body);
+    // console.log('event body', req.body);
 
     if (req.isAuthenticated) {
         const queryText = `INSERT INTO "user_opportunities" ("user_id", "opportunity_id") VALUES ($1, $2)`
@@ -129,7 +127,7 @@ router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) =>
     const newOpportunity = req.body;
     const certId = parseInt(newOpportunity.certification_needed);
 
-    console.log(req.body, 'req body');
+    // console.log(req.body, 'req body');
 
     const queryText = `INSERT INTO "opportunities"("title","start_time","end_time","address_line1","address_line2","city","state","zip","description","date","status","private_notes","max_volunteers","certification_needed")
     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);`;
@@ -137,7 +135,7 @@ router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) =>
     const momentEndTime = moment(newOpportunity.end_time).format('HH:mm');
 
     const serializedData = [newOpportunity.title, momentStartTime, momentEndTime, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers, certId];
-    console.log(serializedData)
+    // console.log(serializedData)
 
     pool.query(queryText, serializedData)
         .then((results) => {
@@ -151,8 +149,8 @@ router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) =>
 
 router.put('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
     const updateOpportunityData = req.body;
-    console.log(req.params.id, 'req params')
-    console.log(req.body, 'req body');
+    // console.log(req.params.id, 'req params')
+    // console.log(req.body, 'req body');
 
     const queryText = `UPDATE "opportunities" SET "title" = $2, "start_time" = $3, "end_time" = $4, "address_line1" = $5, "address_line2" = $6, "city" = $7, "state" =$8, "zip" = $9, "description" = $10, "date" = $11, "status" = $12, "private_notes" = $13, "max_volunteers" = $14, "certification_needed" = $15
     WHERE "id" = $1;`;

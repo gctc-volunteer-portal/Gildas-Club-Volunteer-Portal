@@ -128,7 +128,7 @@ class RegisterPage extends Component {
   }
 
   render() {
-    console.log(this.state, 'local state')
+    // console.log(this.state, 'local state')
     return (
       <div>
         <Header />

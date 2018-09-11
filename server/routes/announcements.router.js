@@ -5,7 +5,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 
 router.post('/', rejectUnauthenticated, (req, res) => {
-    console.log('got to post', req.body);
+    // console.log('got to post', req.body);
         const queryText = `INSERT INTO "announcements" ("title", "description", "date") VALUES ($1, $2, $3)`
         pool.query(queryText, [req.body.title, req.body.description, req.body.date])
             .then(() => {
@@ -20,7 +20,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/', rejectUnauthenticated, (req, res) => {
-    console.log('got to get', req.body);
+    // console.log('got to get', req.body);
         const queryText = `SELECT * FROM "announcements";`
         pool.query(queryText)
             .then((results) => {
@@ -34,8 +34,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 });
 router.delete('/:id', (req, res) => {
-    console.log('delete')
-    console.log(req.body);
+    // console.log('delete')
+    // console.log(req.body);
 
     if (req.isAuthenticated) {
         const queryText = `DELETE FROM "announcements" WHERE id=$1`;

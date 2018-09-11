@@ -36,7 +36,7 @@ class SimpleCard extends Component {
 
 
     handleDelete = (announcementId) => { 
-        console.log(announcementId);
+        // console.log(announcementId);
          this.props.dispatch({
             type: 'DELETE_ANNOUNCEMENT',
             payload: announcementId

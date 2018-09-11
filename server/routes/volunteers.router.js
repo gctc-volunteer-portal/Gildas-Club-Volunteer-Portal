@@ -21,7 +21,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     pool.query(queryText)
         .then((results) => {
             res.send(results.rows)
-            console.log(results.rows);
+            // console.log(results.rows);
 
         }).catch((err) => {
             console.log(err);
@@ -30,12 +30,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/indVolunteer/:id/', (req, res) => {
-    console.log('i made it',req.params.id);
+    // console.log('i made it',req.params.id);
     if(req.isAuthenticated){
     const queryText =`SELECT * FROM users WHERE users."id" = $1`;
     pool.query(queryText, [req.params.id]).then((results) => {
         res.send(results.rows)
-        console.log(results.rows);
+        // console.log(results.rows);
         
         })
     }
@@ -43,7 +43,7 @@ router.get('/indVolunteer/:id/', (req, res) => {
 
 //edting volunteer
 router.put('/updateInfo', (req, res) => {
-    console.log('I have :', req.body.state);
+    // console.log('I have :', req.body.state);
    let info = req.body.state
     if(req.isAuthenticated){
         const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $2, "last_name" = $3, "email"= $4 , "primary_phone"= $5,
@@ -150,7 +150,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
     );`
     pool.query(queryText)
         .then((results) => {
-            console.log('here are the results:', results.rows)
+            // console.log('here are the results:', results.rows)
             res.send(results.rows);
         })
         .catch((error) => {

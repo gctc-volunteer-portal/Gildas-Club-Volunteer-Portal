@@ -56,7 +56,7 @@ export default connect()(class FormDialog extends React.Component {
   }
 
   render() {
-      console.log(this.state.announcement.date);
+      // console.log(this.state.announcement.date);
       
     return (
       <React.Fragment>

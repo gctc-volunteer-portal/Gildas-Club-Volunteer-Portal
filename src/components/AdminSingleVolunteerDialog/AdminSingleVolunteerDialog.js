@@ -190,7 +190,7 @@ handleClose = () => {
     // let email = this.props.state.indVolunteerInfo.indVolunteerInfo[0]
     // console.log(email)
     let id = this.props.volunteer.id
-  console.log(id);
+  // console.log(id);
   this.props.dispatch({
     type:'GET_ALL_VOLUNTEER_INFO',
     payload: id
@@ -210,7 +210,7 @@ handleClose = () => {
 
   updateVolunteerInfo = (event) => {
     event.preventDefault()
-    console.log(this.state);
+    // console.log(this.state);
     let id = this.props.volunteer.id
     let state = this.state
     this.props.dispatch({
@@ -232,7 +232,7 @@ handleClose = () => {
   }
 
   handleNoogieLandCert = (property) => {
-   console.log('test:', property);
+  //  console.log('test:', property);
    
     
       this.setState({ 
@@ -284,7 +284,7 @@ handleClose = () => {
  
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     
     // console.log(this.props.currentVolunteer)
     let toggleAccess;
