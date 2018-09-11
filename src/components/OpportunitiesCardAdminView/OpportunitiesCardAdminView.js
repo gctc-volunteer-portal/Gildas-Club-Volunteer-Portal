@@ -135,7 +135,6 @@ class MediaCard extends Component {
                             title="Opportunity"
                         />
                     </CardContent>
-                    <React.Fragment>    
                     <CardContent className={classes.detail}>
                         <CardHeader
                             title={this.props.opportunity.title}
@@ -152,14 +151,14 @@ class MediaCard extends Component {
                             {this.props.opportunity.city}
                         </Typography>
                     </CardContent>
-                    </React.Fragment>
                     <CardActions className={classes.actions}>
                     <CardHeader
                             subheader={status}
                         />
 
-                    <CardActions>
                         {buttons}
+                        </CardActions>
+                        </Card>
                 <Dialog
                     className={this.props.classes.dialog}
                     aria-labelledby="edit a volunteer event"
@@ -175,10 +174,7 @@ class MediaCard extends Component {
                         />
                     </DialogContent>
                 </Dialog>
-                    </CardActions>
-                </Card>
-
-            </React.Fragment >
+            </React.Fragment>
         );
     }
 }

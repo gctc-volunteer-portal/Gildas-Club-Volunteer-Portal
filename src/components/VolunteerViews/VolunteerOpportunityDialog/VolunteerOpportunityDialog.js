@@ -6,6 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import {withStyles} from '@material-ui/core';
 
 const styles = {
@@ -91,10 +92,10 @@ class VolunteerOpportunityDialog extends React.Component {
                     <DialogContent>
                         <DialogTitle id="alert-dialog-title">{this.props.opportunity.certification_name}</DialogTitle>
                         <DialogContentText id="alert-dialog-description">
-                            Date: {this.props.opportunity.date}
+                            Date: {moment(this.props.opportunity.date).format('dddd, MMMM D, YYYY')}
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
-                            Time: {this.props.opportunity.start_time} – {this.props.opportunity.end_time}
+                            Time: {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')}
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
                             Location:

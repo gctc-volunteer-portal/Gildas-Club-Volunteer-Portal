@@ -95,11 +95,10 @@ class OpportunityAdminNoteDialogue extends Component {
           onClose={this.handleClose}
           aria-labelledby="responsive dialog containing admin notes"
         >
-          <DialogTitle >{'Administrative Notes'}</DialogTitle>
+          <DialogTitle >{'Edit Administrative Notes'}</DialogTitle>
 
           <DialogContent>
             <TextField
-              label="Admin Notes"
               type="text"
               name=""
               fullWidth
