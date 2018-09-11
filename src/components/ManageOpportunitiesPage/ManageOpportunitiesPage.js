@@ -100,16 +100,9 @@ class InfoPage extends Component {
         
         const { classes } = this.props;
         let content = null;
-<<<<<<< HEAD
-        let opportunitiesArray = this.props.opportunitiesList.filter(searchStatus(this.state.status)).filter(searchingFor(this.state.term)).map((opportunity, index) => {
-            return (<OpportunitiesCard_AdminView key={index}
-                opportunity={opportunity}
-                
-=======
         let opportunitiesArray = this.props.opportunitiesList.filter(searchingFor(this.state.term)).map((opportunity, index) => {
             return (<OpportunitiesCardAdminView key={index}
                 opportunity={opportunity} admin={true}
->>>>>>> 92a9e23e0feb8d16f66bbe70af5d9757a6c27510
             />)
         })
 
