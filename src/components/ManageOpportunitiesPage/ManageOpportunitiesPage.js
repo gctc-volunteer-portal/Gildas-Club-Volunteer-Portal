@@ -70,7 +70,7 @@ class InfoPage extends Component {
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.email === null) {
             this.props.history.push('/home');
-            // console.log(this.props.state);
+ 
         }
     }
 

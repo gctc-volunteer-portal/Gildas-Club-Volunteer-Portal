@@ -1,6 +1,15 @@
 import React, {Component} from 'react';
 import {TableHead, TableRow, TableCell, Tooltip, TableSortLabel} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
+
+const styles = theme => ({
+    head: {
+      backgroundColor: "#fff",
+      position: "sticky",
+      top: 0
+    }
+  });
 
 const columns = [
     { id: 'first_name', label: 'First Name' },
@@ -29,12 +38,13 @@ class ManageVolunteersViewTableHeader extends Component {
     };
 
     render() {
-
+        const { classes } = this.props;
         let columnHeaders = columns.map((column, index) => {
             return (
             <TableCell
                 key={index}
                 sortDirection={this.props.orderBy === column.id ? this.props.order : false}
+                className={this.props.classes.head}
             >
                 <Tooltip
                     title="Sort"
@@ -62,4 +72,4 @@ class ManageVolunteersViewTableHeader extends Component {
     }
 }
 
-export default ManageVolunteersViewTableHeader;
+export default withStyles(styles)(ManageVolunteersViewTableHeader);
