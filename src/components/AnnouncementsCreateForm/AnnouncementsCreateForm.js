@@ -17,7 +17,7 @@ export default connect()(class FormDialog extends React.Component {
   state = {
     open: false,
     announcement: {
-        date: null
+        date: moment()
     }
   };
 
