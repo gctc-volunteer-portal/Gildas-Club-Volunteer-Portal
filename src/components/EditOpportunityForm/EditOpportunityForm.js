@@ -248,18 +248,7 @@ class EditOpportunityForm extends Component {
             placeholder={this.props.opportunityToUpdate.description}
             onChange={this.handleInputChangeFor('description')}
           />
-          <TextField
-            label="Admin Notes"
-            type="text"
-            name=""
-            fullWidth
-            multiline
-            InputLabelProps={{
-              shrink: true,
-            }}
-            placeholder={this.props.opportunityToUpdate.description}
-            onChange={this.handleInputChangeFor('private_notes')}
-          />
+         
           {/* Radio inputs to select required certification */}
           <RadioGroup
             name="deliveryType"
