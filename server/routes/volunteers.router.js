@@ -199,7 +199,8 @@ router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
                        JOIN user_certifications ON certification_needed = certification_id
                        JOIN users ON user_certifications.user_id = users.id
                        JOIN certifications ON opportunities.certification_needed = certifications.id
-                       WHERE users.id = $1 AND is_certified = true;`
+                       WHERE users.id = $1 AND is_certified = true AND opportunities.status = 2
+                       ORDER BY opportunities.date, opportunities.start_time;`
     pool.query(queryText, [req.user.id])
         .then((results) => {
             res.send(results.rows);

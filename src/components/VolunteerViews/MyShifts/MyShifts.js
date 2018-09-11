@@ -27,7 +27,7 @@ class MyShifts extends Component {
 
   render() {
 
-    let mappedMyShfits = this.props.shifts.map((shift, index) => {
+    let mappedMyShifts = this.props.shifts.map((shift, index) => {
       return (
         <OpportunitiesCardAdminView opportunity={shift} key={index} admin={false} />
       )
@@ -36,14 +36,19 @@ class MyShifts extends Component {
     let content = null;
 
     if (this.props.user.email) {
-      content = mappedMyShfits;
+      if(mappedMyShifts.length > 0) {
+        content = mappedMyShifts;
+
+      }
+      else {
+        content = (<p>Looks like you don't have any shifts yet! Check out Upcoming Opportunities to sign up.</p>)
+      }
     }
 
     return (
       <div>
         <Header admin={false} />
         <VolunteerNav />
-        <h1>My Shift!!</h1>
         { content }
       </div>
     );

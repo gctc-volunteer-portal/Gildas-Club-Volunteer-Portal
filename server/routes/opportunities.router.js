@@ -27,7 +27,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     opportunities.max_volunteers,
     opportunities.certification_needed,
     certifications.certification_name FROM opportunities
-    JOIN certifications on opportunities.certification_needed = certifications.id;`;
+    JOIN certifications on opportunities.certification_needed = certifications.id
+    ORDER BY opportunities.date, opportunities.start_time;`;
     pool.query(queryText)
         .then((results) => {
             res.send(results.rows)
@@ -60,7 +61,7 @@ router.get('/volunteer', rejectUnauthenticated, (req, res) => {
     JOIN "user_opportunities" on "opportunities"."id" = "user_opportunities"."opportunity_id"
     JOIN "certifications" on "opportunities"."certification_needed" = "certifications"."id"
     WHERE "user_opportunities"."user_id" = $1 AND "opportunities"."status" = 2
-    ORDER BY "opportunities"."date";`;
+    ORDER BY opportunities.date, opportunities.start_time;`;
     pool.query(queryText, [req.user.id])
         .then((results) => {
             res.send(results.rows)
