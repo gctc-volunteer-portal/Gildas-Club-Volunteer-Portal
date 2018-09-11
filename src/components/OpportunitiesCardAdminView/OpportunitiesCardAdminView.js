@@ -73,7 +73,6 @@ class MediaCard extends Component {
         }
         if (this.props.state.user.access_level >= 2 && this.props.admin) {
             buttons = (<div>
-                <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
                 <AdminManageVolunteersDialogue
                     opportunity={this.props.opportunity}
                 />

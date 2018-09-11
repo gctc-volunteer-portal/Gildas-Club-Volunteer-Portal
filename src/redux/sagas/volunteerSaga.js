@@ -62,7 +62,7 @@ function* fetchVolunteerInfo() {
 function* updateVolunteers(action){
     // console.log(action.payload);
         try{
-            const update = yield call(axios.put, `/api/volunteers/updateInfo/`, action.payload)
+            yield call(axios.put, `/api/volunteers/updateInfo/`, action.payload)
             yield dispatch({
                 type:'FETCH_VOLUNTEER_INFO'
             })
