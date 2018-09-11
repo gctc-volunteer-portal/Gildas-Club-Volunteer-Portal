@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     head: {
-      backgroundColor: "#fff",
+      backgroundColor: theme.palette.primary.light,
       position: "sticky",
       top: 0
     }
@@ -44,7 +44,7 @@ class ManageVolunteersViewTableHeader extends Component {
             <TableCell
                 key={index}
                 sortDirection={this.props.orderBy === column.id ? this.props.order : false}
-                className={this.props.classes.head}
+                className={classes.head}
             >
                 <Tooltip
                     title="Sort"

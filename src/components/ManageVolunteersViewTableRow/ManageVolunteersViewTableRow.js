@@ -11,6 +11,7 @@ const CustomTableCell = withStyles(theme => ({
     head: {
         backgroundColor: theme.palette.common.black,
         color: theme.palette.common.white,
+      
     },
     body: {
         fontSize: 14,
@@ -43,6 +44,7 @@ class ManageVolunteersViewTableRow extends Component {
     }
 
     render() {
+console.log(this.props.volunteer);
 
         let editButton = null;
 

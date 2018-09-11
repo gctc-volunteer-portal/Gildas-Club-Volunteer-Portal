@@ -77,7 +77,7 @@ class MediaCard extends Component {
                     opportunity={this.props.opportunity}
                 />
                 <Button
-                    color="primary"
+                    color="primary.light"
                     variant="raised"
                     size="small"
                     onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
