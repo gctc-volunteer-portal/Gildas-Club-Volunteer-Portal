@@ -141,11 +141,11 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
         gilda_greeter BOOLEAN,
         instructor BOOLEAN,
         noogieland BOOLEAN,
-        outreach_ambassador BOOLEAN,
+        open_to_all BOOLEAN,
         special1 BOOLEAN,
         special2 BOOLEAN,
         special3 BOOLEAN,
-        open_to_all BOOLEAN
+        outreach_ambassador BOOLEAN
 
     );`
     pool.query(queryText)
