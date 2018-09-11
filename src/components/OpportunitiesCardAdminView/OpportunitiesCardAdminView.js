@@ -14,7 +14,7 @@ import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDi
 
 const styles = {
     card: {
-        width: '80%',
+        width: '100%',
         height: 350,
         display: 'flex',
         margin: 30
