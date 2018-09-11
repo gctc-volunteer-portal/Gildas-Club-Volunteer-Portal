@@ -151,9 +151,6 @@ class InfoPage extends Component {
                         <Select
                             value={this.state.status}
                             onChange={this.handleChange}
-                            InputLabelProps={{
-                                  shrink: true,
-            }}
                         >
                             <MenuItem value=""><em>All</em></MenuItem>
                             <MenuItem value="1">Staging</MenuItem>
