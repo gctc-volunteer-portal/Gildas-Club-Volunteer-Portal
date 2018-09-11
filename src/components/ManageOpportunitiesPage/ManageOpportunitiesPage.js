@@ -12,7 +12,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
 
 
 const mapStateToProps = state => ({
@@ -96,11 +95,9 @@ class InfoPage extends Component {
       };
 
     render() {
-        console.log(this.state.status);
-        
         const { classes } = this.props;
         let content = null;
-        let opportunitiesArray = this.props.opportunitiesList.filter(searchingFor(this.state.term)).map((opportunity, index) => {
+        let opportunitiesArray = this.props.opportunitiesList.filter(searchStatus(this.state.status)).filter(searchingFor(this.state.term)).map((opportunity, index) => {
             return (<OpportunitiesCardAdminView key={index}
                 opportunity={opportunity} admin={true}
             />)
@@ -154,9 +151,6 @@ class InfoPage extends Component {
                         <Select
                             value={this.state.status}
                             onChange={this.handleChange}
-                            InputLabelProps={{
-                                  shrink: true,
-            }}
                         >
                             <MenuItem value=""><em>All</em></MenuItem>
                             <MenuItem value="1">Staging</MenuItem>

@@ -49,7 +49,7 @@ class SimpleCard extends Component {
     let button;
     const { classes } = this.props;
     if (this.props.user.access_level === 3){
-          button = (<Button onClick={()=>this.handleDelete(this.props.announcement.id)}variant="small" color="secondary" className={classes.button}>
+          button = (<Button onClick={()=>this.handleDelete(this.props.announcement.id)} variant="small" color="secondary" className={classes.button}>
               Delete
               <DeleteIcon className={classes.rightIcon} />
               </Button>)
