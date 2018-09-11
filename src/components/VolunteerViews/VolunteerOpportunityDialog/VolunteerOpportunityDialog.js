@@ -6,6 +6,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import {withStyles} from '@material-ui/core';
+
+const styles = {
+    button: {
+        padding: 5,
+        alignItems: 'flex-end',
+    },
+};
 
 class VolunteerOpportunityDialog extends React.Component {
     state = {
@@ -35,6 +44,7 @@ class VolunteerOpportunityDialog extends React.Component {
                 opportunityId: this.props.opportunity.id,
             }
         });
+        this.handleClose();
     }
 
     withdraw = () => {
@@ -45,6 +55,7 @@ class VolunteerOpportunityDialog extends React.Component {
                 opportunityId: this.props.opportunity.id,
             }
         });
+        this.handleClose();
     }
 
     render() {
@@ -69,7 +80,7 @@ class VolunteerOpportunityDialog extends React.Component {
 
         return (
             <div>
-                <Button onClick={this.handleClickOpen}>More Info</Button>
+                <Button className={this.props.classes.button} variant="raised" color="primary" onClick={this.handleClickOpen}>More Info</Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -81,10 +92,10 @@ class VolunteerOpportunityDialog extends React.Component {
                     <DialogContent>
                         <DialogTitle id="alert-dialog-title">{this.props.opportunity.certification_name}</DialogTitle>
                         <DialogContentText id="alert-dialog-description">
-                            Date: {this.props.opportunity.date}
+                            Date: {moment(this.props.opportunity.date).format('dddd, MMMM D, YYYY')}
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
-                            Time: {this.props.opportunity.start_time} – {this.props.opportunity.end_time}
+                            Time: {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')}
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
                             Location:
@@ -119,4 +130,6 @@ const mapStateToProps = (state) => ({
     enrollment: state.opportunitiesReducer.enrolledStatus
 })
 
-export default connect(mapStateToProps)(VolunteerOpportunityDialog);
+
+const connectedVolunteerOpportunityDialog = connect(mapStateToProps)(VolunteerOpportunityDialog);
+export default withStyles(styles)(connectedVolunteerOpportunityDialog);

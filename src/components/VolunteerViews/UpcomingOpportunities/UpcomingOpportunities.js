@@ -59,13 +59,21 @@ class UpcomingOpportunities extends Component {
       })
 
       if (this.props.user.email) {
-          content = (
-              <div>
-                  <div>
-                      {myOpportunities}
-                  </div>
-              </div>
-          );
+          if(myOpportunities.length > 0) {
+            content = (
+                <div>
+                    <div>
+                        {myOpportunities}
+                    </div>
+                </div>
+            );
+          }
+          else {
+              content = (
+                  <p>Looks like there are no upcoming opportunities for you at this time. Check back later for new opportunities.</p>
+              )
+          }
+
       }
 
       return (

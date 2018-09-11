@@ -12,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+// import Input from '@material-ui/core/Input';
 
 
 const mapStateToProps = state => ({
@@ -35,18 +36,17 @@ function searchStatus(status) {
 }
 const styles = theme => ({
     root: {
-      display: 'flex',
-      flexWrap: 'wrap',
+        display: 'flex',
+        flexWrap: 'wrap',
     },
     formControl: {
-      margin: theme.spacing.unit,
-      minWidth: 120,
+        margin: theme.spacing.unit,
+        minWidth: 120,
     },
     selectEmpty: {
-      marginTop: theme.spacing.unit * 2,
+        marginTop: theme.spacing.unit * 2,
     },
-  });
-
+});
 class InfoPage extends Component {
     constructor(props) {
         super(props);
@@ -62,14 +62,11 @@ class InfoPage extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-        if (this.props.user.access_level < 2) {
-            this.props.history.push('/home');
-        }
         this.props.dispatch({ type: 'GET_EVENTS' })
     }
 
     componentDidUpdate() {
-        if (!this.props.user.isLoading && this.props.user.email === null) {
+        if (!this.props.user.isLoading && (this.props.user.email === null || this.props.user.access_level < 2)) {
             this.props.history.push('/home');
  
         }
@@ -93,9 +90,11 @@ class InfoPage extends Component {
     }
     handleChange = event => {
         this.setState({ status: event.target.value });
-      };
+    };
 
     render() {
+        console.log(this.state.status);
+
         const { classes } = this.props;
         let content = null;
         let opportunitiesArray = this.props.opportunitiesList.filter(searchStatus(this.state.status)).filter(searchingFor(this.state.term)).map((opportunity, index) => {
