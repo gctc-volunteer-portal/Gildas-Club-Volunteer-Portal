@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import axios from 'axios';
 import RegistrationForm from '../RegistrationForm/RegistrationForm';
 
@@ -128,7 +128,7 @@ class RegisterPage extends Component {
   }
 
   render() {
-    console.log(this.state, 'local state')
+    // console.log(this.state, 'local state')
     return (
       <div>
         <Header />

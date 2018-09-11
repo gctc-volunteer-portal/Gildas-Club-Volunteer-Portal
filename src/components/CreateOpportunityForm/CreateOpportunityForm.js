@@ -82,7 +82,7 @@ class CreateOpportunityForm extends Component {
   }
 
   render() {
-    console.log(this.state.date, 'date in state')
+    // console.log(this.state.date, 'date in state')
     // map through certifications list, which is stored on redux store, and display them on DOM
     const certificationsList = this.props.certificates.map((certificate, index) => {
       return (

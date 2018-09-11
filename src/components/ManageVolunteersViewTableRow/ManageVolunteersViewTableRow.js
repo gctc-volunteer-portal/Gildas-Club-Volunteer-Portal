@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
-import { TableCell, TableRow, Button } from '@material-ui/core';
+import { TableCell, TableRow } from '@material-ui/core';
 import { CheckCircle, Cancel } from '@material-ui/icons'
 import AdminSingleVolunteerDialog from '../AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
 
