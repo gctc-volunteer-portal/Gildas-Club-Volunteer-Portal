@@ -11,6 +11,7 @@ import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDialog/VolunteerOpportunityDialog';
+import OpportunityAdminNoteDialogue from '../OpportunityAdminNoteDialogue/OpportunityAdminNoteDialogue';
 
 const styles = {
     card: {
@@ -34,6 +35,7 @@ class MediaCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            adminNoteIsOpen: false,
             editEventIsOpen: false,
             opportunityToUpdate: {},
             opportunityId: '',
@@ -60,6 +62,7 @@ class MediaCard extends Component {
         });
     };
 
+
     render() {
         const { classes } = this.props;
         let buttons;
@@ -84,6 +87,10 @@ class MediaCard extends Component {
                 >
                     Edit Opportunity
                 </Button>
+                <OpportunityAdminNoteDialogue
+                    opportunityId={this.props.opportunity.id}
+                    opportunityNote={this.props.opportunity.private_notes}
+                />
             </div>)
         } else {
             buttons = (
@@ -115,39 +122,39 @@ class MediaCard extends Component {
                             title="Opportunity"
                         />
 
-                    <Typography component="p">
-                        {this.props.opportunity.certification_name}
-                    </Typography>
-                    <Typography component="p">
-                        {this.props.opportunity.date}	<br />
-                        {this.props.opportunity.start_time} <br />
-                        {this.props.opportunity.end_time} <br />
-                    </Typography>
+                        <Typography component="p">
+                            {this.props.opportunity.certification_name}
+                        </Typography>
+                        <Typography component="p">
+                            {this.props.opportunity.date}	<br />
+                            {this.props.opportunity.start_time} <br />
+                            {this.props.opportunity.end_time} <br />
+                        </Typography>
 
-                    <Typography component="p">
-                        {this.props.opportunity.address_line1}<br />
-                        {this.props.opportunity.city}
-                    </Typography>
-                        </CardContent>
+                        <Typography component="p">
+                            {this.props.opportunity.address_line1}<br />
+                            {this.props.opportunity.city}
+                        </Typography>
+                    </CardContent>
                     <CardActions>
                         {buttons}
                     </CardActions>
                 </Card>
-            <Dialog
-                className={this.props.classes.dialog}
-                aria-labelledby="edit a volunteer event"
-                open={this.state.editEventIsOpen}
-                onClose={this.handleCloseDialog}
-            >
-                <DialogTitle>{"Edit Opportunity"}</DialogTitle>
-                <DialogContent>
-                    <EditOpportunityForm
-                        opportunityId={this.state.opportunityId}
-                        opportunityToUpdate={this.state.opportunityToUpdate}
-                        closeEditOpportunity={this.closeEditOpportunity}
-                    />
-                </DialogContent>
-            </Dialog>
+                <Dialog
+                    className={this.props.classes.dialog}
+                    aria-labelledby="edit a volunteer event"
+                    open={this.state.editEventIsOpen}
+                    onClose={this.handleCloseDialog}
+                >
+                    <DialogTitle>{"Edit Opportunity"}</DialogTitle>
+                    <DialogContent>
+                        <EditOpportunityForm
+                            opportunityId={this.state.opportunityId}
+                            opportunityToUpdate={this.state.opportunityToUpdate}
+                            closeEditOpportunity={this.closeEditOpportunity}
+                        />
+                    </DialogContent>
+                </Dialog>
             </React.Fragment >
         );
     }
