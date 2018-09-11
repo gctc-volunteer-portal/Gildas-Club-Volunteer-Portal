@@ -12,7 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
+// import Input from '@material-ui/core/Input';
 
 
 const mapStateToProps = state => ({
@@ -62,14 +62,11 @@ class InfoPage extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-        if (this.props.user.access_level < 2) {
-            this.props.history.push('/home');
-        }
         this.props.dispatch({ type: 'GET_EVENTS' })
     }
 
     componentDidUpdate() {
-        if (!this.props.user.isLoading && this.props.user.email === null) {
+        if (!this.props.user.isLoading && (this.props.user.email === null || this.props.user.access_level < 2)) {
             this.props.history.push('/home');
             // console.log(this.props.state);
         }
@@ -100,7 +97,7 @@ class InfoPage extends Component {
 
         const { classes } = this.props;
         let content = null;
-        let opportunitiesArray = this.props.opportunitiesList.filter(searchingFor(this.state.term)).map((opportunity, index) => {
+        let opportunitiesArray = this.props.opportunitiesList.filter(searchStatus(this.state.status)).filter(searchingFor(this.state.term)).map((opportunity, index) => {
             return (<OpportunitiesCardAdminView key={index}
                 opportunity={opportunity} admin={true}
             />)

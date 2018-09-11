@@ -57,14 +57,19 @@ class MyShifts extends Component {
     let content = null;
 
     if (this.props.user.email) {
-      content = mappedMyShifts;
+      if(mappedMyShifts.length > 0) {
+        content = mappedMyShifts;
+      }
+      else {
+        content = (<p>Looks like you don't have any shifts yet! Check out Upcoming Opportunities to sign up.</p>)
+      }
     }
 
-    return (
-      <div>
+  return (
+    
+    <div>
         <Header admin={false} />
         <VolunteerNav />
-        <h1>My Shift!!</h1>
         <div style={{ height: 100 }}>
                   <TextField
                       id="full-width"
@@ -85,6 +90,8 @@ class MyShifts extends Component {
     );
   }
 }
+  
+
 
 // this allows us to use <App /> in index.js
 export default connect(mapStateToProps)(MyShifts);
