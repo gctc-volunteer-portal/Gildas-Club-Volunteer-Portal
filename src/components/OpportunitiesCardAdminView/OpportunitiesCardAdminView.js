@@ -11,6 +11,7 @@ import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
 import CardHeader from '@material-ui/core/CardHeader';
 import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDialog/VolunteerOpportunityDialog';
 import moment from 'moment';
+import OpportunityAdminNoteDialogue from '../OpportunityAdminNoteDialogue/OpportunityAdminNoteDialogue';
 
 const styles = {
 
@@ -58,6 +59,7 @@ class MediaCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            adminNoteIsOpen: false,
             editEventIsOpen: false,
             opportunityToUpdate: {},
             opportunityId: '',
@@ -84,6 +86,7 @@ class MediaCard extends Component {
         });
     };
 
+
     render() {
         const { classes } = this.props;
         let buttons;
@@ -109,6 +112,10 @@ class MediaCard extends Component {
                 >
                     Edit Opportunity
                 </Button>
+                <OpportunityAdminNoteDialogue
+                    opportunityId={this.props.opportunity.id}
+                    opportunityNote={this.props.opportunity.private_notes}
+                />
             </div>)
         } else {
             buttons = (
@@ -150,9 +157,9 @@ class MediaCard extends Component {
                     <CardHeader
                             subheader={status}
                         />
+
+                    <CardActions>
                         {buttons}
-                    </CardActions>
-                </Card>
                 <Dialog
                     className={this.props.classes.dialog}
                     aria-labelledby="edit a volunteer event"
@@ -168,6 +175,9 @@ class MediaCard extends Component {
                         />
                     </DialogContent>
                 </Dialog>
+                    </CardActions>
+                </Card>
+
             </React.Fragment >
         );
     }
