@@ -43,9 +43,6 @@ const styles = theme => ({
 
 
 class CustomizedTable extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
@@ -73,15 +70,15 @@ class CustomizedTable extends Component {
 
     currentVolunteers = this.props.state.opportunitiesReducer.opportunityVolunteerReducer.map((volunteer, index) => {
       return (
-        <TableRow>
+        <TableRow key={index}>
         <CustomTableCell>{volunteer.first_name}</CustomTableCell>
         <CustomTableCell numeric>{volunteer.last_name}</CustomTableCell>
         <CustomTableCell numeric>{volunteer.email}</CustomTableCell>
         <CustomTableCell numeric>{volunteer.primary_phone}</CustomTableCell>
-        <Button variant="contained" color="secondary" className={classes.button} onClick={()=>this.handleDelete(volunteer.user_id, this.props.opportunity.id)}>
+        <CustomTableCell><Button variant="contained" color="secondary" className={classes.button} onClick={()=>this.handleDelete(volunteer.user_id, this.props.opportunity.id)}>
           Remove
         <RemoveIcon className={classes.rightIcon} />
-        </Button>
+        </Button></CustomTableCell>
          </TableRow>
       )
 })

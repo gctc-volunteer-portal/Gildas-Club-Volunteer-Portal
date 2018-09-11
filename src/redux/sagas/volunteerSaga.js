@@ -15,7 +15,7 @@ function* getUsers(){
 }
 
 function* getIndVolunteerInfo(action){
-    console.log(action.payload);
+    // console.log(action.payload);
     let id = action.payload
     try{
         yield dispatch({
@@ -48,7 +48,7 @@ function* fetchVolunteerInfo() {
  function* getMyVolunteerEvents(){
          try{
         const myAvailableEvents = yield call(axios.get, '/api/volunteers/my_available_events')
-        console.log(myAvailableEvents);
+        // console.log(myAvailableEvents);
     
         yield dispatch({
             type: 'MY_AVAILABLE_EVENTS',
@@ -60,9 +60,9 @@ function* fetchVolunteerInfo() {
 
  }
 function* updateVolunteers(action){
-    console.log(action.payload);
+    // console.log(action.payload);
         try{
-            const update = yield call(axios.put, `/api/volunteers/updateInfo/`, action.payload)
+            yield call(axios.put, `/api/volunteers/updateInfo/`, action.payload)
             yield dispatch({
                 type:'FETCH_VOLUNTEER_INFO'
             })

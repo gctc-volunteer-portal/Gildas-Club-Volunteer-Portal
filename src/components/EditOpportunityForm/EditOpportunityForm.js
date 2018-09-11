@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withStyles, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
+import { withStyles, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 //date picker component and css file from react-datepicker
 import DatePicker from 'react-datepicker';
@@ -78,8 +78,8 @@ class EditOpportunityForm extends Component {
   }
 
   render() {
-    console.log(this.props.opportunityToUpdate, 'opportunity to update')
-    console.log(this.state, 'local state edit opportunity form')
+    // console.log(this.props.opportunityToUpdate, 'opportunity to update')
+    // console.log(this.state, 'local state edit opportunity form')
     // map through certifications list, which is stored on redux store, and display them on DOM
     const certificationsList = this.props.certificates.map((certificate, index) => {
       return (

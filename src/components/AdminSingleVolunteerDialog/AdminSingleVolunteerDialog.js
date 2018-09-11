@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withRouter } from 'react-router';
-import Header from '../Header/Header'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+// import Header from '../Header/Header'
+// import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import { withStyles, FormControl, Input, Avatar ,FormLabel,Chip, Checkbox, NativeSelect, TextField, Button, Dialog, ListItem, ListItemText, List, Divder, AppBar, Typography, closeIcon, Slide, Switch } from '@material-ui/core';
+import { withStyles, FormControl, FormLabel,Chip, Checkbox, TextField, Button, Dialog, Slide, Switch } from '@material-ui/core';
 import '../AdminSingleVolunteerDialog/AdminSingleVolunteer.css'
-import VolunteerNav from '../Nav/VolunteerNav/VolunteerNav';
-import { Z_DEFAULT_COMPRESSION } from 'zlib';
+// import VolunteerNav from '../Nav/VolunteerNav/VolunteerNav';
+// import { Z_DEFAULT_COMPRESSION } from 'zlib';
 
 const mapStateToProps = state =>({
    currentVolunteer: state.indVolunteerInfo.indVolunteerInfo
@@ -190,7 +190,7 @@ handleClose = () => {
     // let email = this.props.state.indVolunteerInfo.indVolunteerInfo[0]
     // console.log(email)
     let id = this.props.volunteer.id
-  console.log(id);
+  // console.log(id);
   this.props.dispatch({
     type:'GET_ALL_VOLUNTEER_INFO',
     payload: id
@@ -210,7 +210,7 @@ handleClose = () => {
 
   updateVolunteerInfo = (event) => {
     event.preventDefault()
-    console.log(this.state);
+    // console.log(this.state);
     let id = this.props.volunteer.id
     let state = this.state
     this.props.dispatch({
@@ -232,7 +232,7 @@ handleClose = () => {
   }
 
   handleNoogieLandCert = (property) => {
-   console.log('test:', property);
+  //  console.log('test:', property);
    
     
       this.setState({ 
@@ -284,11 +284,11 @@ handleClose = () => {
  
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     
     // console.log(this.props.currentVolunteer)
     let toggleAccess;
-    if(this.state.access_level == 2){
+    if(this.state.access_level === 2){
       toggleAccess = (<div>
         <FormControlLabel control={ <Switch 
             checked={true}
@@ -298,7 +298,7 @@ handleClose = () => {
            />}  label="Manager Capabilities on"
            />
       </div>)
-    } else if (this.state.access_level == 1){
+    } else if (this.state.access_level === 1){
       toggleAccess = (<div>
         <FormControlLabel control={ <Switch 
             checked={false}
@@ -625,7 +625,7 @@ onChange={this.handleChange('as_needed')}/>}
         <br />
         <br />
 
-        <section className="aside" className={this.props.classes.chip}>
+        <section className={`"aside", ${this.props.classes.chip}`}>
          
 
           <FormControlLabel control={<Chip  

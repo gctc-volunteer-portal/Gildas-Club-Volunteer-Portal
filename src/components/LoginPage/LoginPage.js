@@ -54,7 +54,7 @@ class LoginPage extends Component {
     if (!this.props.user.isLoading && this.props.user.email !== null && this.props.user.access_level === 3) {
       this.props.history.push('/manage_volunteers');
     } else if (!this.props.user.isLoading && this.props.user.email !== null){
-      this.props.history.push('/user')
+      this.props.history.push('/my_shifts')
     }
   }
 
