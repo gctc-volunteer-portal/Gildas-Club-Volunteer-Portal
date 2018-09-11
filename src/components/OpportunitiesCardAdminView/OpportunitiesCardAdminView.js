@@ -12,6 +12,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDialog/VolunteerOpportunityDialog';
 import OpportunityAdminNoteDialogue from '../OpportunityAdminNoteDialogue/OpportunityAdminNoteDialogue';
+import moment from 'moment';
 
 const styles = {
     card: {
@@ -126,9 +127,9 @@ class MediaCard extends Component {
                             {this.props.opportunity.certification_name}
                         </Typography>
                         <Typography component="p">
-                            {this.props.opportunity.date}	<br />
-                            {this.props.opportunity.start_time} <br />
-                            {this.props.opportunity.end_time} <br />
+                            {moment(this.props.opportunity.date).format('dddd, MMMM D, YYYY')}	<br />
+                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} <br />
+                            {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
                         </Typography>
 
                         <Typography component="p">
