@@ -98,11 +98,11 @@ class VolunteerOpportunityDialog extends React.Component {
 
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Date: {this.props.opportunity.date}
+                            Date: {moment(this.props.opportunity.date).format('dddd, MMMM D, YYYY')}
                         </DialogContentText>
 
                         <DialogContentText id="alert-dialog-description">
-                            Time: {this.props.opportunity.start_time} – {this.props.opportunity.end_time}
+                            Time: {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')}
                         </DialogContentText>
                     </DialogContent>
                     <DialogContent>

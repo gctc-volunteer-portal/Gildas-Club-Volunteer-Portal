@@ -36,17 +36,17 @@ function searchStatus(status) {
 }
 const styles = theme => ({
     root: {
-      display: 'flex',
-      flexWrap: 'wrap',
+        display: 'flex',
+        flexWrap: 'wrap',
     },
     formControl: {
-      margin: theme.spacing.unit,
-      minWidth: 120,
+        margin: theme.spacing.unit,
+        minWidth: 120,
     },
     selectEmpty: {
-      marginTop: theme.spacing.unit * 2,
+        marginTop: theme.spacing.unit * 2,
     },
-  });
+});
 class InfoPage extends Component {
     constructor(props) {
         super(props);
@@ -90,11 +90,11 @@ class InfoPage extends Component {
     }
     handleChange = event => {
         this.setState({ status: event.target.value });
-      };
+    };
 
     render() {
         console.log(this.state.status);
-        
+
         const { classes } = this.props;
         let content = null;
         let opportunitiesArray = this.props.opportunitiesList.filter(searchStatus(this.state.status)).filter(searchingFor(this.state.term)).map((opportunity, index) => {

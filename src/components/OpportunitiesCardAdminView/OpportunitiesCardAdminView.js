@@ -11,6 +11,7 @@ import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
 import CardHeader from '@material-ui/core/CardHeader';
 import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDialog/VolunteerOpportunityDialog';
 import moment from 'moment';
+import OpportunityAdminNoteDialogue from '../OpportunityAdminNoteDialogue/OpportunityAdminNoteDialogue';
 
 const styles = {
 
@@ -60,6 +61,7 @@ class MediaCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            adminNoteIsOpen: false,
             editEventIsOpen: false,
             opportunityToUpdate: {},
             opportunityId: '',
@@ -86,6 +88,7 @@ class MediaCard extends Component {
         });
     };
 
+
     render() {
         const { classes } = this.props;
         let buttons;
@@ -111,6 +114,10 @@ class MediaCard extends Component {
                 >
                     Edit Opportunity
                 </Button>
+                <OpportunityAdminNoteDialogue
+                    opportunityId={this.props.opportunity.id}
+                    opportunityNote={this.props.opportunity.private_notes}
+                />
             </div>)
         } else {
             buttons = (
@@ -132,31 +139,30 @@ class MediaCard extends Component {
                             title="Opportunity"
                         />
                     </CardContent>
-                    <React.Fragment>
-                        <CardContent className={classes.detail}>
-                            <CardHeader
-                                title={this.props.opportunity.title}
-                                subheader={`Role: ${this.props.opportunity.certification_name}`}
-                            />
-                            <Typography className={classes.typography} component="p">
-                                {moment(this.props.opportunity.date).format("dddd, MMMM D, YYYY")}	<br />
-                                {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} <br />
-                                {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
-                            </Typography>
-                            <Typography className={classes.typography} component="p">
-                                Location: <br />
-                                {this.props.opportunity.address_line1}<br />
-                                {this.props.opportunity.city}
-                            </Typography>
-                        </CardContent>
-                    </React.Fragment>
+                    <CardContent className={classes.detail}>
+                        <CardHeader
+                            title={this.props.opportunity.title}
+                            subheader={`Role: ${this.props.opportunity.certification_name}`}
+                        />
+                        <Typography className={classes.typography} component="p">
+                            {moment(this.props.opportunity.date).format("dddd, MMMM D, YYYY")}	<br />
+                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} <br />
+                            {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
+                        </Typography>
+                        <Typography className={classes.typography} component="p">
+                            Location: <br />
+                            {this.props.opportunity.address_line1}<br />
+                            {this.props.opportunity.city}
+                        </Typography>
+                    </CardContent>
                     <CardActions className={classes.actions}>
                         <CardHeader
                             subheader={status}
                         />
+
                         {buttons}
-                    </CardActions>
-                </Card>
+                        </CardActions>
+                        </Card>
                 <Dialog
                     className={this.props.classes.dialog}
                     aria-labelledby="edit a volunteer event"
@@ -172,7 +178,7 @@ class MediaCard extends Component {
                         />
                     </DialogContent>
                 </Dialog>
-            </React.Fragment >
+            </React.Fragment>
         );
     }
 }
