@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@material-ui/core';
+// import { Button } from '@material-ui/core';
 import Header from '../Header/Header';
 import AdminNav from '../Nav/AdminNav/AdminNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
@@ -33,6 +33,7 @@ class Announcements extends Component {
     let announcementList = this.props.state.announcementsReducer.announcements.map((announcement, index) => {
       return (
               <AnnouncementCard
+                  key={index}
                   announcement = {announcement}
               />
              )

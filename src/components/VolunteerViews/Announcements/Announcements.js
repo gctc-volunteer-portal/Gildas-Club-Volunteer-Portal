@@ -29,6 +29,7 @@ class Announcements extends Component {
    
     let announcementList = this.props.state.announcementsReducer.announcements.map((announcement, index) => {
       return (<AnnouncementCard
+                  key={index}
                   announcement = {announcement}
                  
       />

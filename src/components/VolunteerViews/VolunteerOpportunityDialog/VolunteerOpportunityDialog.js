@@ -19,7 +19,7 @@ class VolunteerOpportunityDialog extends React.Component {
                 volunteerId: this.props.user.id,
                 opportunityId: this.props.opportunity.id,
             }
-        })
+        });
         this.setState({ open: true });
     };
 
@@ -91,7 +91,7 @@ class VolunteerOpportunityDialog extends React.Component {
                     aria-describedby="alert-dialog-description"
                 >
                     <DialogTitle id="alert-dialog-title">{this.props.opportunity.title}</DialogTitle>
-                    <img src={this.props.opportunity.image} height="150" />
+                    <img src={this.props.opportunity.image} alt="opportunity" height="150" />
                     <DialogContent>
                         <DialogTitle id="alert-dialog-title">{this.props.opportunity.certification_name}</DialogTitle>
                         <DialogContentText id="alert-dialog-description">

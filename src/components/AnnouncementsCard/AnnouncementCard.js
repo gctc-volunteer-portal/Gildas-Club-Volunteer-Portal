@@ -33,9 +33,6 @@ const styles = {
 
 
 class SimpleCard extends Component {
-    constructor(props){
-        super(props);
-    }
 
 
     handleDelete = (announcementId) => { 

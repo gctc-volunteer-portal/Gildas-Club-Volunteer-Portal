@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    withStyles, Card, CardMedia, CardActionArea, CardContent,
-    CardActions, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography
+    withStyles, Card, CardMedia, CardContent,
+    CardActions, Button, Dialog, DialogContent, DialogTitle, Typography
 } from '@material-ui/core/';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { connect } from 'react-redux'
@@ -42,7 +42,7 @@ class MediaCard extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-        this.props.dispatch({ type: 'GET_EVENT_VOLUNTEERS', payload: this.props.opportunity.id })
+        this.props.dispatch({ type: 'GET_EVENT_VOLUNTEERS', payload: this.props.opportunity.id });
     }
 
     openEditOpportunity = (opportunityId, opportunityToUpdate) => {
@@ -64,9 +64,9 @@ class MediaCard extends Component {
         const { classes } = this.props;
         let buttons;
         let status;
-        if (this.props.opportunity.status = 1) {
+        if (this.props.opportunity.status === 1) {
             status = 'Staging'
-        } else if (this.props.opportunity.status = 2) {
+        } else if (this.props.opportunity.status === 2) {
             status = 'Active'
         } else {
             status = 'Inactive'
@@ -129,16 +129,10 @@ class MediaCard extends Component {
                         {this.props.opportunity.address_line1}<br />
                         {this.props.opportunity.city}
                     </Typography>
-
                         </CardContent>
-                <CardActionArea>
-
-
-
                     <CardActions>
                         {buttons}
                     </CardActions>
-                </CardActionArea>
                 </Card>
             <Dialog
                 className={this.props.classes.dialog}

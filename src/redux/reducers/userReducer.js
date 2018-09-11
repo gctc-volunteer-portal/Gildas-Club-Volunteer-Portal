@@ -40,7 +40,7 @@ const first_initial = (state = '', action) => {
       if (action.user.first_name) {
         return action.user.first_name.charAt(0)
       }
-      else { return state };
+      else return state ;
     case USER_ACTIONS.UNSET_USER:
       return '';
     default:
@@ -54,7 +54,7 @@ const last_initial = (state = '', action) => {
       if (action.user.last_name) {
         return action.user.last_name.charAt(0)
       }
-      else { return state };
+      else return state;
     case USER_ACTIONS.UNSET_USER:
       return '';
     default:

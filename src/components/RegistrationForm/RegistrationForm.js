@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import { withStyles, FormControl, FormControlLabel, FormLabel, Checkbox, TextField, Button } from '@material-ui/core';
+import { FormControl, FormControlLabel, FormLabel, Checkbox, TextField, Button } from '@material-ui/core';
 class RegistrationForm extends Component {
 
   returnHome = () => {

@@ -71,7 +71,7 @@ class ManageVolunteersTable extends Component {
     }
 
     componentDidUpdate() {
-        if (!this.props.user.isLoading && this.props.user.email === null || this.props.user.access_level === 1) {
+        if ((!this.props.user.isLoading && this.props.user.email === null) || this.props.user.access_level === 1) {
             this.props.history.push('/home');
         }
     }
@@ -103,8 +103,6 @@ class ManageVolunteersTable extends Component {
     };
 
     render() {
-        const { classes } = this.props;
-console.log(this.props.volunteers);
 
         const data = this.props.volunteers;
         const { order, orderBy, rowsPerPage, page } = this.state;

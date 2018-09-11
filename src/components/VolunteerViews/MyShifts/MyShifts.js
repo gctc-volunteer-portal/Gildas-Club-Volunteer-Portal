@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 
 import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav'
 import Header from '../../Header/Header';
-import OpportunitiesCard from '../../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView';
-import VolunteerOpportunityDialog from '../VolunteerOpportunityDialog/VolunteerOpportunityDialog';
-
+import OpportunitiesCardAdminView from '../../OpportunitiesCardAdminView/OpportunitiesCardAdminView';
 import { USER_ACTIONS } from '../../../redux/actions/userActions'
 // import { triggerLogout } from '../../redux/actions/loginActions';
 
@@ -31,7 +29,7 @@ class MyShifts extends Component {
 
     let mappedMyShfits = this.props.shifts.map((shift, index) => {
       return (
-        <OpportunitiesCard opportunity={shift} key={index} admin={false} />
+        <OpportunitiesCardAdminView opportunity={shift} key={index} admin={false} />
       )
     })
 
