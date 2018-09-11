@@ -8,7 +8,6 @@ import {
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
-import UserPage from './components/UserPage/UserPage';
 import ManageOpportunitiesPage from './components/ManageOpportunitiesPage/ManageOpportunitiesPage';
 import ManageVolunteersView from './components/ManageVolunteersView/ManageVolunteersView';
 import MyShifts from './components/VolunteerViews/MyShifts/MyShifts'
@@ -57,10 +56,6 @@ const App = () => (
         <Route
           path="/register"
           component={RegisterPage}
-        />
-        <Route
-          path="/user"
-          component={UserPage}
         />
         <Route
           path="/my_shifts"

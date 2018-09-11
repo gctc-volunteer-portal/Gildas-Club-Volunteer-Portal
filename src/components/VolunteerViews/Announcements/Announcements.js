@@ -20,7 +20,7 @@ class Announcements extends Component {
 
   componentDidUpdate() {
     if (!this.props.user.isLoading && this.props.user.email === null) {
-      this.props.history.push('home');
+      this.props.history.push('/home');
     }
   }
 
@@ -29,6 +29,7 @@ class Announcements extends Component {
    
     let announcementList = this.props.state.announcementsReducer.announcements.map((announcement, index) => {
       return (<AnnouncementCard
+                  key={index}
                   announcement = {announcement}
                  
       />

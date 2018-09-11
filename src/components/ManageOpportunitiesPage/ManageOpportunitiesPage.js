@@ -4,9 +4,16 @@ import Header from '../Header/Header';
 import TextField from '@material-ui/core/TextField'
 import AdminNav from '../Nav/AdminNav/AdminNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-import OpportunitiesCard_AdminView from '../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView.js';
+import OpportunitiesCardAdminView from '../OpportunitiesCardAdminView/OpportunitiesCardAdminView.js';
 import { Button } from '@material-ui/core';
 import CreateOpportunityDialogue from '../CreateOpportunityDialogue/CreateOpportunityDialogue';
+import { withStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+
 
 const mapStateToProps = state => ({
     opportunitiesList: state.opportunitiesReducer.opportunitiesReducer,
@@ -20,21 +27,42 @@ function searchingFor(term) {
         }
     }
 }
+function searchStatus(status) {
+    return function (opportunity) {
+        if (opportunity.status) {
+            return opportunity.status == status || !status;
+        }
+    }
+}
+const styles = theme => ({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    formControl: {
+      margin: theme.spacing.unit,
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing.unit * 2,
+    },
+  });
 class InfoPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             term: '',
             createEventIsOpen: false,
+            status: ''
         }
 
         this.searchHandler = this.searchHandler.bind(this);
     }
 
-    
+
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-        if (this.props.user.access_level < 2 ) {
+        if (this.props.user.access_level < 2) {
             this.props.history.push('/home');
         }
         this.props.dispatch({ type: 'GET_EVENTS' })
@@ -42,8 +70,8 @@ class InfoPage extends Component {
 
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.email === null) {
-            this.props.history.push('home');
-            console.log(this.props.state);
+            this.props.history.push('/home');
+            // console.log(this.props.state);
         }
     }
 
@@ -63,12 +91,18 @@ class InfoPage extends Component {
             createEventIsOpen: false,
         })
     }
+    handleChange = event => {
+        this.setState({ status: event.target.value });
+      };
 
     render() {
+        console.log(this.state.status);
+        
+        const { classes } = this.props;
         let content = null;
         let opportunitiesArray = this.props.opportunitiesList.filter(searchingFor(this.state.term)).map((opportunity, index) => {
-            return (<OpportunitiesCard_AdminView key={index}
-                opportunity={opportunity}
+            return (<OpportunitiesCardAdminView key={index}
+                opportunity={opportunity} admin={true}
             />)
         })
 
@@ -85,7 +119,7 @@ class InfoPage extends Component {
 
         return (
             <div>
-                <Header />
+                <Header admin={true} />
                 <AdminNav />
 
                 <Button
@@ -115,6 +149,21 @@ class InfoPage extends Component {
                         value={this.state.term}
                     />
                 </div>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel>Status</InputLabel>
+                        <Select
+                            value={this.state.status}
+                            onChange={this.handleChange}
+                            InputLabelProps={{
+                                  shrink: true,
+            }}
+                        >
+                            <MenuItem value=""><em>All</em></MenuItem>
+                            <MenuItem value="1">Staging</MenuItem>
+                            <MenuItem value="2">Active</MenuItem>
+                            <MenuItem value="3">Inactive</MenuItem>
+                        </Select>
+                    </FormControl>
 
                 {content}
 
@@ -125,4 +174,4 @@ class InfoPage extends Component {
 }
 
 
-export default connect(mapStateToProps)(InfoPage);
+export default connect(mapStateToProps)(withStyles(styles)(InfoPage));

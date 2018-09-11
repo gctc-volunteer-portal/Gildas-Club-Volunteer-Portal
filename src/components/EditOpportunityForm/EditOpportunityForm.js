@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withStyles, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
+import { withStyles, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 //date picker component and css file from react-datepicker
 import moment from 'moment';

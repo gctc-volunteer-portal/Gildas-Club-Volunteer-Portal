@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 const styles = {
   card: {
     minWidth: 275,
+    margin: 50
   },
   bullet: {
     display: 'inline-block',
@@ -33,13 +34,10 @@ const styles = {
 
 
 class SimpleCard extends Component {
-    constructor(props){
-        super(props);
-    }
 
 
     handleDelete = (announcementId) => { 
-        console.log(announcementId);
+        // console.log(announcementId);
          this.props.dispatch({
             type: 'DELETE_ANNOUNCEMENT',
             payload: announcementId

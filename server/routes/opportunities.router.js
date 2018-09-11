@@ -10,7 +10,24 @@ const moment = require('moment');
  * GET route template
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT * FROM opportunities;`;
+    const queryText = `SELECT opportunities.id,
+    opportunities.image,
+    opportunities.title,
+    opportunities.start_time,
+    opportunities.end_time,
+    opportunities.address_line1,
+    opportunities.address_line2,
+    opportunities.city,
+    opportunities.state,
+    opportunities.zip,
+    opportunities.description,
+    opportunities.date,
+    opportunities.status,
+    opportunities.private_notes,
+    opportunities.max_volunteers,
+    opportunities.certification_needed,
+    certifications.certification_name FROM opportunities
+    JOIN certifications on opportunities.certification_needed = certifications.id;`;
     pool.query(queryText)
         .then((results) => {
             res.send(results.rows)
@@ -55,12 +72,10 @@ router.get('/volunteer', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/enrolled/:id', rejectUnauthenticated, (req, res) => {
-    console.log(req.user.id, req.params.id)
     const queryText = `SELECT * FROM "user_opportunities"
     WHERE "user_id" = $1 AND "opportunity_id" = $2;`
     pool.query(queryText, [req.user.id, req.params.id])
         .then(results => {
-            console.log(results.rows)
             res.send(results.rows)
         })
         .catch(error => {
@@ -70,7 +85,46 @@ router.get('/enrolled/:id', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT * FROM "user_opportunities"
+    const queryText = `SELECT
+    user_opportunities.user_id,
+user_opportunities.opportunity_id,
+users.first_name,
+users.middle_name,
+users.last_name,
+users.email,
+users.primary_phone,
+users.secondary_phone,
+users.street_address1,
+users.street_address2,
+users.access_level,
+users.admin_notes,
+users.active,
+users.regular_basis,
+users.specific_event,
+users.as_needed,
+users.limitations_allergies,
+users.why_excited,
+users.employer,
+users.job_title,
+users.date_of_birth,
+opportunities.id,
+opportunities.image,
+opportunities.title,
+opportunities.start_time,
+opportunities.end_time,
+opportunities.address_line1,
+opportunities.address_line2,
+opportunities.city,
+opportunities.state,
+opportunities.zip,
+opportunities.description,
+opportunities.date,
+opportunities.status,
+opportunities.private_notes,
+opportunities.max_volunteers,
+opportunities.certification_needed,
+certifications.certification_name
+ FROM "user_opportunities"
     LEFT OUTER JOIN "users" ON "users".id = "user_opportunities".user_id
     LEFT OUTER JOIN "opportunities" ON "opportunities".id = "user_opportunities".opportunity_id
     LEFT OUTER JOIN "certifications" ON "certifications".id = "opportunities".certification_needed
@@ -86,8 +140,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 router.post('/add_volunteer', rejectUnauthenticated, (req, res) => {
-    console.log('got to post', req.body);
-    console.log('event body', req.body);
 
     if (req.isAuthenticated) {
         const queryText = `INSERT INTO "user_opportunities" ("user_id", "opportunity_id") VALUES ($1, $2)`
@@ -128,7 +180,7 @@ router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) =>
     const newOpportunity = req.body;
     const certId = parseInt(newOpportunity.certification_needed);
 
-    console.log(req.body, 'req body');
+    // console.log(req.body, 'req body');
 
     const queryText = `INSERT INTO "opportunities"("title","start_time","end_time","address_line1","address_line2","city","state","zip","description","date","status","private_notes","max_volunteers","certification_needed")
     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);`;
@@ -136,7 +188,7 @@ router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) =>
     const momentEndTime = moment(newOpportunity.end_time).format('HH:mm:ss');
 
     const serializedData = [newOpportunity.title, momentStartTime, momentEndTime, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers, certId];
-    console.log(serializedData)
+    // console.log(serializedData)
 
     pool.query(queryText, serializedData)
         .then((results) => {

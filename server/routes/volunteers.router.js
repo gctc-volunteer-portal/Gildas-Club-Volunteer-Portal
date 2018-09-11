@@ -21,7 +21,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     pool.query(queryText)
         .then((results) => {
             res.send(results.rows)
-            console.log(results.rows);
+            // console.log(results.rows);
 
         }).catch((err) => {
             console.log(err);
@@ -30,12 +30,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/indVolunteer/:id/', (req, res) => {
-    console.log('i made it',req.params.id);
+    // console.log('i made it',req.params.id);
     if(req.isAuthenticated){
     const queryText =`SELECT * FROM users WHERE users."id" = $1`;
     pool.query(queryText, [req.params.id]).then((results) => {
         res.send(results.rows)
-        console.log(results.rows);
+        // console.log(results.rows);
         
         })
     }
@@ -43,7 +43,7 @@ router.get('/indVolunteer/:id/', (req, res) => {
 
 //edting volunteer
 router.put('/updateInfo', (req, res) => {
-    console.log('I have :', req.body.state);
+    // console.log('I have :', req.body.state);
    let info = req.body.state
     if(req.isAuthenticated){
         const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $2, "last_name" = $3, "email"= $4 , "primary_phone"= $5,
@@ -150,7 +150,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
     );`
     pool.query(queryText)
         .then((results) => {
-            console.log('here are the results:', results.rows)
+            // console.log('here are the results:', results.rows)
             res.send(results.rows);
         })
         .catch((error) => {
@@ -160,11 +160,46 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT * FROM opportunities 
+    const queryText = `SELECT opportunities.id,
+    opportunities.image,
+    opportunities.title,
+    opportunities.start_time,
+    opportunities.end_time,
+    opportunities.address_line1,
+    opportunities.address_line1,
+    opportunities.city,
+    opportunities.state,
+    opportunities.zip,
+    opportunities.description,
+    opportunities.date,
+    opportunities.status,
+    opportunities.private_notes,
+    opportunities.max_volunteers,
+    user_certifications.user_id,
+    user_certifications.certification_id,
+    user_certifications.is_certified,
+    users.first_name,
+    users.middle_name,
+    users.last_name,
+    users.email,
+    users.primary_phone,
+    users.secondary_phone,
+    users.access_level,
+    users.admin_notes,
+    users.active,
+    users.regular_basis,
+    users.specific_event,
+    users.as_needed,
+    users.limitations_allergies,
+    users.why_excited,
+    users.employer,
+    users.job_title,
+    users.date_of_birth,
+    certifications.certification_name FROM opportunities 
                        JOIN user_certifications ON certification_needed = certification_id
                        JOIN users ON user_certifications.user_id = users.id
                        JOIN certifications ON opportunities.certification_needed = certifications.id
-                       WHERE users.id = $1 AND is_certified = true`
+                       WHERE users.id = $1 AND is_certified = true;`
     pool.query(queryText, [req.user.id])
         .then((results) => {
             res.send(results.rows);
