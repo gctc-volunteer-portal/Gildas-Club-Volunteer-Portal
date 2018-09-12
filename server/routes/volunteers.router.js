@@ -150,7 +150,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
     );`
     pool.query(queryText)
         .then((results) => {
-            // console.log('here are the results:', results.rows)
+            console.log('here are the results:', results.rows)
             res.send(results.rows);
         })
         .catch((error) => {
