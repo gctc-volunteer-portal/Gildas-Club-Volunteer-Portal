@@ -157,6 +157,7 @@ class IntegrationReactSelect extends React.Component {
 
 
   enrollVolunteer = (volunteerId) => {
+
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
     this.props.dispatch({
       type: 'ENROLL_VOLUNTEER',
@@ -165,6 +166,12 @@ class IntegrationReactSelect extends React.Component {
         opportunityId: this.props.opportunity.id
       }
     })
+  }
+
+  checkForVolunteerInput = () => {
+    if(this.state.single != null){
+      this.enrollVolunteer(this.state.single.id)
+    }
   }
   handleChange = name => value => {
     this.setState({
@@ -215,7 +222,7 @@ class IntegrationReactSelect extends React.Component {
           />
           <div className={classes.divider} />
         </NoSsr>
-        <Button onClick={() => this.enrollVolunteer(this.state.single.id)} variant="contained" color="primary" className={classes.button}>
+        <Button onClick={() => this.checkForVolunteerInput()} variant="contained" color="primary" className={classes.button}>
           Add Volunteer
         <AddIcon className={classes.rightIcon} />
         </Button>
