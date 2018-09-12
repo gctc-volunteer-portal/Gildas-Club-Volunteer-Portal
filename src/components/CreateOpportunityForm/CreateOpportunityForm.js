@@ -6,6 +6,7 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsPr
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import { DatePicker, TimePicker } from 'material-ui-pickers';
 import '../CreateOpportunityForm/CreateOpportunityForm.css';
+import AdminSingleVolunteerDialog from '../AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
 
 const styles = {
   formContainer: {
@@ -88,6 +89,7 @@ class CreateOpportunityForm extends Component {
       return (
         <FormControlLabel key={index} value=
           {certificate.id.toString()} control={<Radio />} label={certificate.certification_name} />
+
       )
     })
 

@@ -6,6 +6,7 @@ import Header from '../Header/Header';
 import AdminNav from '../Nav/AdminNav/AdminNav';
 import ManageVolunteersViewTableHeader from '../ManageVolunteersViewTableHeader/ManageVolunteersViewTableHeader';
 import ManageVolunteersViewTableRow from '../ManageVolunteersViewTableRow/ManageVolunteersViewTableRow';
+import AdminSingleVolunteerDialog from '../AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
 import Csv from '../Csv/Csv'
 import { withStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TablePagination, TableRow, Paper } from '@material-ui/core';
@@ -71,6 +72,7 @@ class ManageVolunteersTable extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'FETCH_VOLUNTEER_INFO' });
+        this.props.dispatch({type:'GET_CERTIFICATIONS_LIST'})
       
        
     }
@@ -112,6 +114,12 @@ class ManageVolunteersTable extends Component {
         const data = this.props.volunteers;
         const { order, orderBy, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+
+        console.log(this.state)
+        console.log(stableSort(data, getSorting(order, orderBy)))
+
+       
+
 
         return (
             <React.Fragment>
@@ -172,6 +180,7 @@ class ManageVolunteersTable extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     volunteers: state.volunteerInfo,
+    
 });
 
 const connectedManageVolunteersTable = connect(mapStateToProps)(ManageVolunteersTable);
