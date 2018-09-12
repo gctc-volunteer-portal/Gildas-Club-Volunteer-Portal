@@ -231,4 +231,19 @@ router.put('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) 
         })
 });
 
+router.put('/admin_note/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
+    const updateOpportunityData = req.body;
+
+    const queryText = `UPDATE "opportunities" SET "private_notes" = $2
+    WHERE "id" = $1;`;
+
+    pool.query(queryText, [req.params.id, updateOpportunityData.new_notes])
+        .then((result) => {
+            res.sendStatus(201);
+        })
+        .catch((error) => {
+            res.sendStatus(500);
+        })
+});
+
 module.exports = router;
