@@ -60,6 +60,11 @@ const styles = theme => ({
     tableWrapper: {
         overflowX: 'auto',
     },
+    headrow: {
+  
+            position: "sticky",
+  
+    }
 });
 
 class ManageVolunteersTable extends Component {
@@ -73,8 +78,8 @@ class ManageVolunteersTable extends Component {
     }
 
     componentDidUpdate() {
-        if (!this.props.user.isLoading && this.props.user.email === null || this.props.user.access_level === 1) {
-            this.props.history.push('home');
+        if ((!this.props.user.isLoading && this.props.user.email === null) || this.props.user.access_level === 1) {
+            this.props.history.push('/home');
         }
     }
 
@@ -105,8 +110,6 @@ class ManageVolunteersTable extends Component {
     };
 
     render() {
-        const { classes } = this.props;
-console.log(this.props.volunteers);
 
         const data = this.props.volunteers;
         const { order, orderBy, rowsPerPage, page } = this.state;
@@ -117,11 +120,15 @@ console.log(this.props.volunteers);
 
        
 
+
         return (
             <React.Fragment>
-                <Header />
+                <Header admin={true} />
                 <AdminNav />
                 <h1>Volunteers</h1>
+                <Csv
+                    data= {this.props.volunteers}
+                />
                 <Paper className={this.props.classes.root}>
                     <div className={this.props.classes.tableWrapper}>
                         <Table className={this.props.classes.table} aria-labelledby="tableTitle">
@@ -164,9 +171,7 @@ console.log(this.props.volunteers);
                         rowsPerPageOptions={[25, 50, 100]}
                     />
                 </Paper>
-                <Csv
-                    data= {this.props.volunteers}
-                />
+               
             </React.Fragment>
         );
     }

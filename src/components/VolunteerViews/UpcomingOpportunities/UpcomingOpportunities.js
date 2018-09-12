@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Header from '../../Header/Header';
 import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav'
 import TextField from '@material-ui/core/TextField'
-import OpportunitiesCard_AdminView from '../../OpportunitiesCard_AdminView/OpportunitiesCard_AdminView.js';
+import OpportunitiesCardAdminView from '../../OpportunitiesCardAdminView/OpportunitiesCardAdminView.js';
 import { USER_ACTIONS } from '../../../redux/actions/userActions'
 
 function searchingFor(term) {
@@ -31,8 +31,7 @@ class UpcomingOpportunities extends Component {
 
   componentDidUpdate() {
       if (!this.props.user.isLoading && this.props.user.email === null) {
-          this.props.history.push('home');
-          console.log(this.props.state);
+          this.props.history.push('/home');
       }
   }
 
@@ -54,24 +53,32 @@ class UpcomingOpportunities extends Component {
       let content = null;
       
       let myOpportunities = this.props.myEvents.filter(searchingFor(this.state.term)).map((opportunity, index) => {
-          return (<OpportunitiesCard_AdminView key={index}
-              opportunity={opportunity}
+          return (<OpportunitiesCardAdminView key={index}
+              opportunity={opportunity} admin={false}
           />)
       })
 
       if (this.props.user.email) {
-          content = (
-              <div>
-                  <div>
-                      {myOpportunities}
-                  </div>
-              </div>
-          );
+          if(myOpportunities.length > 0) {
+            content = (
+                <div>
+                    <div>
+                        {myOpportunities}
+                    </div>
+                </div>
+            );
+          }
+          else {
+              content = (
+                  <p>Looks like there are no upcoming opportunities for you at this time. Check back later for new opportunities.</p>
+              )
+          }
+
       }
 
       return (
           <div>
-              <Header />
+              <Header admin={false} />
               <VolunteerNav />
               <div style={{ height: 100 }}>
                   <TextField

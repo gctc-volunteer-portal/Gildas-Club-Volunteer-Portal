@@ -39,12 +39,26 @@ function* fetchSingleVolunteerOpportunities(action) {
 
 function* deleteItem(action) {
     try {
-        console.log(action.payload)
         let returnedOpportunity = yield call(axios.delete, `/api/opportunities/${action.payload.opportunityId}`, { data: { volunteerId: action.payload.volunteerId } });
         yield dispatch({
             type: 'GET_EVENT_VOLUNTEERS',
             payload: returnedOpportunity.data[0].opportunity_id
         })
+    } catch (err) {
+        yield console.log(err);
+    }
+}
+
+function* volunteerDeleteItem(action) {
+    try {
+        yield call(axios.delete, `/api/opportunities/${action.payload.opportunityId}`, { data: { volunteerId: action.payload.volunteerId } });
+        yield dispatch({
+            type: 'SET_ENROLLMENT',
+            payload: false
+        });
+        yield dispatch({
+            type: 'FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES',
+        });
     } catch (err) {
         yield console.log(err);
     }
@@ -63,6 +77,23 @@ function* enrollVolunteer(action) {
 
     }
 }
+
+function* volunteerEnrollVolunteer(action) {
+    try {
+        yield call(axios.post, `/api/opportunities/add_volunteer`, action.payload);
+        yield dispatch({
+            type: 'SET_ENROLLMENT',
+            payload: true
+        });
+        yield dispatch({
+            type: 'FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES',
+        });
+    } catch (err) {
+        yield console.log(err);
+
+    }
+}
+
 //Dispatch POST request with new opportunity data
 function* addOpportunity(action) {
     try {
@@ -94,7 +125,6 @@ function* getCertifiedVolunteers(certificationId) {
 function* checkEnrolled(action){
     try {
         let enrolledStatus = false;
-        console.log(action.payload)
         const enrollment = yield call(axios.get, `/api/opportunities/enrolled/${action.payload.opportunityId}`);
         if(enrollment.data.length > 0) {
             enrolledStatus = true;
@@ -131,6 +161,8 @@ function* opportunitiesSaga() {
     yield takeEvery('GET_CERTIFIED_VOLUNTEERS', getCertifiedVolunteers);
     yield takeEvery('CHECK_ENROLLED', checkEnrolled);
     yield takeEvery('UPDATE_OPPORTUNITY', updateOpportunity);
+    yield takeEvery('VOLUNTEER_ENROLL_VOLUNTEER', volunteerEnrollVolunteer);
+    yield takeEvery('VOLUNTEER_DELETE_ITEM', volunteerDeleteItem);
 }
 
 export default opportunitiesSaga;

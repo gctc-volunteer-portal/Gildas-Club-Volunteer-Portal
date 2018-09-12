@@ -6,6 +6,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import {withStyles} from '@material-ui/core';
+
+const styles = {
+    button: {
+        padding: 5,
+        alignItems: 'flex-end',
+    },
+};
 
 class VolunteerOpportunityDialog extends React.Component {
     state = {
@@ -19,7 +28,7 @@ class VolunteerOpportunityDialog extends React.Component {
                 volunteerId: this.props.user.id,
                 opportunityId: this.props.opportunity.id,
             }
-        })
+        });
         this.setState({ open: true });
     };
 
@@ -29,36 +38,24 @@ class VolunteerOpportunityDialog extends React.Component {
 
     signUp = () => {
         this.props.dispatch({
-            type: 'ENROLL_VOLUNTEER',
-            payload: {
-                volunteerId: this.props.user.id,
-                opportunityId: this.props.opportunity.id,
-            }
-        })
-        this.props.dispatch({
-            type: 'CHECK_ENROLLED',
+            type: 'VOLUNTEER_ENROLL_VOLUNTEER',
             payload: {
                 volunteerId: this.props.user.id,
                 opportunityId: this.props.opportunity.id,
             }
         });
+        this.handleClose();
     }
 
     withdraw = () => {
         this.props.dispatch({
-            type: 'DELETE_ITEM',
-            payload: {
-                volunteerId: this.props.user.id,
-                opportunityId: this.props.opportunity.id,
-            }
-        })
-        this.props.dispatch({
-            type: 'CHECK_ENROLLED',
+            type: 'VOLUNTEER_DELETE_ITEM',
             payload: {
                 volunteerId: this.props.user.id,
                 opportunityId: this.props.opportunity.id,
             }
         });
+        this.handleClose();
     }
 
     render() {
@@ -83,7 +80,7 @@ class VolunteerOpportunityDialog extends React.Component {
 
         return (
             <div>
-                <Button onClick={this.handleClickOpen}>More Info</Button>
+                <Button className={this.props.classes.button} variant="raised" color="primary" onClick={this.handleClickOpen}>More Info</Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -91,18 +88,18 @@ class VolunteerOpportunityDialog extends React.Component {
                     aria-describedby="alert-dialog-description"
                 >
                     <DialogTitle id="alert-dialog-title">{this.props.opportunity.title}</DialogTitle>
-                    <img src={this.props.opportunity.image} height="150" />
+                    <img src={this.props.opportunity.image} alt="opportunity" height="150" />
                     <DialogContent>
                         <DialogTitle id="alert-dialog-title">{this.props.opportunity.certification_name}</DialogTitle>
                         <DialogContentText id="alert-dialog-description">
-                            Date: {this.props.opportunity.date}
+                            Date: {moment(this.props.opportunity.date).format('dddd, MMMM D, YYYY')}
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
-                            Time: {this.props.opportunity.start_time} – {this.props.opportunity.end_time}
+                            Time: {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')}
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
                             Location:
-            </DialogContentText>
+                        </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
                             {this.props.opportunity.address_line1}
                         </DialogContentText>
@@ -133,4 +130,6 @@ const mapStateToProps = (state) => ({
     enrollment: state.opportunitiesReducer.enrolledStatus
 })
 
-export default connect(mapStateToProps)(VolunteerOpportunityDialog);
+
+const connectedVolunteerOpportunityDialog = connect(mapStateToProps)(VolunteerOpportunityDialog);
+export default withStyles(styles)(connectedVolunteerOpportunityDialog);

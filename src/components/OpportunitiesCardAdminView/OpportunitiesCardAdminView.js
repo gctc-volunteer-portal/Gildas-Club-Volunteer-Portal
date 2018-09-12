@@ -1,39 +1,65 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    withStyles, Card, CardMedia, CardActionArea, CardContent,
-    CardActions, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography
+    withStyles, Card, CardMedia, CardContent,
+    CardActions, Button, Dialog, DialogContent, DialogTitle, Typography
 } from '@material-ui/core/';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { connect } from 'react-redux'
 import AdminManageVolunteersDialogue from '../AdminManageVolunteersDialogue/AdminManageVolunteersDialogue';
 import EditOpportunityForm from '../EditOpportunityForm/EditOpportunityForm';
 import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
 import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDialog/VolunteerOpportunityDialog';
+import moment from 'moment';
+import OpportunityAdminNoteDialogue from '../OpportunityAdminNoteDialogue/OpportunityAdminNoteDialogue';
 
 const styles = {
+
     card: {
-        width: '80%',
-        height: 350,
-        display: 'flex',
-        margin: 30
+        width: '90%',
+        position: 'relative',
+        minHeight: 350,
+        margin: 20,
+        display: 'grid',
+        gridTemplateColumns: '350px 1fr 1fr',
+        gridTemplateRows: '350 px'
     },
     media: {
-        height: 50,
-        width: 300
+        height: 350,
+        width: 350,
     },
     dialog: {
         textAlign: 'center',
         height: '100vh',
-    }
-
+    },
+    typography: {
+        paddingLeft: 16,
+        paddingTop: 16,
+        paddingBottom: 16,
+    },
+    actions: {
+        display: 'flex',
+        gridColumnStart: 3,
+        alignItems: 'flex-end',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        padding: 20,
+    },
+    detail: {
+        gridColumnStart: 2,
+    },
+    button: {
+        padding: 5,
+        display: 'flex',
+        alignItems: 'flex-end',
+    },
 };
 
 class MediaCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            adminNoteIsOpen: false,
             editEventIsOpen: false,
             opportunityToUpdate: {},
             opportunityId: '',
@@ -42,7 +68,7 @@ class MediaCard extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-        this.props.dispatch({ type: 'GET_EVENT_VOLUNTEERS', payload: this.props.opportunity.id })
+        this.props.dispatch({ type: 'GET_EVENT_VOLUNTEERS', payload: this.props.opportunity.id });
     }
 
     openEditOpportunity = (opportunityId, opportunityToUpdate) => {
@@ -60,78 +86,79 @@ class MediaCard extends Component {
         });
     };
 
+
     render() {
         const { classes } = this.props;
         let buttons;
         let status;
-        if (this.props.opportunity.status = 1) {
+        if (this.props.opportunity.status == 1) {
             status = 'Staging'
-        } else if (this.props.opportunity.status = 2) {
+        } else if (this.props.opportunity.status == 2) {
             status = 'Active'
         } else {
             status = 'Inactive'
         }
-        if (this.props.state.user.access_level >= 2) {
+        if (this.props.state.user.access_level >= 2 && this.props.admin) {
             buttons = (<div>
-                <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>More Info</Button>
                 <AdminManageVolunteersDialogue
                     opportunity={this.props.opportunity}
                 />
                 <Button
+                    className={classes.button}
+                    color="primary"
+                    variant="raised"
+                    size="small"
                     onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
-
-                >Edit Opportunity
-                        </Button>
+                >
+                    Edit Opportunity
+                </Button>
+                <OpportunityAdminNoteDialogue
+                    opportunityId={this.props.opportunity.id}
+                    opportunityNote={this.props.opportunity.private_notes}
+                />
             </div>)
         } else {
-            buttons = (<div>
-                <Button size="small" color="primary" variant="raised">
-                    Sign Up!
-                            </Button>
-            </div>
+            buttons = (
+                <div>
+                    <VolunteerOpportunityDialog opportunity={this.props.opportunity} />
+                </div>
             )
         }
 
         return (
             <React.Fragment>
                 <Card className={classes.card}>
-                <CardContent>
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="Recipe" className={classes.avatar}>
-                                GC
-                            </Avatar>
-                            }
-                      
-                    
-                        title={this.props.opportunity.title}
-                        subheader={status}
-                    />
-                        
+                    <CardContent>
                         <CardMedia
                             className={classes.media}
                             image={this.props.opportunity.image}
                             title="Opportunity"
                         />
-                       
+                    </CardContent>
+                    <CardContent className={classes.detail}>
+                        <CardHeader
+                            title={this.props.opportunity.title}
+                            subheader={`Role: ${this.props.opportunity.certification_name}`}
+                        />
+                        <Typography className={classes.typography} component="p">
+                            {moment(this.props.opportunity.date).format("dddd, MMMM D, YYYY")}	<br />
+                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} <br />
+                            {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
+                        </Typography>
+                        <Typography className={classes.typography} component="p">
+                            Location: <br />
+                            {this.props.opportunity.address_line1}<br />
+                            {this.props.opportunity.city}
+                        </Typography>
+                    </CardContent>
+                    <CardActions className={classes.actions}>
+                    <CardHeader
+                            subheader={status}
+                        />
 
-                            <Typography component="p">
-                                {this.props.opportunity.address_line1}<br />
-                                {this.props.opportunity.city}
-                            </Typography>
-                            <Typography component="p">
-                                {this.props.opportunity.description}
-                            </Typography>
-                        </CardContent>
-                        <CardActionArea>
-
-                   
-
-                    <CardActions>
                         {buttons}
-                    </CardActions>
-                    </CardActionArea>
-                </Card>
+                        </CardActions>
+                        </Card>
                 <Dialog
                     className={this.props.classes.dialog}
                     aria-labelledby="edit a volunteer event"

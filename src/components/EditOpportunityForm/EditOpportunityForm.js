@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { withStyles, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
+import { withStyles, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 //date picker component and css file from react-datepicker
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+import MomentUtils from 'material-ui-pickers/utils/moment-utils';
+import { DatePicker, TimePicker } from 'material-ui-pickers';
 
 const styles = {
   formContainer: {
@@ -18,6 +19,11 @@ const styles = {
   button: {
     margin: '1rem'
   },
+  datePicker: {
+    width: '100%',
+    borderColor: 'red',
+    textAlign: 'center',
+  }
 };
 
 class EditOpportunityForm extends Component {
@@ -49,13 +55,13 @@ class EditOpportunityForm extends Component {
 
   handleEndTimeChange = (time) => {
     this.setState({
-      end_time: time
+      end_time: moment(time).format('HH:mm:ss')
     });
   }
 
   handleStartTimeChange = (time) => {
     this.setState({
-      start_time: time
+      start_time: moment(time).format('HH:mm:ss')
     });
   }
 
@@ -78,8 +84,10 @@ class EditOpportunityForm extends Component {
   }
 
   render() {
-    console.log(this.props.opportunityToUpdate, 'opportunity to update')
-    console.log(this.state, 'local state edit opportunity form')
+
+    console.log(this.state.start_time, 'this state start time')
+    console.log(this.state.end_time, 'this state end time');
+    
     // map through certifications list, which is stored on redux store, and display them on DOM
     const certificationsList = this.props.certificates.map((certificate, index) => {
       return (
@@ -89,187 +97,185 @@ class EditOpportunityForm extends Component {
 
     return (
       <React.Fragment>
-        <TextField
-          label="Opportunity Name"
-          type="text"
-          name="title"
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-          placeholder={this.props.opportunityToUpdate.title}
-          onChange={this.handleInputChangeFor('title')}
-        />
-        {/* Input for volunteer opportunity date */}
-        <DatePicker
-          selected={moment(this.state.date).utc()}
-          onChange={this.handleDateChange}
-          dateFormat="ddd, MMM D, YYYY"
-          placeholderText={
-            moment(this.props.opportunityToUpdate.date).utc()
-              .format("ddd, MMM D, YYYY")}
-        />
+        <MuiPickersUtilsProvider utils={MomentUtils}>
 
-        <TextField
-          label="Date"
-          type="date"
-          name="date"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          fullWidth
-          placeholder={this.props.opportunityToUpdate.date}
-          onChange={this.handleInputChangeFor('date')}
-        />
+          <TextField
+            label="Opportunity Name"
+            type="text"
+            name="title"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder={this.props.opportunityToUpdate.title}
+            onChange={this.handleInputChangeFor('title')}
+          />
 
-        {/* Input for volunteer opportunity start time */}
+          {/* Input for volunteer opportunity date */}
 
-        <TextField
-          label="Start Time"
-          type="time"
-          name="start_time"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          fullWidth
-          placeholder={this.props.opportunityToUpdate.start_time}
-          onChange={this.handleInputChangeFor('start_time')}
-        />
+          <DatePicker
+            label="Select Date"
+            showTodayButton
+            maxDateMessage="Date must be less than today"
+            format="dddd, MMM D, YYYY"
+            value={this.state.date}
+            onChange={this.handleDateChange}
+            animateYearScrolling={false}
+            className={this.props.classes.datePicker}
+            autoOk
+          />
 
-        {/* Input for volunteer opportunity end time */}
-        <TextField
-          label="End Time"
-          type="time"
-          name="end_time"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          fullWidth
-          placeholder={this.props.opportunityToUpdate.end_time}
-          onChange={this.handleInputChangeFor('end_time')}
-        />
-        {/* Input for volunteer opportunity street address 1 */}
-        <TextField
-          label="Street Address 1"
-          type="text"
-          name="address_line1"
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-          placeholder={this.props.opportunityToUpdate.address_line1}
-          onChange={this.handleInputChangeFor('address_line1')}
-        />
-        {/* Input for volunteer opportunity street address 2 */}
-        <TextField
-          label="Street Address 2"
-          type="text"
-          name="address_line2"
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-          placeholder={this.props.opportunityToUpdate.address_line2}
-          onChange={this.handleInputChangeFor('address_line2')}
-        />
-        {/* Input for volunteer opportunity location city */}
-        <TextField
-          label="City"
-          type="text"
-          name="city"
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-          placeholder={this.props.opportunityToUpdate.city}
-          onChange={this.handleInputChangeFor('city')}
-        />
-        {/* Input for volunteer opportunity location State */}
-        <TextField
-          label="State"
-          type="text"
-          name="state"
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-          placeholder={this.props.opportunityToUpdate.state}
-          onChange={this.handleInputChangeFor('state')}
-        />
-        {/* Input for volunteer opportunity location zipcode  */}
-        <TextField
-          label="Zip Code"
-          type="number"
-          name="zip"
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-          placeholder={this.props.opportunityToUpdate.zip.toString() || ''}
-          onChange={this.handleInputChangeFor('zip')}
-        />
-        {/* Input for # of volunteers needed for this volunteer opportunity */}
-        <TextField
-          label="# of Volunteers Needed"
-          type="number"
-          name="max_volunteers"
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-          placeholder={this.props.opportunityToUpdate.max_volunteers.toString() || ''}
-          onChange={this.handleInputChangeFor('max_volunteers')}
-        />
-        {/* Input to upload image for volunteer opportunity */}
-        <TextField
-          label="Upload Image"
-          type="text"
-          name=""
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-        // onChange={this.handleInputChangeFor('')}
-        />
-        {/* Input for description of volunteer opportunity */}
-        <TextField
-          label="Opportunity Description"
-          type="text"
-          name=""
-          fullWidth
-          multiline
-          InputLabelProps={{
-            shrink: true,
-          }}
-          placeholder={this.props.opportunityToUpdate.description}
-          onChange={this.handleInputChangeFor('description')}
-        />
-        {/* Radio inputs to select required certification */}
-        <RadioGroup
-          name="deliveryType"
-          value={this.state.certification_needed}
-          placeholder={this.props.opportunityToUpdate.certification_needed.toString()}
-          onChange={this.handleInputChangeFor('certification_needed')}>
-          {certificationsList}
-        </RadioGroup>
-        {/* Create Volunteer Opportunity */}
-        <Button
-          className={this.props.classes.button}
-          onClick={this.updateOpportunity}
-          variant="raised"
-          color="primary"
-        >
-          Update
+          {/* Input for volunteer opportunity start time */}
+
+          <TimePicker
+            autoOk
+            keyboard
+            label="Start Time"
+            format="h:mm a"
+            value={moment(this.state.start_time, 'HH:mm:ss')}
+            onChange={this.handleStartTimeChange}
+            className={this.props.classes.datePicker}
+          />
+
+          {/* Input for volunteer opportunity end time */}
+
+          <TimePicker
+            autoOk
+            keyboard
+            label="End Time"
+            format="h:mm a"
+            value={moment(this.state.end_time, 'HH:mm:ss')}
+            onChange={this.handleEndTimeChange}
+            className={this.props.classes.datePicker}
+          />
+
+          {/* Input for volunteer opportunity street address 1 */}
+
+          <TextField
+            label="Street Address 1"
+            type="text"
+            name="address_line1"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder={this.props.opportunityToUpdate.address_line1}
+            onChange={this.handleInputChangeFor('address_line1')}
+          />
+
+          {/* Input for volunteer opportunity street address 2 */}
+
+          <TextField
+            label="Street Address 2"
+            type="text"
+            name="address_line2"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder={this.props.opportunityToUpdate.address_line2}
+            onChange={this.handleInputChangeFor('address_line2')}
+          />
+          {/* Input for volunteer opportunity location city */}
+          <TextField
+            label="City"
+            type="text"
+            name="city"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder={this.props.opportunityToUpdate.city}
+            onChange={this.handleInputChangeFor('city')}
+          />
+          {/* Input for volunteer opportunity location State */}
+          <TextField
+            label="State"
+            type="text"
+            name="state"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder={this.props.opportunityToUpdate.state}
+            onChange={this.handleInputChangeFor('state')}
+          />
+          {/* Input for volunteer opportunity location zipcode  */}
+          <TextField
+            label="Zip Code"
+            type="number"
+            name="zip"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder={this.props.opportunityToUpdate.zip.toString() || ''}
+            onChange={this.handleInputChangeFor('zip')}
+          />
+          {/* Input for # of volunteers needed for this volunteer opportunity */}
+          <TextField
+            label="# of Volunteers Needed"
+            type="number"
+            name="max_volunteers"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder={this.props.opportunityToUpdate.max_volunteers.toString() || ''}
+            onChange={this.handleInputChangeFor('max_volunteers')}
+          />
+          {/* Input to upload image for volunteer opportunity */}
+          <TextField
+            label="Upload Image"
+            type="text"
+            name=""
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+          // onChange={this.handleInputChangeFor('')}
+          />
+          {/* Input for description of volunteer opportunity */}
+          <TextField
+            label="Opportunity Description"
+            type="text"
+            name=""
+            fullWidth
+            multiline
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder={this.props.opportunityToUpdate.description}
+            onChange={this.handleInputChangeFor('description')}
+          />
+         
+          {/* Radio inputs to select required certification */}
+          <RadioGroup
+            name="deliveryType"
+            value={this.state.certification_needed}
+            placeholder={this.props.opportunityToUpdate.certification_needed.toString()}
+            onChange={this.handleInputChangeFor('certification_needed')}>
+            {certificationsList}
+          </RadioGroup>
+          {/* Create Volunteer Opportunity */}
+          <Button
+            className={this.props.classes.button}
+            onClick={this.updateOpportunity}
+            variant="raised"
+            color="primary"
+          >
+            Update
           </Button>
-        {/* Cancel Creating Volunteer Opportunity */}
-        <Button
-          className={this.props.classes.button}
-          onClick={this.props.closeEditOpportunity}
-          variant="raised"
-          color="primary"
-        >
-          Cancel
+          {/* Cancel Creating Volunteer Opportunity */}
+          <Button
+            className={this.props.classes.button}
+            onClick={this.props.closeEditOpportunity}
+            variant="raised"
+            color="primary"
+          >
+            Cancel
             </Button>
+        </MuiPickersUtilsProvider>
       </React.Fragment>
     )
   }

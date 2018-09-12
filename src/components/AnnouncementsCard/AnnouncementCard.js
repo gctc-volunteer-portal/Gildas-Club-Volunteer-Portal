@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 const styles = {
   card: {
     minWidth: 275,
+    margin: 50
   },
   bullet: {
     display: 'inline-block',
@@ -33,13 +34,10 @@ const styles = {
 
 
 class SimpleCard extends Component {
-    constructor(props){
-        super(props);
-    }
 
 
     handleDelete = (announcementId) => { 
-        console.log(announcementId);
+        // console.log(announcementId);
          this.props.dispatch({
             type: 'DELETE_ANNOUNCEMENT',
             payload: announcementId
@@ -51,7 +49,7 @@ class SimpleCard extends Component {
     let button;
     const { classes } = this.props;
     if (this.props.user.access_level === 3){
-          button = (<Button onClick={()=>this.handleDelete(this.props.announcement.id)}variant="small" color="secondary" className={classes.button}>
+          button = (<Button onClick={()=>this.handleDelete(this.props.announcement.id)} size="small" color="secondary" className={classes.button}>
               Delete
               <DeleteIcon className={classes.rightIcon} />
               </Button>)

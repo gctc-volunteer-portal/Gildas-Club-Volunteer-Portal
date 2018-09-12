@@ -15,7 +15,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     LEFT OUTER JOIN "opportunities" ON opportunities.id = user_opportunities.opportunity_id;`)
 .then((results) => {
     res.send(results.rows)
-    console.log(results.rows);
+    // console.log(results.rows);
 
 }).catch((err) => {
     console.log(err);

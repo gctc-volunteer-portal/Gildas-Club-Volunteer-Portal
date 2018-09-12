@@ -9,9 +9,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { connect } from 'react-redux'
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-
 import AdminManageVolunteersDialogueTable from '../AdminManageVolunteersDialogueTable/AdminManageVolunteersDialgueTable'
-import AdminManageVolunteersDialogueAutoComplete from '../AdminManageVolunteersDialogueAutoComplete/AdminManageVolunteersDialogueAutoComplete'
+import AdminManageVolunteersDialogueAutoComplete from '../AdminManageVolunteersDialogueAutoComplete/AdminManageVolunteersDialogueAutoComplete';
+import {withStyles} from '@material-ui/core';
+
+const styles = {
+  button: {
+      padding: 5,
+      display: 'flex',
+      alignItems: 'flex-end',
+  },
+};
 
 
 
@@ -47,16 +55,17 @@ class ResponsiveDialog extends React.Component {
     return (
       <div>
       
-        <Button size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>Manage Volunteers</Button>
+        <Button className={this.props.classes.button} size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>Manage Volunteers</Button>
         <Dialog
           fullScreen={fullScreen}
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
+          maxWidth= "lg"
         >
           <DialogTitle id="responsive-dialog-title">{`Volunteers for ${this.props.opportunity.title}`}</DialogTitle>
           <AdminManageVolunteersDialogueTable opportunity = {this.props.opportunity}/>
-          <DialogContent>
+          <DialogContent style={{marginTop: 50}}>
             <DialogContentText>
              Add a Volunteer!
             </DialogContentText>
@@ -83,4 +92,6 @@ const mapStateToProps = state => ({
     state
   });
 
-export default connect(mapStateToProps)(withMobileDialog()(ResponsiveDialog));
+const connectedResponsiveDialog = connect(mapStateToProps)(withMobileDialog()(ResponsiveDialog));
+
+export default withStyles(styles)(connectedResponsiveDialog);
