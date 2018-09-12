@@ -59,6 +59,11 @@ const styles = theme => ({
     tableWrapper: {
         overflowX: 'auto',
     },
+    headrow: {
+  
+            position: "sticky",
+  
+    }
 });
 
 class ManageVolunteersTable extends Component {
@@ -113,6 +118,9 @@ class ManageVolunteersTable extends Component {
                 <Header admin={true} />
                 <AdminNav />
                 <h1>Volunteers</h1>
+                <Csv
+                    data= {this.props.volunteers}
+                />
                 <Paper className={this.props.classes.root}>
                     <div className={this.props.classes.tableWrapper}>
                         <Table className={this.props.classes.table} aria-labelledby="tableTitle">
@@ -155,9 +163,7 @@ class ManageVolunteersTable extends Component {
                         rowsPerPageOptions={[25, 50, 100]}
                     />
                 </Paper>
-                <Csv
-                    data= {this.props.volunteers}
-                />
+               
             </React.Fragment>
         );
     }
