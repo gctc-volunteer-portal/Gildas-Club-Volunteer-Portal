@@ -63,15 +63,23 @@ function* updateVolunteers(action){
     console.log(action.payload);
         try{
             const update = yield call(axios.put, `/api/volunteers/updateInfo/`, action.payload)
-            yield dispatch({
-                type:'FETCH_VOLUNTEER_INFO'
-            })
+           
         }catch(err){
             console.log(err);
-            
         }
 }
 
+function* updateCertificates(action){
+    console.log(action.payload);
+    try{
+     const updateCerts = yield call(axios.put,`/api/volunteers/updateCerts/`, action.payload)
+     yield dispatch({
+        type:'FETCH_VOLUNTEER_INFO'
+    })
+    }catch(err){
+
+    }
+}
 
 function* volunteerSaga(){
     yield takeEvery('GET_USERS', getUsers)
@@ -79,6 +87,7 @@ function* volunteerSaga(){
     yield takeEvery('UPDATE_VOLUNTEER_INFO', updateVolunteers)
     yield takeEvery('FETCH_VOLUNTEER_INFO', fetchVolunteerInfo)
     yield takeEvery('GET_ALL_VOLUNTEER_INFO', getIndVolunteerInfo) 
+    yield takeEvery('UPDATE_CERTIFICATIONS', updateCertificates)
 }
 
 

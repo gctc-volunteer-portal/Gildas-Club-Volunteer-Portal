@@ -11,7 +11,8 @@ import VolunteerNav from '../Nav/VolunteerNav/VolunteerNav';
 import { Z_DEFAULT_COMPRESSION } from 'zlib';
 
 const mapStateToProps = state =>({
-   currentVolunteer: state.indVolunteerInfo.indVolunteerInfo
+   currentVolunteer: state.indVolunteerInfo.indVolunteerInfo,
+   state
 })
 
 const styles = {
@@ -107,60 +108,33 @@ class AdminSingleVolunteerDialog extends Component {
           admin_notes: this.props.volunteer.admin_notes,
           message: this.props.volunteer.message,
           open: false,
-          
-          a_v_support: {
-            id: 1,
-            certified: this.props.volunteer.a_v_support
+          certs:{
+          aVsupport: {id:1 ,certified: this.props.volunteer.av_support},
+
+          cash_handling: {id: 2,certified: this.props.volunteer.cash_handling},
+
+          clinic_ambassador: {id: 3, certified: this.props.volunteer.clinic_ambassador },
+
+          communications: {id: 4,certified: this.props.volunteer.communications},
+
+          data_entry: {id: 5,certified: this.props.volunteer.data_entry},
+
+          gilda_greeter: {id: 6,certified: this.props.volunteer.gilda_greeter},
+
+          instructor: {id: 7,certified: this.props.volunteer.instructor},
+
+          noogieland: {id: 8,certified: this.props.volunteer.noogieland},
+
+          outreach_ambassador: {id: 9,certified: this.props.volunteer.outreach_ambassador},
+
+          special_one: {id: 10 ,certified: this.props.volunteer.special1},
+
+          special_two: {id: 11,certified: this.props.volunteer.special2},
+
+          special_three: {id: 12,certified: this.props.volunteer.special3},
+
+          open_to_all: { id: 13, certified: this.props.volunteer.open_to_all}
           },
-          cash_handling: {
-            id: 2,
-            certified: this.props.volunteer.cash_handling
-          },
-          clinic_ambassador: {
-            id: 3,
-            certified: this.props.volunteer.clinic_ambassador
-          },
-          communications: {
-            id: 4,
-            certified: this.props.volunteer.communications
-          },
-          data_entry: {
-            id: 5,
-            certified: this.props.volunteer.data_entry
-          },
-          gilda_greeter: {
-            id: 6,
-            certified: this.props.volunteer.gilda_greeter
-          },
-          instructor: {
-            id: 7,
-            certified: this.props.volunteer.instructor
-          },
-          noogieland: {
-            id: 8,
-            certified: this.props.volunteer.noogieland
-          },
-          outreach_ambassador: {
-            id: 9,
-            certified: this.props.volunteer.outreach_ambassador
-          },
-          special_one: {
-            id: 10,
-            certified: this.props.volunteer.special_one
-          },
-          special_two: {
-            id: 11,
-            certified: this.props.volunteer.special_two
-          },
-          special_three: {
-            id: 12,
-            certified: this.props.volunteer.special_three
-          },
-          open_to_all_volunteers: {
-            id: 13,
-            certified: this.props.volunteer.open_to_all_volunteers
-          },
-          // noogieland: this.props.volunteer.noogieland,
           chip:{
            color:'primary',
             onDelete: 'none',
@@ -174,7 +148,9 @@ class AdminSingleVolunteerDialog extends Component {
   // }
  
   
-
+  componentDidMount() {
+    this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
+  }
 
 
 
@@ -198,6 +174,7 @@ handleClose = () => {
     this.props.history.push('/manage_volunteer')
   }
 
+
   handleInputChangeFor = (propertyName) => (event) => {
       this.setState({
           [propertyName]: event.target.value
@@ -211,41 +188,52 @@ handleClose = () => {
   updateVolunteerInfo = (event) => {
     event.preventDefault()
     console.log(this.state);
-    let id = this.props.volunteer.id
+    let volunteerId = this.props.volunteer.id
     let state = this.state
     this.props.dispatch({
        type:'UPDATE_VOLUNTEER_INFO',
        payload:{
-        id, state
+        volunteerId, state
        } 
+       
      });
-
-
+     
+     this.updateCertification()
  
     this.handleClose()
   } 
- 
-  handleChangeClick = key => (event, value) => {
-    this.setState({
-     
-    });
+  
+  updateCertification = (event) => {
+    let id = this.props.volunteer.id
+    let certs = this.state.certs
+    this.props.dispatch({type: 'UPDATE_CERTIFICATIONS',
+    payload:{
+      certs,id
+    }
+    })
+
   }
 
   handleNoogieLandCert = (property) => {
-   console.log('test:', property);
-   
-    
-      this.setState({ 
-        ...this.state,
-        [property]: {
-          certified: !this.state[property].certified 
+   console.log('test:', this.state.certs[property]);
+  this.setState({
+      ...this.state,
+      certs: {
+        ...this.state.certs, 
+      [property]:{
+        ...this.state.certs[property],
+          certified: !this.state.certs[property].certified
         }
-      });
-    
-   
-    
-  };
-    
+      }
+    }
+  );
+  
+
+ 
+ 
+}
+
+  
   
   
 
@@ -284,9 +272,9 @@ handleClose = () => {
  
 
   render() {
-    console.log(this.state);
+  console.log(this.state);
+  
     
-    // console.log(this.props.currentVolunteer)
     let toggleAccess;
     if(this.state.access_level == 2){
       toggleAccess = (<div>
@@ -337,45 +325,45 @@ handleClose = () => {
     
     
     let noogieLand
-    if(this.state.noogieland.certified){noogieLand= 'primary'}else{noogieLand='default'}
+    if(this.state.certs.noogieland.certified){noogieLand= 'primary'}else{noogieLand='default'}
 
     let avSupport
-    if(this.state.a_v_support.certified){avSupport= 'primary'}else{avSupport='default'}
+    if(this.state.certs.aVsupport.certified){avSupport= 'primary'}else{avSupport='default'}
 
     let cashHandling
-    if(this.state.cash_handling.certified){cashHandling= 'primary'}else{cashHandling='default'}
+    if(this.state.certs.cash_handling.certified){cashHandling= 'primary'}else{cashHandling='default'}
 
     let clinicAmbassador
-    if(this.state.clinic_ambassador.certified){clinicAmbassador= 'primary'}else{clinicAmbassador='default'}
+    if(this.state.certs.clinic_ambassador.certified){clinicAmbassador= 'primary'}else{clinicAmbassador='default'}
 
     let communications
-    if(this.state.communications.certified){communications= 'primary'}else{communications='default'}
+    if(this.state.certs.communications.certified){communications= 'primary'}else{communications='default'}
 
     let dataEntry
-    if(this.state.data_entry.certified){dataEntry= 'primary'}else{dataEntry='default'}
+    if(this.state.certs.data_entry.certified){dataEntry= 'primary'}else{dataEntry='default'}
 
     let gildaGreeter
-    if(this.state.gilda_greeter.certified){gildaGreeter= 'primary'}else{gildaGreeter='default'}
+    if(this.state.certs.gilda_greeter.certified){gildaGreeter= 'primary'}else{gildaGreeter='default'}
 
     let instructor
-    if(this.state.instructor.certified){instructor= 'primary'}else{instructor='default'}
+    if(this.state.certs.instructor.certified){instructor= 'primary'}else{instructor='default'}
 
     let outreachAmassador
-    if(this.state.outreach_ambassador.certified){outreachAmassador= 'primary'}else{outreachAmassador='default'}
+    if(this.state.certs.outreach_ambassador.certified){outreachAmassador= 'primary'}else{outreachAmassador='default'}
 
     let specialOne
-    if(this.state.special_one.certified){specialOne= 'primary'}else{specialOne='default'}
+    if(this.state.certs.special_one.certified){specialOne= 'primary'}else{specialOne='default'}
 
     let specialTwo
-    if(this.state.special_two.certified){specialTwo= 'primary'}else{specialTwo='default'}
+    if(this.state.certs.special_two.certified){specialTwo= 'primary'}else{specialTwo='default'}
 
     let specialThree
-    if(this.state.special_three.certified){specialThree= 'primary'}else{specialThree='default'}
+    if(this.state.certs.special_three.certified){specialThree= 'primary'}else{specialThree='default'}
 
     let openToAllVolunteers
-    if(this.state.open_to_all_volunteers.certified) {openToAllVolunteers= 'primary'} else{openToAllVolunteers='default'}
+    if(this.state.certs.open_to_all.certified) {openToAllVolunteers= 'primary'} else{openToAllVolunteers='default'}
 
-    
+
 
     return (
       <React.Fragment>
@@ -393,11 +381,16 @@ handleClose = () => {
         <form onSubmit={this.updateVolunteerInfo}>
         
         
-        <p>{JSON.stringify(this.state.noogieland)}</p>
+        <p>{JSON.stringify(this.state.certs.aVsupport.certified)}</p>
+        <p>{JSON.stringify(this.state.certs.noogieland.certified)}</p>
+    
         {/* <p>{JSON.stringify(this.state.chip.color)}</p>  */}
 
           <h1>Edit volunteer Info</h1>
           <FormControl>
+
+{/* we need another texfield for something that bj asked */}
+
             <TextField
               label= "email"
               type="text"
@@ -630,23 +623,23 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Noogie Land"
-          checked={this.state.noogieland.certified}clickable
+          checked={this.state.certs.noogieland.certified}clickable
           color={noogieLand} value="noogieland" 
           onClick={()=>this.handleNoogieLandCert('noogieland')} 
-          id="noogieland" />}/>
+          id="" />}/>
           <br />
 
-          <FormControlLabel control={<Chip  
-          label="A/v Support"
-          checked={this.state.a_v_support.certified}clickable
-          color={avSupport} value="a_v_support" 
-          onClick={()=>this.handleNoogieLandCert('a_v_support')} 
-          id="a_v_support" />}/>
+           <FormControlLabel control={<Chip  
+          label="A/V Support"
+          checked={this.state.certs.aVsupport.certified}clickable
+          color={avSupport} value="aVsupport" 
+          onClick={()=>this.handleNoogieLandCert('aVsupport')} 
+          id="" />}/>
           <br />
 
           <FormControlLabel control={<Chip  
           label="Cash Handling"
-          checked={this.state.cash_handling.certified}clickable
+          checked={this.state.certs.cash_handling.certified}clickable
           color={cashHandling} value="cash_handling" 
           onClick={()=>this.handleNoogieLandCert('cash_handling')} 
           id="cash_handling" />}/>
@@ -654,7 +647,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Clinic Ambassador"
-          checked={this.state.clinic_ambassador.certified}clickable
+          checked={this.state.certs.clinic_ambassador.certified}clickable
           color={clinicAmbassador} value="clinic_ambassador" 
           onClick={()=>this.handleNoogieLandCert('clinic_ambassador')} 
           id="clinic_ambassador" />}/>
@@ -662,7 +655,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Communications"
-          checked={this.state.communications.certified}clickable
+          checked={this.state.certs.communications.certified}clickable
           color={communications} value="communications" 
           onClick={()=>this.handleNoogieLandCert('communications')} 
           id="communications" />}/>
@@ -670,7 +663,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Data Entry"
-          checked={this.state.data_entry.certified}clickable
+          checked={this.state.certs.data_entry.certified}clickable
           color={dataEntry} value="data_entry" 
           onClick={()=>this.handleNoogieLandCert('data_entry')} 
           id="data_entry" />}/>
@@ -678,7 +671,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Gilda Greeter"
-          checked={this.state.gilda_greeter.certified}clickable
+          checked={this.state.certs.gilda_greeter.certified}clickable
           color={gildaGreeter} value="gilda_greeter" 
           onClick={()=>this.handleNoogieLandCert('gilda_greeter')} 
           id="gilda_greeter" />}/>
@@ -686,7 +679,7 @@ onChange={this.handleChange('as_needed')}/>}
     
           <FormControlLabel control={<Chip  
           label="instructor"
-          checked={this.state.instructor.certified}clickable
+          checked={this.state.certs.instructor.certified}clickable
           color={instructor} value="instructor" 
           onClick={()=>this.handleNoogieLandCert('instructor')} 
           id="instructor"/>}/>
@@ -694,7 +687,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Outreach Ambassador"
-          checked={this.state.outreach_ambassador.certified}clickable
+          checked={this.state.certs.outreach_ambassador.certified}clickable
           color={outreachAmassador} value="outreach_ambassador" 
           onClick={()=>this.handleNoogieLandCert('outreach_ambassador')} 
           id="outreach_ambassador" />}/>
@@ -702,7 +695,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Special 1"
-          checked={this.state.special_one.certified}clickable
+          checked={this.state.certs.special_one.certified}clickable
           color={specialOne} value="special_one" 
           onClick={()=>this.handleNoogieLandCert('special_one')} 
           id="special_one" />}/>
@@ -710,7 +703,7 @@ onChange={this.handleChange('as_needed')}/>}
       
           <FormControlLabel control={<Chip  
           label="Special 2"
-          checked={this.state.special_two.certified}clickable
+          checked={this.state.certs.special_two.certified}clickable
           color={specialTwo} value="special_two" 
           onClick={()=>this.handleNoogieLandCert('special_two')} 
           id="special_Two" />}/>
@@ -718,7 +711,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Special 3"
-          checked={this.state.special_three.certified}clickable
+          checked={this.state.certs.special_three.certified}clickable
           color={specialThree} value="special_three" 
           onClick={()=>this.handleNoogieLandCert('special_three')} 
           id="special_three" />}/>
@@ -726,9 +719,9 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Open To All Volunteers"
-          checked={this.state.open_to_all_volunteers.certified}clickable
-          color={openToAllVolunteers} value="open_To_All_volunteers" 
-          onClick={()=>this.handleNoogieLandCert('open_to_all_volunteers')} 
+          checked={this.state.certs.open_to_all.certified}clickable
+          color={openToAllVolunteers} value="open_To_all_" 
+          onClick={()=>this.handleNoogieLandCert('open_to_all')} 
           id="special_three" />}/>
           <br />
           <div className={this.props.classes.switch}>
