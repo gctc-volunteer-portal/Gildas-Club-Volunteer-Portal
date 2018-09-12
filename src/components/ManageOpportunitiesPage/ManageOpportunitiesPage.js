@@ -146,21 +146,18 @@ class InfoPage extends Component {
                         value={this.state.term}
                     />
                 </div>
-                <FormControl className={classes.formControl}>
-                    <InputLabel>Status</InputLabel>
-                    <Select
-                        value={this.state.status}
-                        onChange={this.handleChange}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    >
-                        <MenuItem value=""><em>All</em></MenuItem>
-                        <MenuItem value="1">Staging</MenuItem>
-                        <MenuItem value="2">Active</MenuItem>
-                        <MenuItem value="3">Inactive</MenuItem>
-                    </Select>
-                </FormControl>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel>Status</InputLabel>
+                        <Select
+                            value={this.state.status}
+                            onChange={this.handleChange}
+                        >
+                            <MenuItem value=""><em>All</em></MenuItem>
+                            <MenuItem value="1">Staging</MenuItem>
+                            <MenuItem value="2">Active</MenuItem>
+                            <MenuItem value="3">Inactive</MenuItem>
+                        </Select>
+                    </FormControl>
 
                 {content}
 

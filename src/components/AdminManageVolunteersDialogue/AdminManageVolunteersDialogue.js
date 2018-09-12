@@ -16,7 +16,7 @@ import {withStyles} from '@material-ui/core';
 
 const styles = {
   button: {
-      padding: 5,
+      margin: 5,
       display: 'flex',
       alignItems: 'flex-end',
   },
