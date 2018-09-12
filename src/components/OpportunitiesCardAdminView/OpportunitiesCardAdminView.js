@@ -21,8 +21,7 @@ const styles = {
         minHeight: 350,
         margin: 20,
         display: 'grid',
-        gridTemplateColumns: '350px 1fr 1fr',
-        gridTemplateRows: '350 px'
+        gridTemplateColumns: '374px 1fr 1fr',
     },
     media: {
         height: 350,
@@ -49,9 +48,12 @@ const styles = {
         gridColumnStart: 2,
     },
     button: {
-        padding: 5,
+        margin: 5,
         display: 'flex',
         alignItems: 'flex-end',
+    },
+    buttonGroup: {
+        display: 'inline-flex',
     },
 };
 
@@ -99,7 +101,7 @@ class MediaCard extends Component {
             status = 'Inactive'
         }
         if (this.props.state.user.access_level >= 2 && this.props.admin) {
-            buttons = (<div>
+            buttons = (<div className={classes.buttonGroup}>
                 <AdminManageVolunteersDialogue
                     opportunity={this.props.opportunity}
                 />
@@ -119,7 +121,7 @@ class MediaCard extends Component {
             </div>)
         } else {
             buttons = (
-                <div>
+                <div className={classes.buttonGroup}>
                     <VolunteerOpportunityDialog opportunity={this.props.opportunity} />
                 </div>
             )
@@ -132,6 +134,8 @@ class MediaCard extends Component {
                         <CardMedia
                             className={classes.media}
                             image={this.props.opportunity.image}
+                            height="350"
+                            width="350"
                             title="Opportunity"
                         />
                     </CardContent>
@@ -152,7 +156,7 @@ class MediaCard extends Component {
                         </Typography>
                     </CardContent>
                     <CardActions className={classes.actions}>
-                    <CardHeader
+                        <CardHeader
                             subheader={status}
                         />
 
