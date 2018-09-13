@@ -94,7 +94,13 @@ class RegisterPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
-  
+  }
+
+
+  handleDateOfBirthChange = (date) => {
+    this.setState({
+      date_of_birth: date
+    });
   }
 
   handleRegularBasis = () => {
@@ -134,6 +140,7 @@ class RegisterPage extends Component {
         <Header />
         {this.renderAlert()}
         <RegistrationForm
+          handleDateOfBirthChange={this.handleDateOfBirthChange}
           handleRegularBasis={this.handleRegularBasis}
           handleSpecificEvent={this.handleSpecificEvent}
           handleAsNeeded={this.handleAsNeeded}
