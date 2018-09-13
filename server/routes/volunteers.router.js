@@ -43,18 +43,18 @@ router.get('/indVolunteer/:id/', (req, res) => {
 
 //edting volunteer
 router.put('/updateInfo', (req, res) => {
-    // console.log('I have :', req.body.state);
+    console.log('I have :', req.body.volunteerId);
    let info = req.body.state
     if(req.isAuthenticated){
         const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $2, "last_name" = $3, "email"= $4 , "primary_phone"= $5,
                                             "secondary_phone"= $6, "street_address1"= $7, "street_address2"= $8, "city"= $9,
                                             "zip"= $10, "admin_notes"= $11, "active"= $12, "regular_basis"= $13, "specific_event"= $14,
                                             "as_needed"= $15, "limitations_allergies"= $16, "why_excited"= $17, "employer"= $18,
-                                             "job_title"= $19, "date_of_birth" = $20, "access_level" = $21 dynamics = $22 WHERE users."id" = $23;`
+                                             "job_title"= $19, "date_of_birth" = $20, "access_level" = $21, "dynamics_id"= $22, "state" = $23 WHERE users."id" = $24;`
                                             pool.query(queryText, [info.first_name, info.middle_name, info.last_name, info.email, info.primary_phone, 
                                                 info.secondary_phone, info.street_address1, info.street_address2, info.city, info.zip, info.admin_notes, 
                                                 info.active, info.regular_basis, info.specific_event, info.as_needed, 
-                                                info.limitations_allergies, info.why_excited, info.employer, info.job_title, info.date_of_birth, info.access_level, info.dynamics, req.body.id ])
+                                                info.limitations_allergies, info.why_excited, info.employer, info.job_title, info.date_of_birth, info.access_level, info.dynamics_id, info.state, req.body.volunteerId ])
                                                 .then(() => {
                                                     res.sendStatus(201)
                                                 })
