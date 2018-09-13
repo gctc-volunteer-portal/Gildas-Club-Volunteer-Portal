@@ -11,7 +11,7 @@ const moment = require('moment');
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT opportunities.id,
-    opportunities.image,
+    opportunities.upload_image,
     opportunities.title,
     opportunities.start_time,
     opportunities.end_time,
@@ -42,7 +42,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.get('/volunteer', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT
     "opportunities"."id",
-	"opportunities"."image",
+	"opportunities"."upload_image",
 	"opportunities"."title",
 	"opportunities"."start_time",
 	"opportunities"."end_time",
@@ -135,7 +135,7 @@ users.employer,
 users.job_title,
 users.date_of_birth,
 opportunities.id,
-opportunities.image,
+opportunities.upload_image,
 opportunities.title,
 opportunities.start_time,
 opportunities.end_time,
@@ -209,14 +209,14 @@ router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) =>
     const newOpportunity = req.body;
     const certId = parseInt(newOpportunity.certification_needed);
 
-    // console.log(req.body, 'req body');
+    console.log(req.body, 'req body');
 
-    const queryText = `INSERT INTO "opportunities"("title","start_time","end_time","address_line1","address_line2","city","state","zip","description","date","status","private_notes","max_volunteers","certification_needed")
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);`;
+    const queryText = `INSERT INTO "opportunities"("title","start_time","end_time","address_line1","address_line2","city","state","zip","description","date","status","private_notes","max_volunteers","upload_image", "certification_needed")
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15);`;
     const momentStartTime = moment(newOpportunity.start_time).format('HH:mm:ss');
     const momentEndTime = moment(newOpportunity.end_time).format('HH:mm:ss');
 
-    const serializedData = [newOpportunity.title, momentStartTime, momentEndTime, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers, certId];
+    const serializedData = [newOpportunity.title, momentStartTime, momentEndTime, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers,newOpportunity.uploadImage, certId];
     // console.log(serializedData)
 
     pool.query(queryText, serializedData)
