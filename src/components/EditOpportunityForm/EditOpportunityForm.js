@@ -84,10 +84,6 @@ class EditOpportunityForm extends Component {
   }
 
   render() {
-
-    console.log(this.state.start_time, 'this state start time')
-    console.log(this.state.end_time, 'this state end time');
-    
     // map through certifications list, which is stored on redux store, and display them on DOM
     const certificationsList = this.props.certificates.map((certificate, index) => {
       return (
@@ -245,7 +241,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.description}
+            value={this.state.description}
             onChange={this.handleInputChangeFor('description')}
           />
          
