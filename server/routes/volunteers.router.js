@@ -151,7 +151,8 @@ router.put('/updateInfo', (req, res) => {
                                                 info.secondary_phone, info.street_address1, info.street_address2, info.city, info.zip, info.admin_notes, 
                                                 info.active, info.regular_basis, info.specific_event, info.as_needed, 
                                                 info.limitations_allergies, info.why_excited, info.employer, info.job_title, info.date_of_birth, info.access_level, info.dynamics_id, info.state, req.body.volunteerId ])
-                                                .then(() => {
+
+                                               .then(() => {
                                                     res.sendStatus(201)
                                                 })
          }else{
