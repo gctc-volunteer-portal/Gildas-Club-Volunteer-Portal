@@ -9,14 +9,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { connect } from 'react-redux'
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-
 import AdminManageVolunteersDialogueTable from '../AdminManageVolunteersDialogueTable/AdminManageVolunteersDialgueTable'
 import AdminManageVolunteersDialogueAutoComplete from '../AdminManageVolunteersDialogueAutoComplete/AdminManageVolunteersDialogueAutoComplete';
 import {withStyles} from '@material-ui/core';
 
 const styles = {
   button: {
-      padding: 5,
+      margin: 5,
       display: 'flex',
       alignItems: 'flex-end',
   },
@@ -62,10 +61,11 @@ class ResponsiveDialog extends React.Component {
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
+          maxWidth= "lg"
         >
           <DialogTitle id="responsive-dialog-title">{`Volunteers for ${this.props.opportunity.title}`}</DialogTitle>
           <AdminManageVolunteersDialogueTable opportunity = {this.props.opportunity}/>
-          <DialogContent>
+          <DialogContent style={{marginTop: 50}}>
             <DialogContentText>
              Add a Volunteer!
             </DialogContentText>

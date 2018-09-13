@@ -15,7 +15,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.light,
     color: theme.palette.common.white,
   },
   body: {

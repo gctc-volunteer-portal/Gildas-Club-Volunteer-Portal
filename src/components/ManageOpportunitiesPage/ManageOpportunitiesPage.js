@@ -68,7 +68,7 @@ class InfoPage extends Component {
     componentDidUpdate() {
         if (!this.props.user.isLoading && (this.props.user.email === null || this.props.user.access_level < 2)) {
             this.props.history.push('/home');
-            // console.log(this.props.state);
+ 
         }
     }
 
@@ -123,6 +123,7 @@ class InfoPage extends Component {
                     variant="raised"
                     color="primary"
                     onClick={this.openCreateEvent}
+                    style={{margin:20}}
                 >
                     Create Opportunity
                     </Button>
@@ -144,27 +145,22 @@ class InfoPage extends Component {
                         margin="normal"
                         onChange={this.searchHandler}
                         value={this.state.term}
+                      
                     />
                 </div>
-                <FormControl className={classes.formControl}>
-                    <InputLabel>Status</InputLabel>
-                    <Select
-                        value={this.state.status}
-                        onChange={this.handleChange}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    >
-                        <MenuItem value=""><em>All</em></MenuItem>
-                        <MenuItem value="1">Staging</MenuItem>
-                        <MenuItem value="2">Active</MenuItem>
-                        <MenuItem value="3">Inactive</MenuItem>
-                    </Select>
-                </FormControl>
-
+                    <FormControl className={classes.formControl}>
+                        <InputLabel>Status</InputLabel>
+                        <Select
+                            value={this.state.status}
+                            onChange={this.handleChange}
+                        >
+                            <MenuItem value=""><em>All</em></MenuItem>
+                            <MenuItem value="1">Staging</MenuItem>
+                            <MenuItem value="2">Active</MenuItem>
+                            <MenuItem value="3">Inactive</MenuItem>
+                        </Select>
+                    </FormControl>
                 {content}
-
-
             </div>
         );
     }
