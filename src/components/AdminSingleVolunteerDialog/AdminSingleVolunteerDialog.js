@@ -769,8 +769,6 @@ onChange={this.handleChange('as_needed')}/>}
            </section>
          
 
-         
-       
         </div>
         </Dialog>
       </React.Fragment>
