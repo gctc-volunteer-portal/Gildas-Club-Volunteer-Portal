@@ -114,17 +114,21 @@ class ManageVolunteersTable extends Component {
         const data = this.props.volunteers;
         const { order, orderBy, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-
+        let csv;
+        if (this.props.user.access_level === 3){
+            csv = (
+                <Csv
+                data= {this.props.volunteers}
+                newVolunteers = {this.props.newVolunteers}
+                allOpportunitiesInfo = {this.props.allOpportunitiesInfo}
+            />)
+      }
         return (
             <React.Fragment>
                 <Header admin={true} />
                 <AdminNav />
                 <h1>Volunteers</h1>
-                <Csv
-                    data= {this.props.volunteers}
-                    newVolunteers = {this.props.newVolunteers}
-                    allOpportunitiesInfo = {this.props.allOpportunitiesInfo}
-                />
+               {csv}
                 <Paper className={this.props.classes.root}>
                     <div className={this.props.classes.tableWrapper}>
                         <Table className={this.props.classes.table} aria-labelledby="tableTitle">

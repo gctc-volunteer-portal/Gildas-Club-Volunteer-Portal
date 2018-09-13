@@ -10,14 +10,13 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   nav:{
-    backgroundColor: 'white',
+    backgroundColor: '#e44c52',
     display: 'grid',
     gridTemplateColumns: '1fr 1fr 1fr',
     color: 'blue',
-    borderStyle: 'solid',
-    borderColor: '#DE2027'
-    //  grid-column: 1 / 1;
+    marginTop: 50
   }
+  
 }
 
 class VolunteerNav extends React.Component {
