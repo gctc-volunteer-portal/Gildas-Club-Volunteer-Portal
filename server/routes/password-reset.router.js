@@ -11,13 +11,13 @@ const chance = new Chance();
 router.put('/forgot-pass', (req, res) => {
     let token = chance.string({length: 16, pool: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'});
     let email = req.body.email;
-    let expiration = Date.now() + 86400000;
+    let expiration = Date.now() + 3600000;
 
     const mailOptions = {
         from: process.env.NODEMAILER_CLIENT_USER,
         to: email,
         subject: `'Follow this link to reset your password'`,
-        text: `Use this link within 24 hours to reset your password: localhost:3000/#/reset_password?token=${token}`,
+        text: `Use the link below to reset your password. Note that the link will expire in one hour. If you did not request this link, you may ignore this message. localhost:3000/#/reset_password?token=${token}`,
     }
 
     let queryText = `SELECT * FROM users WHERE users.email = $1;`
@@ -54,18 +54,15 @@ router.put('/forgot-pass', (req, res) => {
 
 
 router.put('/reset-pass', (req, res) => {
-    console.log(req.body)
     const parsedQueryParams = queryString.parse(req.body.queryParams);
     let email = req.body.email;
     let token = parsedQueryParams.token;
-    console.log(token)
     let newPassword = encryptLib.encryptPassword(req.body.password);
     let expirationTime = Date.now();
     let queryText = `SELECT * FROM users where email = $1 and token = $2;`
     pool.query(queryText, [email, token])
         .then(results => {
             user = results.rows[0];
-            console.log(user)
             if(expirationTime < user.token_expiration) {
                 queryText = `UPDATE users SET password = $1, token = null, token_expiration = null WHERE email = $2 and token = $3;`
                 pool.query(queryText, [newPassword, email, token])
