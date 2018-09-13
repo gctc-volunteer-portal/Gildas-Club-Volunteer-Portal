@@ -242,7 +242,7 @@ router.put('/admin_note/:id', rejectUnauthenticated, rejectUnauthorizedManager, 
             res.sendStatus(201);
         })
         .catch((error) => {
-            res.sendStatus(500);
+            res.sendStatus(500); 
         })
 });
 
