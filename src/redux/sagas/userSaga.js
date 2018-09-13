@@ -1,6 +1,7 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import { USER_ACTIONS } from '../actions/userActions';
 import { callUser } from '../requests/userRequests';
+import axios from 'axios';
 
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchUser() {
@@ -24,6 +25,23 @@ function* fetchUser() {
     });
   }
 }
+
+function* updatePassword (action) {
+  try {
+    yield call(axios.put, '/api/password/reset-pass', action.payload)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+function* requestPasswordReset(action) {
+  try {
+    yield call(axios.put, '/api/password/forgot-pass', action.payload)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 /*
   Starts fetchUser on each dispatched `FETCH_USER` action.
   Allows concurrent fetches of user.
@@ -41,6 +59,8 @@ function* fetchUser() {
 */
 function* userSaga() {
   yield takeLatest(USER_ACTIONS.FETCH_USER, fetchUser);
+  yield takeLatest('UPDATE_PASSWORD', updatePassword);
+  yield takeLatest('REQUEST_RESET', requestPasswordReset);
 }
 
 export default userSaga;

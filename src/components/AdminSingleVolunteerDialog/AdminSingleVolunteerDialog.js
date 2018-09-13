@@ -33,7 +33,9 @@ const styles = {
       marginBottom:'5px'
     },
     indChip:{
-      marginBottom:'10px',
+      marginBottom:'5px',
+      width:'400px',
+      testAlign:'center'
       // color: ' #DE2027'
       
     },
@@ -85,6 +87,7 @@ class AdminSingleVolunteerDialog extends Component {
     // console.log("this is in the constructor",this.props.currentVolunteer)
         this.state = {
           email: this.props.volunteer.email,
+          dynamics_id: this.props.volunteer.dynamics_id,
           first_name: this.props.volunteer.first_name,
           middle_name: this.props.volunteer.middle_name,
           last_name: this.props.volunteer.last_name,
@@ -283,6 +286,7 @@ handleClose = () => {
             // onClick={this.editAccess}
             onChange={this.editAccess}
             value="access_level"
+            color="primary"
            />}  label="Manager Capabilities on"
            />
       </div>)
@@ -305,6 +309,7 @@ handleClose = () => {
          control={ <Switch 
          checked={true}
          onChange={this.editActive}
+         color="primary"
        />} label="Active"
        /></div>)
     }else{
@@ -390,7 +395,15 @@ handleClose = () => {
           <FormControl>
 
 {/* we need another texfield for something that bj asked */}
-
+            <TextField  
+              label= "Dynamics id"
+              type="text"
+              name="Dynamics id"
+              value={this.state.dynamics_id}
+              placeholder={this.props.currentVolunteer.dynamics_id}
+              onChange={this.handleInputChangeFor('dynamics_id')}
+              className={this.props.classes.text}
+            />
             <TextField
               label= "email"
               type="text"
@@ -533,7 +546,8 @@ handleClose = () => {
            <FormControlLabel control={<Checkbox value={this.props.currentVolunteer.specific_event} 
                        checked={this.state.specific_event}
                              onChange={this.handleChange('specific_event')}/>} 
-                             label= "For One Specific Event (Annual Breakfast, Golf Event, etc.) "
+                             label= "For One Specific Event (Annual Breakfast, Golf Event, etc.)"
+                             
                               />
 
             <FormControlLabel control={<Checkbox value={this.props.currentVolunteer.as_needed} 

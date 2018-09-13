@@ -72,6 +72,8 @@ class ManageVolunteersTable extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'FETCH_VOLUNTEER_INFO' });
+        this.props.dispatch({ type: 'GET_NEW_VOLUNTEERS'});
+        this.props.dispatch({ type: 'GET_ALL_OPPORTUNITY_INFO'});
         this.props.dispatch({type:'GET_CERTIFICATIONS_LIST'})
       
        
@@ -114,21 +116,21 @@ class ManageVolunteersTable extends Component {
         const data = this.props.volunteers;
         const { order, orderBy, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-
-        console.log(this.state)
-        console.log(stableSort(data, getSorting(order, orderBy)))
-
-       
-
-
+        let csv;
+        if (this.props.user.access_level === 3){
+            csv = (
+                <Csv
+                data= {this.props.volunteers}
+                newVolunteers = {this.props.newVolunteers}
+                allOpportunitiesInfo = {this.props.allOpportunitiesInfo}
+            />)
+      }
         return (
             <React.Fragment>
                 <Header admin={true} />
                 <AdminNav />
                 <h1>Volunteers</h1>
-                <Csv
-                    data= {this.props.volunteers}
-                />
+               {csv}
                 <Paper className={this.props.classes.root}>
                     <div className={this.props.classes.tableWrapper}>
                         <Table className={this.props.classes.table} aria-labelledby="tableTitle">
@@ -180,6 +182,8 @@ class ManageVolunteersTable extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     volunteers: state.volunteerInfo,
+    newVolunteers: state.volunteerReducer.newVolunteers,
+    allOpportunitiesInfo: state.opportunitiesReducer.allOpportunitiesInfo
     
 });
 

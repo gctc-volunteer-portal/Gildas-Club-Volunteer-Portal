@@ -148,6 +148,30 @@ function* updateOpportunity(action) {
         yield console.log(err);
     }
 }
+function* getAllOpportunityInfo() {
+    try {
+        const opportunitiesInfo = yield call(axios.get, `/api/opportunities/info`)
+        yield dispatch({
+            type: 'OPPORTUNITIES_INFO',
+            payload: opportunitiesInfo.data
+        })
+    } catch (err) {
+        yield console.log(err);
+    }
+}
+
+function* updateStatus(action){
+    console.log(action.payload);
+        try{
+            yield call(axios.put, `/api/opportunities/status/${action.payload.opportunityId}`, action.payload)
+            yield dispatch({
+                type: 'GET_EVENTS'
+            })
+        }catch(err){
+            console.log(err);
+            
+        }
+}
 
 function* updateOpportunityAdminNote(action) {
     try {
@@ -174,6 +198,8 @@ function* opportunitiesSaga() {
     yield takeEvery('UPDATE_OPPORTUNITY', updateOpportunity);
     yield takeEvery('VOLUNTEER_ENROLL_VOLUNTEER', volunteerEnrollVolunteer);
     yield takeEvery('VOLUNTEER_DELETE_ITEM', volunteerDeleteItem);
+    yield takeEvery('GET_ALL_OPPORTUNITY_INFO', getAllOpportunityInfo)
+    yield takeEvery('UPDATE_STATUS', updateStatus)
     yield takeEvery('UPDATE_OPPORTUNITY_ADMIN_NOTE', updateOpportunityAdminNote);
 }
 
