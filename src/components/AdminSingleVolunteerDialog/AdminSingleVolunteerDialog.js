@@ -191,12 +191,12 @@ handleClose = () => {
   updateVolunteerInfo = (event) => {
     event.preventDefault()
     console.log(this.state);
-    let volunteerId = this.props.volunteer.i
+    let id = this.props.volunteer.id
     let state = this.state
     this.props.dispatch({
        type:'UPDATE_VOLUNTEER_INFO',
        payload:{
-        volunteerId, state
+        id, state
        } 
        
      });
