@@ -152,13 +152,12 @@ class MediaCard extends Component {
                         </Typography>
                     </CardContent>
                     <CardActions className={classes.actions}>
-                    <CardHeader
+                        <CardHeader
                             subheader={status}
                         />
-
                         {buttons}
-                        </CardActions>
-                        </Card>
+                    </CardActions>
+                </Card>
                 <Dialog
                     className={this.props.classes.dialog}
                     aria-labelledby="edit a volunteer event"
