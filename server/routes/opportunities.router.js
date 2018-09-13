@@ -85,6 +85,32 @@ router.get('/enrolled/:id', rejectUnauthenticated, (req, res) => {
         });
 });
 
+router.get('/info', rejectUnauthenticated, (req, res) => {
+    const queryText = `SELECT user_opportunities.user_id,
+                              user_opportunities.opportunity_id,
+                              users.first_name,
+                              users.last_name,
+                              opportunities.id,
+                              opportunities.title,
+                              opportunities.start_time,
+                              opportunities.end_time,
+                              opportunities.description,
+                              opportunities.date,
+                              opportunities.certification_needed,
+                              certifications.certification_name
+                       FROM "user_opportunities"
+                       LEFT OUTER JOIN "users" ON "users".id = "user_opportunities".user_id
+                       LEFT OUTER JOIN "opportunities" ON "opportunities".id = "user_opportunities".opportunity_id
+                       LEFT OUTER JOIN "certifications" ON "certifications".id = "opportunities".certification_needed;`;
+    pool.query(queryText) 
+        .then((results) => {
+            res.send(results.rows)
+        }).catch((err) => {
+            console.log(err);
+            res.sendStatus(500);
+        })
+});
+
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT
     user_opportunities.user_id,
@@ -139,6 +165,8 @@ certifications.certification_name
             res.sendStatus(500);
         })
 });
+
+
 
 router.post('/add_volunteer', rejectUnauthenticated, (req, res) => {
 
@@ -222,6 +250,20 @@ router.put('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) 
     updateOpportunityData.private_notes, updateOpportunityData.max_volunteers,
     updateOpportunityData.certification_needed];
 
+    pool.query(queryText, serializedData)
+        .then((result) => {
+            res.sendStatus(201);
+        })
+        .catch((error) => {
+            res.sendStatus(500);
+        })
+});
+
+router.put('/status/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
+    console.log(req.body, 'req body');
+    const queryText = `UPDATE "opportunities" SET "status" = $2 
+                       WHERE "id" = $1;`;
+    const serializedData = [req.params.id, req.body.status];
     pool.query(queryText, serializedData)
         .then((result) => {
             res.sendStatus(201);

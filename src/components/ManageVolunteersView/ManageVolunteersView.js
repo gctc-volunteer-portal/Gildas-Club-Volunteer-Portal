@@ -71,6 +71,8 @@ class ManageVolunteersTable extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'FETCH_VOLUNTEER_INFO' });
+        this.props.dispatch({ type: 'GET_NEW_VOLUNTEERS'});
+        this.props.dispatch({ type: 'GET_ALL_OPPORTUNITY_INFO'});
       
        
     }
@@ -120,6 +122,8 @@ class ManageVolunteersTable extends Component {
                 <h1>Volunteers</h1>
                 <Csv
                     data= {this.props.volunteers}
+                    newVolunteers = {this.props.newVolunteers}
+                    allOpportunitiesInfo = {this.props.allOpportunitiesInfo}
                 />
                 <Paper className={this.props.classes.root}>
                     <div className={this.props.classes.tableWrapper}>
@@ -172,6 +176,8 @@ class ManageVolunteersTable extends Component {
 const mapStateToProps = state => ({
     user: state.user,
     volunteers: state.volunteerInfo,
+    newVolunteers: state.volunteerReducer.newVolunteers,
+    allOpportunitiesInfo: state.opportunitiesReducer.allOpportunitiesInfo
 });
 
 const connectedManageVolunteersTable = connect(mapStateToProps)(ManageVolunteersTable);

@@ -47,6 +47,14 @@ const enrolledStatus = (state = false, action) => {
             return state;
     }
 }
+const allOpportunitiesInfo = (state = [], action) => {
+    switch(action.type) {
+        case 'OPPORTUNITIES_INFO':
+            return action.payload;
+        default: 
+            return state;
+    }
+}
 
 export default combineReducers({
     opportunitiesReducer,
@@ -54,4 +62,5 @@ export default combineReducers({
     certifiedVolunteers,
     singleVolunteerOpportunities,
     enrolledStatus,
+    allOpportunitiesInfo
 });

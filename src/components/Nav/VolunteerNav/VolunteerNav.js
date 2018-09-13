@@ -10,10 +10,12 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   nav:{
-    backgroundColor: '#DE2027',
+    backgroundColor: 'white',
     display: 'grid',
     gridTemplateColumns: '1fr 1fr 1fr',
-    color: 'blue'
+    color: 'blue',
+    borderStyle: 'solid',
+    borderColor: '#DE2027'
     //  grid-column: 1 / 1;
   }
 }
