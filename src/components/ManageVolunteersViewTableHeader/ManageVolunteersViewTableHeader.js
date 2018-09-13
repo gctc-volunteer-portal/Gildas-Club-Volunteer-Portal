@@ -12,6 +12,7 @@ const styles = theme => ({
   });
 
 const columns = [
+    { id: 'edit', label: ''},
     { id: 'first_name', label: 'First Name' },
     { id: 'middle_name', label: 'Middle Name' },
     { id: 'last_name', label: 'Last Name' },
