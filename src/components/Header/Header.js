@@ -10,6 +10,7 @@ import { Avatar, Button } from '@material-ui/core';
 import './header.css';
 
 const styles = {
+ 
   avatar: {
     margin: 10,
   },

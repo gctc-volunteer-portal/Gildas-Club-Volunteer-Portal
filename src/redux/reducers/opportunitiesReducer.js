@@ -35,13 +35,21 @@ const certifiedVolunteers = (state = [], action)=> {
             return action.payload;
         default:
             return state;
-
+            
     }
 }
 
 const enrolledStatus = (state = false, action) => {
     switch(action.type) {
         case 'SET_ENROLLMENT':
+            return action.payload;
+        default: 
+            return state;
+    }
+}
+const allOpportunitiesInfo = (state = [], action) => {
+    switch(action.type) {
+        case 'OPPORTUNITIES_INFO':
             return action.payload;
         default: 
             return state;
@@ -54,4 +62,5 @@ export default combineReducers({
     certifiedVolunteers,
     singleVolunteerOpportunities,
     enrolledStatus,
+    allOpportunitiesInfo
 });

@@ -12,6 +12,12 @@ import CardHeader from '@material-ui/core/CardHeader';
 import VolunteerOpportunityDialog from '../VolunteerViews/VolunteerOpportunityDialog/VolunteerOpportunityDialog';
 import moment from 'moment';
 import OpportunityAdminNoteDialogue from '../OpportunityAdminNoteDialogue/OpportunityAdminNoteDialogue';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const styles = {
 
@@ -65,6 +71,7 @@ class MediaCard extends Component {
             editEventIsOpen: false,
             opportunityToUpdate: {},
             opportunityId: '',
+            status: ''
         }
     }
 
@@ -87,12 +94,23 @@ class MediaCard extends Component {
             editEventIsOpen: false,
         });
     };
+    handleChange = event => {
+        this.setState({ status: event.target.value });
+        this.props.dispatch({
+            type: 'UPDATE_STATUS',
+            payload: {
+                opportunityId: this.props.opportunity.id,
+                status: event.target.value,
 
+            }
+        })
+    };
 
     render() {
         const { classes } = this.props;
         let buttons;
         let status;
+        let statusButton;
         if (this.props.opportunity.status == 1) {
             status = 'Staging'
         } else if (this.props.opportunity.status == 2) {
@@ -101,6 +119,27 @@ class MediaCard extends Component {
             status = 'Inactive'
         }
         if (this.props.state.user.access_level >= 2 && this.props.admin) {
+            statusButton = (
+                <FormControl className={classes.formControl}>
+                    <InputLabel shrink htmlFor="age-label-placeholder">
+                        Status
+                            </InputLabel>
+                    <Select
+                        value={this.state.status}
+                        onChange={this.handleChange}
+                        input={<Input name="age" id="age-label-placeholder" />}
+                        displayEmpty
+                        name="age"
+                        className={classes.selectEmpty}
+                    >
+                        <MenuItem value={1}>Staged</MenuItem>
+                        <MenuItem value={2}>Active</MenuItem>
+                        <MenuItem value={3}>Inactive</MenuItem>
+                    </Select>
+                    <FormHelperText>Change Status</FormHelperText>
+                </FormControl>
+            )
+    
             buttons = (<div className={classes.buttonGroup}>
                 <AdminManageVolunteersDialogue
                     opportunity={this.props.opportunity}
@@ -155,14 +194,15 @@ class MediaCard extends Component {
                             {this.props.opportunity.city}
                         </Typography>
                     </CardContent>
+                    
                     <CardActions className={classes.actions}>
+                    {statusButton}
                         <CardHeader
                             subheader={status}
                         />
-
                         {buttons}
-                        </CardActions>
-                        </Card>
+                    </CardActions>
+                </Card>
                 <Dialog
                     className={this.props.classes.dialog}
                     aria-labelledby="edit a volunteer event"

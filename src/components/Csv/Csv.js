@@ -31,7 +31,19 @@ class App extends React.Component {
                   <CSVLink
                     data={this.props.data}
                     filename={this.getFileName()}
-                    className="btn">Export to CSV ⬇</CSVLink>
+                    className="btn">Export All Volunteers to CSV ⬇</CSVLink>
+              </div>
+              <div className="large-2 columns">
+                  <CSVLink
+                    data={this.props.newVolunteers}
+                    filename={this.getFileName()}
+                    className="btn">Export New Volunteers to CSV ⬇</CSVLink>
+              </div>
+              <div className="large-2 columns">
+                  <CSVLink
+                    data={this.props.allOpportunitiesInfo}
+                    filename={this.getFileName()}
+                    className="btn">Export Opportunities Info to CSV ⬇</CSVLink>
               </div>
           </div>
 
