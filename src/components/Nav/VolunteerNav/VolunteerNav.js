@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../VolunteerNav/volunteerNav.css'
+import '../VolunteerNav/volunteerNav.css';
 import Announcement from '@material-ui/icons/Announcement';
 import AssignmentInd from '@material-ui/icons/AssignmentInd';
 import Assignment from '@material-ui/icons/Assignment';
