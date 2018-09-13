@@ -12,7 +12,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     FROM users
     LEFT OUTER JOIN "user_certifications" ON "users".id= user_certifications.user_id
     LEFT OUTER JOIN "user_opportunities" ON "users".id = user_opportunities.user_id
-    LEFT OUTER JOIN "opportunities" ON opportunities.id = user_opportunities.opportunity_id;`)
+    LEFT OUTER JOIN "opportunities" ON opportunities.id = user_opportunities.opportunity_id
+    WHERE users.active = true;`)
 .then((results) => {
     res.send(results.rows)
     // console.log(results.rows);

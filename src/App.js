@@ -14,6 +14,8 @@ import MyShifts from './components/VolunteerViews/MyShifts/MyShifts'
 import ManageAnnouncements from './components/ManageAnnouncements/ManageAnnouncements'
 import Announcements from './components/VolunteerViews/Announcements/Announcements'
 import UpcomingOpportunities from './components/VolunteerViews/UpcomingOpportunities/UpcomingOpportunities';
+import Reset from './components/ResetPassword/ResetPassword';
+import RequestReset from './components/RequestReset/RequestReset';
 
 import './styles/main.css';
 
@@ -80,6 +82,14 @@ const App = () => (
          <Route
           path="/announcements"
           component={Announcements}
+        />
+        <Route
+          path="/forgot_password"
+          component={RequestReset}
+        />
+        <Route
+          path="/reset_password"
+          component={Reset}
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
