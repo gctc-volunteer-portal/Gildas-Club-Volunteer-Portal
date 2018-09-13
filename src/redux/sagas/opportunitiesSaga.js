@@ -122,11 +122,11 @@ function* getCertifiedVolunteers(certificationId) {
 
 }
 
-function* checkEnrolled(action){
+function* checkEnrolled(action) {
     try {
         let enrolledStatus = false;
         const enrollment = yield call(axios.get, `/api/opportunities/enrolled/${action.payload.opportunityId}`);
-        if(enrollment.data.length > 0) {
+        if (enrollment.data.length > 0) {
             enrolledStatus = true;
         }
         yield dispatch({
@@ -134,10 +134,10 @@ function* checkEnrolled(action){
             payload: enrolledStatus
         })
     } catch (error) {
-              yield console.log(error);
+        yield console.log(error);
     }
 }
-        
+
 function* updateOpportunity(action) {
     try {
         yield call(axios.put, `/api/opportunities/${action.payload.opportunityId}`, action.payload.updateOpportunityData)
@@ -173,6 +173,17 @@ function* updateStatus(action){
         }
 }
 
+function* updateOpportunityAdminNote(action) {
+    try {
+        yield call(axios.put, `/api/opportunities/admin_note/${action.payload.opportunityId}`, action.payload.updateOpportunityNote)
+        yield dispatch({
+            type: 'GET_EVENTS'
+        })
+    } catch (err) {
+        yield console.log(err);
+    }
+}
+
 
 
 function* opportunitiesSaga() {
@@ -189,6 +200,7 @@ function* opportunitiesSaga() {
     yield takeEvery('VOLUNTEER_DELETE_ITEM', volunteerDeleteItem);
     yield takeEvery('GET_ALL_OPPORTUNITY_INFO', getAllOpportunityInfo)
     yield takeEvery('UPDATE_STATUS', updateStatus)
+    yield takeEvery('UPDATE_OPPORTUNITY_ADMIN_NOTE', updateOpportunityAdminNote);
 }
 
 export default opportunitiesSaga;

@@ -6,6 +6,7 @@ import Header from '../Header/Header';
 import AdminNav from '../Nav/AdminNav/AdminNav';
 import ManageVolunteersViewTableHeader from '../ManageVolunteersViewTableHeader/ManageVolunteersViewTableHeader';
 import ManageVolunteersViewTableRow from '../ManageVolunteersViewTableRow/ManageVolunteersViewTableRow';
+import AdminSingleVolunteerDialog from '../AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
 import Csv from '../Csv/Csv'
 import { withStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TablePagination, TableRow, Paper } from '@material-ui/core';
@@ -73,6 +74,7 @@ class ManageVolunteersTable extends Component {
         this.props.dispatch({ type: 'FETCH_VOLUNTEER_INFO' });
         this.props.dispatch({ type: 'GET_NEW_VOLUNTEERS'});
         this.props.dispatch({ type: 'GET_ALL_OPPORTUNITY_INFO'});
+        this.props.dispatch({type:'GET_CERTIFICATIONS_LIST'})
       
        
     }
@@ -182,6 +184,7 @@ const mapStateToProps = state => ({
     volunteers: state.volunteerInfo,
     newVolunteers: state.volunteerReducer.newVolunteers,
     allOpportunitiesInfo: state.opportunitiesReducer.allOpportunitiesInfo
+    
 });
 
 const connectedManageVolunteersTable = connect(mapStateToProps)(ManageVolunteersTable);

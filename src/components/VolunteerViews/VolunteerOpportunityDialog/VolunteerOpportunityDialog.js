@@ -6,13 +6,16 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core';
 import moment from 'moment';
-import {withStyles} from '@material-ui/core';
 
 const styles = {
     button: {
-        padding: 5,
+        margin: 5,
         alignItems: 'flex-end',
+    },
+    dialog: {
+        padding: 10,
     },
 };
 
@@ -86,17 +89,24 @@ class VolunteerOpportunityDialog extends React.Component {
                     onClose={this.handleClose}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
+                    className={this.props.classes.dialog}
                 >
                     <DialogTitle id="alert-dialog-title">{this.props.opportunity.title}</DialogTitle>
-                    <img src={this.props.opportunity.image} alt="opportunity" height="150" />
                     <DialogContent>
-                        <DialogTitle id="alert-dialog-title">{this.props.opportunity.certification_name}</DialogTitle>
+                        <img src={this.props.opportunity.image} alt="opportunity" height="300" width="300" />
+                    </DialogContent>
+                    <DialogTitle id="alert-dialog-title">{this.props.opportunity.certification_name}</DialogTitle>
+
+                    <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             Date: {moment(this.props.opportunity.date).format('dddd, MMMM D, YYYY')}
                         </DialogContentText>
+
                         <DialogContentText id="alert-dialog-description">
                             Time: {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')}
                         </DialogContentText>
+                    </DialogContent>
+                    <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             Location:
                         </DialogContentText>
@@ -109,6 +119,8 @@ class VolunteerOpportunityDialog extends React.Component {
                         <DialogContentText id="alert-dialog-description">
                             {this.props.opportunity.city}, {this.props.opportunity.state} {this.props.opportunity.zip}
                         </DialogContentText>
+                    </DialogContent>
+                    <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             {this.props.opportunity.description}
                         </DialogContentText>

@@ -14,7 +14,8 @@ const opportunitiesRouter = require('./routes/opportunities.router')
 const volunteersRouter = require('./routes/volunteers.router')
 const certificationsRouter = require('./routes/certifications.router')
 const autocompleteRouter = require('./routes/autocomplete.router')
-const announcementRouter = require('./routes/announcements.router')
+const announcementRouter = require('./routes/announcements.router');
+const passwordResetRouter = require('./routes/password-reset.router');
 
 
 // Body parser middleware
@@ -35,6 +36,7 @@ app.use('/api/volunteers', volunteersRouter)
 app.use('/api/certifications', certificationsRouter)
 app.use('/api/autocomplete', autocompleteRouter)
 app.use('/api/announcements', announcementRouter)
+app.use('/api/password', passwordResetRouter);
 
 // Serve static files
 app.use(express.static('build'));

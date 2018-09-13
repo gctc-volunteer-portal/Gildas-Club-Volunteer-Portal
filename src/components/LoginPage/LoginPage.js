@@ -74,25 +74,10 @@ class LoginPage extends Component {
     });
   }
 
-  renderAlert() {
-    if (this.props.login.message !== '') {
-      return (
-        <h2
-          className="alert"
-          role="alert"
-        >
-          {this.props.login.message}
-        </h2>
-      );
-    }
-    return (<span />);
-  }
-
   render() {
     return (
       <div>
         <Header />
-        {this.renderAlert()}
         <form onSubmit={this.login}>
           <h1>Login</h1>
             <TextField
@@ -127,6 +112,8 @@ class LoginPage extends Component {
               Log In
               </Button>
               <Link to="/register">Register</Link>
+              <br />
+              <Link to="/forgot_password">Forgot My Password</Link>
             </div>
         </form>
       </div>

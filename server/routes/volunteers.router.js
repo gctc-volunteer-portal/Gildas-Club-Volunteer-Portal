@@ -146,11 +146,11 @@ router.put('/updateInfo', (req, res) => {
                                             "secondary_phone"= $6, "street_address1"= $7, "street_address2"= $8, "city"= $9,
                                             "zip"= $10, "admin_notes"= $11, "active"= $12, "regular_basis"= $13, "specific_event"= $14,
                                             "as_needed"= $15, "limitations_allergies"= $16, "why_excited"= $17, "employer"= $18,
-                                             "job_title"= $19, "date_of_birth" = $20, "access_level" = $21 WHERE users."id" = $22;`
+                                             "job_title"= $19, "date_of_birth" = $20, "access_level" = $21 dynamics = $22 WHERE users."id" = $23;`
                                             pool.query(queryText, [info.first_name, info.middle_name, info.last_name, info.email, info.primary_phone, 
                                                 info.secondary_phone, info.street_address1, info.street_address2, info.city, info.zip, info.admin_notes, 
                                                 info.active, info.regular_basis, info.specific_event, info.as_needed, 
-                                                info.limitations_allergies, info.why_excited, info.employer, info.job_title, info.date_of_birth, info.access_level, req.body.id ])
+                                                info.limitations_allergies, info.why_excited, info.employer, info.job_title, info.date_of_birth, info.access_level, info.dynamics, req.body.id ])
                                                 .then(() => {
                                                     res.sendStatus(201)
                                                 })
@@ -159,6 +159,45 @@ router.put('/updateInfo', (req, res) => {
          }
 })
 
+router.put('/updateCerts', (req, res) => {
+    console.log('notice this:',req.body.certs)
+    console.log(req.body.id);
+    
+    // console.log( req.body.state.noogieland.certified);
+    // console.log(req.body.id);
+    const certs = Object.values(req.body.certs)
+   console.log(certs);
+   
+   
+    if(req.isAuthenticated){
+       let isError = false;
+for( let i = 0; i < certs.length; i++){
+    let queryText =`UPDATE user_certifications SET "is_certified" = ${certs[i].certified} WHERE  "certification_id" = ${certs[i].id} and "user_id" = ${req.body.id};`
+    console.log(certs[i].certified);
+    
+    queryText
+
+pool.query(queryText) .then(() => {
+
+}).catch(err => {
+                console.log(err)
+                isError = true
+      
+         })
+}
+if(isError == true){
+    res.sendStatus(500)
+}else{
+    res.sendStatus(201)
+}
+
+    }
+
+})
+            
+                   
+                  
+    
 
 
 
@@ -306,6 +345,5 @@ router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         });
 });
-
 
 module.exports = router;
