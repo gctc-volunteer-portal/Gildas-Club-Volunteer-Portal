@@ -11,6 +11,9 @@ import moment from 'moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import { DatePicker } from 'material-ui-pickers';
+import Input from '@material-ui/core/Input';
+
+
 
 
 export default connect()(class FormDialog extends React.Component {
@@ -77,25 +80,24 @@ export default connect()(class FormDialog extends React.Component {
           <DialogContent>
             <DialogContentText>
               Whats your announcement?
-            </DialogContentText>
+            </DialogContentText>          
             <TextField
               autoFocus
               margin="dense"
               id="title"
               label="Announcement Title"
-              type="email"
               fullWidth
               onChange={this.handleChangeFor("title")}
             />
              <TextField
-              autoFocus
-              margin="dense"
               id="description"
               label="Announcement Description"
-              type="email"
+              multiline
+              margin="dense"
               fullWidth
               onChange={this.handleChangeFor("description")}
-            />
+            />  
+    
           <DatePicker
            label="Select Date"
            showTodayButton
@@ -106,6 +108,7 @@ export default connect()(class FormDialog extends React.Component {
            animateYearScrolling={false}
  
          />
+         
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
