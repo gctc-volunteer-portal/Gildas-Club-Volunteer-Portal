@@ -11,6 +11,7 @@ const chance = new Chance();
 router.put('/forgot-pass', (req, res) => {
     let token = chance.string({length: 16, pool: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'});
     let email = req.body.email;
+    let expiration = Date.now() + 86400000;
 
     const mailOptions = {
         from: process.env.NODEMAILER_CLIENT_USER,
@@ -24,7 +25,6 @@ router.put('/forgot-pass', (req, res) => {
         .then(results => {
             user = results.rows[0]
             if(user) {
-                let expiration = Date.now() + 1440000;
                 queryText = `UPDATE users SET token = $1, token_expiration = $2 where email = $3;`
                 pool.query(queryText, [token, expiration, email])
                     .then(results => {
