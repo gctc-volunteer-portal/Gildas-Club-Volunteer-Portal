@@ -17,7 +17,7 @@ router.put('/forgot-pass', (req, res) => {
         from: process.env.NODEMAILER_CLIENT_USER,
         to: email,
         subject: `'Follow this link to reset your password'`,
-        text: `Use the link below to reset your password. Note that the link will expire in one hour. If you did not request this link, you may ignore this message. localhost:3000/#/reset_password?token=${token}`,
+        text: `Use the link below to reset your password. Note that the link will expire in one hour. If you did not request this link, you may ignore this message. Replies to this address will not be reviewed. If you have any questions or concerns, contact Gilda's Club Twin Cities directly. localhost:3000/#/reset_password?token=${token}`,
     }
 
     let queryText = `SELECT * FROM users WHERE users.email = $1;`
