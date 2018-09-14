@@ -191,7 +191,8 @@ class MediaCard extends Component {
                         <Typography className={classes.typography} component="p">
                             Location: <br />
                             {this.props.opportunity.address_line1}<br />
-                            {this.props.opportunity.city}
+                            {this.props.opportunity.city}<br />
+                            {this.props.opportunity.state} {this.props.opportunity.zip}
                         </Typography>
                     </CardContent>
                     
