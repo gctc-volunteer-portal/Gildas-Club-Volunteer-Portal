@@ -19,7 +19,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-const styles = {
+const styles = theme => ({
 
     card: {
         width: '90%',
@@ -41,6 +41,7 @@ const styles = {
         paddingLeft: 16,
         paddingTop: 16,
         paddingBottom: 16,
+        fontSize: 15,
     },
     actions: {
         display: 'flex',
@@ -61,7 +62,11 @@ const styles = {
     buttonGroup: {
         display: 'inline-flex',
     },
-};
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 100,
+      },
+});
 
 class MediaCard extends Component {
     constructor(props) {
@@ -120,26 +125,30 @@ class MediaCard extends Component {
         }
         if (this.props.state.user.access_level >= 2 && this.props.admin) {
             statusButton = (
-                <FormControl className={classes.formControl}>
-                    <InputLabel shrink htmlFor="age-label-placeholder">
-                        Status
-                            </InputLabel>
-                    <Select
-                        value={this.state.status}
-                        onChange={this.handleChange}
-                        input={<Input name="age" id="age-label-placeholder" />}
-                        displayEmpty
-                        name="age"
-                        className={classes.selectEmpty}
-                    >
-                        <MenuItem value={1}>Staged</MenuItem>
-                        <MenuItem value={2}>Active</MenuItem>
-                        <MenuItem value={3}>Inactive</MenuItem>
-                    </Select>
-                    <FormHelperText>Change Status</FormHelperText>
-                </FormControl>
+                <div>
+                    <Typography className={classes.typography} style={{textAlign: 'right'}}>
+                        {status}
+                    </Typography>
+                    <FormControl className={classes.formControl} fullWidth={true}>
+                        <InputLabel shrink htmlFor="age-label-placeholder">
+                            Change Status
+                        </InputLabel>
+                        <Select
+                            value={this.state.status}
+                            onChange={this.handleChange}
+                            input={<Input name="age" id="age-label-placeholder" />}
+                            displayEmpty
+                            name="age"
+                            className={classes.selectEmpty}
+                        >
+                            <MenuItem value={1}>Staged</MenuItem>
+                            <MenuItem value={2}>Active</MenuItem>
+                            <MenuItem value={3}>Inactive</MenuItem>
+                        </Select>
+                    </FormControl>
+                </div>
             )
-    
+
             buttons = (<div className={classes.buttonGroup}>
                 <AdminManageVolunteersDialogue
                     opportunity={this.props.opportunity}
@@ -191,16 +200,13 @@ class MediaCard extends Component {
                         <Typography className={classes.typography} component="p">
                             Location: <br />
                             {this.props.opportunity.address_line1}<br />
-                            {this.props.opportunity.city}<br />
-                            {this.props.opportunity.state} {this.props.opportunity.zip}
+                            {this.props.opportunity.city}, {this.props.opportunity.state} {this.props.opportunity.zip}<br />
                         </Typography>
                     </CardContent>
-                    
+
                     <CardActions className={classes.actions}>
-                    {statusButton}
-                        <CardHeader
-                            subheader={status}
-                        />
+                        {statusButton}
+
                         {buttons}
                     </CardActions>
                 </Card>

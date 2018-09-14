@@ -16,7 +16,12 @@ const styles = {
   textField: {
     width: '600px',
     overflow: 'hidden',
-  }
+  },
+  button: {
+    margin: 5,
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
 }
 class OpportunityAdminNoteDialogue extends Component {
 
@@ -157,6 +162,7 @@ class OpportunityAdminNoteDialogue extends Component {
     return (
       <React.Fragment>
         <Button
+          className={this.props.classes.button}
           color="primary"
           variant="raised"
           size="small"
