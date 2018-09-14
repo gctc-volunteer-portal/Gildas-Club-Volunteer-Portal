@@ -301,7 +301,7 @@ router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
     opportunities.start_time,
     opportunities.end_time,
     opportunities.address_line1,
-    opportunities.address_line1,
+    opportunities.address_line2,
     opportunities.city,
     opportunities.state,
     opportunities.zip,
@@ -313,28 +313,19 @@ router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
     user_certifications.user_id,
     user_certifications.certification_id,
     user_certifications.is_certified,
-    users.first_name,
-    users.middle_name,
-    users.last_name,
-    users.email,
-    users.primary_phone,
-    users.secondary_phone,
-    users.access_level,
-    users.admin_notes,
-    users.active,
-    users.regular_basis,
-    users.specific_event,
-    users.as_needed,
-    users.limitations_allergies,
-    users.why_excited,
-    users.employer,
-    users.job_title,
-    users.date_of_birth,
-    certifications.certification_name FROM opportunities 
-                       JOIN user_certifications ON certification_needed = certification_id
-                       JOIN users ON user_certifications.user_id = users.id
-                       JOIN certifications ON opportunities.certification_needed = certifications.id
+    certifications.certification_name,
+	count("user_opportunities"."opportunity_id")as number_of_volunteers
+    FROM opportunities 
+                       LEFT JOIN user_certifications ON certification_needed = certification_id
+                       LEFT JOIN users ON user_certifications.user_id = users.id
+                       LEFT JOIN certifications ON opportunities.certification_needed = certifications.id
+                       LEFT JOIN user_opportunities ON users.id = user_opportunities.user_id
                        WHERE users.id = $1 AND is_certified = true AND opportunities.status = 2
+                       GROUP BY opportunities.id,
+                       user_certifications.user_id,
+                       user_certifications.certification_id,
+                       user_certifications.is_certified,
+                       certifications.certification_name
                        ORDER BY opportunities.date, opportunities.start_time;`
     pool.query(queryText, [req.user.id])
         .then((results) => {

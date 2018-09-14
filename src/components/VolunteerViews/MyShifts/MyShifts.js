@@ -5,7 +5,6 @@ import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav'
 import Header from '../../Header/Header';
 import OpportunitiesCardAdminView from '../../OpportunitiesCardAdminView/OpportunitiesCardAdminView';
 import { USER_ACTIONS } from '../../../redux/actions/userActions'
-// import { triggerLogout } from '../../redux/actions/loginActions';
 
 
 const mapStateToProps = state => ({

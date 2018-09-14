@@ -12,9 +12,9 @@
 
 #tools {
     grid-column-start: 3;
-    padding: 20px;
-    display: flex;
-    justify-content: flex-end;
+    /* padding: 20px; */
+    display: flex; 
+    align-items: center;
     flex-direction: column;
 }
 
