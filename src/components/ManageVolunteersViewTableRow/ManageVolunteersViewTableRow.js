@@ -57,6 +57,7 @@ console.log(this.props.volunteer);
       
         return (
             <TableRow className={this.props.classes.row}>
+                <CustomTableCell>{editButton}</CustomTableCell>
                 <CustomTableCell>{this.props.volunteer.first_name}</CustomTableCell>
                 <CustomTableCell>{this.props.volunteer.middle_name}</CustomTableCell>
                 <CustomTableCell>{this.props.volunteer.last_name}</CustomTableCell>
@@ -75,7 +76,6 @@ console.log(this.props.volunteer);
                 <CustomTableCell>{this.certified(this.props.volunteer.special1)}</CustomTableCell>
                 <CustomTableCell>{this.certified(this.props.volunteer.special2)}</CustomTableCell>
                 <CustomTableCell>{this.certified(this.props.volunteer.special3)}</CustomTableCell>
-                <CustomTableCell>{editButton}</CustomTableCell>
             </TableRow>
         )
     }

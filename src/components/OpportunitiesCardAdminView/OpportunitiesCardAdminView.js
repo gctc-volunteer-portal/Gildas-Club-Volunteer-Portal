@@ -19,7 +19,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-const styles = {
+const styles = theme => ({
 
     card: {
         width: '90%',
@@ -41,6 +41,8 @@ const styles = {
         paddingLeft: 16,
         paddingTop: 16,
         paddingBottom: 16,
+        fontSize: 15,
+        fontStyle: 'normal',
     },
     actions: {
         display: 'flex',
@@ -56,12 +58,20 @@ const styles = {
     button: {
         margin: 5,
         display: 'flex',
-        alignItems: 'flex-end',
     },
     buttonGroup: {
         display: 'inline-flex',
     },
-};
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 100,
+    },
+    goToTheEnd: {
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+    },
+});
 
 class MediaCard extends Component {
     constructor(props) {
@@ -108,6 +118,7 @@ class MediaCard extends Component {
 
     render() {
         const { classes } = this.props;
+        let neededVolunteers = this.props.opportunity.max_volunteers - this.props.opportunity.number_of_volunteers;
         let buttons;
         let status;
         let statusButton;
@@ -120,49 +131,66 @@ class MediaCard extends Component {
         }
         if (this.props.state.user.access_level >= 2 && this.props.admin) {
             statusButton = (
-                <FormControl className={classes.formControl}>
-                    <InputLabel shrink htmlFor="age-label-placeholder">
-                        Status
-                            </InputLabel>
-                    <Select
-                        value={this.state.status}
-                        onChange={this.handleChange}
-                        input={<Input name="age" id="age-label-placeholder" />}
-                        displayEmpty
-                        name="age"
-                        className={classes.selectEmpty}
-                    >
-                        <MenuItem value={1}>Staged</MenuItem>
-                        <MenuItem value={2}>Active</MenuItem>
-                        <MenuItem value={3}>Inactive</MenuItem>
-                    </Select>
-                    <FormHelperText>Change Status</FormHelperText>
-                </FormControl>
+                <div>
+                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
+                        {status}
+                    </Typography>
+                    <FormControl className={classes.formControl} fullWidth={true}>
+                        <InputLabel shrink htmlFor="age-label-placeholder">
+                            Change Status
+                        </InputLabel>
+                        <Select
+                            value={this.state.status}
+                            onChange={this.handleChange}
+                            input={<Input name="age" id="age-label-placeholder" />}
+                            displayEmpty
+                            name="age"
+                            className={classes.selectEmpty}
+                        >
+                            <MenuItem value={1}>Staged</MenuItem>
+                            <MenuItem value={2}>Active</MenuItem>
+                            <MenuItem value={3}>Inactive</MenuItem>
+                        </Select>
+                    </FormControl>
+                </div>
             )
-    
-            buttons = (<div className={classes.buttonGroup}>
-                <AdminManageVolunteersDialogue
-                    opportunity={this.props.opportunity}
-                />
-                <Button
-                    className={classes.button}
-                    color="primary"
-                    variant="raised"
-                    size="small"
-                    onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
-                >
-                    Edit Opportunity
-                </Button>
-                <OpportunityAdminNoteDialogue
-                    opportunityId={this.props.opportunity.id}
-                    opportunityNote={this.props.opportunity.private_notes}
-                />
-            </div>)
+
+            buttons = (
+                <div>
+                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
+                        Need {neededVolunteers} of {this.props.opportunity.max_volunteers} volunteers
+                    </Typography>
+                    <div className={classes.buttonGroup}>
+                        <AdminManageVolunteersDialogue
+                            opportunity={this.props.opportunity}
+                        />
+                        <Button
+                            className={classes.button}
+                            color="primary"
+                            variant="raised"
+                            size="small"
+                            onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
+                        >
+                            Edit Opportunity
+                        </Button>
+                        <OpportunityAdminNoteDialogue
+                            opportunityId={this.props.opportunity.id}
+                            opportunityNote={this.props.opportunity.private_notes}
+                        />
+                    </div>
+                </div>
+            )
         } else {
             buttons = (
-                <div className={classes.buttonGroup}>
-                    <VolunteerOpportunityDialog opportunity={this.props.opportunity} />
+                <div className="goToTheEnd">
+                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
+                        Need {neededVolunteers} of {this.props.opportunity.max_volunteers} volunteers
+                    </Typography>
+                    <div className={classes.buttonGroup}>
+                        <VolunteerOpportunityDialog opportunity={this.props.opportunity} className={classes.buttonGroup} />
+                    </div>
                 </div>
+
             )
         }
 
@@ -190,16 +218,14 @@ class MediaCard extends Component {
                         </Typography>
                         <Typography className={classes.typography} component="p">
                             Location: <br />
-                            {this.props.opportunity.address_line1}<br />
-                            {this.props.opportunity.city}
+                            {this.props.opportunity.address_line1}
+                            {this.props.opportunity.address_line2}<br />
+                            {this.props.opportunity.city}, {this.props.opportunity.state} {this.props.opportunity.zip}<br />
                         </Typography>
                     </CardContent>
-                    
+
                     <CardActions className={classes.actions}>
-                    {statusButton}
-                        <CardHeader
-                            subheader={status}
-                        />
+                        <div>{statusButton}</div>
                         {buttons}
                     </CardActions>
                 </Card>

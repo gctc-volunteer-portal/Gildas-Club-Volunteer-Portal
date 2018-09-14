@@ -6,7 +6,6 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsPr
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import { DatePicker, TimePicker } from 'material-ui-pickers';
 import '../CreateOpportunityForm/CreateOpportunityForm.css';
-import AdminSingleVolunteerDialog from '../AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
 
 const styles = {
   formContainer: {
@@ -106,7 +105,6 @@ class CreateOpportunityForm extends Component {
   }
 
   render() {
-    // console.log(this.state.date, 'date in state')
     // map through certifications list, which is stored on redux store, and display them on DOM
     const certificationsList = this.props.certificates.map((certificate, index) => {
       return (
@@ -153,7 +151,7 @@ class CreateOpportunityForm extends Component {
             onChange={this.handleStartTimeChange}
             className={this.props.classes.datePicker}
           />
-          
+
           {/* Input for volunteer opportunity end time */}
           <TimePicker
             autoOk
@@ -171,6 +169,7 @@ class CreateOpportunityForm extends Component {
             type="text"
             name="address_line1"
             fullWidth
+            value={this.state.address_line1}
             onChange={this.handleInputChangeFor('address_line1')}
           />
           {/* Input for volunteer opportunity street address 2 */}
@@ -187,6 +186,7 @@ class CreateOpportunityForm extends Component {
             type="text"
             name="city"
             fullWidth
+            value={this.state.city}
             onChange={this.handleInputChangeFor('city')}
           />
           {/* Input for volunteer opportunity location State */}
@@ -195,6 +195,7 @@ class CreateOpportunityForm extends Component {
             type="text"
             name="state"
             fullWidth
+            value={this.state.state}
             onChange={this.handleInputChangeFor('state')}
           />
           {/* Input for volunteer opportunity location zipcode  */}
@@ -203,6 +204,7 @@ class CreateOpportunityForm extends Component {
             type="number"
             name="zip"
             fullWidth
+            value={this.state.zip}
             onChange={this.handleInputChangeFor('zip')}
           />
           {/* Input for # of volunteers needed for this volunteer opportunity */}
@@ -241,7 +243,7 @@ class CreateOpportunityForm extends Component {
           />
           {/* Radio inputs to select required certification */}
           <RadioGroup
-            name="deliveryType"
+            name="certification"
             value={this.state.certification_needed.toString()}
             onChange={this.handleInputChangeFor('certification_needed')}>
             {certificationsList}
@@ -251,6 +253,7 @@ class CreateOpportunityForm extends Component {
             className={this.props.classes.button}
             onClick={this.addOpportunity}
             variant="raised"
+            size="small"
             color="primary"
           >
             Create
@@ -260,6 +263,7 @@ class CreateOpportunityForm extends Component {
             className={this.props.classes.button}
             onClick={this.props.closeCreateEvent}
             variant="raised"
+            size="small"
             color="primary"
           >
             Cancel

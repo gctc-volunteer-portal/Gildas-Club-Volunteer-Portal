@@ -18,6 +18,11 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
   },
+  button: {
+    margin: 5,
+    display: 'flex',
+    flexDirection: 'column',
+  }
 };
 
 
@@ -47,7 +52,7 @@ class Header extends Component {
     let viewButton = null;
 
     let logoutButton = (
-      <Button variant="outlined" color="secondary"
+      <Button variant="outlined" color="secondary" size="small" fullWidth={false} className={this.props.classes.button}
         onClick={this.logout}
       >
         Log Out
@@ -61,7 +66,7 @@ class Header extends Component {
 
     if (this.props.admin) {
       viewButton = (
-        <Button variant="outlined" color="secondary"
+        <Button variant="outlined" color="secondary" size="small" fullWidth={false} className={this.props.classes.button}
           onClick={this.goToVolunteer}
         >
           My Volunteer Tools
@@ -70,7 +75,7 @@ class Header extends Component {
     }
     else {
       viewButton = (
-        <Button variant="outlined" color="secondary"
+        <Button variant="outlined" color="secondary" size="small" fullWidth={false} className={this.props.classes.button}
           onClick={this.goToAdmin}
         >
           My Manager Tools
@@ -95,8 +100,8 @@ class Header extends Component {
           <div className={this.props.classes.row}>
             <Avatar className={this.props.classes.avatar}>{initials}</Avatar>
           </div>
-          {viewButton}
           {logoutButton}
+          {viewButton}
         </React.Fragment>
       )
     }
@@ -111,8 +116,7 @@ class Header extends Component {
 
     return (
       <div className="instructions" id="header">
-        <img src="/images/GCTC_Logo.jpg" alt="Gilda's Club Twin Cities Logo" height="150" />
-
+        <img src="/images/GCTC_Logo.jpg" onClick={() => {this.props.history.push('/home')}} alt="Gilda's Club Twin Cities Logo" height="150" />
         <div id="quote">
           <p>Life is about not knowing, having to change, taking the moment and making the best of it, without knowing what's going to happen next.
         <br />
