@@ -34,7 +34,7 @@ const styles = {
     },
     indChip:{
       marginBottom:'5px',
-      width:'400px',
+      width:'250px',
       testAlign:'center'
       // color: ' #DE2027'
       
@@ -43,17 +43,22 @@ const styles = {
       // backgroundColor:'#DE2027'
     },
     chip:{
-      marginBottom:'10px',
-      width: '-30%',
-      height: '480px',
-      margin: '20%  right',
+      position: 'absolute',
+      marginTop: '10px',
+      marginBottom:'px',
+      width: '220px',
+      height: '440px',
+      // margin: '60%  ',
       padding: '30px',
       borderRadius: '10px',
       float: 'right',
-      // marginBottom: '10px',
-      marginLeft:'-150px',
+      bottom: '-300px',
+      right: '50px',
+      left:' 650px',
+      // marginRight:'40%',
+      // marginTop:'13px',
       border: '2px solid red',
-      verticalAlign:'center'
+      verticalAlign:'center',
     },
     switch:{
       marginBottom:'10px',
@@ -65,6 +70,13 @@ const styles = {
       borderRadius: '20px',
       float: 'right',
       position: 'absolute'
+    },
+    cert:{
+     textAlign: 'center',
+     position: 'absolute',
+     top:'-60px',
+    //  right: '-10px'
+     
     }
     
       
@@ -191,7 +203,7 @@ handleClose = () => {
   updateVolunteerInfo = (event) => {
     event.preventDefault()
     console.log(this.state);
-    let volunteerId = this.props.volunteer.i
+    let volunteerId = this.props.volunteer.id
     let state = this.state
     this.props.dispatch({
        type:'UPDATE_VOLUNTEER_INFO',
@@ -386,10 +398,8 @@ handleClose = () => {
         <form onSubmit={this.updateVolunteerInfo}>
         
         
-        <p>{JSON.stringify(this.state.certs.aVsupport.certified)}</p>
-        <p>{JSON.stringify(this.state.certs.noogieland.certified)}</p>
     
-        {/* <p>{JSON.stringify(this.state.chip.color)}</p>  */}
+       
 
           <h1>Edit volunteer Info</h1>
           <FormControl>
@@ -536,13 +546,12 @@ handleClose = () => {
              <FormLabel>
               Are you interested in volunteering:
               </FormLabel>
-              <p>{JSON.stringify(this.state.as_needed)}</p>
-          <FormControlLabel control={
-                                     <Checkbox value={this.props.currentVolunteer.regular_basis} 
-                                               checked={this.state.regular_basis}
-                                               onChange={this.handleChange('regular_basis')} />} 
-                                               label="On A Regular Basis (once a week, twice a month, etc.) "
-                                     />
+              
+          <FormControlLabel control={<Checkbox value={this.props.currentVolunteer.regular_basis} 
+          checked={this.state.regular_basis}
+                           onChange={this.handleChange('regular_basis')} />} 
+                            label="On A Regular Basis (once a week, twice a month, etc.) "
+                            />
 
            <FormControlLabel control={<Checkbox value={this.props.currentVolunteer.specific_event} 
                        checked={this.state.specific_event}
@@ -599,19 +608,19 @@ onChange={this.handleChange('as_needed')}/>}
             >
               Cancel
               </Button> */} 
-               {/* <FormLabel className={this.props.classes.formLabel}>
+               <FormLabel className={this.props.classes.formLabel}>
                Notes:
               </FormLabel>
               <textarea
               type="text"
-              name="admin_notes"
+              name="admin notes"
               fullWidth
               multiline={true}
-              value={adminNotes}
+              value={this.state.admin_notes}
               onChange={this.handleInputChangeFor('admin_notes')}
               className={this.props.classes.textarea}
               // className="textarea"
-            ></textarea> */}
+            ></textarea>
           </FormControl>
           <Button
               type="submit"
@@ -629,15 +638,15 @@ onChange={this.handleChange('as_needed')}/>}
               Cancel
               </Button> 
         </form> 
-        <br/>
-        <br />
-        <br />
+      
+        
 
-        <section className={`"aside", ${this.props.classes.chip}`}>
+        <section className={this.props.classes.chip}>
          
-
+                <h2 className={this.props.classes.cert}>Certifications</h2>
           <FormControlLabel control={<Chip  
           label="Noogie Land"
+          className={this.props.classes.indChip}
           checked={this.state.certs.noogieland.certified}clickable
           color={noogieLand} value="noogieland" 
           onClick={()=>this.handleNoogieLandCert('noogieland')} 
@@ -646,6 +655,7 @@ onChange={this.handleChange('as_needed')}/>}
 
            <FormControlLabel control={<Chip  
           label="A/V Support"
+          className={this.props.classes.indChip}
           checked={this.state.certs.aVsupport.certified}clickable
           color={avSupport} value="aVsupport" 
           onClick={()=>this.handleNoogieLandCert('aVsupport')} 
@@ -654,6 +664,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Cash Handling"
+          className={this.props.classes.indChip}
           checked={this.state.certs.cash_handling.certified}clickable
           color={cashHandling} value="cash_handling" 
           onClick={()=>this.handleNoogieLandCert('cash_handling')} 
@@ -662,6 +673,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Clinic Ambassador"
+          className={this.props.classes.indChip}
           checked={this.state.certs.clinic_ambassador.certified}clickable
           color={clinicAmbassador} value="clinic_ambassador" 
           onClick={()=>this.handleNoogieLandCert('clinic_ambassador')} 
@@ -670,6 +682,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Communications"
+          className={this.props.classes.indChip}
           checked={this.state.certs.communications.certified}clickable
           color={communications} value="communications" 
           onClick={()=>this.handleNoogieLandCert('communications')} 
@@ -678,6 +691,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Data Entry"
+          className={this.props.classes.indChip}
           checked={this.state.certs.data_entry.certified}clickable
           color={dataEntry} value="data_entry" 
           onClick={()=>this.handleNoogieLandCert('data_entry')} 
@@ -686,6 +700,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Gilda Greeter"
+          className={this.props.classes.indChip}
           checked={this.state.certs.gilda_greeter.certified}clickable
           color={gildaGreeter} value="gilda_greeter" 
           onClick={()=>this.handleNoogieLandCert('gilda_greeter')} 
@@ -694,6 +709,7 @@ onChange={this.handleChange('as_needed')}/>}
     
           <FormControlLabel control={<Chip  
           label="instructor"
+          className={this.props.classes.indChip}
           checked={this.state.certs.instructor.certified}clickable
           color={instructor} value="instructor" 
           onClick={()=>this.handleNoogieLandCert('instructor')} 
@@ -702,6 +718,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Outreach Ambassador"
+          className={this.props.classes.indChip}
           checked={this.state.certs.outreach_ambassador.certified}clickable
           color={outreachAmassador} value="outreach_ambassador" 
           onClick={()=>this.handleNoogieLandCert('outreach_ambassador')} 
@@ -710,6 +727,7 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Special 1"
+          className={this.props.classes.indChip}
           checked={this.state.certs.special_one.certified}clickable
           color={specialOne} value="special_one" 
           onClick={()=>this.handleNoogieLandCert('special_one')} 
@@ -718,6 +736,7 @@ onChange={this.handleChange('as_needed')}/>}
       
           <FormControlLabel control={<Chip  
           label="Special 2"
+          className={this.props.classes.indChip}
           checked={this.state.certs.special_two.certified}clickable
           color={specialTwo} value="special_two" 
           onClick={()=>this.handleNoogieLandCert('special_two')} 
@@ -726,18 +745,20 @@ onChange={this.handleChange('as_needed')}/>}
 
           <FormControlLabel control={<Chip  
           label="Special 3"
+          className={this.props.classes.indChip}
           checked={this.state.certs.special_three.certified}clickable
           color={specialThree} value="special_three" 
           onClick={()=>this.handleNoogieLandCert('special_three')} 
           id="special_three" />}/>
           <br />
 
-          <FormControlLabel control={<Chip  
+          {/* <FormControlLabel control={<Chip  
           label="Open To All Volunteers"
+          className={this.props.classes.indChip}
           checked={this.state.certs.open_to_all.certified}clickable
           color={openToAllVolunteers} value="open_To_all_" 
           onClick={()=>this.handleNoogieLandCert('open_to_all')} 
-          id="special_three" />}/>
+          id="special_three" />}/> */}
           <br />
           <div className={this.props.classes.switch}>
           {toggleAccess}
@@ -748,8 +769,6 @@ onChange={this.handleChange('as_needed')}/>}
            </section>
          
 
-         
-       
         </div>
         </Dialog>
       </React.Fragment>

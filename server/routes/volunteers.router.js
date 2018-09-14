@@ -139,18 +139,18 @@ router.get('/indVolunteer/:id/', (req, res) => {
 
 //edting volunteer
 router.put('/updateInfo', (req, res) => {
-    // console.log('I have :', req.body.state);
+    console.log('I have :', req.body.volunteerId);
    let info = req.body.state
     if(req.isAuthenticated){
         const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $2, "last_name" = $3, "email"= $4 , "primary_phone"= $5,
                                             "secondary_phone"= $6, "street_address1"= $7, "street_address2"= $8, "city"= $9,
                                             "zip"= $10, "admin_notes"= $11, "active"= $12, "regular_basis"= $13, "specific_event"= $14,
                                             "as_needed"= $15, "limitations_allergies"= $16, "why_excited"= $17, "employer"= $18,
-                                             "job_title"= $19, "date_of_birth" = $20, "access_level" = $21 dynamics = $22 WHERE users."id" = $23;`
+                                             "job_title"= $19, "date_of_birth" = $20, "access_level" = $21, "dynamics_id"= $22, "state" = $23 WHERE users."id" = $24;`
                                             pool.query(queryText, [info.first_name, info.middle_name, info.last_name, info.email, info.primary_phone, 
                                                 info.secondary_phone, info.street_address1, info.street_address2, info.city, info.zip, info.admin_notes, 
                                                 info.active, info.regular_basis, info.specific_event, info.as_needed, 
-                                                info.limitations_allergies, info.why_excited, info.employer, info.job_title, info.date_of_birth, info.access_level, info.dynamics, req.body.id ])
+                                                info.limitations_allergies, info.why_excited, info.employer, info.job_title, info.date_of_birth, info.access_level, info.dynamics_id, info.state, req.body.volunteerId ])
                                                 .then(() => {
                                                     res.sendStatus(201)
                                                 })
@@ -301,7 +301,7 @@ router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
     opportunities.start_time,
     opportunities.end_time,
     opportunities.address_line1,
-    opportunities.address_line1,
+    opportunities.address_line2,
     opportunities.city,
     opportunities.state,
     opportunities.zip,
@@ -313,28 +313,19 @@ router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
     user_certifications.user_id,
     user_certifications.certification_id,
     user_certifications.is_certified,
-    users.first_name,
-    users.middle_name,
-    users.last_name,
-    users.email,
-    users.primary_phone,
-    users.secondary_phone,
-    users.access_level,
-    users.admin_notes,
-    users.active,
-    users.regular_basis,
-    users.specific_event,
-    users.as_needed,
-    users.limitations_allergies,
-    users.why_excited,
-    users.employer,
-    users.job_title,
-    users.date_of_birth,
-    certifications.certification_name FROM opportunities 
-                       JOIN user_certifications ON certification_needed = certification_id
-                       JOIN users ON user_certifications.user_id = users.id
-                       JOIN certifications ON opportunities.certification_needed = certifications.id
+    certifications.certification_name,
+	count("user_opportunities"."opportunity_id")as number_of_volunteers
+    FROM opportunities 
+                       LEFT JOIN user_certifications ON certification_needed = certification_id
+                       LEFT JOIN users ON user_certifications.user_id = users.id
+                       LEFT JOIN certifications ON opportunities.certification_needed = certifications.id
+                       LEFT JOIN user_opportunities ON users.id = user_opportunities.user_id
                        WHERE users.id = $1 AND is_certified = true AND opportunities.status = 2
+                       GROUP BY opportunities.id,
+                       user_certifications.user_id,
+                       user_certifications.certification_id,
+                       user_certifications.is_certified,
+                       certifications.certification_name
                        ORDER BY opportunities.date, opportunities.start_time;`
     pool.query(queryText, [req.user.id])
         .then((results) => {

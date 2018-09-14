@@ -30,8 +30,8 @@ const styles = theme => ({
     overflowX: 'auto',
   },
   table: {
-    minWidth: 700,
-    hieght: 200
+    minWidth: 800,
+    maxHeight: 100
   },
   row: {
     '&:nth-of-type(odd)': {

@@ -26,8 +26,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     opportunities.private_notes,
     opportunities.max_volunteers,
     opportunities.certification_needed,
-    certifications.certification_name FROM opportunities
-    JOIN certifications on opportunities.certification_needed = certifications.id
+    certifications.certification_name,
+    count(user_opportunities.opportunity_id)as number_of_volunteers FROM opportunities
+    LEFT JOIN certifications on opportunities.certification_needed = certifications.id
+    LEFT JOIN user_opportunities on opportunities.id = user_opportunities.opportunity_id
+    GROUP BY opportunities.id, certifications.certification_name
     ORDER BY opportunities.date, opportunities.start_time;`;
     pool.query(queryText)
         .then((results) => {
@@ -56,11 +59,12 @@ router.get('/volunteer', rejectUnauthenticated, (req, res) => {
 	"opportunities"."status",
 	"opportunities"."private_notes",
 	"opportunities"."max_volunteers",
-	"certifications"."certification_name"
-    FROM "opportunities"
-    JOIN "user_opportunities" on "opportunities"."id" = "user_opportunities"."opportunity_id"
-    JOIN "certifications" on "opportunities"."certification_needed" = "certifications"."id"
+    "certifications"."certification_name",
+    count("user_opportunities"."opportunity_id")as number_of_volunteers FROM "opportunities"
+    LEFT JOIN "user_opportunities" on "opportunities"."id" = "user_opportunities"."opportunity_id"
+    LEFT JOIN "certifications" on "opportunities"."certification_needed" = "certifications"."id"
     WHERE "user_opportunities"."user_id" = $1 AND "opportunities"."status" = 2
+    GROUP BY opportunities.id, certifications.certification_name
     ORDER BY opportunities.date, opportunities.start_time;`;
     pool.query(queryText, [req.user.id])
         .then((results) => {

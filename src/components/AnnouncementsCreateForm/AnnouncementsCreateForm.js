@@ -64,13 +64,15 @@ export default connect()(class FormDialog extends React.Component {
     return (
       <React.Fragment>
       <MuiPickersUtilsProvider utils={MomentUtils}>
+      <div style={{margin: 50}}>
         <Button
                     variant="raised"
                     color="primary"
                     onClick={this.handleClickOpen}
                   >
                     Create Announcement
-                  </Button>
+        </Button>
+        </div>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
