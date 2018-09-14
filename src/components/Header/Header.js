@@ -117,7 +117,6 @@ class Header extends Component {
     return (
       <div className="instructions" id="header">
         <img src="/images/GCTC_Logo.jpg" onClick={() => {this.props.history.push('/home')}} alt="Gilda's Club Twin Cities Logo" height="150" />
-
         <div id="quote">
           <p>Life is about not knowing, having to change, taking the moment and making the best of it, without knowing what's going to happen next.
         <br />

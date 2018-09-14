@@ -11,8 +11,12 @@ import moment from 'moment';
 
 const styles = {
     button: {
-        margin: 5,
-        alignItems: 'flex-end',
+        marginTop: 5,
+        marginBottom: 5,
+        marginLeft: 5,
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'baseline',
     },
     dialog: {
         padding: 10,

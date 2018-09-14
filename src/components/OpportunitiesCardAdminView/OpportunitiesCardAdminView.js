@@ -42,6 +42,7 @@ const styles = theme => ({
         paddingTop: 16,
         paddingBottom: 16,
         fontSize: 15,
+        fontStyle: 'normal',
     },
     actions: {
         display: 'flex',
@@ -57,7 +58,6 @@ const styles = theme => ({
     button: {
         margin: 5,
         display: 'flex',
-        alignItems: 'flex-end',
     },
     buttonGroup: {
         display: 'inline-flex',
@@ -65,7 +65,12 @@ const styles = theme => ({
     formControl: {
         margin: theme.spacing.unit,
         minWidth: 100,
-      },
+    },
+    goToTheEnd: {
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+    },
 });
 
 class MediaCard extends Component {
@@ -113,6 +118,7 @@ class MediaCard extends Component {
 
     render() {
         const { classes } = this.props;
+        let neededVolunteers = this.props.opportunity.max_volunteers - this.props.opportunity.number_of_volunteers;
         let buttons;
         let status;
         let statusButton;
@@ -126,7 +132,7 @@ class MediaCard extends Component {
         if (this.props.state.user.access_level >= 2 && this.props.admin) {
             statusButton = (
                 <div>
-                    <Typography className={classes.typography} style={{textAlign: 'right'}}>
+                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
                         {status}
                     </Typography>
                     <FormControl className={classes.formControl} fullWidth={true}>
@@ -149,29 +155,42 @@ class MediaCard extends Component {
                 </div>
             )
 
-            buttons = (<div className={classes.buttonGroup}>
-                <AdminManageVolunteersDialogue
-                    opportunity={this.props.opportunity}
-                />
-                <Button
-                    className={classes.button}
-                    color="primary"
-                    variant="raised"
-                    size="small"
-                    onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
-                >
-                    Edit Opportunity
-                </Button>
-                <OpportunityAdminNoteDialogue
-                    opportunityId={this.props.opportunity.id}
-                    opportunityNote={this.props.opportunity.private_notes}
-                />
-            </div>)
+            buttons = (
+                <div>
+                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
+                        Need {neededVolunteers} of {this.props.opportunity.max_volunteers} volunteers
+                    </Typography>
+                    <div className={classes.buttonGroup}>
+                        <AdminManageVolunteersDialogue
+                            opportunity={this.props.opportunity}
+                        />
+                        <Button
+                            className={classes.button}
+                            color="primary"
+                            variant="raised"
+                            size="small"
+                            onClick={() => this.openEditOpportunity(this.props.opportunity.id, this.props.opportunity)}
+                        >
+                            Edit Opportunity
+                        </Button>
+                        <OpportunityAdminNoteDialogue
+                            opportunityId={this.props.opportunity.id}
+                            opportunityNote={this.props.opportunity.private_notes}
+                        />
+                    </div>
+                </div>
+            )
         } else {
             buttons = (
-                <div className={classes.buttonGroup}>
-                    <VolunteerOpportunityDialog opportunity={this.props.opportunity} />
+                <div className="goToTheEnd">
+                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
+                        Need {neededVolunteers} of {this.props.opportunity.max_volunteers} volunteers
+                    </Typography>
+                    <div className={classes.buttonGroup}>
+                        <VolunteerOpportunityDialog opportunity={this.props.opportunity} className={classes.buttonGroup} />
+                    </div>
                 </div>
+
             )
         }
 
@@ -199,14 +218,14 @@ class MediaCard extends Component {
                         </Typography>
                         <Typography className={classes.typography} component="p">
                             Location: <br />
-                            {this.props.opportunity.address_line1}<br />
+                            {this.props.opportunity.address_line1}
+                            {this.props.opportunity.address_line2}<br />
                             {this.props.opportunity.city}, {this.props.opportunity.state} {this.props.opportunity.zip}<br />
                         </Typography>
                     </CardContent>
 
                     <CardActions className={classes.actions}>
-                        {statusButton}
-
+                        <div>{statusButton}</div>
                         {buttons}
                     </CardActions>
                 </Card>

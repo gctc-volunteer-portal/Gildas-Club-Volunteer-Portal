@@ -18,9 +18,12 @@ const styles = {
     overflow: 'hidden',
   },
   button: {
-    margin: 5,
+    marginTop: 5,
+    marginLeft: 5,
+    marginBottom: 5,
     display: 'flex',
     alignItems: 'flex-end',
+    justifyContent: 'flex-end',
   },
 }
 class OpportunityAdminNoteDialogue extends Component {
