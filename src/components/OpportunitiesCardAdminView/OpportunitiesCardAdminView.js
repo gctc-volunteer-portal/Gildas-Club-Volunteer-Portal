@@ -200,7 +200,7 @@ class MediaCard extends Component {
                     <CardContent>
                         <CardMedia
                             className={classes.media}
-                            image={this.props.opportunity.image}
+                            image={this.props.opportunity.upload_image}
                             height="350"
                             width="350"
                             title="Opportunity"

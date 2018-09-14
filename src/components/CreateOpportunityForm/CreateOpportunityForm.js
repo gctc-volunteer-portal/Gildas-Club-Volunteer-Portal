@@ -41,6 +41,7 @@ class CreateOpportunityForm extends Component {
       description: '',
       date: null,
       status: 1,
+      uploadImage:'',
       private_notes: '',
       max_volunteers: 1,
       certification_needed: 13,
@@ -49,8 +50,30 @@ class CreateOpportunityForm extends Component {
 
   componentDidMount() {
     this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
+    this.config = {
+      cloud_name: "dhdgecggi",
+      api_key: "772513869339438",
+      api_secret: "G89kYxt7M_xdj96VQu6h9fMcZyg",
+      upload_preset: 'gohibjbe'
+    }
   }
-
+  openCloudinary = () => {
+    window.cloudinary.openUploadWidget(this.config, (error, result) => {
+        console.log(error, result);
+        if (result) {
+          // console.log(result.info.secure_url);
+            let cloudinaryUrl = result.info.secure_url;
+            console.log(cloudinaryUrl);
+            this.setState({
+                // store url to local state BEFORE disptaching an action
+                ...this.state,
+                uploadImage: cloudinaryUrl
+            })
+        }
+    })
+    console.log(this.state.uploadImage);
+    
+}
   handleInputChangeFor = propertyName => (event) => {
     this.setState({
       [propertyName]: event.target.value,
@@ -193,13 +216,13 @@ class CreateOpportunityForm extends Component {
             onChange={this.handleInputChangeFor('max_volunteers')}
           />
           {/* Input to upload image for volunteer opportunity */}
-          <TextField
+          {/* <TextField
             label="Upload Image"
             type="text"
             name=""
             fullWidth
-          // onChange={this.handleInputChangeFor('')}
-          />
+          onChange={this.handleInputChangeFor('uploadImage')}
+          /> */}
 
           {/* Input for description of volunteer opportunity */}
           <TextField
@@ -245,6 +268,14 @@ class CreateOpportunityForm extends Component {
           >
             Cancel
             </Button>
+            <Button
+            className={this.props.classes.button}
+            onClick={this.openCloudinary}
+            variant="raised"
+            color="primary"
+          >
+            add image
+            </Button>
         </MuiPickersUtilsProvider>
       </React.Fragment>
     )
@@ -257,5 +288,7 @@ const mapStateToProps = state => ({
 });
 
 const StyledCreateOpportunityForm = withStyles(styles)(CreateOpportunityForm)
+
+
 
 export default connect(mapStateToProps)(StyledCreateOpportunityForm);
