@@ -46,6 +46,7 @@ class RegistrationForm extends Component {
                 label="Email"
                 type="email"
                 name="email"
+                required
                 value={this.props.userRegistrationInfo.email}
                 onChange={this.props.handleInputChangeFor('email')}
                 className={this.props.classes.textField}
@@ -54,6 +55,8 @@ class RegistrationForm extends Component {
                 label="Password"
                 type="password"
                 name="password"
+                required
+                helperText="Minimum of 8 characters"
                 value={this.props.userRegistrationInfo.password}
                 onChange={this.props.handleInputChangeFor('password')}
                 className={this.props.classes.textField}
@@ -63,6 +66,7 @@ class RegistrationForm extends Component {
                 label="First Name"
                 type="text"
                 name="first_name"
+                required
                 value={this.props.userRegistrationInfo.first_name}
                 onChange={this.props.handleInputChangeFor('first_name')}
                 className={this.props.classes.textField}
@@ -81,6 +85,7 @@ class RegistrationForm extends Component {
                 label="Last Name"
                 type="text"
                 name="last_name"
+                required
                 value={this.props.userRegistrationInfo.last_name}
                 onChange={this.props.handleInputChangeFor('last_name')}
                 className={this.props.classes.textField}
@@ -90,6 +95,7 @@ class RegistrationForm extends Component {
                 label="Primary Phone"
                 type="text"
                 name="primary_phone"
+                required
                 value={this.props.userRegistrationInfo.primary_phone}
                 onChange={this.props.handleInputChangeFor('primary_phone')}
                 className={this.props.classes.textField}
@@ -108,6 +114,7 @@ class RegistrationForm extends Component {
                 label="Street Address 1"
                 type="text"
                 name="street_address1"
+                required
                 value={this.props.userRegistrationInfo.street_address1}
                 onChange={this.props.handleInputChangeFor('street_address1')}
                 className={this.props.classes.textField}
@@ -124,6 +131,7 @@ class RegistrationForm extends Component {
                 label="City"
                 type="text"
                 name="city"
+                required
                 value={this.props.userRegistrationInfo.city}
                 onChange={this.props.handleInputChangeFor('city')}
                 className={this.props.classes.textField}
@@ -132,6 +140,7 @@ class RegistrationForm extends Component {
                 label="State"
                 type="text"
                 name="state"
+                required
                 value={this.props.userRegistrationInfo.state}
                 onChange={this.props.handleInputChangeFor('state')}
                 className={this.props.classes.textField}
@@ -140,6 +149,7 @@ class RegistrationForm extends Component {
                 label="Zip Code"
                 type="text"
                 name="zip"
+                required
                 value={this.props.userRegistrationInfo.zip}
                 onChange={this.props.handleInputChangeFor('zip')}
                 className={this.props.classes.textField}
@@ -180,7 +190,7 @@ class RegistrationForm extends Component {
                 Are you interested in volunteering:
               </FormLabel>
               <FormControlLabel
-                                  className={this.props.classes.textField}
+                className={this.props.classes.textField}
 
                 control={
                   <Checkbox onChange={this.props.handleRegularBasis} value={this.props.regular_basis}
@@ -190,7 +200,7 @@ class RegistrationForm extends Component {
                 label="On A Regular Basis (once a week, twice a month, etc.)"
               />
               <FormControlLabel
-              
+
                 className={this.props.classes.textField}
 
                 control={
