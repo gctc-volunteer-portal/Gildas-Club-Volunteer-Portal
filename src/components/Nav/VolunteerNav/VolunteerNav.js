@@ -11,10 +11,9 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
   nav:{
     backgroundColor: '#e44c52',
-    display: 'grid',
     gridTemplateColumns: '1fr 1fr 1fr',
-    color: 'blue',
-    marginTop: 50
+
+  
   }
   
 }

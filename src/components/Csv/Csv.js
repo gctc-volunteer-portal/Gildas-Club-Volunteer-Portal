@@ -19,8 +19,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-          <div ><h4>Download CSV Document</h4></div>
-          <div className="row">
+          <div ><h4 style={{marginLeft: 25}}>Download CSV Document</h4></div>
+          <div style={{marginLeft: 25}} className="row">
               <div className="large-6 columns"></div>
               <div className="large-4 columns">
                   <input

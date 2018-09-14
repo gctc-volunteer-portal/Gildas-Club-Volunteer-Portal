@@ -122,7 +122,7 @@ class MediaCard extends Component {
             statusButton = (
                 <FormControl className={classes.formControl}>
                     <InputLabel shrink htmlFor="age-label-placeholder">
-                        Status
+                        Change Status
                             </InputLabel>
                     <Select
                         value={this.state.status}
@@ -136,7 +136,7 @@ class MediaCard extends Component {
                         <MenuItem value={2}>Active</MenuItem>
                         <MenuItem value={3}>Inactive</MenuItem>
                     </Select>
-                    <FormHelperText>Change Status</FormHelperText>
+                    {/* <FormHelperText>Change Status</FormHelperText> */}
                 </FormControl>
             )
     

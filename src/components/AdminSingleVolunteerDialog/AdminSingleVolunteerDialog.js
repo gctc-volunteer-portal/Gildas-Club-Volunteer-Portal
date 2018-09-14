@@ -537,11 +537,12 @@ handleClose = () => {
               Are you interested in volunteering:
               </FormLabel>
               <p>{JSON.stringify(this.state.as_needed)}</p>
-          <FormControlLabel control={<Checkbox value={this.props.currentVolunteer.regular_basis} 
-          checked={this.state.regular_basis}
-                           onChange={this.handleChange('regular_basis')} />} 
-                            label="On A Regular Basis (once a week, twice a month, etc.) "
-                            />
+          <FormControlLabel control={
+                                     <Checkbox value={this.props.currentVolunteer.regular_basis} 
+                                               checked={this.state.regular_basis}
+                                               onChange={this.handleChange('regular_basis')} />} 
+                                               label="On A Regular Basis (once a week, twice a month, etc.) "
+                                     />
 
            <FormControlLabel control={<Checkbox value={this.props.currentVolunteer.specific_event} 
                        checked={this.state.specific_event}

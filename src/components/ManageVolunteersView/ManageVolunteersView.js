@@ -60,11 +60,7 @@ const styles = theme => ({
     tableWrapper: {
         overflowX: 'auto',
     },
-    headrow: {
-  
-            position: "sticky",
-  
-    }
+
 });
 
 class ManageVolunteersTable extends Component {
@@ -129,7 +125,6 @@ class ManageVolunteersTable extends Component {
             <React.Fragment>
                 <Header admin={true} />
                 <AdminNav />
-                <h1>Volunteers</h1>
                {csv}
                 <Paper className={this.props.classes.root}>
                     <div className={this.props.classes.tableWrapper}>

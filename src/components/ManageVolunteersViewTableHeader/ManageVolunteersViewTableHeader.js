@@ -5,8 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     head: {
-      backgroundColor: theme.palette.primary.light,
-      position: "sticky",
+      backgroundColor: theme.palette.secondary.main,
       top: 0
     }
   });

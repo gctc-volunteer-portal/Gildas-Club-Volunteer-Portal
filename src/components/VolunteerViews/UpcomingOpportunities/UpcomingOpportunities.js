@@ -80,7 +80,7 @@ class UpcomingOpportunities extends Component {
           <div>
               <Header admin={false} />
               <VolunteerNav />
-              <div style={{ height: 100 }}>
+              <div style={{ textAlign: 'center', height: 100, margin: 25 }}>
                   <TextField
                       id="full-width"
                       label=""
