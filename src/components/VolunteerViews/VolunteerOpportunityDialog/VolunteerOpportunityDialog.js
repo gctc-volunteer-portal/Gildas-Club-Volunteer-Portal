@@ -97,7 +97,7 @@ class VolunteerOpportunityDialog extends React.Component {
                 >
                     <DialogTitle id="alert-dialog-title">{this.props.opportunity.title}</DialogTitle>
                     <DialogContent>
-                        <img src={this.props.opportunity.image} alt="opportunity" height="300" width="300" />
+                        <img src={this.props.opportunity.upload_image} alt="opportunity" height="300" width="300" />
                     </DialogContent>
                     <DialogTitle id="alert-dialog-title">{this.props.opportunity.certification_name}</DialogTitle>
 

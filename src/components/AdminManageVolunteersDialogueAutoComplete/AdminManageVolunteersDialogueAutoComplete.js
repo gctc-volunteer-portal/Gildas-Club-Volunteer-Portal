@@ -20,7 +20,7 @@ import AddIcon from '@material-ui/icons/Add';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 250,
+    height: 200,
   },
   input: {
     display: 'flex',
@@ -39,16 +39,16 @@ const styles = theme => ({
     fontSize: 16,
   },
   placeholder: {
-    position: 'absolute',
+    // position: 'absolute',
     left: 2,
     fontSize: 16,
   },
   paper: {
-    position: 'absolute',
+    // position: 'absolute',
     zIndex: 1,
     marginTop: theme.spacing.unit,
-    left: 0,
-    right: 0,
+    left: 50,
+    right: 50,
   },
   divider: {
     height: theme.spacing.unit * 2,

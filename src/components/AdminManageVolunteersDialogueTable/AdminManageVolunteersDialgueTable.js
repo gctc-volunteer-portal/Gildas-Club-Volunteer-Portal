@@ -31,7 +31,8 @@ const styles = theme => ({
   },
   table: {
     minWidth: 800,
-    maxHeight: 100
+    maxHeight: 50,
+
   },
   row: {
     '&:nth-of-type(odd)': {
@@ -85,7 +86,7 @@ class CustomizedTable extends Component {
   
   
     return (
-      <Paper style={{height: '600px', overflow: 'scroll'}} className={classes.root}>
+      <Paper style={{height: '200px', overflow: 'scroll'}} className={classes.root}>
         <Table className={classes.table} >
           <TableHead>
             <TableRow>

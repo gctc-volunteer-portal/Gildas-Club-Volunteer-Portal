@@ -21,10 +21,10 @@ import Select from '@material-ui/core/Select';
 const styles = theme => ({
 
     card: {
-        width: '90%',
+        // width: '90%',
         position: 'relative',
         minHeight: 350,
-        margin: 20,
+        margin: 50,
         display: 'grid',
         gridTemplateColumns: '374px 1fr 1fr',
     },
@@ -146,7 +146,7 @@ class MediaCard extends Component {
                             name="age"
                             className={classes.selectEmpty}
                         >
-                            <MenuItem value={1}>Staged</MenuItem>
+                            <MenuItem value={1}>Staging</MenuItem>
                             <MenuItem value={2}>Active</MenuItem>
                             <MenuItem value={3}>Inactive</MenuItem>
                         </Select>
