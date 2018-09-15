@@ -11,25 +11,25 @@ const styles = theme => ({
 });
 
 const columns = [
-    { id: 'edit', label: '' },
-    { id: 'first_name', label: 'First Name' },
+    { id: 'edit', label: '', rotate: false },
+    { id: 'first_name', label: 'First Name', rotate: false },
     // { id: 'middle_name', label: 'Middle Name' },
-    { id: 'last_name', label: 'Last Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'primary_phone', label: 'Primary Phone' },
+    { id: 'last_name', label: 'Last Name', rotate: false },
+    { id: 'email', label: 'Email', rotate: false },
+    { id: 'primary_phone', label: 'Primary Phone', rotate: false },
     // { id: 'secondary_phone', label: 'Secondary Phone' },
-    { id: 'av_support', label: 'A/V Support' },
-    { id: 'cash_handling', label: 'Cash Handling' },
-    { id: 'clinic_ambassador', label: 'Clinic Ambassador' },
-    { id: 'communications', label: 'Communications' },
-    { id: 'data_entry', label: 'Data Entry' },
-    { id: 'gilda_greeter', label: 'Gilda Greeter' },
-    { id: 'instructor', label: 'Instructor' },
-    { id: 'noogieland', label: 'Noogieland' },
-    { id: 'outreach_ambassador', label: 'Outreach Ambassador' },
-    { id: 'special1', label: 'Special 1' },
-    { id: 'special2', label: 'Special 2' },
-    { id: 'special3', label: 'Special 3' },
+    { id: 'av_support', label: 'A/V Support', rotate: true },
+    { id: 'cash_handling', label: 'Cash Handling', rotate: true },
+    { id: 'clinic_ambassador', label: 'Clinic Ambassador', rotate: true },
+    { id: 'communications', label: 'Communications', rotate: true },
+    { id: 'data_entry', label: 'Data Entry', rotate: true },
+    { id: 'gilda_greeter', label: 'Gilda Greeter', rotate: true },
+    { id: 'instructor', label: 'Instructor', rotate: true },
+    { id: 'noogieland', label: 'Noogieland', rotate: true },
+    { id: 'outreach_ambassador', label: 'Outreach Ambassador', rotate: true },
+    { id: 'special1', label: 'Special 1', rotate: true },
+    { id: 'special2', label: 'Special 2', rotate: true },
+    { id: 'special3', label: 'Special 3', rotate: true },
 ];
 
 class ManageVolunteersViewTableHeader extends Component {
@@ -40,8 +40,13 @@ class ManageVolunteersViewTableHeader extends Component {
     render() {
         const { classes } = this.props;
         let columnHeaders = columns.map((column, index) => {
+            let applyClass = '';
+            if(column.rotate) {
+                applyClass = 'rotate'
+            }
+            console.log(applyClass)
             return (
-                <TableCell class='rotate'
+                <TableCell class={applyClass}
                     key={index}
                     sortDirection={this.props.orderBy === column.id ? this.props.order : false}
                     className={classes.head}
@@ -51,7 +56,6 @@ class ManageVolunteersViewTableHeader extends Component {
                         enterDelay={300}
                     >
                         <div>
-                            <span>
                                 <TableSortLabel
                                     active={this.props.orderBy === column.id}
                                     direction={this.props.order}
@@ -59,7 +63,6 @@ class ManageVolunteersViewTableHeader extends Component {
                                 >
                                     {column.label}
                                 </TableSortLabel>
-                            </span>
                         </div>
                     </Tooltip>
                 </TableCell>

@@ -21,6 +21,11 @@ const styles = {
     dialog: {
         padding: 10,
     },
+    image: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 };
 
 class VolunteerOpportunityDialog extends React.Component {
@@ -87,7 +92,7 @@ class VolunteerOpportunityDialog extends React.Component {
 
         return (
             <div>
-                <Button style={{marginRight: 'auto', marginLeft: 0}} fullWidth={true} className={this.props.classes.button} variant="raised" color="primary" onClick={this.handleClickOpen}>More Details</Button>
+                <Button style={{ marginRight: 'auto', marginLeft: 0 }} fullWidth={true} className={this.props.classes.button} variant="raised" color="primary" onClick={this.handleClickOpen}>More Details</Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -96,12 +101,15 @@ class VolunteerOpportunityDialog extends React.Component {
                     className={this.props.classes.dialog}
                 >
                     <DialogTitle id="alert-dialog-title">{this.props.opportunity.title}</DialogTitle>
-                    <DialogContent>
-                        <img src={this.props.opportunity.upload_image} alt="opportunity" height="300" width="300" />
+                    <DialogContent className={this.props.classes.image}>
+                        <img src={this.props.opportunity.upload_image} alt="opportunity" height="300" />
                     </DialogContent>
                     <DialogTitle id="alert-dialog-title">{this.props.opportunity.certification_name}</DialogTitle>
-
                     <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {this.props.opportunity.description}
+                        </DialogContentText>
+                        <br />
                         <DialogContentText id="alert-dialog-description">
                             Date: {moment(this.props.opportunity.date).format('dddd, MMMM D, YYYY')}
                         </DialogContentText>
@@ -109,8 +117,7 @@ class VolunteerOpportunityDialog extends React.Component {
                         <DialogContentText id="alert-dialog-description">
                             Time: {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')}
                         </DialogContentText>
-                    </DialogContent>
-                    <DialogContent>
+                        <br />
                         <DialogContentText id="alert-dialog-description">
                             Location:
                         </DialogContentText>
@@ -122,11 +129,6 @@ class VolunteerOpportunityDialog extends React.Component {
                         </DialogContentText>
                         <DialogContentText id="alert-dialog-description">
                             {this.props.opportunity.city}, {this.props.opportunity.state} {this.props.opportunity.zip}
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            {this.props.opportunity.description}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
