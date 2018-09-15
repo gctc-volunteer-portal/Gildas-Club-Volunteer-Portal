@@ -213,7 +213,7 @@ class MediaCard extends Component {
                         />
                         <Typography className={classes.typography} component="p">
                             {moment(this.props.opportunity.date).format("dddd, MMMM D, YYYY")} <br />
-                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} –
+                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – 
                             {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
                         </Typography>
                         <Typography className={classes.typography} component="p">

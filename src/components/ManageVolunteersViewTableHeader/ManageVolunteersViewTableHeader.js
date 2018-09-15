@@ -1,16 +1,17 @@
-import React, {Component} from 'react';
-import {TableHead, TableRow, TableCell, Tooltip, TableSortLabel} from '@material-ui/core';
+import React, { Component } from 'react';
+import { TableHead, TableRow, TableCell, Tooltip, TableSortLabel } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import './ManageVolunteersViewTableHeader.css';
 
 const styles = theme => ({
     head: {
-      backgroundColor: theme.palette.primary.light,
-      top: 0
+        backgroundColor: theme.palette.primary.light,
+        top: 0
     }
-  });
+});
 
 const columns = [
-    { id: 'edit', label: ''},
+    { id: 'edit', label: '' },
     { id: 'first_name', label: 'First Name' },
     // { id: 'middle_name', label: 'Middle Name' },
     { id: 'last_name', label: 'Last Name' },
@@ -40,24 +41,28 @@ class ManageVolunteersViewTableHeader extends Component {
         const { classes } = this.props;
         let columnHeaders = columns.map((column, index) => {
             return (
-            <TableCell
-                key={index}
-                sortDirection={this.props.orderBy === column.id ? this.props.order : false}
-                className={classes.head}
-            >
-                <Tooltip
-                    title="Sort"
-                    enterDelay={300}
+                <TableCell class='rotate'
+                    key={index}
+                    sortDirection={this.props.orderBy === column.id ? this.props.order : false}
+                    className={classes.head}
                 >
-                    <TableSortLabel
-                        active={this.props.orderBy === column.id}
-                        direction={this.props.order}
-                        onClick={this.createSortHandler(column.id)}
+                    <Tooltip
+                        title="Sort"
+                        enterDelay={300}
                     >
-                        {column.label}
-                    </TableSortLabel>
-                </Tooltip>
-            </TableCell>
+                        <div>
+                            <span>
+                                <TableSortLabel
+                                    active={this.props.orderBy === column.id}
+                                    direction={this.props.order}
+                                    onClick={this.createSortHandler(column.id)}
+                                >
+                                    {column.label}
+                                </TableSortLabel>
+                            </span>
+                        </div>
+                    </Tooltip>
+                </TableCell>
             );
         })
 

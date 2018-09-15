@@ -1,0 +1,18 @@
+.rotate {
+  /* Something you can count on */
+  height: 143px;
+  white-space: nowrap;
+}
+
+.rotate > div {
+  transform: 
+    /* Magic Numbers */
+    translate(25px, 51px)
+    /* 45 is really 360 - 45 */
+    rotate(315deg);
+  width: 30px;
+}
+/* .rotate > div > span {
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+} */
