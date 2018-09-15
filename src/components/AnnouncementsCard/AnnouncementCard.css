@@ -1,0 +1,11 @@
+.p {
+color: grey; 
+overflow: hidden; 
+height: 50px;
+line-height: 16px; 
+position: relative;
+word-wrap: break-word;
+width: 12x;
+}
+
+.p:after { content: ".."; position :absolute; left: 30px; bottom: 2px;}
