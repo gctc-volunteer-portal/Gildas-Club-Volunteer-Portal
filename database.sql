@@ -73,7 +73,7 @@ CREATE TABLE "opportunities" (
 	"description" varchar,
 	"date" DATE,
 	"status" int,
-	"private_note" varchar,
+	"private_notes" varchar,
 	"max_volunteers" int,
 	"certification_needed" int,
 	CONSTRAINT opportunities_pk PRIMARY KEY ("id")

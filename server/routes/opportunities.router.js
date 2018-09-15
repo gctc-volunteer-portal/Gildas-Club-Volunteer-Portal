@@ -11,7 +11,7 @@ const moment = require('moment');
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT opportunities.id,
-    opportunities.image,
+    opportunities.upload_image,
     opportunities.title,
     opportunities.start_time,
     opportunities.end_time,
@@ -45,7 +45,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.get('/volunteer', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT
     "opportunities"."id",
-	"opportunities"."image",
+	"opportunities"."upload_image",
 	"opportunities"."title",
 	"opportunities"."start_time",
 	"opportunities"."end_time",
@@ -139,7 +139,7 @@ users.employer,
 users.job_title,
 users.date_of_birth,
 opportunities.id,
-opportunities.image,
+opportunities.upload_image,
 opportunities.title,
 opportunities.start_time,
 opportunities.end_time,

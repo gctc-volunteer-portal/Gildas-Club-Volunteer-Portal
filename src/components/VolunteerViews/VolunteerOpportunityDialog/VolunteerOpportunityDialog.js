@@ -15,8 +15,8 @@ const styles = {
         marginBottom: 5,
         marginLeft: 5,
         display: 'flex',
-        justifyContent: 'flex-start',
-        alignItems: 'baseline',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     dialog: {
         padding: 10,
@@ -87,7 +87,7 @@ class VolunteerOpportunityDialog extends React.Component {
 
         return (
             <div>
-                <Button className={this.props.classes.button} variant="raised" color="primary" onClick={this.handleClickOpen}>More Info</Button>
+                <Button style={{marginRight: 'auto', marginLeft: 0}} fullWidth={true} className={this.props.classes.button} variant="raised" color="primary" onClick={this.handleClickOpen}>More Details</Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -97,7 +97,7 @@ class VolunteerOpportunityDialog extends React.Component {
                 >
                     <DialogTitle id="alert-dialog-title">{this.props.opportunity.title}</DialogTitle>
                     <DialogContent>
-                        <img src={this.props.opportunity.image} alt="opportunity" height="300" width="300" />
+                        <img src={this.props.opportunity.upload_image} alt="opportunity" height="300" width="300" />
                     </DialogContent>
                     <DialogTitle id="alert-dialog-title">{this.props.opportunity.certification_name}</DialogTitle>
 

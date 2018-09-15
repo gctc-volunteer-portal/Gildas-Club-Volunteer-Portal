@@ -12,11 +12,11 @@ const styles = theme => ({
 const columns = [
     { id: 'edit', label: ''},
     { id: 'first_name', label: 'First Name' },
-    { id: 'middle_name', label: 'Middle Name' },
+    // { id: 'middle_name', label: 'Middle Name' },
     { id: 'last_name', label: 'Last Name' },
     { id: 'email', label: 'Email' },
     { id: 'primary_phone', label: 'Primary Phone' },
-    { id: 'secondary_phone', label: 'Secondary Phone' },
+    // { id: 'secondary_phone', label: 'Secondary Phone' },
     { id: 'av_support', label: 'A/V Support' },
     { id: 'cash_handling', label: 'Cash Handling' },
     { id: 'clinic_ambassador', label: 'Clinic Ambassador' },
