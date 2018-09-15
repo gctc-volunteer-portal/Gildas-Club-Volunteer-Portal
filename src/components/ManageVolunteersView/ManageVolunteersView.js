@@ -6,7 +6,6 @@ import Header from '../Header/Header';
 import AdminNav from '../Nav/AdminNav/AdminNav';
 import ManageVolunteersViewTableHeader from '../ManageVolunteersViewTableHeader/ManageVolunteersViewTableHeader';
 import ManageVolunteersViewTableRow from '../ManageVolunteersViewTableRow/ManageVolunteersViewTableRow';
-import AdminSingleVolunteerDialog from '../AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
 import Csv from '../Csv/Csv'
 import { withStyles } from '@material-ui/core/styles';
 import { Table, TableBody, TableCell, TablePagination, TableRow, Paper } from '@material-ui/core';
@@ -51,19 +50,17 @@ function getSorting(order, orderBy) {
 
 const styles = theme => ({
     root: {
-        width: '100%',
+        width: '99%',
         marginTop: theme.spacing.unit * 3,
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
     },
-    table: {
-        minWidth: 1020,
-    },
+
     tableWrapper: {
         overflowX: 'auto',
     },
     headrow: {
-  
-            position: "sticky",
-  
+        position: "sticky",
     }
 });
 
@@ -133,7 +130,7 @@ class ManageVolunteersTable extends Component {
                {csv}
                 <Paper className={this.props.classes.root}>
                     <div className={this.props.classes.tableWrapper}>
-                        <Table className={this.props.classes.table} aria-labelledby="tableTitle">
+                        <Table aria-labelledby="tableTitle">
                             <ManageVolunteersViewTableHeader
                                 order={order}
                                 orderBy={orderBy}
