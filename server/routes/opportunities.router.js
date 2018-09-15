@@ -240,7 +240,7 @@ router.put('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) 
     const queryText = `UPDATE "opportunities" SET "title" = $2, "start_time" = $3, 
     "end_time" = $4, "address_line1" = $5, "address_line2" = $6, "city" = $7, 
     "state" =$8, "zip" = $9, "description" = $10, "date" = $11, "status" = $12, 
-    "private_notes" = $13, "max_volunteers" = $14, "certification_needed" = $15
+    "private_notes" = $13, "max_volunteers" = $14, "certification_needed" = $15, "upload_image" = $16
     WHERE "id" = $1;`;
 
     const momentStartTime = moment(updateOpportunityData.start_time, 'HH:mm:ss').format('HH:mm:ss');
@@ -252,7 +252,7 @@ router.put('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) 
     updateOpportunityData.city, updateOpportunityData.state, updateOpportunityData.zip,
     updateOpportunityData.description, updateOpportunityData.date, updateOpportunityData.status,
     updateOpportunityData.private_notes, updateOpportunityData.max_volunteers,
-    updateOpportunityData.certification_needed];
+    updateOpportunityData.certification_needed, updateOpportunityData.upload_image];
 
     pool.query(queryText, serializedData)
         .then((result) => {
