@@ -43,7 +43,10 @@ function* deleteItem(action) {
         yield dispatch({
             type: 'GET_EVENT_VOLUNTEERS',
             payload: returnedOpportunity.data[0].opportunity_id
-        })
+        });
+        yield dispatch({
+            type: 'GET_EVENTS'
+        });
     } catch (err) {
         yield console.log(err);
     }
@@ -59,6 +62,9 @@ function* volunteerDeleteItem(action) {
         yield dispatch({
             type: 'FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES',
         });
+        yield dispatch({
+            type: 'GET_MY_VOLUNTEER_EVENTS'
+        });
     } catch (err) {
         yield console.log(err);
     }
@@ -67,11 +73,13 @@ function* volunteerDeleteItem(action) {
 function* enrollVolunteer(action) {
     try {
         yield call(axios.post, `/api/opportunities/add_volunteer`, action.payload);
-
         yield dispatch({
             type: 'GET_EVENT_VOLUNTEERS',
             payload: action.payload.opportunityId
-        })
+        });
+        yield dispatch({
+            type: 'GET_EVENTS'
+        });
     } catch (err) {
         yield console.log(err);
 
@@ -87,6 +95,9 @@ function* volunteerEnrollVolunteer(action) {
         });
         yield dispatch({
             type: 'FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES',
+        });
+        yield dispatch({
+            type: 'GET_MY_VOLUNTEER_EVENTS'
         });
     } catch (err) {
         yield console.log(err);
