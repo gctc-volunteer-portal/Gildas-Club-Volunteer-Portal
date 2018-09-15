@@ -15,6 +15,8 @@ const CustomTableCell = withStyles(theme => ({
     },
     body: {
         fontSize: 14,
+        paddingLeft: theme.spacing.unit * 3,
+        paddingRight: theme.spacing.unit * 3,
     },
 }))(TableCell);
 
@@ -59,11 +61,11 @@ console.log(this.props.volunteer);
             <TableRow className={this.props.classes.row}>
                 <CustomTableCell>{editButton}</CustomTableCell>
                 <CustomTableCell>{this.props.volunteer.first_name}</CustomTableCell>
-                <CustomTableCell>{this.props.volunteer.middle_name}</CustomTableCell>
+                {/* <CustomTableCell>{this.props.volunteer.middle_name}</CustomTableCell> */}
                 <CustomTableCell>{this.props.volunteer.last_name}</CustomTableCell>
                 <CustomTableCell>{this.props.volunteer.email}</CustomTableCell>
                 <CustomTableCell>{this.props.volunteer.primary_phone}</CustomTableCell>
-                <CustomTableCell>{this.props.volunteer.secondary_phone}</CustomTableCell>
+                {/* <CustomTableCell>{this.props.volunteer.secondary_phone}</CustomTableCell> */}
                 <CustomTableCell>{this.certified(this.props.volunteer.av_support)}</CustomTableCell>
                 <CustomTableCell>{this.certified(this.props.volunteer.cash_handling)}</CustomTableCell>
                 <CustomTableCell>{this.certified(this.props.volunteer.clinic_ambassador)}</CustomTableCell>
