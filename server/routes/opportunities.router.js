@@ -151,7 +151,7 @@ opportunities.zip,
 opportunities.description,
 opportunities.date,
 opportunities.status,
-opportunities.private_note,
+opportunities.private_notes,
 opportunities.max_volunteers,
 opportunities.certification_needed,
 certifications.certification_name
