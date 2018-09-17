@@ -52,8 +52,8 @@ const styles = theme => ({
     root: {
         width: '99%',
         marginTop: theme.spacing.unit * 3,
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
+        marginLeft: theme.spacing.unit * 2,
+        marginRight: theme.spacing.unit * 2,
     },
 
     tableWrapper: {

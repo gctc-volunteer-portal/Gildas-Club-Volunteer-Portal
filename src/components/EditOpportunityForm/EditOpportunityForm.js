@@ -276,7 +276,14 @@ class EditOpportunityForm extends Component {
             value={this.state.description}
             onChange={this.handleInputChangeFor('description')}
           />
-         
+           <Button
+            className={this.props.classes.button}
+            onClick={this.openCloudinary}
+            variant="raised"
+            color="primary"
+          >
+            Update Image
+            </Button>
           {/* Radio inputs to select required certification */}
           <RadioGroup
             name="deliveryType"
@@ -302,15 +309,6 @@ class EditOpportunityForm extends Component {
             color="primary"
           >
             Cancel
-            </Button>
-
-            <Button
-            className={this.props.classes.button}
-            onClick={this.openCloudinary}
-            variant="raised"
-            color="primary"
-          >
-            Update Image
             </Button>
         </MuiPickersUtilsProvider>
       </React.Fragment>

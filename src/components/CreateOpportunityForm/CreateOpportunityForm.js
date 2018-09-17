@@ -41,7 +41,7 @@ class CreateOpportunityForm extends Component {
       description: '',
       date: null,
       status: 1,
-      uploadImage:'',
+      uploadImage:'https://res.cloudinary.com/dhdgecggi/image/upload/v1536937033/Crowdrise_default.png',
       private_notes: '',
       max_volunteers: 1,
       certification_needed: 13,
@@ -241,6 +241,14 @@ class CreateOpportunityForm extends Component {
             multiline
             onChange={this.handleInputChangeFor('private_notes')}
           />
+             <Button
+            className={this.props.classes.button}
+            onClick={this.openCloudinary}
+            variant="raised"
+            color="primary"
+          >
+            Add image
+            </Button>
           {/* Radio inputs to select required certification */}
           <RadioGroup
             name="certification"
@@ -267,14 +275,6 @@ class CreateOpportunityForm extends Component {
             color="primary"
           >
             Cancel
-            </Button>
-            <Button
-            className={this.props.classes.button}
-            onClick={this.openCloudinary}
-            variant="raised"
-            color="primary"
-          >
-            add image
             </Button>
         </MuiPickersUtilsProvider>
       </React.Fragment>

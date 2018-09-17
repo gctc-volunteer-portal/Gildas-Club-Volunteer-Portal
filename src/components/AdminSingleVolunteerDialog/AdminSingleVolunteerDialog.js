@@ -78,6 +78,7 @@ const styles = {
     //  right: '-10px'
      
     }
+  
     
       
     // width: 30%;
@@ -629,6 +630,7 @@ onChange={this.handleChange('as_needed')}/>}
               type="submit"
               variant="raised"
               color="primary"
+              style={{margin: 10}}
             >
               Submit
             </Button>
@@ -637,6 +639,8 @@ onChange={this.handleChange('as_needed')}/>}
               onClick={this.handleClose}
               variant="raised"
               color="primary"
+              style={{margin: 10}}
+
             >
               Cancel
               </Button> 
