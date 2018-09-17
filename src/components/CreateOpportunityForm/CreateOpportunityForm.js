@@ -41,6 +41,7 @@ class CreateOpportunityForm extends Component {
       description: '',
       date: null,
       status: 1,
+      uploadImage:'https://res.cloudinary.com/dhdgecggi/image/upload/v1536937033/Crowdrise_default.png',
       private_notes: '',
       max_volunteers: 1,
       certification_needed: 13,
@@ -49,8 +50,30 @@ class CreateOpportunityForm extends Component {
 
   componentDidMount() {
     this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
+    this.config = {
+      cloud_name: "dhdgecggi",
+      api_key: "772513869339438",
+      api_secret: "G89kYxt7M_xdj96VQu6h9fMcZyg",
+      upload_preset: 'gohibjbe'
+    }
   }
+  openCloudinary = () => {
+    window.cloudinary.openUploadWidget(this.config, (error, result) => {
+        console.log(error, result);
+        if (result) {
+          
+            let cloudinaryUrl = result.info.secure_url;
+            console.log(cloudinaryUrl);
+            this.setState({
+                // store url to local state BEFORE disptaching an action
+                ...this.state,
+                uploadImage: cloudinaryUrl
+            })
+        }
+    })
 
+    
+}
   handleInputChangeFor = propertyName => (event) => {
     this.setState({
       [propertyName]: event.target.value,
@@ -193,13 +216,13 @@ class CreateOpportunityForm extends Component {
             onChange={this.handleInputChangeFor('max_volunteers')}
           />
           {/* Input to upload image for volunteer opportunity */}
-          <TextField
+          {/* <TextField
             label="Upload Image"
             type="text"
             name=""
             fullWidth
-          // onChange={this.handleInputChangeFor('')}
-          />
+          onChange={this.handleInputChangeFor('uploadImage')}
+          /> */}
 
           {/* Input for description of volunteer opportunity */}
           <TextField
@@ -216,7 +239,7 @@ class CreateOpportunityForm extends Component {
             name=""
             fullWidth
             multiline
-            onChange={this.handleInputChangeFor('private_notes')}
+            onChange={this.handleInputChangeFor('private_note')}
           />
           {/* Radio inputs to select required certification */}
           <RadioGroup
@@ -244,6 +267,14 @@ class CreateOpportunityForm extends Component {
             color="primary"
           >
             Cancel
+            </Button>
+            <Button
+            className={this.props.classes.button}
+            onClick={this.openCloudinary}
+            variant="raised"
+            color="primary"
+          >
+            add image
             </Button>
         </MuiPickersUtilsProvider>
       </React.Fragment>

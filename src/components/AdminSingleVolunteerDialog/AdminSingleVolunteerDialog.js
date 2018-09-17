@@ -165,6 +165,7 @@ class AdminSingleVolunteerDialog extends Component {
   
   componentDidMount() {
     this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
+    this.props.dispatch({ type: 'FETCH_VOLUNTEER_INFO'})
   }
 
 
@@ -175,6 +176,8 @@ handleClickOpen = () => {
 
 handleClose = () => {
   this.setState({ open: false });
+  this.props.dispatch({ type: 'FETCH_VOLUNTEER_INFO'})
+  // this.props.dispatch({type: 'SET_VOLUNTEER_INFO'})
 };
 
   getAllVolunteerInfo = (state) =>{
@@ -645,7 +648,7 @@ onChange={this.handleChange('as_needed')}/>}
          
                 <h2 className={this.props.classes.cert}>Certifications</h2>
           <FormControlLabel control={<Chip  
-          label="Noogie Land"
+          label="Noogieland"
           className={this.props.classes.indChip}
           checked={this.state.certs.noogieland.certified}clickable
           color={noogieLand} value="noogieland" 

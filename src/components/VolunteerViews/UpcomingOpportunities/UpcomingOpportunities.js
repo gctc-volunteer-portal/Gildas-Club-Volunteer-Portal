@@ -7,103 +7,103 @@ import OpportunitiesCardAdminView from '../../OpportunitiesCardAdminView/Opportu
 import { USER_ACTIONS } from '../../../redux/actions/userActions'
 
 function searchingFor(term) {
-  return function (opportunity) {
-      if (opportunity.title) {
-          return opportunity.title.toLowerCase().includes(term.toLowerCase()) || !term;
-      }
-  }
+    return function (opportunity) {
+        if (opportunity.title) {
+            return opportunity.title.toLowerCase().includes(term.toLowerCase()) || !term;
+        }
+    }
 }
 
 class UpcomingOpportunities extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          term: '',
-         
-      }
-    this.searchHandler = this.searchHandler.bind(this);
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            term: '',
 
-  componentDidMount() {
-      this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-      this.props.dispatch({ type: 'GET_MY_VOLUNTEER_EVENTS' })
-  }
+        }
+        this.searchHandler = this.searchHandler.bind(this);
+    }
 
-  componentDidUpdate() {
-      if (!this.props.user.isLoading && this.props.user.email === null) {
-          this.props.history.push('/home');
-      }
-  }
+    componentDidMount() {
+        this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+        this.props.dispatch({ type: 'GET_MY_VOLUNTEER_EVENTS' })
+    }
 
-  searchHandler(event) {
-      this.setState({
-          term: event.target.value
-      })
-  }
+    componentDidUpdate() {
+        if (!this.props.user.isLoading && this.props.user.email === null) {
+            this.props.history.push('/home');
+        }
+    }
 
-  handleClickOpen = (id) => {
-    this.setState({ open: true });
-  };
+    searchHandler(event) {
+        this.setState({
+            term: event.target.value
+        })
+    }
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+    handleClickOpen = (id) => {
+        this.setState({ open: true });
+    };
 
-  render() {
-      let content = null;
-      
-      let myOpportunities = this.props.myEvents.filter(searchingFor(this.state.term)).map((opportunity, index) => {
-          return (<OpportunitiesCardAdminView key={index}
-              opportunity={opportunity} admin={false}
-          />)
-      })
+    handleClose = () => {
+        this.setState({ open: false });
+    };
 
-      if (this.props.user.email) {
-          if(myOpportunities.length > 0) {
-            content = (
-                <div>
+    render() {
+        let content = null;
+
+        let myOpportunities = this.props.myEvents.filter(searchingFor(this.state.term)).map((opportunity, index) => {
+            return (<OpportunitiesCardAdminView key={index}
+                    opportunity={opportunity} admin={false}
+                />)
+        })
+
+        if (this.props.user.email) {
+            if(myOpportunities.length > 0) {
+                content = (
                     <div>
-                        {myOpportunities}
+                        <div>
+                            {myOpportunities}
+                        </div>
                     </div>
+                );
+            }
+            else {
+                content = (
+                    <p>Looks like there are no upcoming opportunities for you at this time. Check back later for new opportunities.</p>
+                )
+            }
+
+        }
+
+        return (
+            <div>
+                <Header admin={false} />
+                <VolunteerNav />
+                <div style={{ height: 100 }}>
+                    <TextField
+                        id="full-width"
+                        label=""
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        placeholder="Search..."
+                        helperText="What opportunity are you looking for?"
+                        width='50'
+                        margin="normal"
+                        onChange={this.searchHandler}
+                        value={this.state.term}
+                    />
                 </div>
-            );
-          }
-          else {
-              content = (
-                  <p>Looks like there are no upcoming opportunities for you at this time. Check back later for new opportunities.</p>
-              )
-          }
-
-      }
-
-      return (
-          <div>
-              <Header admin={false} />
-              <VolunteerNav />
-              <div style={{ height: 100 }}>
-                  <TextField
-                      id="full-width"
-                      label=""
-                      InputLabelProps={{
-                          shrink: true,
-                      }}
-                      placeholder="Search..."
-                      helperText="What opportunity are you looking for?"
-                      width='50'
-                      margin="normal"
-                      onChange={this.searchHandler}
-                      value={this.state.term}
-                  />
-              </div>
-              {content}
-          </div>
-      );
-  }
+                {content}
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = state => ({
-  myEvents: state.myAvailableEventsReducer,
-  user: state.user
+    myEvents: state.myAvailableEventsReducer,
+    user: state.user
 });
 
 // this allows us to use <App /> in index.js

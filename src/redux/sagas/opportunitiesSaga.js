@@ -107,6 +107,8 @@ function* volunteerEnrollVolunteer(action) {
 
 //Dispatch POST request with new opportunity data
 function* addOpportunity(action) {
+    console.log(action.payload);
+    
     try {
         yield call(axios.post, `/api/opportunities`, action.payload);
         yield dispatch({

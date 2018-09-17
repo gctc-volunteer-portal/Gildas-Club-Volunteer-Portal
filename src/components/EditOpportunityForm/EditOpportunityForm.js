@@ -44,8 +44,36 @@ class EditOpportunityForm extends Component {
       private_notes: this.props.opportunityToUpdate.private_notes,
       max_volunteers: this.props.opportunityToUpdate.max_volunteers,
       certification_needed: this.props.opportunityToUpdate.certification_needed.toString(),
+      upload_image: this.props.opportunityToUpdate.upload_image
     }
   }
+
+  componentDidMount(){
+    this.config = {
+      cloud_name: "dhdgecggi",
+      api_key: "772513869339438",
+      api_secret: "G89kYxt7M_xdj96VQu6h9fMcZyg",
+      upload_preset: 'gohibjbe'
+    }
+  }
+
+  openCloudinary = () => {
+    window.cloudinary.openUploadWidget(this.config, (error, result) => {
+        console.log(error, result);
+        if (result) {
+          // console.log(result.info.secure_url);
+            let cloudinaryUrl = result.info.secure_url;
+            console.log(cloudinaryUrl);
+            this.setState({
+                // store url to local state BEFORE disptaching an action
+                ...this.state,
+                upload_image: cloudinaryUrl
+            })
+        }
+    })
+    console.log(this.state.uploadImage);
+    
+}
 
   handleDateChange = (date) => {
     this.setState({
@@ -71,6 +99,7 @@ class EditOpportunityForm extends Component {
     });
   }
 
+  
   updateOpportunity = () => {
     this.props.dispatch({
       type: 'UPDATE_OPPORTUNITY', payload:
@@ -84,6 +113,8 @@ class EditOpportunityForm extends Component {
   }
 
   render() {
+    console.log(this.props.opportunityToUpdate.upload_image);
+    
     // map through certifications list, which is stored on redux store, and display them on DOM
     const certificationsList = this.props.certificates.map((certificate, index) => {
       return (
@@ -94,7 +125,7 @@ class EditOpportunityForm extends Component {
     return (
       <React.Fragment>
         <MuiPickersUtilsProvider utils={MomentUtils}>
-
+{/* // <p>{JSON.stringify(this.props.opportunityToUpdate.upload_image)}</p> */}
           <TextField
             label="Opportunity Name"
             type="text"
@@ -103,7 +134,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.title}
+           value={this.state.title}
             onChange={this.handleInputChangeFor('title')}
           />
 
@@ -155,7 +186,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.address_line1}
+           value={this.state.address_line1}
             onChange={this.handleInputChangeFor('address_line1')}
           />
 
@@ -169,7 +200,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.address_line2}
+           value={this.state.address_line2}
             onChange={this.handleInputChangeFor('address_line2')}
           />
           {/* Input for volunteer opportunity location city */}
@@ -181,7 +212,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.city}
+           value={this.state.city}
             onChange={this.handleInputChangeFor('city')}
           />
           {/* Input for volunteer opportunity location State */}
@@ -193,7 +224,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.state}
+           value={this.state.state}
             onChange={this.handleInputChangeFor('state')}
           />
           {/* Input for volunteer opportunity location zipcode  */}
@@ -205,7 +236,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.zip.toString() || ''}
+           value={this.state.zip.toString() || ''}
             onChange={this.handleInputChangeFor('zip')}
           />
           {/* Input for # of volunteers needed for this volunteer opportunity */}
@@ -217,7 +248,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.max_volunteers.toString() || ''}
+           value={this.state.max_volunteers.toString() || ''}
             onChange={this.handleInputChangeFor('max_volunteers')}
           />
           {/* Input to upload image for volunteer opportunity */}
@@ -226,10 +257,12 @@ class EditOpportunityForm extends Component {
             type="text"
             name=""
             fullWidth
+            placeholder={this.props.opportunityToUpdate.upload_image}
             InputLabelProps={{
               shrink: true,
             }}
-          // onChange={this.handleInputChangeFor('')}
+            
+          onChange={this.handleInputChangeFor(this.state.upload_image)}
           />
           {/* Input for description of volunteer opportunity */}
           <TextField
@@ -249,7 +282,7 @@ class EditOpportunityForm extends Component {
           <RadioGroup
             name="deliveryType"
             value={this.state.certification_needed}
-            placeholder={this.props.opportunityToUpdate.certification_needed.toString()}
+            placeholder={this.state.certification_needed.toString()}
             onChange={this.handleInputChangeFor('certification_needed')}>
             {certificationsList}
           </RadioGroup>
@@ -270,6 +303,15 @@ class EditOpportunityForm extends Component {
             color="primary"
           >
             Cancel
+            </Button>
+
+            <Button
+            className={this.props.classes.button}
+            onClick={this.openCloudinary}
+            variant="raised"
+            color="primary"
+          >
+            Update Image
             </Button>
         </MuiPickersUtilsProvider>
       </React.Fragment>
