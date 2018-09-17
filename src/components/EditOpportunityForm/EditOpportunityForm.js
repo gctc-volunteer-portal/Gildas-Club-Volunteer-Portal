@@ -134,7 +134,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.title}
+           value={this.state.title}
             onChange={this.handleInputChangeFor('title')}
           />
 
@@ -186,7 +186,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.address_line1}
+           value={this.state.address_line1}
             onChange={this.handleInputChangeFor('address_line1')}
           />
 
@@ -200,7 +200,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.address_line2}
+           value={this.state.address_line2}
             onChange={this.handleInputChangeFor('address_line2')}
           />
           {/* Input for volunteer opportunity location city */}
@@ -212,7 +212,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.city}
+           value={this.state.city}
             onChange={this.handleInputChangeFor('city')}
           />
           {/* Input for volunteer opportunity location State */}
@@ -224,7 +224,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.state}
+           value={this.state.state}
             onChange={this.handleInputChangeFor('state')}
           />
           {/* Input for volunteer opportunity location zipcode  */}
@@ -236,7 +236,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.zip.toString() || ''}
+           value={this.state.zip.toString() || ''}
             onChange={this.handleInputChangeFor('zip')}
           />
           {/* Input for # of volunteers needed for this volunteer opportunity */}
@@ -248,7 +248,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
-            placeholder={this.props.opportunityToUpdate.max_volunteers.toString() || ''}
+           value={this.state.max_volunteers.toString() || ''}
             onChange={this.handleInputChangeFor('max_volunteers')}
           />
           {/* Input to upload image for volunteer opportunity */}
@@ -261,6 +261,7 @@ class EditOpportunityForm extends Component {
             InputLabelProps={{
               shrink: true,
             }}
+            
           onChange={this.handleInputChangeFor(this.state.upload_image)}
           />
           {/* Input for description of volunteer opportunity */}
@@ -288,7 +289,7 @@ class EditOpportunityForm extends Component {
           <RadioGroup
             name="deliveryType"
             value={this.state.certification_needed}
-            placeholder={this.props.opportunityToUpdate.certification_needed.toString()}
+            placeholder={this.state.certification_needed.toString()}
             onChange={this.handleInputChangeFor('certification_needed')}>
             {certificationsList}
           </RadioGroup>

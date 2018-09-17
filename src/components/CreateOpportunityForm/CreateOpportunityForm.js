@@ -61,7 +61,7 @@ class CreateOpportunityForm extends Component {
     window.cloudinary.openUploadWidget(this.config, (error, result) => {
         console.log(error, result);
         if (result) {
-          // console.log(result.info.secure_url);
+          
             let cloudinaryUrl = result.info.secure_url;
             console.log(cloudinaryUrl);
             this.setState({
@@ -71,7 +71,7 @@ class CreateOpportunityForm extends Component {
             })
         }
     })
-    console.log(this.state.uploadImage);
+
     
 }
   handleInputChangeFor = propertyName => (event) => {
@@ -239,7 +239,7 @@ class CreateOpportunityForm extends Component {
             name=""
             fullWidth
             multiline
-            onChange={this.handleInputChangeFor('private_notes')}
+            onChange={this.handleInputChangeFor('private_note')}
           />
              <Button
             className={this.props.classes.button}
@@ -288,7 +288,5 @@ const mapStateToProps = state => ({
 });
 
 const StyledCreateOpportunityForm = withStyles(styles)(CreateOpportunityForm)
-
-
 
 export default connect(mapStateToProps)(StyledCreateOpportunityForm);
