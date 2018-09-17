@@ -126,7 +126,7 @@ class MediaCard extends Component {
         if (this.props.state.user.access_level >= 2 && this.props.admin) {
             statusButton = (
                 <div>
-                    <Typography className={classes.typography} style={{ textAlign: 'right'}}>
+                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
                         {status}
                     </Typography>
                     <FormControl className={classes.formControl} fullWidth={true}>
@@ -151,7 +151,7 @@ class MediaCard extends Component {
 
             buttons = (
                 <div>
-                    <Typography className={classes.typography}>
+                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
                         Need {neededVolunteers} of {this.props.opportunity.max_volunteers} volunteers
                     </Typography>
                     <div className={classes.buttonGroup}>
@@ -177,11 +177,11 @@ class MediaCard extends Component {
         } else {
             buttons = (
                 <div>
-                    <Typography className={classes.typography} style={{ textAlign: 'center' }}>
+                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
                         Need {neededVolunteers} of {this.props.opportunity.max_volunteers} volunteers
                     </Typography>
                     <div>
-                        <VolunteerOpportunityDialog className={classes.buttonGroup} opportunity={this.props.opportunity}  />
+                        <VolunteerOpportunityDialog className={classes.buttonGroup} opportunity={this.props.opportunity} />
                     </div>
                 </div>
 
@@ -207,7 +207,7 @@ class MediaCard extends Component {
                         />
                         <Typography className={classes.typography} component="p">
                             {moment(this.props.opportunity.date).format("dddd, MMMM D, YYYY")} <br />
-                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – 
+                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} –
                             {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
                         </Typography>
                         <Typography className={classes.typography} component="p">

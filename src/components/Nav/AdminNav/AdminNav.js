@@ -16,7 +16,7 @@ const styles = {
     //  grid-column: 1 / 1;
   },
   navIcon: {
-    color: 'white',
+    color: '#e44c52',
   }
 }
 

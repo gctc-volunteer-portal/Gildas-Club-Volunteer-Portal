@@ -13,7 +13,6 @@ const styles = {
     backgroundColor: '#e44c52',
     gridTemplateColumns: '1fr 1fr 1fr',
     color: 'blue',
-    marginTop: 50
   },
   navIcon: {
     color: 'white',
