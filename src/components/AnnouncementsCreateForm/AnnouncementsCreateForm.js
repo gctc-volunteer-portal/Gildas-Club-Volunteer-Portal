@@ -105,10 +105,7 @@ export default connect()(class FormDialog extends React.Component {
            onChange={this.handleDateChange}
            animateYearScrolling={false}
            autoOk
-<<<<<<< HEAD
  
-=======
->>>>>>> a4a9d7d96d5da1257c3616b8ca0817df6d85ac0e
          />
          
           </DialogContent>

@@ -31,7 +31,7 @@ const styles = theme => ({
   },
   table: {
     minWidth: 800,
-    maxHeight: 50,
+    maxHeight: 150,
 
   },
   row: {

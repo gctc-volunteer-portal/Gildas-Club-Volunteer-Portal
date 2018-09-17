@@ -215,15 +215,7 @@ class CreateOpportunityForm extends Component {
             fullWidth
             onChange={this.handleInputChangeFor('max_volunteers')}
           />
-          {/* Input to upload image for volunteer opportunity */}
-          {/* <TextField
-            label="Upload Image"
-            type="text"
-            name=""
-            fullWidth
-          onChange={this.handleInputChangeFor('uploadImage')}
-          /> */}
-
+      
           {/* Input for description of volunteer opportunity */}
           <TextField
             label="Opportunity Description"

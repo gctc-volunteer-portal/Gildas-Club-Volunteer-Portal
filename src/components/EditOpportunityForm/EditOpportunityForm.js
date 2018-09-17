@@ -251,19 +251,6 @@ class EditOpportunityForm extends Component {
            value={this.state.max_volunteers.toString() || ''}
             onChange={this.handleInputChangeFor('max_volunteers')}
           />
-          {/* Input to upload image for volunteer opportunity */}
-          <TextField
-            label="Upload Image"
-            type="text"
-            name=""
-            fullWidth
-            placeholder={this.props.opportunityToUpdate.upload_image}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            
-          onChange={this.handleInputChangeFor(this.state.upload_image)}
-          />
           {/* Input for description of volunteer opportunity */}
           <TextField
             label="Opportunity Description"
@@ -277,6 +264,21 @@ class EditOpportunityForm extends Component {
             value={this.state.description}
             onChange={this.handleInputChangeFor('description')}
           />
+           {/* Input to upload image for volunteer opportunity */}
+          <TextField
+            label="Upload Image"
+            type="text"
+            name=""
+            fullWidth
+            placeholder={this.props.opportunityToUpdate.upload_image}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            
+          onChange={this.handleInputChangeFor(this.state.upload_image)}
+          />
+   
+          
            <Button
             className={this.props.classes.button}
             onClick={this.openCloudinary}

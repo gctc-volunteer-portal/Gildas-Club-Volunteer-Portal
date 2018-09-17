@@ -21,17 +21,10 @@ import Select from '@material-ui/core/Select';
 const styles = theme => ({
 
     card: {
-<<<<<<< HEAD
         // width: '90%',
         position: 'relative',
         minHeight: 350,
         margin: 50,
-=======
-
-        position: 'relative',
-        minHeight: 350,
-        margin: '2rem',
->>>>>>> a4a9d7d96d5da1257c3616b8ca0817df6d85ac0e
         display: 'grid',
         gridTemplateColumns: '374px 1fr 1fr',
     },
