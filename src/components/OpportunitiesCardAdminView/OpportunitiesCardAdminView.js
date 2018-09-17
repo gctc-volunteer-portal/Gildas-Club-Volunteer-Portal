@@ -65,11 +65,6 @@ const styles = theme => ({
         margin: theme.spacing.unit,
         minWidth: 100,
     },
-    goToTheEnd: {
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-    },
 });
 
 class MediaCard extends Component {
@@ -156,7 +151,7 @@ class MediaCard extends Component {
 
             buttons = (
                 <div>
-                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
+                    <Typography className={classes.typography}>
                         Need {neededVolunteers} of {this.props.opportunity.max_volunteers} volunteers
                     </Typography>
                     <div className={classes.buttonGroup}>
@@ -181,12 +176,12 @@ class MediaCard extends Component {
             )
         } else {
             buttons = (
-                <div className="goToTheEnd">
-                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
+                <div>
+                    <Typography className={classes.typography} style={{ textAlign: 'center' }}>
                         Need {neededVolunteers} of {this.props.opportunity.max_volunteers} volunteers
                     </Typography>
-                    <div className={classes.buttonGroup}>
-                        <VolunteerOpportunityDialog opportunity={this.props.opportunity} className={classes.buttonGroup} />
+                    <div>
+                        <VolunteerOpportunityDialog className={classes.buttonGroup} opportunity={this.props.opportunity}  />
                     </div>
                 </div>
 

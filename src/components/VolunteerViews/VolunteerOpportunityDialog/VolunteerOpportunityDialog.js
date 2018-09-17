@@ -14,7 +14,6 @@ const styles = {
     button: {
         marginTop: 5,
         marginBottom: 5,
-        marginLeft: 5,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -119,7 +118,7 @@ class VolunteerOpportunityDialog extends React.Component {
 
         return (
             <div>
-                <Button style={{ marginRight: 'auto', marginLeft: 0 }} fullWidth={true} className={this.props.classes.button} variant="raised" color="primary" onClick={this.handleClickOpen}>More Details</Button>
+                <Button fullWidth={true} className={this.props.classes.button} variant="raised" color="primary" onClick={this.handleClickOpen}>More Details</Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
