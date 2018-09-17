@@ -648,7 +648,7 @@ onChange={this.handleChange('as_needed')}/>}
          
                 <h2 className={this.props.classes.cert}>Certifications</h2>
           <FormControlLabel control={<Chip  
-          label="Noogie Land"
+          label="Noogieland"
           className={this.props.classes.indChip}
           checked={this.state.certs.noogieland.certified}clickable
           color={noogieLand} value="noogieland" 

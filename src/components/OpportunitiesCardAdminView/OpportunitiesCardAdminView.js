@@ -69,7 +69,7 @@ const styles = theme => ({
     goToTheEnd: {
         display: 'flex',
         alignItems: 'flex-end',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
     },
 });
 
@@ -212,8 +212,8 @@ class MediaCard extends Component {
                             subheader={`Role: ${this.props.opportunity.certification_name}`}
                         />
                         <Typography className={classes.typography} component="p">
-                            {moment(this.props.opportunity.date).format("dddd, MMMM D, YYYY")}	<br />
-                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} <br />
+                            {moment(this.props.opportunity.date).format("dddd, MMMM D, YYYY")} <br />
+                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – 
                             {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
                         </Typography>
                         <Typography className={classes.typography} component="p">

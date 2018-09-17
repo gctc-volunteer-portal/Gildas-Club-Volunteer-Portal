@@ -44,8 +44,36 @@ class EditOpportunityForm extends Component {
       private_notes: this.props.opportunityToUpdate.private_notes,
       max_volunteers: this.props.opportunityToUpdate.max_volunteers,
       certification_needed: this.props.opportunityToUpdate.certification_needed.toString(),
+      upload_image: this.props.opportunityToUpdate.upload_image
     }
   }
+
+  componentDidMount(){
+    this.config = {
+      cloud_name: "dhdgecggi",
+      api_key: "772513869339438",
+      api_secret: "G89kYxt7M_xdj96VQu6h9fMcZyg",
+      upload_preset: 'gohibjbe'
+    }
+  }
+
+  openCloudinary = () => {
+    window.cloudinary.openUploadWidget(this.config, (error, result) => {
+        console.log(error, result);
+        if (result) {
+          // console.log(result.info.secure_url);
+            let cloudinaryUrl = result.info.secure_url;
+            console.log(cloudinaryUrl);
+            this.setState({
+                // store url to local state BEFORE disptaching an action
+                ...this.state,
+                upload_image: cloudinaryUrl
+            })
+        }
+    })
+    console.log(this.state.uploadImage);
+    
+}
 
   handleDateChange = (date) => {
     this.setState({
@@ -71,6 +99,7 @@ class EditOpportunityForm extends Component {
     });
   }
 
+  
   updateOpportunity = () => {
     this.props.dispatch({
       type: 'UPDATE_OPPORTUNITY', payload:
@@ -84,6 +113,8 @@ class EditOpportunityForm extends Component {
   }
 
   render() {
+    console.log(this.props.opportunityToUpdate.upload_image);
+    
     // map through certifications list, which is stored on redux store, and display them on DOM
     const certificationsList = this.props.certificates.map((certificate, index) => {
       return (
@@ -94,7 +125,7 @@ class EditOpportunityForm extends Component {
     return (
       <React.Fragment>
         <MuiPickersUtilsProvider utils={MomentUtils}>
-
+{/* // <p>{JSON.stringify(this.props.opportunityToUpdate.upload_image)}</p> */}
           <TextField
             label="Opportunity Name"
             type="text"
@@ -226,10 +257,12 @@ class EditOpportunityForm extends Component {
             type="text"
             name=""
             fullWidth
+            placeholder={this.props.opportunityToUpdate.upload_image}
             InputLabelProps={{
               shrink: true,
             }}
             
+          onChange={this.handleInputChangeFor(this.state.upload_image)}
           />
           {/* Input for description of volunteer opportunity */}
           <TextField
@@ -270,6 +303,15 @@ class EditOpportunityForm extends Component {
             color="primary"
           >
             Cancel
+            </Button>
+
+            <Button
+            className={this.props.classes.button}
+            onClick={this.openCloudinary}
+            variant="raised"
+            color="primary"
+          >
+            Update Image
             </Button>
         </MuiPickersUtilsProvider>
       </React.Fragment>

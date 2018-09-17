@@ -8,7 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from 'react-redux';
 import AnnouncementCardDialog from '../AnnouncementsCardDialog/AnnouncementsCardDialog';
 import moment from 'moment';
-
+import '../AnnouncementsCard/AnnouncementCard.css'
 
 
 import Typography from '@material-ui/core/Typography';
@@ -30,7 +30,12 @@ const styles = {
   pos: {
     marginBottom: 12,
   },
+  preview: {
+    maxWidth: '80%',
+  },
 };
+
+
 
 
 class SimpleCard extends Component {
@@ -58,10 +63,13 @@ class SimpleCard extends Component {
     <Card className={classes.card}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary">
-         {moment(this.props.announcement.date).format("dddd, MMM D, YYYY")}
+        Date Posted: {moment(this.props.announcement.date).format("dddd, MMM D, YYYY")}
         </Typography>
         <Typography variant="headline" component="h2">
          {this.props.announcement.title}
+         <div className={this.props.classes.preview}>
+         <p className="p">{this.props.announcement.description}</p>
+         </div>
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
         </Typography>
