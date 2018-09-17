@@ -11,7 +11,7 @@ const moment = require('moment');
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT opportunities.id,
-    opportunities.image,
+    opportunities.upload_image,
     opportunities.title,
     opportunities.start_time,
     opportunities.end_time,
@@ -26,8 +26,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     opportunities.private_notes,
     opportunities.max_volunteers,
     opportunities.certification_needed,
-    certifications.certification_name FROM opportunities
-    JOIN certifications on opportunities.certification_needed = certifications.id
+    certifications.certification_name,
+    count(user_opportunities.opportunity_id)as number_of_volunteers FROM opportunities
+    LEFT JOIN certifications on opportunities.certification_needed = certifications.id
+    LEFT JOIN user_opportunities on opportunities.id = user_opportunities.opportunity_id
+    GROUP BY opportunities.id, certifications.certification_name
     ORDER BY opportunities.date, opportunities.start_time;`;
     pool.query(queryText)
         .then((results) => {
@@ -42,7 +45,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.get('/volunteer', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT
     "opportunities"."id",
-	"opportunities"."image",
+	"opportunities"."upload_image",
 	"opportunities"."title",
 	"opportunities"."start_time",
 	"opportunities"."end_time",
@@ -56,11 +59,12 @@ router.get('/volunteer', rejectUnauthenticated, (req, res) => {
 	"opportunities"."status",
 	"opportunities"."private_notes",
 	"opportunities"."max_volunteers",
-	"certifications"."certification_name"
-    FROM "opportunities"
-    JOIN "user_opportunities" on "opportunities"."id" = "user_opportunities"."opportunity_id"
-    JOIN "certifications" on "opportunities"."certification_needed" = "certifications"."id"
+    "certifications"."certification_name",
+    count("user_opportunities"."opportunity_id")as number_of_volunteers FROM "opportunities"
+    LEFT JOIN "user_opportunities" on "opportunities"."id" = "user_opportunities"."opportunity_id"
+    LEFT JOIN "certifications" on "opportunities"."certification_needed" = "certifications"."id"
     WHERE "user_opportunities"."user_id" = $1 AND "opportunities"."status" = 2
+    GROUP BY opportunities.id, certifications.certification_name
     ORDER BY opportunities.date, opportunities.start_time;`;
     pool.query(queryText, [req.user.id])
         .then((results) => {
@@ -114,6 +118,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT
     user_opportunities.user_id,
+    user_opportunities.id,
 user_opportunities.opportunity_id,
 users.first_name,
 users.middle_name,
@@ -135,7 +140,7 @@ users.employer,
 users.job_title,
 users.date_of_birth,
 opportunities.id,
-opportunities.image,
+opportunities.upload_image,
 opportunities.title,
 opportunities.start_time,
 opportunities.end_time,
@@ -209,14 +214,14 @@ router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) =>
     const newOpportunity = req.body;
     const certId = parseInt(newOpportunity.certification_needed);
 
-    // console.log(req.body, 'req body');
+    console.log(req.body, 'req body');
 
-    const queryText = `INSERT INTO "opportunities"("title","start_time","end_time","address_line1","address_line2","city","state","zip","description","date","status","private_notes","max_volunteers","certification_needed")
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14);`;
+    const queryText = `INSERT INTO "opportunities"("title","start_time","end_time","address_line1","address_line2","city","state","zip","description","date","status","private_notes","max_volunteers","upload_image", "certification_needed")
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15);`;
     const momentStartTime = moment(newOpportunity.start_time).format('HH:mm:ss');
     const momentEndTime = moment(newOpportunity.end_time).format('HH:mm:ss');
 
-    const serializedData = [newOpportunity.title, momentStartTime, momentEndTime, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers, certId];
+    const serializedData = [newOpportunity.title, momentStartTime, momentEndTime, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers,newOpportunity.uploadImage, certId];
     // console.log(serializedData)
 
     pool.query(queryText, serializedData)
@@ -236,7 +241,7 @@ router.put('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) 
     const queryText = `UPDATE "opportunities" SET "title" = $2, "start_time" = $3, 
     "end_time" = $4, "address_line1" = $5, "address_line2" = $6, "city" = $7, 
     "state" =$8, "zip" = $9, "description" = $10, "date" = $11, "status" = $12, 
-    "private_notes" = $13, "max_volunteers" = $14, "certification_needed" = $15
+    "private_notes" = $13, "max_volunteers" = $14, "certification_needed" = $15, "upload_image" = $16
     WHERE "id" = $1;`;
 
     const momentStartTime = moment(updateOpportunityData.start_time, 'HH:mm:ss').format('HH:mm:ss');
@@ -248,7 +253,7 @@ router.put('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) 
     updateOpportunityData.city, updateOpportunityData.state, updateOpportunityData.zip,
     updateOpportunityData.description, updateOpportunityData.date, updateOpportunityData.status,
     updateOpportunityData.private_notes, updateOpportunityData.max_volunteers,
-    updateOpportunityData.certification_needed];
+    updateOpportunityData.certification_needed, updateOpportunityData.upload_image];
 
     pool.query(queryText, serializedData)
         .then((result) => {

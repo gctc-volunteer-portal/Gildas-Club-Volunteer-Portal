@@ -11,16 +11,12 @@ import moment from 'moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import { DatePicker } from 'material-ui-pickers';
-import Input from '@material-ui/core/Input';
-
-
-
 
 export default connect()(class FormDialog extends React.Component {
   state = {
     open: false,
     announcement: {
-        date: moment()
+        date: moment(new Date()).format()
     }
   };
 
@@ -59,18 +55,20 @@ export default connect()(class FormDialog extends React.Component {
   }
 
   render() {
-      // console.log(this.state.announcement.date);
-      
+    
+
     return (
       <React.Fragment>
       <MuiPickersUtilsProvider utils={MomentUtils}>
+      <div style={{margin: 50}}>
         <Button
                     variant="raised"
                     color="primary"
                     onClick={this.handleClickOpen}
                   >
                     Create Announcement
-                  </Button>
+        </Button>
+        </div>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -106,6 +104,7 @@ export default connect()(class FormDialog extends React.Component {
            value={this.state.date}
            onChange={this.handleDateChange}
            animateYearScrolling={false}
+           autoOk
  
          />
          

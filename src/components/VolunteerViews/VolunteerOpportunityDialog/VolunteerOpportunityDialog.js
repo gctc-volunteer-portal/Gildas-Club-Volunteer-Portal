@@ -8,14 +8,23 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import moment from 'moment';
+import swal from 'sweetalert';
 
 const styles = {
     button: {
-        margin: 5,
-        alignItems: 'flex-end',
+        marginTop: 5,
+        marginBottom: 5,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     dialog: {
         padding: 10,
+    },
+    image: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 };
 
@@ -40,6 +49,15 @@ class VolunteerOpportunityDialog extends React.Component {
     };
 
     signUp = () => {
+        swal(
+            {
+                text: 
+                `Hey ${this.props.user.first_name},
+
+                Thank you for volunteering with us. We hope to see you soon!`,
+                icon: "success",
+                color: 'primary',
+            });
         this.props.dispatch({
             type: 'VOLUNTEER_ENROLL_VOLUNTEER',
             payload: {
@@ -51,16 +69,33 @@ class VolunteerOpportunityDialog extends React.Component {
     }
 
     withdraw = () => {
-        this.props.dispatch({
-            type: 'VOLUNTEER_DELETE_ITEM',
-            payload: {
-                volunteerId: this.props.user.id,
-                opportunityId: this.props.opportunity.id,
-            }
-        });
+        if (moment(new Date()).add(2, 'days').format() >= this.props.opportunity.date) {
+            swal({
+                title: "Oops...",
+                text: `You can only withdraw within 48 hours of the volunteer opportunity. Please contact Gilda's Club Twin Cities at 
+                (612) 227-2147.`,
+                icon: "warning",
+                dangerMode: true,
+                color: 'primary',
+            });
+        } else {
+            swal(
+                {
+                    text: "You have successfully withdrawn from this volunteer opportunity.",
+                    icon: "success",
+                    color: 'primary',
+                });
+            this.props.dispatch({
+                type: 'VOLUNTEER_DELETE_ITEM',
+                payload: {
+                    volunteerId: this.props.user.id,
+                    opportunityId: this.props.opportunity.id,
+                }
+            });
+        }
+
         this.handleClose();
     }
-
     render() {
 
         let buttonToShow = null;
@@ -83,7 +118,7 @@ class VolunteerOpportunityDialog extends React.Component {
 
         return (
             <div>
-                <Button className={this.props.classes.button} variant="raised" color="primary" onClick={this.handleClickOpen}>More Info</Button>
+                <Button fullWidth={true} className={this.props.classes.button} variant="raised" color="primary" onClick={this.handleClickOpen}>More Details</Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -92,12 +127,15 @@ class VolunteerOpportunityDialog extends React.Component {
                     className={this.props.classes.dialog}
                 >
                     <DialogTitle id="alert-dialog-title">{this.props.opportunity.title}</DialogTitle>
-                    <DialogContent>
-                        <img src={this.props.opportunity.image} alt="opportunity" height="300" width="300" />
+                    <DialogContent className={this.props.classes.image}>
+                        <img src={this.props.opportunity.upload_image} alt="opportunity" height="300" />
                     </DialogContent>
                     <DialogTitle id="alert-dialog-title">{this.props.opportunity.certification_name}</DialogTitle>
-
                     <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {this.props.opportunity.description}
+                        </DialogContentText>
+                        <br />
                         <DialogContentText id="alert-dialog-description">
                             Date: {moment(this.props.opportunity.date).format('dddd, MMMM D, YYYY')}
                         </DialogContentText>
@@ -105,8 +143,7 @@ class VolunteerOpportunityDialog extends React.Component {
                         <DialogContentText id="alert-dialog-description">
                             Time: {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')}
                         </DialogContentText>
-                    </DialogContent>
-                    <DialogContent>
+                        <br />
                         <DialogContentText id="alert-dialog-description">
                             Location:
                         </DialogContentText>
@@ -120,18 +157,15 @@ class VolunteerOpportunityDialog extends React.Component {
                             {this.props.opportunity.city}, {this.props.opportunity.state} {this.props.opportunity.zip}
                         </DialogContentText>
                     </DialogContent>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            {this.props.opportunity.description}
-                        </DialogContentText>
-                    </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Close
                         </Button>
                         {buttonToShow}
+
                     </DialogActions>
                 </Dialog>
+
             </div>
         );
     }
@@ -144,4 +178,5 @@ const mapStateToProps = (state) => ({
 
 
 const connectedVolunteerOpportunityDialog = connect(mapStateToProps)(VolunteerOpportunityDialog);
+
 export default withStyles(styles)(connectedVolunteerOpportunityDialog);

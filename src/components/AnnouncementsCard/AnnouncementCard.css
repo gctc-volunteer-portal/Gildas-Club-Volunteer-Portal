@@ -1,0 +1,10 @@
+.p {
+    color: grey; 
+    text-overflow: ellipsis; 
+    overflow: hidden; 
+    white-space: nowrap; 
+    line-height: 25px; 
+    font-size: 15px;
+    }
+/* 
+.p:after { content: ".."; position :absolute; left: 30px; bottom: 2px;} */

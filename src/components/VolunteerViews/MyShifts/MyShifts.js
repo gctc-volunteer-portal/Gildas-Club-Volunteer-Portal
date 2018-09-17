@@ -5,7 +5,6 @@ import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav'
 import Header from '../../Header/Header';
 import OpportunitiesCardAdminView from '../../OpportunitiesCardAdminView/OpportunitiesCardAdminView';
 import { USER_ACTIONS } from '../../../redux/actions/userActions'
-// import { triggerLogout } from '../../redux/actions/loginActions';
 
 
 const mapStateToProps = state => ({
@@ -70,7 +69,7 @@ class MyShifts extends Component {
     <div>
         <Header admin={false} />
         <VolunteerNav />
-        <div style={{ height: 100 }}>
+        <div style={{ textAlign: 'center', height: 100, margin: 25 }}>
                   <TextField
                       id="full-width"
                       label=""
