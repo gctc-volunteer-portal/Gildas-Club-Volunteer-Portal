@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import moment from 'moment';
+import swal from 'sweetalert';
 
 const styles = {
     button: {
@@ -49,6 +50,15 @@ class VolunteerOpportunityDialog extends React.Component {
     };
 
     signUp = () => {
+        swal(
+            {
+                text: 
+                `Hey ${this.props.user.first_name},
+
+                Thank you for volunteering with us. We hope to see you soon!`,
+                icon: "success",
+                color: 'primary',
+            });
         this.props.dispatch({
             type: 'VOLUNTEER_ENROLL_VOLUNTEER',
             payload: {
@@ -60,16 +70,33 @@ class VolunteerOpportunityDialog extends React.Component {
     }
 
     withdraw = () => {
-        this.props.dispatch({
-            type: 'VOLUNTEER_DELETE_ITEM',
-            payload: {
-                volunteerId: this.props.user.id,
-                opportunityId: this.props.opportunity.id,
-            }
-        });
+        if (moment(new Date()).add(2, 'days').format() >= this.props.opportunity.date) {
+            swal({
+                title: "Oops...",
+                text: `You can only withdraw within 48 hours of the volunteer opportunity. Please contact Gilda's Club Twin Cities at 
+                (612) 227-2147.`,
+                icon: "warning",
+                dangerMode: true,
+                color: 'primary',
+            });
+        } else {
+            swal(
+                {
+                    text: "You have successfully withdrawn from this volunteer opportunity.",
+                    icon: "success",
+                    color: 'primary',
+                });
+            this.props.dispatch({
+                type: 'VOLUNTEER_DELETE_ITEM',
+                payload: {
+                    volunteerId: this.props.user.id,
+                    opportunityId: this.props.opportunity.id,
+                }
+            });
+        }
+
         this.handleClose();
     }
-
     render() {
 
         let buttonToShow = null;
@@ -136,8 +163,10 @@ class VolunteerOpportunityDialog extends React.Component {
                             Close
                         </Button>
                         {buttonToShow}
+
                     </DialogActions>
                 </Dialog>
+
             </div>
         );
     }
@@ -150,4 +179,5 @@ const mapStateToProps = (state) => ({
 
 
 const connectedVolunteerOpportunityDialog = connect(mapStateToProps)(VolunteerOpportunityDialog);
+
 export default withStyles(styles)(connectedVolunteerOpportunityDialog);

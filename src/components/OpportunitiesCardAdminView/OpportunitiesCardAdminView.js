@@ -22,10 +22,10 @@ import Select from '@material-ui/core/Select';
 const styles = theme => ({
 
     card: {
-        width: '90%',
+
         position: 'relative',
         minHeight: 350,
-        margin: 20,
+        margin: '2rem',
         display: 'grid',
         gridTemplateColumns: '374px 1fr 1fr',
     },
@@ -132,7 +132,7 @@ class MediaCard extends Component {
         if (this.props.state.user.access_level >= 2 && this.props.admin) {
             statusButton = (
                 <div>
-                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
+                    <Typography className={classes.typography} style={{ textAlign: 'right'}}>
                         {status}
                     </Typography>
                     <FormControl className={classes.formControl} fullWidth={true}>

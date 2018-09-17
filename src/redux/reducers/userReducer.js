@@ -73,6 +73,20 @@ const isLoading = (state = false, action) => {
   }
 };
 
+const first_name = (state = '', action) => {
+  switch (action.type) {
+    case USER_ACTIONS.SET_USER:
+      if (action.user.first_name) {
+        return action.user.first_name
+      }
+      else return state ;
+    case USER_ACTIONS.UNSET_USER:
+      return '';
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   id,
   email,
@@ -80,4 +94,5 @@ export default combineReducers({
   first_initial,
   last_initial,
   isLoading,
+  first_name
 });
