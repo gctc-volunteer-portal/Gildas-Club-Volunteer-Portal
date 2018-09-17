@@ -88,6 +88,10 @@ function* volunteerEnrollVolunteer(action) {
         yield dispatch({
             type: 'FETCH_SINGLE_VOLUNTEER_OPPORTUNITIES',
         });
+        yield dispatch({
+            type: 'GET_EVENT_VOLUNTEERS',
+            payload: action.payload.opportunityId
+        })
     } catch (err) {
         yield console.log(err);
 
