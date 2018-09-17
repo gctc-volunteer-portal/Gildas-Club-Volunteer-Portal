@@ -296,7 +296,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
 
 router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT opportunities.id,
-    opportunities.image,
+    opportunities.upload_image,
     opportunities.title,
     opportunities.start_time,
     opportunities.end_time,
