@@ -55,6 +55,7 @@ class EditOpportunityForm extends Component {
       api_secret: "G89kYxt7M_xdj96VQu6h9fMcZyg",
       upload_preset: 'gohibjbe'
     }
+    // this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
   }
 
   openCloudinary = () => {
@@ -113,7 +114,7 @@ class EditOpportunityForm extends Component {
   }
 
   render() {
-    console.log(this.props.opportunityToUpdate.upload_image);
+    console.log(this.props.certificates);
     
     // map through certifications list, which is stored on redux store, and display them on DOM
     const certificationsList = this.props.certificates.map((certificate, index) => {

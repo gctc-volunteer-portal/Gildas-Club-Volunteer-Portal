@@ -17,7 +17,9 @@ import Select from '@material-ui/core/Select';
 
 const mapStateToProps = state => ({
     opportunitiesList: state.opportunitiesReducer.opportunitiesReducer,
-    user: state.user
+    user: state.user,
+    //   certificates: state.certificationsReducer.certifications,
+    
 });
 
 function searchingFor(term) {
@@ -73,6 +75,7 @@ class InfoPage extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'GET_EVENTS' })
+        this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
     }
 
     componentDidUpdate() {

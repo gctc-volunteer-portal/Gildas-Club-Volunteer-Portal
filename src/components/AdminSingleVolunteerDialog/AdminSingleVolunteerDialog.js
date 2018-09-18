@@ -206,7 +206,6 @@ handleClose = () => {
 
   updateVolunteerInfo = (event) => {
     event.preventDefault()
-    console.log(this.state);
     let volunteerId = this.props.volunteer.id
     let state = this.state
     this.props.dispatch({
@@ -235,7 +234,6 @@ handleClose = () => {
 
   handleNoogieLandCert = (property) => {
 
-   console.log('test:', this.state.certs[property]);
   this.setState({
       ...this.state,
       certs: {
@@ -292,7 +290,8 @@ handleClose = () => {
  
 
   render() {
-  console.log(this.state);
+ console.log(this.props.volunteer.id, this.props.volunteer.first_name);
+
  
     let toggleAccess;
     if(this.state.access_level === 2){
@@ -381,14 +380,14 @@ handleClose = () => {
     let specialThree
     if(this.state.certs.special_three.certified){specialThree= 'primary'}else{specialThree='default'}
 
-    let openToAllVolunteers
-    if(this.state.certs.open_to_all.certified) {openToAllVolunteers= 'primary'} else{openToAllVolunteers='default'}
+    // let openToAllVolunteers
+    // if(this.state.certs.open_to_all.certified) {openToAllVolunteers= 'primary'} else{openToAllVolunteers='default'}
 
 
 
     return (
       <React.Fragment>
-        <Button onClick={this.handleClickOpen}>edit</Button>
+        <Button onClick={this.handleClickOpen}>Edit</Button>
         <Dialog
             fullScreen
             open={this.state.open}
