@@ -4,6 +4,8 @@ import axios from 'axios';
 import RegistrationForm from '../RegistrationForm/RegistrationForm';
 
 import Header from '../Header/Header';
+import swal from 'sweetalert';
+
 
 class RegisterPage extends Component {
   constructor(props) {
