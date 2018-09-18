@@ -59,7 +59,6 @@ class EditOpportunityForm extends Component {
 
   openCloudinary = () => {
     window.cloudinary.openUploadWidget(this.config, (error, result) => {
-        console.log(error, result);
         if (result) {
           // console.log(result.info.secure_url);
             let cloudinaryUrl = result.info.secure_url;
@@ -71,7 +70,6 @@ class EditOpportunityForm extends Component {
             })
         }
     })
-    console.log(this.state.uploadImage);
     
 }
 
