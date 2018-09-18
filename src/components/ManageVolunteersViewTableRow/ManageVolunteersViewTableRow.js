@@ -55,6 +55,7 @@ console.log(this.props.volunteer);
                 <AdminSingleVolunteerDialog volunteer={this.props.volunteer} />
             )
         }
+        console.log(this.props.volunteer.id)
 
       
         return (
