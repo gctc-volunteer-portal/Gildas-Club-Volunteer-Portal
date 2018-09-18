@@ -15,6 +15,9 @@ const styles = {
     gridTemplateColumns: '1fr 1fr 1fr',
     color: 'blue',
     marginTop: 50
+  },
+  navIcon: {
+    color: 'white',
   }
   
 }
@@ -33,9 +36,9 @@ return(
    showLabels
    className={this.props.classes.nav}
    >
-   <BottomNavigationAction component={Link} to="/my_shifts"  label="My Shifts" icon={ <AssignmentInd />}/>
-   <BottomNavigationAction component={Link} to="/announcements" label="Announcements" icon={<Announcement/>}/>
-   <BottomNavigationAction component={Link} to="/upcoming_opportunities" label="Upcoming Opportunities" icon={<Assignment/>}/>
+   <BottomNavigationAction className={this.props.classes.navIcon} component={Link} to="/my_shifts"  label="My Shifts" icon={ <AssignmentInd />}/>
+   <BottomNavigationAction className={this.props.classes.navIcon} component={Link} to="/announcements" label="Announcements" icon={<Announcement/>}/>
+   <BottomNavigationAction className={this.props.classes.navIcon} component={Link} to="/upcoming_opportunities" label="Upcoming Opportunities" icon={<Assignment/>}/>
     </BottomNavigation>
 </div>
 
