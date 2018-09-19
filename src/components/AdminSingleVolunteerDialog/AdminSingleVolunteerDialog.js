@@ -31,11 +31,7 @@ const styles = {
       marginBottom:'5px',
       width:'250px',
       testAlign:'center'
-      // color: ' #DE2027'
       
-    },
-    thisOneChip:{
-      // backgroundColor:'#DE2027'
     },
     chip:{
       position: 'absolute',
@@ -43,15 +39,12 @@ const styles = {
       marginBottom:'px',
       width: '220px',
       height: '440px',
-      // margin: '60%  ',
       padding: '30px',
       borderRadius: '10px',
       float: 'right',
       bottom: '-300px',
       right: '50px',
       left:' 650px',
-      // marginRight:'40%',
-      // marginTop:'13px',
       border: '2px solid red',
       verticalAlign:'center',
     },
@@ -70,18 +63,9 @@ const styles = {
      textAlign: 'center',
      position: 'absolute',
      top:'-60px',
-    //  right: '-10px'
      
     }
-  
-    
-      
-    // width: 30%;
-    // height: 250px;
-    // margin: 20px left;
-    // padding: 30px;
-    // border-radius: 2px;
-    // position: absolute;
+
     
   }
   function Transition(props) {
@@ -93,7 +77,6 @@ class AdminSingleVolunteerDialog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          // email: this.props.volunteer.email,
           email: '',
           dynamics_id: '',
           first_name: '',
@@ -289,7 +272,7 @@ handleClose = () => {
     })
   }
 
-  
+
   
   
 
@@ -331,7 +314,8 @@ handleClose = () => {
     let toggleAccess;
     if(this.state.access_level === 2){
       toggleAccess = (<div>
-        <FormControlLabel control={ <Switch 
+        <FormControlLabel control={
+        <Switch 
             checked={true}
             onChange={this.editAccess}
             value="access_level"
