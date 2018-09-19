@@ -288,10 +288,10 @@ handleClose = () => {
           certified: !this.state.certs[property].certified
         }
       }
-  );
+  })
 }
 
-  
+
   
   
 
