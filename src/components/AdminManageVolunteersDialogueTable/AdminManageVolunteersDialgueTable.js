@@ -25,12 +25,12 @@ const CustomTableCell = withStyles(theme => ({
 
 const styles = theme => ({
   root: {
-    width: '100%',
     marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
+
   },
   table: {
-    // minWidth: 800,
+    minWidth: 800,
+    
 
   },
   row: {
@@ -72,10 +72,10 @@ class CustomizedTable extends Component {
       
       return (
         <TableRow key={index}>
-        <CustomTableCell>{volunteer.first_name}</CustomTableCell>
-        <CustomTableCell numeric>{volunteer.last_name}</CustomTableCell>
-        <CustomTableCell numeric>{volunteer.email}</CustomTableCell>
-        <CustomTableCell numeric>{volunteer.primary_phone}</CustomTableCell>
+        <CustomTableCell  style={{textAlign: 'left'}}>{volunteer.first_name}</CustomTableCell>
+        <CustomTableCell  style={{textAlign: 'left'}}>{volunteer.last_name}</CustomTableCell>
+        <CustomTableCell  style={{textAlign: 'left'}}>{volunteer.email}</CustomTableCell>
+        <CustomTableCell  style={{textAlign: 'left'}}>{volunteer.primary_phone}</CustomTableCell>
         <CustomTableCell><Button size="small" variant="contained" color="primary" className={classes.button} onClick={()=>this.handleDelete(volunteer.user_id, this.props.opportunity.id)}>
         <HighlightOff className={classes.rightIcon} />
         </Button></CustomTableCell>
@@ -85,7 +85,7 @@ class CustomizedTable extends Component {
   
   
     return (
-      <Paper style={{ height: 500, width: '95%', margin: 50, overflow: 'scroll'}} className={classes.root}>
+      <Paper style={{ height: 350, margin: 50, overflow: 'scroll'}} className={classes.root}>
         <Table className={classes.table} >
           <TableHead>
             <TableRow>
@@ -96,7 +96,7 @@ class CustomizedTable extends Component {
               <CustomTableCell>Delete</CustomTableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody >
                 {currentVolunteers}
           </TableBody>
         </Table>
