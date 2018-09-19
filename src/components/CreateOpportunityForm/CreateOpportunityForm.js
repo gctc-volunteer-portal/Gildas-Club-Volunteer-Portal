@@ -51,10 +51,10 @@ class CreateOpportunityForm extends Component {
   componentDidMount() {
     this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
     this.config = {
-      cloud_name: "dhdgecggi",
-      api_key: "772513869339438",
-      api_secret: "G89kYxt7M_xdj96VQu6h9fMcZyg",
-      upload_preset: 'gohibjbe'
+      cloud_name: "gildas-club-twin-cities",
+      api_key: "353342693655166",
+      api_secret: "13S9AlbcotS0rNmuKfBZPojImTU",
+      upload_preset: 'thebh5kw'
     }
   }
   openCloudinary = () => {

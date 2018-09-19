@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withRouter } from 'react-router';;
-
-import { withStyles, FormControl, FormLabel,Chip, Checkbox, TextField, Button, Dialog, Slide, Switch } from '@material-ui/core';
+import { withRouter } from 'react-router';
 import '../AdminSingleVolunteerDialog/AdminSingleVolunteer.css'
+import { withStyles, FormControl, FormLabel,Chip, Checkbox, TextField, Button, Dialog, Slide, Switch } from '@material-ui/core';
 
 
 const mapStateToProps = state =>({
