@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withRouter } from 'react-router';;
-
-import { withStyles, FormControl, FormLabel,Chip, Checkbox, TextField, Button, Dialog, Slide, Switch } from '@material-ui/core';
-import '../AdminSingleVolunteerDialog/AdminSingleVolunteer.css'
+import { withRouter } from 'react-router';
+import { withStyles, FormControl, FormControlLabel, FormLabel, Chip, Checkbox, TextField, Button, Dialog, Slide, Switch } from '@material-ui/core';
+import '../AdminSingleVolunteerDialog/AdminSingleVolunteer.css';
 
 
 const mapStateToProps = state =>({
@@ -288,8 +286,8 @@ handleClose = () => {
           certified: !this.state.certs[property].certified
         }
       }
-  );
-}
+    })
+  }
 
   
   

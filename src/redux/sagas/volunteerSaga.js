@@ -26,7 +26,6 @@ function* getNewVolunteers(){
 }
 
 function* getIndVolunteerInfo(action){
-    // console.log(action.payload);
     let id = action.payload
     try{
         yield dispatch({
@@ -38,7 +37,7 @@ function* getIndVolunteerInfo(action){
             payload: individualVolunteerInfo.data[0]
         })
     }catch(err){
-        console.log(err);
+        yield console.log(err);
         
     }
 }
@@ -50,17 +49,15 @@ function* fetchVolunteerInfo() {
             type: 'SET_VOLUNTEER_INFO',
             payload: volunteerInfo.data
         })
-    } catch (error) {
-        yield console.log(error);
+    } catch (err) {
+        yield console.log(err);
     }
 }
 
 
  function* getMyVolunteerEvents(){
          try{
-        const myAvailableEvents = yield call(axios.get, '/api/volunteers/my_available_events')
-        // console.log(myAvailableEvents);
-    
+        const myAvailableEvents = yield call(axios.get, '/api/volunteers/my_available_events')    
         yield dispatch({
             type: 'MY_AVAILABLE_EVENTS',
             payload: myAvailableEvents.data
@@ -71,7 +68,6 @@ function* fetchVolunteerInfo() {
 
  }
 function* updateVolunteers(action){
-    // console.log(action.payload);
         try{
 
             const update = yield call(axios.put, `/api/volunteers/updateInfo/`, action.payload)
@@ -82,19 +78,18 @@ function* updateVolunteers(action){
             })
 
         }catch(err){
-            console.log(err);
+            yield console.log(err);
         }
 }
 
 function* updateCertificates(action){
-    console.log(action.payload);
     try{
      const updateCerts = yield call(axios.put,`/api/volunteers/updateCerts/`, action.payload)
      yield dispatch({
         type:'FETCH_VOLUNTEER_INFO'
     })
     }catch(err){
-
+        yield console.log(err);
     }
 }
 

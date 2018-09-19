@@ -106,9 +106,7 @@ function* volunteerEnrollVolunteer(action) {
 }
 
 //Dispatch POST request with new opportunity data
-function* addOpportunity(action) {
-    console.log(action.payload);
-    
+function* addOpportunity(action) {    
     try {
         yield call(axios.post, `/api/opportunities`, action.payload);
         yield dispatch({
@@ -118,6 +116,7 @@ function* addOpportunity(action) {
         yield console.log(err);
     }
 }
+
 function* getCertifiedVolunteers(certificationId) {
     try {
         const certifiedVolunteers = yield call(axios.get, '/api/autocomplete', {
@@ -174,15 +173,13 @@ function* getAllOpportunityInfo() {
 }
 
 function* updateStatus(action){
-    console.log(action.payload);
         try{
             yield call(axios.put, `/api/opportunities/status/${action.payload.opportunityId}`, action.payload)
             yield dispatch({
                 type: 'GET_EVENTS'
             })
         }catch(err){
-            console.log(err);
-            
+            yield console.log(err);            
         }
 }
 
