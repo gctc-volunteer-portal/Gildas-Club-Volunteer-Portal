@@ -118,6 +118,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT
     user_opportunities.user_id,
+    user_opportunities.id,
 user_opportunities.opportunity_id,
 users.first_name,
 users.middle_name,

@@ -13,6 +13,7 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+    alignText:'center'
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -52,7 +53,7 @@ class LoginPage extends Component {
 
   componentDidUpdate() {
     if (!this.props.user.isLoading && this.props.user.email !== null && this.props.user.access_level === 3) {
-      this.props.history.push('/manage_volunteers');
+      this.props.history.push('/manage_opportunities');
     } else if (!this.props.user.isLoading && this.props.user.email !== null){
       this.props.history.push('/my_shifts')
     }

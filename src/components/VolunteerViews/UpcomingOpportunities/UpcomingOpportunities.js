@@ -76,29 +76,31 @@ class UpcomingOpportunities extends Component {
 
         }
 
-        return (
-            <div>
-                <Header admin={false} />
-                <VolunteerNav />
-                <div style={{ height: 100 }}>
-                    <TextField
-                        id="full-width"
-                        label=""
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        placeholder="Search..."
-                        helperText="What opportunity are you looking for?"
-                        width='50'
-                        margin="normal"
-                        onChange={this.searchHandler}
-                        value={this.state.term}
-                    />
-                </div>
-                {content}
-            </div>
-        );
-    }
+
+                  
+      return (
+          <div>
+              <Header admin={false} />
+              <VolunteerNav />
+              <div style={{ textAlign: 'center', height: 100, margin: 25 }}>
+                  <TextField
+                      id="full-width"
+                      label=""
+                      InputLabelProps={{
+                          shrink: true,
+                      }}
+                      placeholder="Search..."
+                      helperText="What opportunity are you looking for?"
+                      width='50'
+                      margin="normal"
+                      onChange={this.searchHandler}
+                      value={this.state.term}
+                  />
+              </div>
+              {content}
+          </div>
+      );
+  }
 }
 
 const mapStateToProps = state => ({
