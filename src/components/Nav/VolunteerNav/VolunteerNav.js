@@ -12,7 +12,6 @@ const styles = {
   nav:{
     backgroundColor: '#e44c52',
     gridTemplateColumns: '1fr 1fr 1fr',
-    color: 'blue',
   },
   navIcon: {
     color: 'white',
