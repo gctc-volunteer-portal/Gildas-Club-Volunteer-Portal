@@ -347,9 +347,9 @@ handleClose = () => {
     let toggleAccess;
     if(this.state.access_level === 2){
       toggleAccess = (<div>
-        <FormControlLabel control={ <Switch 
+        <FormControlLabel control={
+        <Switch 
             checked={true}
-            // onClick={this.editAccess}
             onChange={this.editAccess}
             value="access_level"
             color="primary"

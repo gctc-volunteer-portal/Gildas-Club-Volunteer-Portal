@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+
 import { TableHead, TableRow, TableCell, Tooltip, TableSortLabel } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+
 import './ManageVolunteersViewTableHeader.css';
 
 const styles = theme => ({
@@ -13,11 +15,11 @@ const styles = theme => ({
 const columns = [
     { id: 'edit', label: '', rotate: false },
     { id: 'first_name', label: 'First Name', rotate: false },
-    // { id: 'middle_name', label: 'Middle Name' },
+    { id: 'middle_name', label: 'Middle Name', rotate: false },
     { id: 'last_name', label: 'Last Name', rotate: false },
     { id: 'email', label: 'Email', rotate: false },
     { id: 'primary_phone', label: 'Primary Phone', rotate: false },
-    // { id: 'secondary_phone', label: 'Secondary Phone' },
+    { id: 'secondary_phone', label: 'Secondary Phone', rotate: false },
     { id: 'av_support', label: 'A/V Support', rotate: true },
     { id: 'cash_handling', label: 'Cash Handling', rotate: true },
     { id: 'clinic_ambassador', label: 'Clinic Ambassador', rotate: true },
@@ -33,19 +35,23 @@ const columns = [
 ];
 
 class ManageVolunteersViewTableHeader extends Component {
+    // pushes up sort request to table component
     createSortHandler = property => event => {
         this.props.onRequestSort(event, property);
     };
 
     render() {
         const { classes } = this.props;
+
+        // apply rotated table headers only to certification columns
         let columnHeaders = columns.map((column, index) => {
             let applyClass = '';
             if(column.rotate) {
                 applyClass = 'rotate'
             }
             return (
-                <TableCell class={applyClass}
+                <TableCell
+                    class={applyClass}
                     key={index}
                     sortDirection={this.props.orderBy === column.id ? this.props.order : false}
                     className={classes.head}
@@ -55,13 +61,13 @@ class ManageVolunteersViewTableHeader extends Component {
                         enterDelay={300}
                     >
                         <div>
-                                <TableSortLabel
-                                    active={this.props.orderBy === column.id}
-                                    direction={this.props.order}
-                                    onClick={this.createSortHandler(column.id)}
-                                >
-                                    {column.label}
-                                </TableSortLabel>
+                            <TableSortLabel
+                                active={this.props.orderBy === column.id}
+                                direction={this.props.order}
+                                onClick={this.createSortHandler(column.id)}
+                            >
+                            {column.label}
+                            </TableSortLabel>
                         </div>
                     </Tooltip>
                 </TableCell>
