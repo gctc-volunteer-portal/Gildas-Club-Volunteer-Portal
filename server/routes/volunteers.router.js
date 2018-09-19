@@ -158,7 +158,7 @@ router.put('/updateInfo', (req, res) => {
              res.sendStatus(403)
          }
 })
-
+//Update request for chips on volunteer edit dialog
 router.put('/updateCerts', (req, res) => {
     console.log('notice this:',req.body.certs)
     console.log(req.body.id);
@@ -172,12 +172,11 @@ router.put('/updateCerts', (req, res) => {
     if(req.isAuthenticated){
        let isError = false;
 for( let i = 0; i < certs.length; i++){
-    let queryText =`UPDATE user_certifications SET "is_certified" = ${certs[i].certified} WHERE  "certification_id" = ${certs[i].id} and "user_id" = ${req.body.id};`
+    let queryText =`UPDATE user_certifications SET "is_certified" = $1 WHERE  "certification_id" = $2 and "user_id" = $3;`
     console.log(certs[i].certified);
     
-    queryText
-
-pool.query(queryText) .then(() => {
+    //sanitizing 
+pool.query(queryText, [certs[i].certified, certs[i].id, req.body.id]) .then(() => {
 
 }).catch(err => {
                 console.log(err)
