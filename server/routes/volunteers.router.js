@@ -1,33 +1,13 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const { rejectUnauthorizedManager } = require('../modules/manager-authorization');
+const { rejectUnauthorizedAdmin } = require('../modules/admin-authorization');
 
-
-router.get('/', rejectUnauthenticated, (req, res) => {
-    //if certification
-    const queryText = `SELECT distinct on (users.first_name)
-                        users.id,
-                        users.first_name, 
-                        users.last_name, 
-                        users.email, 
-                        users.primary_phone, 
-                        user_certifications.user_id, 
-                        user_certifications.certification_id
-                        FROM users
-                        LEFT OUTER JOIN "user_certifications" ON "users".id= user_certifications.user_id
-                        ORDER BY users.first_name;`;
-    // else query text = select* from users
-    pool.query(queryText)
-        .then((results) => {
-            res.send(results.rows)
-        }).catch((err) => {
-            console.log(err);
-            res.sendStatus(500);
-        })
-});
-
-router.get('/new', rejectUnauthenticated, (req, res) => {
+// get new volunteers (ie those without dynamics ids) for CSV export
+router.get('/new', rejectUnauthenticated, rejectUnauthorizedAdmin, (req, res) => {
     const queryText = `SELECT * 
     FROM crosstab (
     $$
@@ -113,22 +93,27 @@ router.get('/new', rejectUnauthenticated, (req, res) => {
         .then((results) => {
             res.send(results.rows)
         }).catch((err) => {
+            console.log('Error on /api/volunteers/new GET:', err);
             res.sendStatus(500);
         })
 });
 
-router.get('/indVolunteer/:id/', rejectUnauthenticated, (req, res) => {
-    if (req.isAuthenticated) {
+// get a specific volunteer
+router.get('/indVolunteer/:id/', rejectUnauthenticated, rejectUnauthorizedAdmin, (req, res) => {
         const queryText = `SELECT * FROM users WHERE users."id" = $1`;
-        pool.query(queryText, [req.params.id]).then((results) => {
-            res.send(results.rows)
-
-        })
+        pool.query(queryText, [req.params.id])
+            .then((results) => {
+                res.send(results.rows)
+            })
+            .catch(error => {
+                console.log('Error on /indVolunteer GET:', error);
+                res.sendStatus(500);
+            });
     }
-})
+)
 
-//editing volunteer
-router.put('/updateInfo', rejectUnauthenticated, (req, res) => {
+//edit a volunteer
+router.put('/updateInfo', rejectUnauthenticated, rejectUnauthorizedAdmin, (req, res) => {
     let info = req.body.state
     if (req.isAuthenticated) {
         const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $2, "last_name" = $3, "email"= $4 , "primary_phone"= $5,
@@ -140,13 +125,15 @@ router.put('/updateInfo', rejectUnauthenticated, (req, res) => {
         info.secondary_phone, info.street_address1, info.street_address2, info.city, info.zip, info.admin_notes,
         info.active, info.regular_basis, info.specific_event, info.as_needed,
         info.limitations_allergies, info.why_excited, info.employer, info.job_title, info.date_of_birth, info.access_level, info.dynamics_id, info.state, req.body.volunteerId])
-            .then(() => {
+            .then((results) => {
                 res.sendStatus(201)
             })
-    } else {
-        res.sendStatus(403)
+            .catch(error => {
+                console.log('Error on /api/volunteers/updateInfo PUT:', error);
+                res.sendStatus(500);
+            });
     }
-})
+});
 
 //Update request for chips on volunteer edit dialog
 router.put('/updateCerts', rejectUnauthenticated, (req, res) => {
@@ -161,6 +148,7 @@ router.put('/updateCerts', rejectUnauthenticated, (req, res) => {
         pool.query(queryText, [certs[i].certified, certs[i].id, req.body.id]).then(() => {
 
         }).catch(err => {
+            console.log('Error on /api/volunteers/updateCerts PUT:', err)
             isError = true
         })
     } if (isError == true) {
@@ -170,8 +158,9 @@ router.put('/updateCerts', rejectUnauthenticated, (req, res) => {
     }
 })
 
-
-router.get('/info', rejectUnauthenticated, (req, res) => {
+// get all volunteers with certification data for manage volunteers table
+router.get('/info', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
+    // crosstable query creates a pivot table using volunteer certifications data
     const queryText = `SELECT * 
     FROM crosstab (
     $$
@@ -250,17 +239,18 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
         special2 BOOLEAN,
         special3 BOOLEAN,
         outreach_ambassador BOOLEAN
-
     );`
     pool.query(queryText)
         .then((results) => {
             res.send(results.rows);
         })
         .catch((error) => {
+            console.log('Error on /api/volunteers/info GET:', error);
             res.sendStatus(500);
         });
 });
 
+// get all upcoming opportunities for a volunteer
 router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT opportunities.id,
     opportunities.upload_image,
@@ -299,6 +289,7 @@ router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
             res.send(results.rows);
         })
         .catch((error) => {
+            console.log('Error on /api/volunteers/my_available_events GET:', error);
             res.sendStatus(500);
         });
 });

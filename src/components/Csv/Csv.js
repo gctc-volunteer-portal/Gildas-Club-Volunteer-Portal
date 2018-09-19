@@ -43,7 +43,7 @@ class App extends React.Component {
             <CSVLink
               data={this.props.allOpportunitiesInfo}
               filename={this.getFileName()}
-              className="btn">Export Opportunities Info to CSV ⬇</CSVLink>
+              className="btn">Export Opportunities Data to CSV ⬇</CSVLink>
           </div>
         </div>
 
