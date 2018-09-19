@@ -51,10 +51,8 @@ class VolunteerOpportunityDialog extends React.Component {
     signUp = () => {
         swal(
             {
-                text: 
-                `Hey ${this.props.user.first_name},
-
-                Thank you for volunteering with us. We hope to see you soon!`,
+                title: `Hey ${this.props.user.first_name},`,
+                text: 'Thank you for volunteering with us. We hope to see you soon!',
                 icon: "success",
                 color: 'primary',
             });

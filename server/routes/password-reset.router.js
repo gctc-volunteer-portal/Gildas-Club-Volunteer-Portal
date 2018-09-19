@@ -70,14 +70,14 @@ router.put('/reset-pass', (req, res) => {
                         res.sendStatus(200);
                     })
                     .catch(error => {
-                        console.log('Error on 2nd query:', error);
+                        console.log('Error on 2nd query for /api/password/reset-pass:', error);
                         res.sendStatus(500);
                     })
             }
             else {res.sendStatus(400)}
         })
         .catch(error => {
-            console.log('Error on 1st query:', error);
+            console.log('Error on 1st query for /api/password/reset-pass:', error);
             res.sendStatus(500);
         })
 });
