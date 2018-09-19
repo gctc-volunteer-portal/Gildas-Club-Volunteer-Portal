@@ -4,6 +4,8 @@ import axios from 'axios';
 import RegistrationForm from '../RegistrationForm/RegistrationForm';
 
 import Header from '../Header/Header';
+import swal from 'sweetalert';
+
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -21,7 +23,7 @@ class RegisterPage extends Component {
       street_address2: '',
       city: '',
       state: '',
-      zip: null,
+      zip: '',
       regular_basis: false,
       specific_event: false,
       as_needed: false,
@@ -39,11 +41,30 @@ class RegisterPage extends Component {
 
   registerUser = (event) => {
     event.preventDefault();
-
-    if (this.state.email === '' || this.state.password === '') {
-      this.setState({
-        message: 'Choose a email and password!',
-      });
+    if (this.state.email === '' || this.state.email === null || this.state.email === undefined) {
+      swal(
+        {
+          text:
+            `Please enter a valid email.`,
+          icon: "warning",
+          color: 'primary',
+        });
+    } else if (this.state.password === '' || this.state.password === null || this.state.password === undefined || this.state.password.length < 8) {
+      swal(
+        {
+          text:
+          `Please enter a valid password. It must contain a minimum of 8 characters.`,
+          icon: "warning",
+          color: 'primary',
+        });
+    } else if (this.state.primary_phone === '' || this.state.primary_phone === null || this.state.primary_phone === undefined) {
+      swal(
+        {
+          text:
+          `Please enter a valid phone number.`,
+          icon: "warning",
+          color: 'primary',
+        });
     } else {
       const body = {
         email: this.state.email,
@@ -70,7 +91,6 @@ class RegisterPage extends Component {
         access_level: this.state.access_level,
         admin_notes: this.state.admin_notes
       };
-
       // making the request to the server to post the new user's registration
       axios.post('/api/user/register', body)
         .then((response) => {
@@ -134,7 +154,6 @@ class RegisterPage extends Component {
   }
 
   render() {
-    // console.log(this.state, 'local state')
     return (
       <div>
         <Header />
