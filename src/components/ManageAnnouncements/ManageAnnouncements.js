@@ -8,7 +8,6 @@ import AnnouncementCard from '../AnnouncementsCard/AnnouncementCard';
 import AnnouncementsCreateForm from  '../AnnouncementsCreateForm/AnnouncementsCreateForm';
 
 
-
 const mapStateToProps = state => ({
   user: state.user,
   state
@@ -39,11 +38,10 @@ class Announcements extends Component {
              )
   })
 
-
     if (this.props.user.access_level >=2 ) {
       content = (
         <div>
-                  <AnnouncementsCreateForm/>
+        <AnnouncementsCreateForm/>
         </div>
       );
     }
@@ -60,6 +58,5 @@ class Announcements extends Component {
   }
 }
 
-// this allows us to use <App /> in index.js
 export default connect(mapStateToProps)(Announcements);
 

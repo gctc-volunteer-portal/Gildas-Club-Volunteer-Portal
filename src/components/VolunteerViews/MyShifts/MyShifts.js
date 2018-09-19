@@ -4,7 +4,8 @@ import TextField from '@material-ui/core/TextField'
 import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav'
 import Header from '../../Header/Header';
 import OpportunitiesCardAdminView from '../../OpportunitiesCardAdminView/OpportunitiesCardAdminView';
-import { USER_ACTIONS } from '../../../redux/actions/userActions'
+import { USER_ACTIONS } from '../../../redux/actions/userActions';
+import './myShifts.css';
 
 
 const mapStateToProps = state => ({
@@ -60,7 +61,7 @@ class MyShifts extends Component {
         content = mappedMyShifts;
       }
       else {
-        content = (<p>Looks like you don't have any shifts yet! Check out Upcoming Opportunities to sign up.</p>)
+        content = (<p className="shiftsMessage"> Looks like you don't have any shifts yet! Check out upcoming opportunities to sign up.</p>)
       }
     }
 
