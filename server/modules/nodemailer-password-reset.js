@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 
+// configures connection to email server
 let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,

@@ -1,12 +1,15 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const { rejectUnauthorizedManager } = require('../modules/manager-authorization');
+const { rejectUnauthorizedAdmin } = require('../modules/admin-authorization');
+
 const moment = require('moment');
 
-// GET request for all volunteer opportunities in database
-router.get('/', rejectUnauthenticated, (req, res) => {
+// GET request for all volunteer opportunities in database for manage opportunities page
+router.get('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
     const queryText = `SELECT opportunities.id,
     opportunities.upload_image,
     opportunities.title,
@@ -34,11 +37,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             res.send(results.rows)
 
         }).catch((err) => {
-            console.log(err);
+            console.log('Error on /api/opportunities GET', err);
             res.sendStatus(500);
         })
 });
 
+// get all opportunities a user is signed up for
 router.get('/volunteer', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT
     "opportunities"."id",
@@ -68,13 +72,16 @@ router.get('/volunteer', rejectUnauthenticated, (req, res) => {
             res.send(results.rows)
         })
         .catch((error) => {
+            console.log('Error on /api/opportunties/volunteer GET:', error)
             res.sendStatus(500);
         });
 });
 
+
+// Get a specific opportunity if a volunteer is signed up for it
 router.get('/enrolled/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM "user_opportunities"
-    WHERE "user_id" = $1 AND "opportunity_id" = $2;`
+        WHERE "user_id" = $1 AND "opportunity_id" = $2;`
     pool.query(queryText, [req.user.id, req.params.id])
         .then(results => {
             res.send(results.rows)
@@ -85,7 +92,8 @@ router.get('/enrolled/:id', rejectUnauthenticated, (req, res) => {
         });
 });
 
-router.get('/info', rejectUnauthenticated, (req, res) => {
+// Get all opportunities data for csv export
+router.get('/info', rejectUnauthenticated, rejectUnauthorizedAdmin, (req, res) => {
     const queryText = `SELECT user_opportunities.user_id,
                               user_opportunities.opportunity_id,
                               users.first_name,
@@ -106,54 +114,54 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
         .then((results) => {
             res.send(results.rows)
         }).catch((err) => {
-            console.log(err);
+            console.log('Error on /api/opportunities GET:', err);
             res.sendStatus(500);
         })
 });
 
-
-router.get('/:id', rejectUnauthenticated, (req, res) => {
+// Get all volunteers for a specific event
+router.get('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
     const queryText = `SELECT
     user_opportunities.user_id,
     user_opportunities.id,
-user_opportunities.opportunity_id,
-users.first_name,
-users.middle_name,
-users.last_name,
-users.email,
-users.primary_phone,
-users.secondary_phone,
-users.street_address1,
-users.street_address2,
-users.access_level,
-users.admin_notes,
-users.active,
-users.regular_basis,
-users.specific_event,
-users.as_needed,
-users.limitations_allergies,
-users.why_excited,
-users.employer,
-users.job_title,
-users.date_of_birth,
-opportunities.id,
-opportunities.upload_image,
-opportunities.title,
-opportunities.start_time,
-opportunities.end_time,
-opportunities.address_line1,
-opportunities.address_line2,
-opportunities.city,
-opportunities.state,
-opportunities.zip,
-opportunities.description,
-opportunities.date,
-opportunities.status,
-opportunities.private_notes,
-opportunities.max_volunteers,
-opportunities.certification_needed,
-certifications.certification_name
- FROM "user_opportunities"
+    user_opportunities.opportunity_id,
+    users.first_name,
+    users.middle_name,
+    users.last_name,
+    users.email,
+    users.primary_phone,
+    users.secondary_phone,
+    users.street_address1,
+    users.street_address2,
+    users.access_level,
+    users.admin_notes,
+    users.active,
+    users.regular_basis,
+    users.specific_event,
+    users.as_needed,
+    users.limitations_allergies,
+    users.why_excited,
+    users.employer,
+    users.job_title,
+    users.date_of_birth,
+    opportunities.id,
+    opportunities.upload_image,
+    opportunities.title,
+    opportunities.start_time,
+    opportunities.end_time,
+    opportunities.address_line1,
+    opportunities.address_line2,
+    opportunities.city,
+    opportunities.state,
+    opportunities.zip,
+    opportunities.description,
+    opportunities.date,
+    opportunities.status,
+    opportunities.private_notes,
+    opportunities.max_volunteers,
+    opportunities.certification_needed,
+    certifications.certification_name
+    FROM "user_opportunities"
     LEFT OUTER JOIN "users" ON "users".id = "user_opportunities".user_id
     LEFT OUTER JOIN "opportunities" ON "opportunities".id = "user_opportunities".opportunity_id
     LEFT OUTER JOIN "certifications" ON "certifications".id = "opportunities".certification_needed
@@ -163,49 +171,40 @@ certifications.certification_name
             res.send(results.rows)
 
         }).catch((err) => {
-            console.log(err);
+            console.log('Error on /api/opportunities/:id GET', err);
             res.sendStatus(500);
         })
 });
 
 
 // POST request to add volunteer into a volunteer opportunity
-router.post('/add_volunteer', rejectUnauthenticated, (req, res) => {
-
-    if (req.isAuthenticated) {
+router.post('/add_volunteer', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
         const queryText = `INSERT INTO "user_opportunities" ("user_id", "opportunity_id") VALUES ($1, $2)`
         pool.query(queryText, [req.body.volunteerId, req.body.opportunityId])
             .then(() => {
                 res.sendStatus(200);
             })
             .catch((error) => {
-                console.log(error);
+                console.log('Error on /api/opportunities/add_volunteer POST:', error);
                 res.sendStatus(500)
             })
-    } else {
-        res.sendStatus(403);
     }
-
-});
+);
 
 // DELETE request for removing a volunteer from volunteer opportunity
-router.delete('/:id', rejectUnauthenticated, (req, res) => {
-
-    if (req.isAuthenticated) {
+router.delete('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
         const queryText = `DELETE FROM "user_opportunities" WHERE user_id=$2 AND "opportunity_id" = $1 RETURNING "user_opportunities".opportunity_id`;
         pool.query(queryText, [req.params.id, req.body.volunteerId])
             .then((response) => {
                 res.send(response.rows)
             })
             .catch((err) => {
-                console.log('Error deleting', err);
+                console.log('Error on /api/opportunities DELETE:', err);
                 res.sendStatus(500);
 
             });
-    } else {
-        res.sendStatus(403);
-    }
-});
+    } 
+);
 
 //POST request for creating new volunteer opportunity, only users with manager or admin access can make server side POST request
 router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
@@ -260,7 +259,7 @@ router.put('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) 
             res.sendStatus(201);
         })
         .catch((error) => {
-            console.log(error);
+            console.log('Error on /api/opportunities PUT:', error);
             res.sendStatus(500);
         })
 });
@@ -275,7 +274,7 @@ router.put('/status/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req
             res.sendStatus(201);
         })
         .catch((error) => {
-            console.log(error);
+            console.log('Error on /api/opportunities/status PUT:', error);
             res.sendStatus(500);
         })
 });
@@ -291,7 +290,7 @@ router.put('/admin_note/:id', rejectUnauthenticated, rejectUnauthorizedManager, 
             res.sendStatus(201);
         })
         .catch((error) => {
-            console.log(error);
+            console.log('Error on /api/opportunities/admin_note PUT:', error);
             res.sendStatus(500);
         })
 });

@@ -42,7 +42,7 @@ class Header extends Component {
   }
 
   goToAdmin = () => {
-    this.props.history.push('/manage_volunteers');
+    this.props.history.push('/manage_opportunities');
   }
 
   render() {

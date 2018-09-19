@@ -1,4 +1,4 @@
-const rejectUnauthorizedAdmin= (req, res, next) => {
+const rejectUnauthorizedAdmin = (req, res, next) => {
   // check if logged in
   if (req.user.access_level === 3) {
     // They were authenticated! User may do the next thing

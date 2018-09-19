@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
+import AdminSingleVolunteerDialog from '../AdminSingleVolunteerDialog/AdminSingleVolunteerDialog';
+
 import { withStyles } from '@material-ui/core/styles';
 import { TableCell, TableRow } from '@material-ui/core';
-import { CheckCircle, Cancel } from '@material-ui/icons'
-import AdminSingleVolunteerDialog from '../AdminSingleVolunteerDialog/AdminSingleVolunteerDialog'
+import { CheckCircle, Cancel } from '@material-ui/icons';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
         backgroundColor: theme.palette.common.black,
         color: theme.palette.common.white,
-      
     },
     body: {
         fontSize: 14,
@@ -38,6 +38,7 @@ const styles = theme => ({
 
 class ManageVolunteersViewTableRow extends Component {
 
+    // set color of certification icons
     certified = (certificationStatus) => {
         if (certificationStatus) {
             return <CheckCircle nativeColor="green" />
@@ -46,25 +47,23 @@ class ManageVolunteersViewTableRow extends Component {
     }
 
     render() {
-
-
+        // limit edit button access to admins only
         let editButton = null;
-
         if (this.props.user.access_level === 3) {
             editButton = (
                 <AdminSingleVolunteerDialog volunteer={this.props.volunteer} />
             )
         }
-      
+        
         return (
             <TableRow className={this.props.classes.row}>
                 <CustomTableCell>{editButton}</CustomTableCell>
                 <CustomTableCell>{this.props.volunteer.first_name}</CustomTableCell>
-                {/* <CustomTableCell>{this.props.volunteer.middle_name}</CustomTableCell> */}
+                <CustomTableCell>{this.props.volunteer.middle_name}</CustomTableCell>
                 <CustomTableCell>{this.props.volunteer.last_name}</CustomTableCell>
                 <CustomTableCell>{this.props.volunteer.email}</CustomTableCell>
                 <CustomTableCell>{this.props.volunteer.primary_phone}</CustomTableCell>
-                {/* <CustomTableCell>{this.props.volunteer.secondary_phone}</CustomTableCell> */}
+                <CustomTableCell>{this.props.volunteer.secondary_phone}</CustomTableCell>
                 <CustomTableCell>{this.certified(this.props.volunteer.av_support)}</CustomTableCell>
                 <CustomTableCell>{this.certified(this.props.volunteer.cash_handling)}</CustomTableCell>
                 <CustomTableCell>{this.certified(this.props.volunteer.clinic_ambassador)}</CustomTableCell>
