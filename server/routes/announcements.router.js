@@ -17,16 +17,18 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT * FROM "announcements"
-        ORDER BY date;`
-    pool.query(queryText)
-        .then((results) => {
-            res.send(results.rows);
-        })
-        .catch((error) => {
-            console.log(error);
-            res.sendStatus(500)
-        })
+        const queryText = `SELECT * FROM "announcements"
+        ORDER BY date DESC;`
+        pool.query(queryText)
+            .then((results) => {
+                res.send(results.rows);
+            })
+            .catch((error) => {
+                console.log(error);
+                res.sendStatus(500)
+            })
+
+
 });
 
 router.delete('/:id', rejectUnauthenticated, (req, res) => {

@@ -47,6 +47,7 @@ class ManageVolunteersViewTableRow extends Component {
 
     render() {
 
+
         let editButton = null;
 
         if (this.props.user.access_level === 3) {
@@ -54,7 +55,6 @@ class ManageVolunteersViewTableRow extends Component {
                 <AdminSingleVolunteerDialog volunteer={this.props.volunteer} />
             )
         }
-
       
         return (
             <TableRow className={this.props.classes.row}>

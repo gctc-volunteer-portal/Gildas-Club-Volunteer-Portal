@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withRouter } from 'react-router';
-// import Header from '../Header/Header'
-// import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { withStyles, FormControl, FormControlLabel, FormLabel, Chip, Checkbox, TextField, Button, Dialog, Slide, Switch } from '@material-ui/core';
+import '../AdminSingleVolunteerDialog/AdminSingleVolunteer.css';
 
-import { withStyles, FormControl, FormLabel,Chip, Checkbox, TextField, Button, Dialog, Slide, Switch } from '@material-ui/core';
-import '../AdminSingleVolunteerDialog/AdminSingleVolunteer.css'
-// import VolunteerNav from '../Nav/VolunteerNav/VolunteerNav';
-// import { Z_DEFAULT_COMPRESSION } from 'zlib';
 
 const mapStateToProps = state =>({
    currentVolunteer: state.indVolunteerInfo.indVolunteerInfo,
@@ -78,6 +73,7 @@ const styles = {
     //  right: '-10px'
      
     }
+  
     
       
     // width: 30%;
@@ -97,57 +93,58 @@ class AdminSingleVolunteerDialog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          email: this.props.volunteer.email,
-          dynamics_id: this.props.volunteer.dynamics_id,
-          first_name: this.props.volunteer.first_name,
-          middle_name: this.props.volunteer.middle_name,
-          last_name: this.props.volunteer.last_name,
-          primary_phone: this.props.volunteer.primary_phone,
-          secondary_phone: this.props.volunteer.secondary_phone,
-          street_address1: this.props.volunteer.street_address1,
-          street_address2: this.props.volunteer.street_address2,
-          city: this.props.volunteer.city,
-          state: this.props.volunteer.state,
-          zip: this.props.volunteer.zip,
-          regular_basis: this.props.volunteer.regular_basis,
-          specific_event: this.props.volunteer.specific_event,
-          as_needed: this.props.volunteer.as_needed,
-          limitations_allergies: this.props.volunteer.limitations_allergies,
-          why_excited: this.props.volunteer.why_excited,
-          employer: this.props.volunteer.employer,
-          job_title: this.props.volunteer.job_title,
-          date_of_birth: this.props.volunteer.date_of_birth,
-          active: this.props.volunteer.active,
-          access_level: this.props.volunteer.access_level,
-          admin_notes: this.props.volunteer.admin_notes,
-          message: this.props.volunteer.message,
+          // email: this.props.volunteer.email,
+          email: '',
+          dynamics_id: '',
+          first_name: '',
+          middle_name: '',
+          last_name: '',
+          primary_phone: '',
+          secondary_phone: '',
+          street_address1: '',
+          street_address2: '',
+          city: '',
+          state: '',
+          zip: '',
+          regular_basis: '',
+          specific_event: '',
+          as_needed: '',
+          limitations_allergies: '',
+          why_excited: '',
+          employer: '',
+          job_title: '',
+          date_of_birth: '',
+          active: '',
+          access_level: '',
+          admin_notes: '',
+          message: '',
           open: false,
           certs:{
-          aVsupport: {id:1 ,certified: this.props.volunteer.av_support},
+          aVsupport: {},
 
-          cash_handling: {id: 2,certified: this.props.volunteer.cash_handling},
+          cash_handling: {},
 
-          clinic_ambassador: {id: 3, certified: this.props.volunteer.clinic_ambassador },
+          clinic_ambassador: {},
 
-          communications: {id: 4,certified: this.props.volunteer.communications},
+          communications: {},
 
-          data_entry: {id: 5,certified: this.props.volunteer.data_entry},
+          data_entry: {},
 
-          gilda_greeter: {id: 6,certified: this.props.volunteer.gilda_greeter},
+          gilda_greeter: {},
 
-          instructor: {id: 7,certified: this.props.volunteer.instructor},
+          instructor: {},
 
-          noogieland: {id: 8,certified: this.props.volunteer.noogieland},
+          noogieland: {},
 
-          outreach_ambassador: {id: 9,certified: this.props.volunteer.outreach_ambassador},
+          outreach_ambassador: {},
 
-          special_one: {id: 10 ,certified: this.props.volunteer.special1},
+          special_one: {},
 
-          special_two: {id: 11,certified: this.props.volunteer.special2},
+          special_two: {},
 
-          special_three: {id: 12,certified: this.props.volunteer.special3},
+          special_three: {},
 
-          open_to_all: { id: 13, certified: this.props.volunteer.open_to_all}
+          open_to_all: {}
           },
           chip:{
            color:'primary',
@@ -157,9 +154,7 @@ class AdminSingleVolunteerDialog extends Component {
           }
         }
       }
-  // returnHome = () => {
-  //   this.props.history.push('/')
-  // }
+ 
  
   
   componentDidMount() {
@@ -168,19 +163,73 @@ class AdminSingleVolunteerDialog extends Component {
   }
 
 
-
+//open dialog
 handleClickOpen = () => {
-  this.setState({ open: true });
+  this.setState({
+    email: this.props.volunteer.email,
+    dynamics_id: this.props.volunteer.dynamics_id,
+    first_name: this.props.volunteer.first_name,
+    middle_name: this.props.volunteer.middle_name,
+    last_name: this.props.volunteer.last_name,
+    primary_phone: this.props.volunteer.primary_phone,
+    secondary_phone: this.props.volunteer.secondary_phone,
+    street_address1: this.props.volunteer.street_address1,
+    street_address2: this.props.volunteer.street_address2,
+    city: this.props.volunteer.city,
+    state: this.props.volunteer.state,
+    zip: this.props.volunteer.zip,
+    regular_basis: this.props.volunteer.regular_basis,
+    specific_event: this.props.volunteer.specific_event,
+    as_needed: this.props.volunteer.as_needed,
+    limitations_allergies: this.props.volunteer.limitations_allergies,
+    why_excited: this.props.volunteer.why_excited,
+    employer: this.props.volunteer.employer,
+    job_title: this.props.volunteer.job_title,
+    date_of_birth: this.props.volunteer.date_of_birth,
+    active: this.props.volunteer.active,
+    access_level: this.props.volunteer.access_level,
+    admin_notes: this.props.volunteer.admin_notes,
+    message: this.props.volunteer.message,
+    open: true,
+    certs:{
+    aVsupport: {id:1 ,certified: this.props.volunteer.av_support},
+
+    cash_handling: {id: 2,certified: this.props.volunteer.cash_handling},
+
+    clinic_ambassador: {id: 3, certified: this.props.volunteer.clinic_ambassador },
+
+    communications: {id: 4,certified: this.props.volunteer.communications},
+
+    data_entry: {id: 5,certified: this.props.volunteer.data_entry},
+
+    gilda_greeter: {id: 6,certified: this.props.volunteer.gilda_greeter},
+
+    instructor: {id: 7,certified: this.props.volunteer.instructor},
+
+    noogieland: {id: 8,certified: this.props.volunteer.noogieland},
+
+    outreach_ambassador: {id: 9,certified: this.props.volunteer.outreach_ambassador},
+
+    special_one: {id: 10 ,certified: this.props.volunteer.special1},
+
+    special_two: {id: 11,certified: this.props.volunteer.special2},
+
+    special_three: {id: 12,certified: this.props.volunteer.special3},
+
+    open_to_all: { id: 13, certified: this.props.volunteer.open_to_all}
+    }
+  });
 };
 
+//close diaglog
 handleClose = () => {
   this.setState({ open: false });
   this.props.dispatch({ type: 'FETCH_VOLUNTEER_INFO'})
   // this.props.dispatch({type: 'SET_VOLUNTEER_INFO'})
 };
 
+//getting volunteer information 
   getAllVolunteerInfo = (state) =>{
-    // let email = this.props.state.indVolunteerInfo.indVolunteerInfo[0]
     let id = this.props.volunteer.id
   this.props.dispatch({
     type:'GET_ALL_VOLUNTEER_INFO',
@@ -195,11 +244,12 @@ handleClose = () => {
           [propertyName]: event.target.value
       })
   }
-  //for check boxes
+  //for check boxes on volunteer edit feature
   handleChange = (name) => (event) => {
     this.setState({ [name]: event.target.checked });
   };
 
+  //update for entire dialog page
   updateVolunteerInfo = (event) => {
     event.preventDefault()
     let volunteerId = this.props.volunteer.id
@@ -209,7 +259,6 @@ handleClose = () => {
        payload:{
         volunteerId, state
        } 
-       
      });
      
      this.updateCertification()
@@ -224,12 +273,10 @@ handleClose = () => {
     payload:{
       certs,id
     }
-    })
-
-  }
+  })
+ }
 
   handleNoogieLandCert = (property) => {
-
   this.setState({
       ...this.state,
       certs: {
@@ -239,13 +286,8 @@ handleClose = () => {
           certified: !this.state.certs[property].certified
         }
       }
-    }
-  );
-  
-
- 
- 
-}
+    })
+  }
 
   
   
@@ -286,13 +328,11 @@ handleClose = () => {
  
 
   render() {
- 
     let toggleAccess;
     if(this.state.access_level === 2){
       toggleAccess = (<div>
         <FormControlLabel control={ <Switch 
             checked={true}
-            // onClick={this.editAccess}
             onChange={this.editAccess}
             value="access_level"
             color="primary"
@@ -303,7 +343,6 @@ handleClose = () => {
       toggleAccess = (<div>
         <FormControlLabel control={ <Switch 
             checked={false}
-            // onClick={this.editAccess}
             onChange={this.editAccess}
             value="access_level"
            />}  label="Manager Capabilities off"
@@ -374,14 +413,9 @@ handleClose = () => {
     let specialThree
     if(this.state.certs.special_three.certified){specialThree= 'primary'}else{specialThree='default'}
 
-    let openToAllVolunteers
-    if(this.state.certs.open_to_all.certified) {openToAllVolunteers= 'primary'} else{openToAllVolunteers='default'}
-
-
-
     return (
       <React.Fragment>
-        <Button onClick={this.handleClickOpen}>edit</Button>
+        <Button onClick={this.handleClickOpen}>Edit</Button>
         <Dialog
             fullScreen
             open={this.state.open}
@@ -389,19 +423,9 @@ handleClose = () => {
             TransitionComponent={Transition}
           >
         <div>
-          {/* <Header />
-          <VolunteerNav /> */}
-        
         <form onSubmit={this.updateVolunteerInfo}>
-        
-        
-    
-       
-
           <h1>Edit volunteer Info</h1>
           <FormControl>
-
-{/* we need another texfield for something that bj asked */}
             <TextField  
               label= "Dynamics id"
               type="text"
@@ -554,7 +578,6 @@ handleClose = () => {
                        checked={this.state.specific_event}
                              onChange={this.handleChange('specific_event')}/>} 
                              label= "For One Specific Event (Annual Breakfast, Golf Event, etc.)"
-                             
                               />
 
             <FormControlLabel control={<Checkbox value={this.props.currentVolunteer.as_needed} 
@@ -590,39 +613,25 @@ onChange={this.handleChange('as_needed')}/>}
               className={this.props.classes.text}
             />  
             <br/>
-            {/* <Button
-              type="submit"
-              variant="raised"
-              color="primary"
-            >
-              Register
-            </Button>
-            <Button
-              type="button"
-              onClick={this.returnHome}
-              variant="raised"
-              color="primary"
-            >
-              Cancel
-              </Button> */} 
+          
                <FormLabel className={this.props.classes.formLabel}>
                Notes:
               </FormLabel>
               <textarea
               type="text"
               name="admin notes"
-              fullWidth
-              multiline={true}
+              // fullWidth={true}
+              // multiline="true"
               value={this.state.admin_notes}
               onChange={this.handleInputChangeFor('admin_notes')}
-              className={this.props.classes.textarea}
-              // className="textarea"
-            ></textarea>
+              className={this.props.classes.textarea}>
+              </textarea>
           </FormControl>
           <Button
               type="submit"
               variant="raised"
               color="primary"
+              style={{margin: 10}}
             >
               Submit
             </Button>
@@ -631,6 +640,8 @@ onChange={this.handleChange('as_needed')}/>}
               onClick={this.handleClose}
               variant="raised"
               color="primary"
+              style={{margin: 10}}
+
             >
               Cancel
               </Button> 
@@ -639,7 +650,6 @@ onChange={this.handleChange('as_needed')}/>}
         
 
         <section className={this.props.classes.chip}>
-         
                 <h2 className={this.props.classes.cert}>Certifications</h2>
           <FormControlLabel control={<Chip  
           label="Noogieland"
@@ -647,7 +657,7 @@ onChange={this.handleChange('as_needed')}/>}
           checked={this.state.certs.noogieland.certified}clickable
           color={noogieLand} value="noogieland" 
           onClick={()=>this.handleNoogieLandCert('noogieland')} 
-          id="" />}/>
+          id="noogieland" />}/>
           <br />
 
            <FormControlLabel control={<Chip  
@@ -656,7 +666,7 @@ onChange={this.handleChange('as_needed')}/>}
           checked={this.state.certs.aVsupport.certified}clickable
           color={avSupport} value="aVsupport" 
           onClick={()=>this.handleNoogieLandCert('aVsupport')} 
-          id="" />}/>
+          id="aVsupport" />}/>
           <br />
 
           <FormControlLabel control={<Chip  
@@ -748,24 +758,12 @@ onChange={this.handleChange('as_needed')}/>}
           onClick={()=>this.handleNoogieLandCert('special_three')} 
           id="special_three" />}/>
           <br />
-
-          {/* <FormControlLabel control={<Chip  
-          label="Open To All Volunteers"
-          className={this.props.classes.indChip}
-          checked={this.state.certs.open_to_all.certified}clickable
-          color={openToAllVolunteers} value="open_To_all_" 
-          onClick={()=>this.handleNoogieLandCert('open_to_all')} 
-          id="special_three" />}/> */}
           <br />
           <div className={this.props.classes.switch}>
           {toggleAccess}
-
-           
            {active}
            </div>
            </section>
-         
-
         </div>
         </Dialog>
       </React.Fragment>

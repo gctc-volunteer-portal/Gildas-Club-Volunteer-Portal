@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import logger from 'redux-logger';
 
 import reducer from './redux/reducers';
 
@@ -16,10 +15,6 @@ const preloadedState = {};
 const middlewares = [];
 const sagaMiddleware = createSagaMiddleware();
 middlewares.push(sagaMiddleware);
-
-if (process.env.NODE_ENV === 'development') {
-  middlewares.push(logger);
-}
 
 const store = createStore(
   reducer,

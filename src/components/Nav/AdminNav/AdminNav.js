@@ -10,40 +10,34 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   nav:{
-    backgroundColor: '#DE2027',
-    display: 'grid',
+    backgroundColor: '#d3d3d3',
     gridTemplateColumns: '1fr 1fr 1fr',
-    color: 'blue'
-    //  grid-column: 1 / 1;
   },
   navIcon: {
-    color: 'white',
+    color: '#e44c52',
   }
 }
 
 class AdminNav extends React.Component {
-  
-  render(){
 
-return(
+  render() {
 
-  <div className="navbar">
-  
-      
-  {/* <ul className="nav"> */}
-   <BottomNavigation
-   showLabels
-   className={this.props.classes.nav}
-   >
-   <BottomNavigationAction className={this.props.classes.navIcon} component={Link} to="/manage_volunteers"  label="Manage Volunteers" icon={ <AssignmentInd />}/>
-   <BottomNavigationAction className={this.props.classes.navIcon} component={Link} to="/manage_announcements" label="Manage Announcements" icon={<Announcement/>}/>
-   <BottomNavigationAction className={this.props.classes.navIcon} component={Link} to="/manage_opportunities" label="Manage Opportunities" icon={<Assignment/>}/>
-    </BottomNavigation>
-</div>
+    return (
+
+      <div className="navbar">
+        <BottomNavigation
+          showLabels
+          className={this.props.classes.nav}
+        >
+          <BottomNavigationAction className={this.props.classes.navIcon} component={Link} to="/manage_opportunities" label="Manage Opportunities" icon={<Assignment />} />
+          <BottomNavigationAction className={this.props.classes.navIcon} component={Link} to="/manage_volunteers" label="Manage Volunteers" icon={<AssignmentInd />} />
+          <BottomNavigationAction className={this.props.classes.navIcon} component={Link} to="/manage_announcements" label="Manage Announcements" icon={<Announcement />} />
+        </BottomNavigation>
+      </div>
 
     );
   }
 }
-  
+
 
 export default (withStyles(styles)(AdminNav));

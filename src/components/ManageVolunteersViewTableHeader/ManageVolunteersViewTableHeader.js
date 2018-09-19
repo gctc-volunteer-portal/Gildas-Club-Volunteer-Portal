@@ -5,8 +5,8 @@ import './ManageVolunteersViewTableHeader.css';
 
 const styles = theme => ({
     head: {
-        backgroundColor: theme.palette.primary.light,
-        top: 0
+      backgroundColor: theme.palette.secondary.main,
+      top: 0
     }
 });
 

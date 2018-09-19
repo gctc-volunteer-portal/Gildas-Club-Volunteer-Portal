@@ -55,6 +55,7 @@ class EditOpportunityForm extends Component {
       api_secret: "G89kYxt7M_xdj96VQu6h9fMcZyg",
       upload_preset: 'gohibjbe'
     }
+    // this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
   }
 
   openCloudinary = () => {
@@ -246,19 +247,6 @@ class EditOpportunityForm extends Component {
            value={this.state.max_volunteers.toString() || ''}
             onChange={this.handleInputChangeFor('max_volunteers')}
           />
-          {/* Input to upload image for volunteer opportunity */}
-          <TextField
-            label="Upload Image"
-            type="text"
-            name=""
-            fullWidth
-            placeholder={this.props.opportunityToUpdate.upload_image}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            
-          onChange={this.handleInputChangeFor(this.state.upload_image)}
-          />
           {/* Input for description of volunteer opportunity */}
           <TextField
             label="Opportunity Description"
@@ -272,7 +260,28 @@ class EditOpportunityForm extends Component {
             value={this.state.description}
             onChange={this.handleInputChangeFor('description')}
           />
-         
+           {/* Input to upload image for volunteer opportunity */}
+          <TextField
+            label="Upload Image"
+            type="text"
+            fullWidth
+            placeholder={this.props.opportunityToUpdate.upload_image}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            
+          onChange={this.handleInputChangeFor(this.state.upload_image)}
+          />
+   
+          
+           <Button
+            className={this.props.classes.button}
+            onClick={this.openCloudinary}
+            variant="raised"
+            color="primary"
+          >
+            Update Image
+            </Button>
           {/* Radio inputs to select required certification */}
           <RadioGroup
             name="deliveryType"
@@ -298,15 +307,6 @@ class EditOpportunityForm extends Component {
             color="primary"
           >
             Cancel
-            </Button>
-
-            <Button
-            className={this.props.classes.button}
-            onClick={this.openCloudinary}
-            variant="raised"
-            color="primary"
-          >
-            Update Image
             </Button>
         </MuiPickersUtilsProvider>
       </React.Fragment>

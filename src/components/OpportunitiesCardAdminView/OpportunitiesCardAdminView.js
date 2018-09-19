@@ -15,17 +15,16 @@ import OpportunityAdminNoteDialogue from '../OpportunityAdminNoteDialogue/Opport
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 const styles = theme => ({
 
     card: {
-
+        // width: '90%',
         position: 'relative',
         minHeight: 350,
-        margin: '2rem',
+        margin: 50,
         display: 'grid',
         gridTemplateColumns: '374px 1fr 1fr',
     },
@@ -111,7 +110,7 @@ class MediaCard extends Component {
         })
     };
 
-    render() {
+    render() {        
         const { classes } = this.props;
         let neededVolunteers = this.props.opportunity.max_volunteers - this.props.opportunity.number_of_volunteers;
         let buttons;
@@ -127,7 +126,7 @@ class MediaCard extends Component {
         if (this.props.state.user.access_level >= 2 && this.props.admin) {
             statusButton = (
                 <div>
-                    <Typography className={classes.typography} style={{ textAlign: 'right'}}>
+                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
                         {status}
                     </Typography>
                     <FormControl className={classes.formControl} fullWidth={true}>
@@ -142,7 +141,7 @@ class MediaCard extends Component {
                             name="age"
                             className={classes.selectEmpty}
                         >
-                            <MenuItem value={1}>Staged</MenuItem>
+                            <MenuItem value={1}>Staging</MenuItem>
                             <MenuItem value={2}>Active</MenuItem>
                             <MenuItem value={3}>Inactive</MenuItem>
                         </Select>
@@ -152,7 +151,7 @@ class MediaCard extends Component {
 
             buttons = (
                 <div>
-                    <Typography className={classes.typography}>
+                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
                         Need {neededVolunteers} of {this.props.opportunity.max_volunteers} volunteers
                     </Typography>
                     <div className={classes.buttonGroup}>
@@ -178,11 +177,11 @@ class MediaCard extends Component {
         } else {
             buttons = (
                 <div>
-                    <Typography className={classes.typography} style={{ textAlign: 'center' }}>
+                    <Typography className={classes.typography} style={{ textAlign: 'right' }}>
                         Need {neededVolunteers} of {this.props.opportunity.max_volunteers} volunteers
                     </Typography>
                     <div>
-                        <VolunteerOpportunityDialog className={classes.buttonGroup} opportunity={this.props.opportunity}  />
+                        <VolunteerOpportunityDialog className={classes.buttonGroup} opportunity={this.props.opportunity} />
                     </div>
                 </div>
 
@@ -208,12 +207,11 @@ class MediaCard extends Component {
                         />
                         <Typography className={classes.typography} component="p">
                             {moment(this.props.opportunity.date).format("dddd, MMMM D, YYYY")} <br />
-                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – 
-                            {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
+                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
                         </Typography>
                         <Typography className={classes.typography} component="p">
                             Location: <br />
-                            {this.props.opportunity.address_line1}
+                            {this.props.opportunity.address_line1} <br />
                             {this.props.opportunity.address_line2}<br />
                             {this.props.opportunity.city}, {this.props.opportunity.state} {this.props.opportunity.zip}<br />
                         </Typography>

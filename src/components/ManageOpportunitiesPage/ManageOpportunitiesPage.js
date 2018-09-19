@@ -12,12 +12,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-// import Input from '@material-ui/core/Input';
-
 
 const mapStateToProps = state => ({
     opportunitiesList: state.opportunitiesReducer.opportunitiesReducer,
-    user: state.user
+    user: state.user,    
 });
 
 function searchingFor(term) {
@@ -46,6 +44,16 @@ const styles = theme => ({
     selectEmpty: {
         marginTop: theme.spacing.unit * 2,
     },
+    topBox: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr'
+    },
+    button: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+    },
+
 });
 class InfoPage extends Component {
     constructor(props) {
@@ -63,12 +71,13 @@ class InfoPage extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: 'GET_EVENTS' })
+        this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
     }
 
     componentDidUpdate() {
         if (!this.props.user.isLoading && (this.props.user.email === null || this.props.user.access_level < 2)) {
             this.props.history.push('/home');
- 
+
         }
     }
 
@@ -117,12 +126,13 @@ class InfoPage extends Component {
             <div>
                 <Header admin={true} />
                 <AdminNav />
-
+            <div className={classes.topBox}>
                 <Button
+                    className={classes.button}
                     variant="raised"
                     color="primary"
                     onClick={this.openCreateEvent}
-                    style={{margin:20}}
+                    style={{ margin: 20, maxHeight: 25 }}
                 >
                     Create Opportunity
                     </Button>
@@ -130,7 +140,7 @@ class InfoPage extends Component {
                     createEventIsOpen={this.state.createEventIsOpen}
                     closeCreateEvent={this.closeCreateEvent}
                 />
-                <div style={{ height: 60, borderRadius: 15 }}>
+                <div style={{ textAlign: 'center', height: 100, margin: 25 }}>
 
                     <TextField
                         id="full-width"
@@ -144,11 +154,12 @@ class InfoPage extends Component {
                         margin="normal"
                         onChange={this.searchHandler}
                         value={this.state.term}
-                      
+
                     />
                 </div>
-                    <FormControl className={classes.formControl}>
-                        <InputLabel>Status</InputLabel>
+                <div style={{ textAlign: 'center', height: 100, margin: 25 }}>
+                    <FormControl  className={classes.formControl}>
+                        <InputLabel>Filter Status</InputLabel>
                         <Select
                             value={this.state.status}
                             onChange={this.handleChange}
@@ -159,6 +170,8 @@ class InfoPage extends Component {
                             <MenuItem value="3">Inactive</MenuItem>
                         </Select>
                     </FormControl>
+                </div>
+                </div>
                 {content}
             </div>
         );

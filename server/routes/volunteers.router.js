@@ -109,9 +109,6 @@ router.get('/new', rejectUnauthenticated, (req, res) => {
 
     );`
 
-
-
-
     pool.query(queryText)
         .then((results) => {
             res.send(results.rows)
@@ -130,7 +127,7 @@ router.get('/indVolunteer/:id/', rejectUnauthenticated, (req, res) => {
     }
 })
 
-//edting volunteer
+//editing volunteer
 router.put('/updateInfo', rejectUnauthenticated, (req, res) => {
     let info = req.body.state
     if (req.isAuthenticated) {
@@ -151,26 +148,28 @@ router.put('/updateInfo', rejectUnauthenticated, (req, res) => {
     }
 })
 
+//Update request for chips on volunteer edit dialog
 router.put('/updateCerts', rejectUnauthenticated, (req, res) => {
+
     const certs = Object.values(req.body.certs)
-        let isError = false;
-        for (let i = 0; i < certs.length; i++) {
-            let queryText = `UPDATE user_certifications SET "is_certified" = ${certs[i].certified} WHERE  "certification_id" = ${certs[i].id} and "user_id" = ${req.body.id};`
-            queryText
 
-            pool.query(queryText).then(() => {
+    let isError = false;
+    for (let i = 0; i < certs.length; i++) {
+        let queryText = `UPDATE user_certifications SET "is_certified" = $1 WHERE  "certification_id" = $2 and "user_id" = $3;`
 
-            }).catch(err => {
-                isError = true
+        //sanitizing 
+        pool.query(queryText, [certs[i].certified, certs[i].id, req.body.id]).then(() => {
 
-            })
-        }
-        if (isError == true) {
-            res.sendStatus(500)
-        } else {
-            res.sendStatus(201)
-        }
+        }).catch(err => {
+            isError = true
+        })
+    } if (isError == true) {
+        res.sendStatus(500)
+    } else {
+        res.sendStatus(201)
+    }
 })
+
 
 router.get('/info', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * 

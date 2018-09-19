@@ -49,8 +49,8 @@ function* fetchVolunteerInfo() {
             type: 'SET_VOLUNTEER_INFO',
             payload: volunteerInfo.data
         })
-    } catch (error) {
-        yield console.log(error);
+    } catch (err) {
+        yield console.log(err);
     }
 }
 
