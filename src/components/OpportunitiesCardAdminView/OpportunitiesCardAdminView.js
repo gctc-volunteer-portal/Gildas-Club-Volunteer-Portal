@@ -228,7 +228,7 @@ class MediaCard extends Component {
                     open={this.state.editEventIsOpen}
                     onClose={this.handleCloseDialog}
                 >
-                    <DialogTitle>{"Edit Opportunity"}</DialogTitle>
+                    <DialogTitle>{"Edit Volunteer Opportunity"}</DialogTitle>
                     <DialogContent>
                         <EditOpportunityForm
                             opportunityId={this.state.opportunityId}
