@@ -55,7 +55,7 @@ class CreateOpportunityForm extends Component {
       api_key: "772513869339438",
       api_secret: "G89kYxt7M_xdj96VQu6h9fMcZyg",
       upload_preset: 'gohibjbe'
-    }
+git    }
   }
   openCloudinary = () => {
     window.cloudinary.openUploadWidget(this.config, (error, result) => {
