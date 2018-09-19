@@ -4,7 +4,7 @@ import Header from '../../Header/Header';
 import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav';
 import { USER_ACTIONS } from '../../../redux/actions/userActions';
 import AnnouncementCard from '../../AnnouncementsCard/AnnouncementCard';
-
+import './announcement.css';
 
 
 const mapStateToProps = state => ({
