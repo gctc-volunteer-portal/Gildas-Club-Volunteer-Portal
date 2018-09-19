@@ -22,7 +22,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 router.get('/', rejectUnauthenticated, (req, res) => {
     // console.log('got to get', req.body);
         const queryText = `SELECT * FROM "announcements"
-        ORDER BY date;`
+        ORDER BY date DESC;`
         pool.query(queryText)
             .then((results) => {
                 res.send(results.rows);

@@ -22,7 +22,7 @@ const styles = {
     margin: 5,
     display: 'flex',
     flexDirection: 'column',
-  }
+  },
 };
 
 
@@ -109,6 +109,9 @@ class Header extends Component {
     if (this.props.user.access_level === 3) {
       tools = (
         <React.Fragment>
+          <div className={this.props.classes.row}>
+            <Avatar className={this.props.classes.avatar}>A</Avatar>
+          </div>
           {logoutButton}
         </React.Fragment>
       )
@@ -116,7 +119,9 @@ class Header extends Component {
 
     return (
       <div className="instructions" id="header">
-        <img src="/images/GCTC_Logo.jpg" onClick={() => {this.props.history.push('/home')}} alt="Gilda's Club Twin Cities Logo" height="150" />
+      <div id="logoBackdrop" onClick={() => {this.props.history.push('/home')}}>
+        <img src="/images/CSC_GC_Twin_Cities_AffiliateLogo_Tag.png" alt="Gilda's Club Twin Cities Logo" height="150" />
+        </div>
         <div id="quote">
           <p>Life is about not knowing, having to change, taking the moment and making the best of it, without knowing what's going to happen next.
         <br />

@@ -10,12 +10,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux'
 import Button from '@material-ui/core/Button';
-import RemoveIcon from '@material-ui/icons/Remove';
+import {HighlightOff} from '@material-ui/icons';
 
 
 const CustomTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
   },
   body: {
@@ -30,7 +30,9 @@ const styles = theme => ({
     overflowX: 'auto',
   },
   table: {
-    minWidth: 700,
+    minWidth: 800,
+    maxHeight: 150,
+
   },
   row: {
     '&:nth-of-type(odd)': {
@@ -67,17 +69,16 @@ class CustomizedTable extends Component {
   render() {
     let currentVolunteers;
     const { classes } = this.props;
-
     currentVolunteers = this.props.state.opportunitiesReducer.opportunityVolunteerReducer.map((volunteer, index) => {
+      
       return (
         <TableRow key={index}>
         <CustomTableCell>{volunteer.first_name}</CustomTableCell>
         <CustomTableCell numeric>{volunteer.last_name}</CustomTableCell>
         <CustomTableCell numeric>{volunteer.email}</CustomTableCell>
         <CustomTableCell numeric>{volunteer.primary_phone}</CustomTableCell>
-        <CustomTableCell><Button variant="contained" color="secondary" className={classes.button} onClick={()=>this.handleDelete(volunteer.user_id, this.props.opportunity.id)}>
-          Remove
-        <RemoveIcon className={classes.rightIcon} />
+        <CustomTableCell><Button size="small" variant="contained" color="primary" className={classes.button} onClick={()=>this.handleDelete(volunteer.user_id, this.props.opportunity.id)}>
+        <HighlightOff className={classes.rightIcon} />
         </Button></CustomTableCell>
          </TableRow>
       )
@@ -85,8 +86,8 @@ class CustomizedTable extends Component {
   
   
     return (
-      <Paper className={classes.root}>
-        <Table className={classes.table}>
+      <Paper style={{height: '200px', overflow: 'scroll'}} className={classes.root}>
+        <Table className={classes.table} >
           <TableHead>
             <TableRow>
               <CustomTableCell>First Name</CustomTableCell>
