@@ -111,6 +111,8 @@ class MediaCard extends Component {
     };
 
     render() {
+        console.log(this.props.certificates);
+        
         const { classes } = this.props;
         let neededVolunteers = this.props.opportunity.max_volunteers - this.props.opportunity.number_of_volunteers;
         let buttons;
@@ -207,12 +209,11 @@ class MediaCard extends Component {
                         />
                         <Typography className={classes.typography} component="p">
                             {moment(this.props.opportunity.date).format("dddd, MMMM D, YYYY")} <br />
-                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} –
-                            {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
+                            {moment(this.props.opportunity.start_time, 'h:mm a').format('h:mm a')} – {moment(this.props.opportunity.end_time, 'h:mm a').format('h:mm a')} <br />
                         </Typography>
                         <Typography className={classes.typography} component="p">
                             Location: <br />
-                            {this.props.opportunity.address_line1}
+                            {this.props.opportunity.address_line1} <br />
                             {this.props.opportunity.address_line2}<br />
                             {this.props.opportunity.city}, {this.props.opportunity.state} {this.props.opportunity.zip}<br />
                         </Typography>

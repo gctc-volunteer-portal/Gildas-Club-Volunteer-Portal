@@ -44,7 +44,6 @@ class ManageVolunteersViewTableHeader extends Component {
             if(column.rotate) {
                 applyClass = 'rotate'
             }
-            console.log(applyClass)
             return (
                 <TableCell class={applyClass}
                     key={index}
