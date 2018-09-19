@@ -5,8 +5,8 @@ import './ManageVolunteersViewTableHeader.css';
 
 const styles = theme => ({
     head: {
-        backgroundColor: theme.palette.primary.light,
-        top: 0
+      backgroundColor: theme.palette.secondary.main,
+      top: 0
     }
 });
 
@@ -44,7 +44,6 @@ class ManageVolunteersViewTableHeader extends Component {
             if(column.rotate) {
                 applyClass = 'rotate'
             }
-            console.log(applyClass)
             return (
                 <TableCell class={applyClass}
                     key={index}

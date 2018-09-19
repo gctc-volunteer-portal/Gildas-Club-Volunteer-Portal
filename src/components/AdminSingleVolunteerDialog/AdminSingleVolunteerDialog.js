@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withRouter } from 'react-router';
-// import Header from '../Header/Header'
-// import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { withRouter } from 'react-router';;
 
 import { withStyles, FormControl, FormLabel,Chip, Checkbox, TextField, Button, Dialog, Slide, Switch } from '@material-ui/core';
 import '../AdminSingleVolunteerDialog/AdminSingleVolunteer.css'
-// import VolunteerNav from '../Nav/VolunteerNav/VolunteerNav';
-// import { Z_DEFAULT_COMPRESSION } from 'zlib';
+
 
 const mapStateToProps = state =>({
    currentVolunteer: state.indVolunteerInfo.indVolunteerInfo,
@@ -78,6 +75,7 @@ const styles = {
     //  right: '-10px'
      
     }
+  
     
       
     // width: 30%;
@@ -96,7 +94,6 @@ const styles = {
 class AdminSingleVolunteerDialog extends Component {
     constructor(props) {
         super(props);
-    // console.log("this is in the constructor",this.props.currentVolunteer)
         this.state = {
           email: this.props.volunteer.email,
           dynamics_id: this.props.volunteer.dynamics_id,
@@ -158,9 +155,7 @@ class AdminSingleVolunteerDialog extends Component {
           }
         }
       }
-  // returnHome = () => {
-  //   this.props.history.push('/')
-  // }
+ 
  
   
   componentDidMount() {
@@ -205,7 +200,6 @@ handleClose = () => {
   //update for entire dialog page
   updateVolunteerInfo = (event) => {
     event.preventDefault()
-    console.log(this.state);
     let volunteerId = this.props.volunteer.id
     let state = this.state
     this.props.dispatch({
@@ -227,21 +221,17 @@ handleClose = () => {
     payload:{
       certs,id
     }
-    })
-
-  }
+  })
+ }
 
   handleNoogieLandCert = (property) => {
-
-   console.log('test:', this.state.certs[property]);
-    this.setState({
-        ...this.state,
-        certs: {
-          ...this.state.certs, 
-        [property]:{
-          ...this.state.certs[property],
-            certified: !this.state.certs[property].certified
-          }
+  this.setState({
+      ...this.state,
+      certs: {
+        ...this.state.certs, 
+      [property]:{
+        ...this.state.certs[property],
+          certified: !this.state.certs[property].certified
         }
       }
   );
@@ -286,7 +276,7 @@ handleClose = () => {
  
 
   render() {
- 
+
     let toggleAccess;
     if(this.state.access_level === 2){
       toggleAccess = (<div>
@@ -372,14 +362,9 @@ handleClose = () => {
     let specialThree
     if(this.state.certs.special_three.certified){specialThree= 'primary'}else{specialThree='default'}
 
-    let openToAllVolunteers
-    if(this.state.certs.open_to_all.certified) {openToAllVolunteers= 'primary'} else{openToAllVolunteers='default'}
-
-
-
     return (
       <React.Fragment>
-        <Button onClick={this.handleClickOpen}>edit</Button>
+        <Button onClick={this.handleClickOpen}>Edit</Button>
         <Dialog
             fullScreen
             open={this.state.open}
@@ -595,6 +580,7 @@ onChange={this.handleChange('as_needed')}/>}
               type="submit"
               variant="raised"
               color="primary"
+              style={{margin: 10}}
             >
               Submit
             </Button>
@@ -603,6 +589,8 @@ onChange={this.handleChange('as_needed')}/>}
               onClick={this.handleClose}
               variant="raised"
               color="primary"
+              style={{margin: 10}}
+
             >
               Cancel
               </Button> 

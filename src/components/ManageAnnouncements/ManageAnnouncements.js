@@ -52,8 +52,6 @@ class Announcements extends Component {
       <div>
         <Header admin={true} />
         <AdminNav />
-        <h1>Announcements!!</h1>
-        
         { content }
         {announcementList}
 
