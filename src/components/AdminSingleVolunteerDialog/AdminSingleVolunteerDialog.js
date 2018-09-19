@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withRouter } from 'react-router';
-import { withStyles, FormControl, FormControlLabel, FormLabel, Chip, Checkbox, TextField, Button, Dialog, Slide, Switch } from '@material-ui/core';
-import '../AdminSingleVolunteerDialog/AdminSingleVolunteer.css';
+import '../AdminSingleVolunteerDialog/AdminSingleVolunteer.css'
+import { withStyles, FormControl, FormLabel,Chip, Checkbox, TextField, Button, Dialog, Slide, Switch } from '@material-ui/core';
+
 
 
 const mapStateToProps = state =>({
@@ -31,11 +34,7 @@ const styles = {
       marginBottom:'5px',
       width:'250px',
       testAlign:'center'
-      // color: ' #DE2027'
       
-    },
-    thisOneChip:{
-      // backgroundColor:'#DE2027'
     },
     chip:{
       position: 'absolute',
@@ -43,15 +42,12 @@ const styles = {
       marginBottom:'px',
       width: '220px',
       height: '440px',
-      // margin: '60%  ',
       padding: '30px',
       borderRadius: '10px',
       float: 'right',
       bottom: '-300px',
       right: '50px',
       left:' 650px',
-      // marginRight:'40%',
-      // marginTop:'13px',
       border: '2px solid red',
       verticalAlign:'center',
     },
@@ -70,18 +66,9 @@ const styles = {
      textAlign: 'center',
      position: 'absolute',
      top:'-60px',
-    //  right: '-10px'
-     
     }
   
     
-      
-    // width: 30%;
-    // height: 250px;
-    // margin: 20px left;
-    // padding: 30px;
-    // border-radius: 2px;
-    // position: absolute;
     
   }
   function Transition(props) {
@@ -93,7 +80,6 @@ class AdminSingleVolunteerDialog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          // email: this.props.volunteer.email,
           email: '',
           dynamics_id: '',
           first_name: '',
@@ -238,7 +224,7 @@ handleClose = () => {
     this.props.history.push('/manage_volunteer')
   }
 
-
+//handle change for textfield
   handleInputChangeFor = (propertyName) => (event) => {
       this.setState({
           [propertyName]: event.target.value
@@ -265,7 +251,7 @@ handleClose = () => {
  
     this.handleClose()
   } 
-  
+  //update chips
   updateCertification = (event) => {
     let id = this.props.volunteer.id
     let certs = this.state.certs
@@ -275,7 +261,7 @@ handleClose = () => {
     }
   })
  }
-
+//handle certifications true/false
   handleNoogieLandCert = (property) => {
   this.setState({
       ...this.state,
@@ -286,10 +272,11 @@ handleClose = () => {
           certified: !this.state.certs[property].certified
         }
       }
-    })
-  }
+  })
+}
 
-  
+
+
   
   
 
@@ -372,12 +359,6 @@ handleClose = () => {
       </div>)
     }
   
-
-
-    /////////////////////////////////////
-    
-    
-    
     let noogieLand
     if(this.state.certs.noogieland.certified){noogieLand= 'primary'}else{noogieLand='default'}
 
@@ -621,8 +602,6 @@ onChange={this.handleChange('as_needed')}/>}
               <textarea
               type="text"
               name="admin notes"
-              // fullWidth={true}
-              // multiline="true"
               value={this.state.admin_notes}
               onChange={this.handleInputChangeFor('admin_notes')}
               className={this.props.classes.textarea}>
