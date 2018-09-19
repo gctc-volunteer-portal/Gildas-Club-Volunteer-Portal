@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles, FormControlLabel, Radio, RadioGroup, TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
-//date picker component and css file from react-datepicker
 import moment from 'moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
@@ -55,7 +54,6 @@ class EditOpportunityForm extends Component {
       api_secret: "G89kYxt7M_xdj96VQu6h9fMcZyg",
       upload_preset: 'gohibjbe'
     }
-    // this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
   }
 
   openCloudinary = () => {
@@ -121,7 +119,6 @@ class EditOpportunityForm extends Component {
     return (
       <React.Fragment>
         <MuiPickersUtilsProvider utils={MomentUtils}>
-{/* // <p>{JSON.stringify(this.props.opportunityToUpdate.upload_image)}</p> */}
           <TextField
             label="Opportunity Name"
             type="text"

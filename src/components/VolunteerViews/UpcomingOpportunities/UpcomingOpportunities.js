@@ -4,7 +4,8 @@ import Header from '../../Header/Header';
 import VolunteerNav from '../../Nav/VolunteerNav/VolunteerNav'
 import TextField from '@material-ui/core/TextField'
 import OpportunitiesCardAdminView from '../../OpportunitiesCardAdminView/OpportunitiesCardAdminView.js';
-import { USER_ACTIONS } from '../../../redux/actions/userActions'
+import { USER_ACTIONS } from '../../../redux/actions/userActions';
+import './upcomingOpportunities.css';
 
 function searchingFor(term) {
     return function (opportunity) {
@@ -70,13 +71,9 @@ class UpcomingOpportunities extends Component {
             }
             else {
                 content = (
-                    <p>Looks like there are no upcoming opportunities for you at this time. Check back later for new opportunities.</p>
+                    <p className="opportunitiesMessage"> Looks like there are no upcoming opportunities for you at this time. Check back later for new opportunities.</p>
                 )
-            }
-
-        }
-
-
+            }}
                   
       return (
           <div>
