@@ -54,6 +54,7 @@ class ManageVolunteersViewTableRow extends Component {
                 <AdminSingleVolunteerDialog volunteer={this.props.volunteer} />
             )
         }
+        
         return (
             <TableRow className={this.props.classes.row}>
                 <CustomTableCell>{editButton}</CustomTableCell>

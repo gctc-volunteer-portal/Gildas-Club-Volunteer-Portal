@@ -1,35 +1,13 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const { rejectUnauthorizedManager } = require('../modules/manager-authorization');
+const { rejectUnauthorizedAdmin } = require('../modules/admin-authorization');
 
-
-router.get('/', rejectUnauthenticated, (req, res) => {
-    //if certification
-    const queryText = `SELECT distinct on (users.first_name)
-                        users.id,
-                        users.first_name, 
-                        users.last_name, 
-                        users.email, 
-                        users.primary_phone, 
-                        user_certifications.user_id, 
-                        user_certifications.certification_id
-                        FROM users
-                        LEFT OUTER JOIN "user_certifications" ON "users".id= user_certifications.user_id
-                        ORDER BY users.first_name;`;
-    // else query text = select* from users
-    pool.query(queryText)
-        .then((results) => {
-            res.send(results.rows)
-            // console.log(results.rows);
-
-        }).catch((err) => {
-            console.log(err);
-            res.sendStatus(500);
-        })
-});
-
-router.get('/new', rejectUnauthenticated, (req, res) => {
+// get new volunteers (ie those without dynamics ids) for CSV export
+router.get('/new', rejectUnauthenticated, rejectUnauthorizedAdmin, (req, res) => {
     const queryText = `SELECT * 
     FROM crosstab (
     $$
@@ -111,98 +89,78 @@ router.get('/new', rejectUnauthenticated, (req, res) => {
 
     );`
 
-    
-
- 
     pool.query(queryText)
         .then((results) => {
             res.send(results.rows)
-            // console.log(results.rows);
-
         }).catch((err) => {
-            console.log(err);
+            console.log('Error on /api/volunteers/new GET:', err);
             res.sendStatus(500);
         })
 });
 
-router.get('/indVolunteer/:id/', (req, res) => {
-    // console.log('i made it',req.params.id);
-    if(req.isAuthenticated){
-    const queryText =`SELECT * FROM users WHERE users."id" = $1`;
-    pool.query(queryText, [req.params.id]).then((results) => {
-        res.send(results.rows)
-        // console.log(results.rows);
-        
-        })
+// get a specific volunteer
+router.get('/indVolunteer/:id/', rejectUnauthenticated, rejectUnauthorizedAdmin, (req, res) => {
+        const queryText = `SELECT * FROM users WHERE users."id" = $1`;
+        pool.query(queryText, [req.params.id])
+            .then((results) => {
+                res.send(results.rows)
+            })
+            .catch(error => {
+                console.log('Error on /indVolunteer GET:', error);
+                res.sendStatus(500);
+            });
     }
-})
+)
 
-//edting volunteer
-router.put('/updateInfo', (req, res) => {
-    console.log('I have :', req.body.volunteerId);
-   let info = req.body.state
-    if(req.isAuthenticated){
+//edit a volunteer
+router.put('/updateInfo', rejectUnauthenticated, rejectUnauthorizedAdmin, (req, res) => {
+    let info = req.body.state
+    if (req.isAuthenticated) {
         const queryText = `UPDATE "users" SET "first_name" = $1, "middle_name" = $2, "last_name" = $3, "email"= $4 , "primary_phone"= $5,
                                             "secondary_phone"= $6, "street_address1"= $7, "street_address2"= $8, "city"= $9,
                                             "zip"= $10, "admin_notes"= $11, "active"= $12, "regular_basis"= $13, "specific_event"= $14,
                                             "as_needed"= $15, "limitations_allergies"= $16, "why_excited"= $17, "employer"= $18,
                                              "job_title"= $19, "date_of_birth" = $20, "access_level" = $21, "dynamics_id"= $22, "state" = $23 WHERE users."id" = $24;`
-                                            pool.query(queryText, [info.first_name, info.middle_name, info.last_name, info.email, info.primary_phone, 
-                                                info.secondary_phone, info.street_address1, info.street_address2, info.city, info.zip, info.admin_notes, 
-                                                info.active, info.regular_basis, info.specific_event, info.as_needed, 
-                                                info.limitations_allergies, info.why_excited, info.employer, info.job_title, info.date_of_birth, info.access_level, info.dynamics_id, info.state, req.body.volunteerId ])
-                                                .then(() => {
-                                                    res.sendStatus(201)
-                                                })
-         }else{
-             res.sendStatus(403)
-         }
-})
-
-router.put('/updateCerts', (req, res) => {
-    console.log('notice this:',req.body.certs)
-    console.log(req.body.id);
-    
-    // console.log( req.body.state.noogieland.certified);
-    // console.log(req.body.id);
-    const certs = Object.values(req.body.certs)
-   console.log(certs);
-   
-   
-    if(req.isAuthenticated){
-       let isError = false;
-for( let i = 0; i < certs.length; i++){
-    let queryText =`UPDATE user_certifications SET "is_certified" = ${certs[i].certified} WHERE  "certification_id" = ${certs[i].id} and "user_id" = ${req.body.id};`
-    console.log(certs[i].certified);
-    
-    queryText
-
-pool.query(queryText) .then(() => {
-
-}).catch(err => {
-                console.log(err)
-                isError = true
-      
-         })
-}
-if(isError == true){
-    res.sendStatus(500)
-}else{
-    res.sendStatus(201)
-}
-
+        pool.query(queryText, [info.first_name, info.middle_name, info.last_name, info.email, info.primary_phone,
+        info.secondary_phone, info.street_address1, info.street_address2, info.city, info.zip, info.admin_notes,
+        info.active, info.regular_basis, info.specific_event, info.as_needed,
+        info.limitations_allergies, info.why_excited, info.employer, info.job_title, info.date_of_birth, info.access_level, info.dynamics_id, info.state, req.body.volunteerId])
+            .then((results) => {
+                res.sendStatus(201)
+            })
+            .catch(error => {
+                console.log('Error on /api/volunteers/updateInfo PUT:', error);
+                res.sendStatus(500);
+            });
     }
+});
 
+//Update request for chips on volunteer edit dialog
+router.put('/updateCerts', rejectUnauthenticated, (req, res) => {
+
+    const certs = Object.values(req.body.certs)
+
+    let isError = false;
+    for (let i = 0; i < certs.length; i++) {
+        let queryText = `UPDATE user_certifications SET "is_certified" = $1 WHERE  "certification_id" = $2 and "user_id" = $3;`
+
+        //sanitizing 
+        pool.query(queryText, [certs[i].certified, certs[i].id, req.body.id]).then(() => {
+
+        }).catch(err => {
+            console.log('Error on /api/volunteers/updateCerts PUT:', err)
+            isError = true
+        })
+    } if (isError == true) {
+        res.sendStatus(500)
+    } else {
+        res.sendStatus(201)
+    }
 })
-            
-                   
-                  
-    
 
-
-
-
-router.get('/info', rejectUnauthenticated, (req, res) => {
+// get all volunteers with certification data for manage volunteers table
+router.get('/info', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
+    // crosstable query creates a pivot table using volunteer certifications data
     const queryText = `SELECT * 
     FROM crosstab (
     $$
@@ -281,11 +239,9 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
         special2 BOOLEAN,
         special3 BOOLEAN,
         outreach_ambassador BOOLEAN
-
     );`
     pool.query(queryText)
         .then((results) => {
-            console.log('here are the results:', results.rows)
             res.send(results.rows);
         })
         .catch((error) => {
@@ -294,6 +250,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
         });
 });
 
+// get all upcoming opportunities for a volunteer
 router.get('/my_available_events', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT opportunities.id,
     opportunities.upload_image,
