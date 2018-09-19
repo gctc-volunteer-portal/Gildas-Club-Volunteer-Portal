@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 
-const volunteerReducer = (state = [], action) => {
-    switch (action.type) {
-        case 'GET_VOLUNTEERS':
-            return action.payload;
-        default:
-            return state;
+// const volunteerReducer = (state = [], action) => {
+//     switch (action.type) {
+//         case 'GET_VOLUNTEERS':
+//             return action.payload;
+//         default:
+//             return state;
 
-    }
-}
+//     }
+// }
 const newVolunteers = (state = [], action) => {
     switch (action.type) {
         case 'NEW_VOLUNTEERS':
@@ -20,6 +20,6 @@ const newVolunteers = (state = [], action) => {
 
 
 export default combineReducers({
-    volunteerReducer,
+    // volunteerReducer,
     newVolunteers
 });

@@ -38,9 +38,9 @@ class ResponsiveDialog extends React.Component {
 
   componentDidMount(){
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-    this.props.dispatch({
-      type: 'GET_USERS'
-    })
+    // this.props.dispatch({
+    //   type: 'GET_USERS'
+    // })
     this.props.dispatch({
       type: 'GET_CERTIFIED_VOLUNTEERS'
     })
@@ -62,10 +62,10 @@ class ResponsiveDialog extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle id="responsive-dialog-title">{`Volunteers for ${this.props.opportunity.title}`}</DialogTitle>
+          <DialogTitle style={{textAlign: 'center'}} id="responsive-dialog-title">{`Volunteers for ${this.props.opportunity.title}`}</DialogTitle>
           <AdminManageVolunteersDialogueTable opportunity = {this.props.opportunity}/>
           <DialogContent>
-            <DialogContentText style={{size: '36', textAlign: 'center'}}>
+            <DialogContentText>
              Add a Volunteer!
             </DialogContentText>
           
