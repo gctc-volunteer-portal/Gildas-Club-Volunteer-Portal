@@ -20,7 +20,9 @@ import AddIcon from '@material-ui/icons/Add';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 200,
+    height: 250,
+  
+   
   },
   input: {
     display: 'flex',
@@ -31,6 +33,9 @@ const styles = theme => ({
     flexWrap: 'wrap',
     flex: 1,
     alignItems: 'center',
+
+   
+
   },
   noOptionsMessage: {
     padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
@@ -39,16 +44,19 @@ const styles = theme => ({
     fontSize: 16,
   },
   placeholder: {
-    // position: 'absolute',
+    position: 'absolute',
     left: 2,
     fontSize: 16,
   },
   paper: {
-    // position: 'absolute',
+    position: 'absolute',
     zIndex: 1,
     marginTop: theme.spacing.unit,
     left: 50,
     right: 50,
+  
+   
+
   },
   divider: {
     height: theme.spacing.unit * 2,
@@ -180,8 +188,6 @@ class IntegrationReactSelect extends React.Component {
   };
 
   render() {
-    // console.log(this.props.state.opportunitiesReducer.certifiedVolunteers);
-
 
     let volunteerList = this.props.state.opportunitiesReducer.certifiedVolunteers.map((volunteer, i) => {
       if ((volunteer.certification_id === this.props.opportunity.certification_needed) && volunteer.is_certified === true) {
@@ -189,7 +195,7 @@ class IntegrationReactSelect extends React.Component {
       }
       else return null;
     })
-    // console.log(volunteerList);
+
 
 
     let list = volunteerList.filter(volunteer => (volunteer !== null)).map(volunteerList => ({
@@ -198,7 +204,7 @@ class IntegrationReactSelect extends React.Component {
       id: volunteerList.id
 
     }))
-    // console.log(list);
+ 
 
     const { classes, theme } = this.props;
 

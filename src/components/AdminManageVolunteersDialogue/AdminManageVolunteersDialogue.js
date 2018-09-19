@@ -48,7 +48,7 @@ class ResponsiveDialog extends React.Component {
   }
   
   render() {
-    const { fullScreen } = this.props;
+  
  
     
 
@@ -57,16 +57,15 @@ class ResponsiveDialog extends React.Component {
       
         <Button className={this.props.classes.button} size="small" color="primary" variant="raised" onClick={this.handleClickOpen}>Manage Volunteers</Button>
         <Dialog
-          fullScreen={fullScreen}
+          fullScreen
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
-          maxWidth= "lg"
         >
           <DialogTitle id="responsive-dialog-title">{`Volunteers for ${this.props.opportunity.title}`}</DialogTitle>
           <AdminManageVolunteersDialogueTable opportunity = {this.props.opportunity}/>
-          <DialogContent style={{marginTop: 50}}>
-            <DialogContentText>
+          <DialogContent>
+            <DialogContentText style={{size: '36', textAlign: 'center'}}>
              Add a Volunteer!
             </DialogContentText>
           
