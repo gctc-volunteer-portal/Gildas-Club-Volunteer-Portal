@@ -52,10 +52,10 @@ class CreateOpportunityForm extends Component {
   componentDidMount() {
     this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
     this.config = {
-      cloud_name: "dhdgecggi",
-      api_key: "772513869339438",
-      api_secret: "G89kYxt7M_xdj96VQu6h9fMcZyg",
-      upload_preset: 'gohibjbe'
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_KEY_SECRET,
+      upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET
    }
   }
   openCloudinary = () => {
