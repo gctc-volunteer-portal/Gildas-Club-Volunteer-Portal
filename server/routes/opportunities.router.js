@@ -5,10 +5,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const { rejectUnauthorizedManager } = require('../modules/manager-authorization');
 const moment = require('moment');
 
-
-/**
- * GET route template
- */
+// GET request for all volunteer opportunities in database
 router.get('/', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT opportunities.id,
     opportunities.upload_image,
@@ -71,7 +68,6 @@ router.get('/volunteer', rejectUnauthenticated, (req, res) => {
             res.send(results.rows)
         })
         .catch((error) => {
-            console.log('Error on /api/opportunities/volunteer GET:', error);
             res.sendStatus(500);
         });
 });
@@ -106,7 +102,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
                        LEFT OUTER JOIN "users" ON "users".id = "user_opportunities".user_id
                        LEFT OUTER JOIN "opportunities" ON "opportunities".id = "user_opportunities".opportunity_id
                        LEFT OUTER JOIN "certifications" ON "certifications".id = "opportunities".certification_needed;`;
-    pool.query(queryText) 
+    pool.query(queryText)
         .then((results) => {
             res.send(results.rows)
         }).catch((err) => {
@@ -114,6 +110,7 @@ router.get('/info', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         })
 });
+
 
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT
@@ -172,7 +169,7 @@ certifications.certification_name
 });
 
 
-
+// POST request to add volunteer into a volunteer opportunity
 router.post('/add_volunteer', rejectUnauthenticated, (req, res) => {
 
     if (req.isAuthenticated) {
@@ -191,6 +188,7 @@ router.post('/add_volunteer', rejectUnauthenticated, (req, res) => {
 
 });
 
+// DELETE request for removing a volunteer from volunteer opportunity
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
 
     if (req.isAuthenticated) {
@@ -209,20 +207,20 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     }
 });
 
-//POST route for new volunteer opportunity, only users with manager or admin access can make server side POST request
+//POST request for creating new volunteer opportunity, only users with manager or admin access can make server side POST request
 router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
     const newOpportunity = req.body;
     const certId = parseInt(newOpportunity.certification_needed);
 
-    console.log(req.body, 'req body');
-
     const queryText = `INSERT INTO "opportunities"("title","start_time","end_time","address_line1","address_line2","city","state","zip","description","date","status","private_notes","max_volunteers","upload_image", "certification_needed")
     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15);`;
+
+    // format start and end time values with moment.js before inputting into the database
     const momentStartTime = moment(newOpportunity.start_time).format('HH:mm:ss');
     const momentEndTime = moment(newOpportunity.end_time).format('HH:mm:ss');
 
-    const serializedData = [newOpportunity.title, momentStartTime, momentEndTime, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers,newOpportunity.uploadImage, certId];
-    // console.log(serializedData)
+    // serialize data on req.body
+    const serializedData = [newOpportunity.title, momentStartTime, momentEndTime, newOpportunity.address_line1, newOpportunity.address_line2, newOpportunity.city, newOpportunity.state, newOpportunity.zip, newOpportunity.description, newOpportunity.date, newOpportunity.status, newOpportunity.private_notes, newOpportunity.max_volunteers, newOpportunity.uploadImage, certId];
 
     pool.query(queryText, serializedData)
         .then((results) => {
@@ -234,20 +232,22 @@ router.post('/', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) =>
         })
 });
 
+// PUT request for updating volunteer opportunity
 router.put('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
     const updateOpportunityData = req.body;
-    console.log(req.body, 'req body');
 
+    // PUT query
     const queryText = `UPDATE "opportunities" SET "title" = $2, "start_time" = $3, 
     "end_time" = $4, "address_line1" = $5, "address_line2" = $6, "city" = $7, 
     "state" =$8, "zip" = $9, "description" = $10, "date" = $11, "status" = $12, 
     "private_notes" = $13, "max_volunteers" = $14, "certification_needed" = $15, "upload_image" = $16
     WHERE "id" = $1;`;
 
+    // format start and end time values with moment.js before inputting into the database
     const momentStartTime = moment(updateOpportunityData.start_time, 'HH:mm:ss').format('HH:mm:ss');
     const momentEndTime = moment(updateOpportunityData.end_time, 'HH:mm:ss').format('HH:mm:ss');
-    console.log(momentStartTime, 'start', momentEndTime, 'end');
 
+    // serialize data on req.body
     const serializedData = [req.params.id, updateOpportunityData.title, momentStartTime,
         momentEndTime, updateOpportunityData.address_line1, updateOpportunityData.address_line2,
     updateOpportunityData.city, updateOpportunityData.state, updateOpportunityData.zip,
@@ -260,28 +260,29 @@ router.put('/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) 
             res.sendStatus(201);
         })
         .catch((error) => {
+            console.log(error);
             res.sendStatus(500);
         })
 });
 
+// PUT request to update volunteer opportunity status
 router.put('/status/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
-    console.log(req.body, 'req body');
     const queryText = `UPDATE "opportunities" SET "status" = $2 
                        WHERE "id" = $1;`;
     const serializedData = [req.params.id, req.body.status];
     pool.query(queryText, serializedData)
-    .then((result) => {
-        res.sendStatus(201);
-    })
-    .catch((error) => {
-        res.sendStatus(500); 
-    })
+        .then((result) => {
+            res.sendStatus(201);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        })
 });
 
-    
+//PUT route to update admin notes on volunteer opportunity
 router.put('/admin_note/:id', rejectUnauthenticated, rejectUnauthorizedManager, (req, res) => {
     const updateOpportunityData = req.body;
-
     const queryText = `UPDATE "opportunities" SET "private_notes" = $2
     WHERE "id" = $1;`;
 
@@ -290,7 +291,8 @@ router.put('/admin_note/:id', rejectUnauthenticated, rejectUnauthorizedManager, 
             res.sendStatus(201);
         })
         .catch((error) => {
-            res.sendStatus(500); 
+            console.log(error);
+            res.sendStatus(500);
         })
 });
 

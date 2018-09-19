@@ -46,7 +46,7 @@ class ManageVolunteersViewTableRow extends Component {
     }
 
     render() {
-console.log(this.props.volunteer.id, this.props.volunteer.first_name);
+
 
         let editButton = null;
 
@@ -55,7 +55,6 @@ console.log(this.props.volunteer.id, this.props.volunteer.first_name);
                 <AdminSingleVolunteerDialog volunteer={this.props.volunteer} />
             )
         }
-
       
         return (
             <TableRow className={this.props.classes.row}>

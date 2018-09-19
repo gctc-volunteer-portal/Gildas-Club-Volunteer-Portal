@@ -20,7 +20,7 @@ passport.deserializeUser((id, done) => {
       done(null, user);
     }
   }).catch((err) => {
-    console.log('query err ', err);
+    console.log('query error ', err);
     done(err);
   });
 });

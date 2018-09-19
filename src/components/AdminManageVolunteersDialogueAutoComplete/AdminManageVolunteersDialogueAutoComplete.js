@@ -197,14 +197,12 @@ class IntegrationReactSelect extends React.Component {
     })
 
 
-
     let list = volunteerList.filter(volunteer => (volunteer !== null)).map(volunteerList => ({
       value: volunteerList.label,
       label: volunteerList.label,
       id: volunteerList.id
 
     }))
- 
 
     const { classes, theme } = this.props;
 
