@@ -1,7 +1,7 @@
 #header {
     display: grid;
     grid-template-columns: 150px 1fr 300px;
-    max-height: 150px;
+    max-height: 167px;
   
 }
 
@@ -18,9 +18,13 @@
     flex-direction: column;
 }
 
+#logoBackdrop {
+    background-color: white;
+}
+
 img {
     display: inline;
-    margin: 0;
+    margin: 5px;
 }
 
 p {

@@ -99,57 +99,58 @@ class AdminSingleVolunteerDialog extends Component {
         super(props);
     // console.log("this is in the constructor",this.props.currentVolunteer)
         this.state = {
-          email: this.props.volunteer.email,
-          dynamics_id: this.props.volunteer.dynamics_id,
-          first_name: this.props.volunteer.first_name,
-          middle_name: this.props.volunteer.middle_name,
-          last_name: this.props.volunteer.last_name,
-          primary_phone: this.props.volunteer.primary_phone,
-          secondary_phone: this.props.volunteer.secondary_phone,
-          street_address1: this.props.volunteer.street_address1,
-          street_address2: this.props.volunteer.street_address2,
-          city: this.props.volunteer.city,
-          state: this.props.volunteer.state,
-          zip: this.props.volunteer.zip,
-          regular_basis: this.props.volunteer.regular_basis,
-          specific_event: this.props.volunteer.specific_event,
-          as_needed: this.props.volunteer.as_needed,
-          limitations_allergies: this.props.volunteer.limitations_allergies,
-          why_excited: this.props.volunteer.why_excited,
-          employer: this.props.volunteer.employer,
-          job_title: this.props.volunteer.job_title,
-          date_of_birth: this.props.volunteer.date_of_birth,
-          active: this.props.volunteer.active,
-          access_level: this.props.volunteer.access_level,
-          admin_notes: this.props.volunteer.admin_notes,
-          message: this.props.volunteer.message,
+          // email: this.props.volunteer.email,
+          email: '',
+          dynamics_id: '',
+          first_name: '',
+          middle_name: '',
+          last_name: '',
+          primary_phone: '',
+          secondary_phone: '',
+          street_address1: '',
+          street_address2: '',
+          city: '',
+          state: '',
+          zip: '',
+          regular_basis: '',
+          specific_event: '',
+          as_needed: '',
+          limitations_allergies: '',
+          why_excited: '',
+          employer: '',
+          job_title: '',
+          date_of_birth: '',
+          active: '',
+          access_level: '',
+          admin_notes: '',
+          message: '',
           open: false,
           certs:{
-          aVsupport: {id:1 ,certified: this.props.volunteer.av_support},
+          aVsupport: {},
 
-          cash_handling: {id: 2,certified: this.props.volunteer.cash_handling},
+          cash_handling: {},
 
-          clinic_ambassador: {id: 3, certified: this.props.volunteer.clinic_ambassador },
+          clinic_ambassador: {},
 
-          communications: {id: 4,certified: this.props.volunteer.communications},
+          communications: {},
 
-          data_entry: {id: 5,certified: this.props.volunteer.data_entry},
+          data_entry: {},
 
-          gilda_greeter: {id: 6,certified: this.props.volunteer.gilda_greeter},
+          gilda_greeter: {},
 
-          instructor: {id: 7,certified: this.props.volunteer.instructor},
+          instructor: {},
 
-          noogieland: {id: 8,certified: this.props.volunteer.noogieland},
+          noogieland: {},
 
-          outreach_ambassador: {id: 9,certified: this.props.volunteer.outreach_ambassador},
+          outreach_ambassador: {},
 
-          special_one: {id: 10 ,certified: this.props.volunteer.special1},
+          special_one: {},
 
-          special_two: {id: 11,certified: this.props.volunteer.special2},
+          special_two: {},
 
-          special_three: {id: 12,certified: this.props.volunteer.special3},
+          special_three: {},
 
-          open_to_all: { id: 13, certified: this.props.volunteer.open_to_all}
+          open_to_all: {}
           },
           chip:{
            color:'primary',
@@ -172,7 +173,60 @@ class AdminSingleVolunteerDialog extends Component {
 
 
 handleClickOpen = () => {
-  this.setState({ open: true });
+  this.setState({
+    email: this.props.volunteer.email,
+    dynamics_id: this.props.volunteer.dynamics_id,
+    first_name: this.props.volunteer.first_name,
+    middle_name: this.props.volunteer.middle_name,
+    last_name: this.props.volunteer.last_name,
+    primary_phone: this.props.volunteer.primary_phone,
+    secondary_phone: this.props.volunteer.secondary_phone,
+    street_address1: this.props.volunteer.street_address1,
+    street_address2: this.props.volunteer.street_address2,
+    city: this.props.volunteer.city,
+    state: this.props.volunteer.state,
+    zip: this.props.volunteer.zip,
+    regular_basis: this.props.volunteer.regular_basis,
+    specific_event: this.props.volunteer.specific_event,
+    as_needed: this.props.volunteer.as_needed,
+    limitations_allergies: this.props.volunteer.limitations_allergies,
+    why_excited: this.props.volunteer.why_excited,
+    employer: this.props.volunteer.employer,
+    job_title: this.props.volunteer.job_title,
+    date_of_birth: this.props.volunteer.date_of_birth,
+    active: this.props.volunteer.active,
+    access_level: this.props.volunteer.access_level,
+    admin_notes: this.props.volunteer.admin_notes,
+    message: this.props.volunteer.message,
+    open: true,
+    certs:{
+    aVsupport: {id:1 ,certified: this.props.volunteer.av_support},
+
+    cash_handling: {id: 2,certified: this.props.volunteer.cash_handling},
+
+    clinic_ambassador: {id: 3, certified: this.props.volunteer.clinic_ambassador },
+
+    communications: {id: 4,certified: this.props.volunteer.communications},
+
+    data_entry: {id: 5,certified: this.props.volunteer.data_entry},
+
+    gilda_greeter: {id: 6,certified: this.props.volunteer.gilda_greeter},
+
+    instructor: {id: 7,certified: this.props.volunteer.instructor},
+
+    noogieland: {id: 8,certified: this.props.volunteer.noogieland},
+
+    outreach_ambassador: {id: 9,certified: this.props.volunteer.outreach_ambassador},
+
+    special_one: {id: 10 ,certified: this.props.volunteer.special1},
+
+    special_two: {id: 11,certified: this.props.volunteer.special2},
+
+    special_three: {id: 12,certified: this.props.volunteer.special3},
+
+    open_to_all: { id: 13, certified: this.props.volunteer.open_to_all}
+    }
+  });
 };
 
 handleClose = () => {
@@ -290,9 +344,6 @@ handleClose = () => {
  
 
   render() {
- console.log(this.props.volunteer.id, this.props.volunteer.first_name);
-
- 
     let toggleAccess;
     if(this.state.access_level === 2){
       toggleAccess = (<div>
@@ -617,8 +668,8 @@ onChange={this.handleChange('as_needed')}/>}
               <textarea
               type="text"
               name="admin notes"
-              fullWidth
-              multiline={true}
+              // fullWidth={true}
+              // multiline="true"
               value={this.state.admin_notes}
               onChange={this.handleInputChangeFor('admin_notes')}
               className={this.props.classes.textarea}
