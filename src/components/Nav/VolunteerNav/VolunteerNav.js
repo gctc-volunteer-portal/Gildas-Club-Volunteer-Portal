@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../VolunteerNav/volunteerNav.css'
+import '../VolunteerNav/volunteerNav.css';
 import Announcement from '@material-ui/icons/Announcement';
 import AssignmentInd from '@material-ui/icons/AssignmentInd';
 import Assignment from '@material-ui/icons/Assignment';
@@ -11,7 +11,6 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
   nav:{
     backgroundColor: '#e44c52',
-    display: 'grid',
     gridTemplateColumns: '1fr 1fr 1fr',
   },
   navIcon: {

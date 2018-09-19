@@ -215,15 +215,7 @@ class CreateOpportunityForm extends Component {
             fullWidth
             onChange={this.handleInputChangeFor('max_volunteers')}
           />
-          {/* Input to upload image for volunteer opportunity */}
-          {/* <TextField
-            label="Upload Image"
-            type="text"
-            name=""
-            fullWidth
-          onChange={this.handleInputChangeFor('uploadImage')}
-          /> */}
-
+      
           {/* Input for description of volunteer opportunity */}
           <TextField
             label="Opportunity Description"
@@ -241,6 +233,14 @@ class CreateOpportunityForm extends Component {
             multiline
             onChange={this.handleInputChangeFor('private_note')}
           />
+             <Button
+            className={this.props.classes.button}
+            onClick={this.openCloudinary}
+            variant="raised"
+            color="primary"
+          >
+            Add image
+            </Button>
           {/* Radio inputs to select required certification */}
           <RadioGroup
             name="certification"
@@ -267,14 +267,6 @@ class CreateOpportunityForm extends Component {
             color="primary"
           >
             Cancel
-            </Button>
-            <Button
-            className={this.props.classes.button}
-            onClick={this.openCloudinary}
-            variant="raised"
-            color="primary"
-          >
-            add image
             </Button>
         </MuiPickersUtilsProvider>
       </React.Fragment>

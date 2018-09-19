@@ -109,6 +109,9 @@ class Header extends Component {
     if (this.props.user.access_level === 3) {
       tools = (
         <React.Fragment>
+          <div className={this.props.classes.row}>
+            <Avatar className={this.props.classes.avatar}>A</Avatar>
+          </div>
           {logoutButton}
         </React.Fragment>
       )
