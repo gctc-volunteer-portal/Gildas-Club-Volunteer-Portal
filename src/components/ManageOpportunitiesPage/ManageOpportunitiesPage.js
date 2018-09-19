@@ -5,21 +5,17 @@ import TextField from '@material-ui/core/TextField'
 import AdminNav from '../Nav/AdminNav/AdminNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import OpportunitiesCardAdminView from '../OpportunitiesCardAdminView/OpportunitiesCardAdminView.js';
-import { Button, Grid } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import CreateOpportunityDialogue from '../CreateOpportunityDialogue/CreateOpportunityDialogue';
 import { withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-// import Input from '@material-ui/core/Input';
-
 
 const mapStateToProps = state => ({
     opportunitiesList: state.opportunitiesReducer.opportunitiesReducer,
-    user: state.user,
-    //   certificates: state.certificationsReducer.certifications,
-    
+    user: state.user,    
 });
 
 function searchingFor(term) {
@@ -106,7 +102,6 @@ class InfoPage extends Component {
     };
 
     render() {
-        console.log(this.state.status);
 
         const { classes } = this.props;
         let content = null;

@@ -6,6 +6,7 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsPr
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import { DatePicker, TimePicker } from 'material-ui-pickers';
 import '../CreateOpportunityForm/CreateOpportunityForm.css';
+import swal from 'sweetalert';
 
 const styles = {
   formContainer: {
@@ -41,7 +42,7 @@ class CreateOpportunityForm extends Component {
       description: '',
       date: null,
       status: 1,
-      uploadImage:'https://res.cloudinary.com/dhdgecggi/image/upload/v1536937033/Crowdrise_default.png',
+      uploadImage: 'https://res.cloudinary.com/dhdgecggi/image/upload/v1536937033/Crowdrise_default.png',
       private_notes: '',
       max_volunteers: 1,
       certification_needed: 13,
@@ -59,21 +60,19 @@ class CreateOpportunityForm extends Component {
   }
   openCloudinary = () => {
     window.cloudinary.openUploadWidget(this.config, (error, result) => {
-        console.log(error, result);
-        if (result) {
-          
-            let cloudinaryUrl = result.info.secure_url;
-            console.log(cloudinaryUrl);
-            this.setState({
-                // store url to local state BEFORE disptaching an action
-                ...this.state,
-                uploadImage: cloudinaryUrl
-            })
-        }
+      if (result) {
+
+        let cloudinaryUrl = result.info.secure_url || 'https://res.cloudinary.com/dhdgecggi/image/upload/v1536937033/Crowdrise_default.png';
+        this.setState({
+          // store url to local state BEFORE dispatching an action
+          ...this.state,
+          uploadImage: cloudinaryUrl
+        })
+      }
     })
 
-    
-}
+
+  }
   handleInputChangeFor = propertyName => (event) => {
     this.setState({
       [propertyName]: event.target.value,
@@ -104,6 +103,44 @@ class CreateOpportunityForm extends Component {
     this.props.closeCreateEvent();
   }
 
+  validateInputs = () => {
+    if (this.state.title === '' || this.state.title === null || this.state.title === undefined) {
+      swal(
+        {
+          text:
+            `Please enter a name for this volunteer opportunity.`,
+          icon: "warning",
+          color: 'primary',
+        });
+    } else if (this.state.start_time === '' || this.state.start_time === null || this.state.start_time === undefined) {
+      swal(
+        {
+          text:
+            `Please enter a start time for this volunteer opportunity`,
+          icon: "warning",
+          color: 'primary',
+        });
+    } else if (this.state.end_time === '' || this.state.end_time === null || this.state.end_time === undefined) {
+      swal(
+        {
+          text:
+            `Please enter an end time for this volunteer opportunity`,
+          icon: "warning",
+          color: 'primary',
+        });
+    } else if (this.state.date === '' || this.state.date === null || this.state.date === undefined) {
+      swal(
+        {
+          text:
+            `Please enter a date for this volunteer opportunity`,
+          icon: "warning",
+          color: 'primary',
+        });
+    } else {
+      this.addOpportunity();
+    }
+  }
+
   render() {
     // map through certifications list, which is stored on redux store, and display them on DOM
     const certificationsList = this.props.certificates.map((certificate, index) => {
@@ -124,6 +161,7 @@ class CreateOpportunityForm extends Component {
             name="title"
             fullWidth
             onChange={this.handleInputChangeFor('title')}
+            required
           />
           {/* Input for volunteer opportunity date */}
 
@@ -171,6 +209,8 @@ class CreateOpportunityForm extends Component {
             fullWidth
             value={this.state.address_line1}
             onChange={this.handleInputChangeFor('address_line1')}
+            required
+
           />
           {/* Input for volunteer opportunity street address 2 */}
           <TextField
@@ -188,6 +228,8 @@ class CreateOpportunityForm extends Component {
             fullWidth
             value={this.state.city}
             onChange={this.handleInputChangeFor('city')}
+            required
+
           />
           {/* Input for volunteer opportunity location State */}
           <TextField
@@ -197,6 +239,8 @@ class CreateOpportunityForm extends Component {
             fullWidth
             value={this.state.state}
             onChange={this.handleInputChangeFor('state')}
+            required
+
           />
           {/* Input for volunteer opportunity location zipcode  */}
           <TextField
@@ -206,6 +250,8 @@ class CreateOpportunityForm extends Component {
             fullWidth
             value={this.state.zip}
             onChange={this.handleInputChangeFor('zip')}
+            required
+
           />
           {/* Input for # of volunteers needed for this volunteer opportunity */}
           <TextField
@@ -251,7 +297,8 @@ class CreateOpportunityForm extends Component {
           {/* Create Volunteer Opportunity */}
           <Button
             className={this.props.classes.button}
-            onClick={this.addOpportunity}
+            // onClick={this.addOpportunity}
+            onClick={this.validateInputs}
             variant="raised"
             size="small"
             color="primary"

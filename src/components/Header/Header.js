@@ -123,9 +123,10 @@ class Header extends Component {
         <img src="/images/CSC_GC_Twin_Cities_AffiliateLogo_Tag.png" alt="Gilda's Club Twin Cities Logo" height="150" />
         </div>
         <div id="quote">
-          <p>Life is about not knowing, having to change, taking the moment and making the best of it, without knowing what's going to happen next.
-        <br />
+        <blockquote><p><q>Life is about not knowing, having to change, taking the moment and making the best of it, without knowing what's going to happen next.</q>
+          <br/>
             —Gilda Radner</p>
+            </blockquote>
         </div>
         <div id="tools">
           {tools}
