@@ -169,22 +169,21 @@ class AdminSingleVolunteerDialog extends Component {
   }
 
 
-
+//open dialog
 handleClickOpen = () => {
   this.setState({ open: true });
 };
 
+//close diaglog
 handleClose = () => {
   this.setState({ open: false });
   this.props.dispatch({ type: 'FETCH_VOLUNTEER_INFO'})
   // this.props.dispatch({type: 'SET_VOLUNTEER_INFO'})
 };
 
+//getting volunteer information 
   getAllVolunteerInfo = (state) =>{
-    // let email = this.props.state.indVolunteerInfo.indVolunteerInfo[0]
-    // console.log(email)
     let id = this.props.volunteer.id
-  // console.log(id);
   this.props.dispatch({
     type:'GET_ALL_VOLUNTEER_INFO',
     payload: id
@@ -198,11 +197,12 @@ handleClose = () => {
           [propertyName]: event.target.value
       })
   }
-  //for check boxes
+  //for check boxes on volunteer edit feature
   handleChange = (name) => (event) => {
     this.setState({ [name]: event.target.checked });
   };
 
+  //update for entire dialog page
   updateVolunteerInfo = (event) => {
     event.preventDefault()
     console.log(this.state);
@@ -213,7 +213,6 @@ handleClose = () => {
        payload:{
         volunteerId, state
        } 
-       
      });
      
      this.updateCertification()
@@ -235,21 +234,17 @@ handleClose = () => {
   handleNoogieLandCert = (property) => {
 
    console.log('test:', this.state.certs[property]);
-  this.setState({
-      ...this.state,
-      certs: {
-        ...this.state.certs, 
-      [property]:{
-        ...this.state.certs[property],
-          certified: !this.state.certs[property].certified
+    this.setState({
+        ...this.state,
+        certs: {
+          ...this.state.certs, 
+        [property]:{
+          ...this.state.certs[property],
+            certified: !this.state.certs[property].certified
+          }
         }
       }
-    }
   );
-  
-
- 
- 
 }
 
   
@@ -291,14 +286,12 @@ handleClose = () => {
  
 
   render() {
-  console.log(this.state);
  
     let toggleAccess;
     if(this.state.access_level === 2){
       toggleAccess = (<div>
         <FormControlLabel control={ <Switch 
             checked={true}
-            // onClick={this.editAccess}
             onChange={this.editAccess}
             value="access_level"
             color="primary"
@@ -309,7 +302,6 @@ handleClose = () => {
       toggleAccess = (<div>
         <FormControlLabel control={ <Switch 
             checked={false}
-            // onClick={this.editAccess}
             onChange={this.editAccess}
             value="access_level"
            />}  label="Manager Capabilities off"
@@ -395,19 +387,9 @@ handleClose = () => {
             TransitionComponent={Transition}
           >
         <div>
-          {/* <Header />
-          <VolunteerNav /> */}
-        
         <form onSubmit={this.updateVolunteerInfo}>
-        
-        
-    
-       
-
           <h1>Edit volunteer Info</h1>
           <FormControl>
-
-{/* we need another texfield for something that bj asked */}
             <TextField  
               label= "Dynamics id"
               type="text"
@@ -560,7 +542,6 @@ handleClose = () => {
                        checked={this.state.specific_event}
                              onChange={this.handleChange('specific_event')}/>} 
                              label= "For One Specific Event (Annual Breakfast, Golf Event, etc.)"
-                             
                               />
 
             <FormControlLabel control={<Checkbox value={this.props.currentVolunteer.as_needed} 
@@ -596,21 +577,7 @@ onChange={this.handleChange('as_needed')}/>}
               className={this.props.classes.text}
             />  
             <br/>
-            {/* <Button
-              type="submit"
-              variant="raised"
-              color="primary"
-            >
-              Register
-            </Button>
-            <Button
-              type="button"
-              onClick={this.returnHome}
-              variant="raised"
-              color="primary"
-            >
-              Cancel
-              </Button> */} 
+          
                <FormLabel className={this.props.classes.formLabel}>
                Notes:
               </FormLabel>
@@ -621,9 +588,8 @@ onChange={this.handleChange('as_needed')}/>}
               multiline={true}
               value={this.state.admin_notes}
               onChange={this.handleInputChangeFor('admin_notes')}
-              className={this.props.classes.textarea}
-              // className="textarea"
-            ></textarea>
+              className={this.props.classes.textarea}>
+              </textarea>
           </FormControl>
           <Button
               type="submit"
@@ -645,7 +611,6 @@ onChange={this.handleChange('as_needed')}/>}
         
 
         <section className={this.props.classes.chip}>
-         
                 <h2 className={this.props.classes.cert}>Certifications</h2>
           <FormControlLabel control={<Chip  
           label="Noogieland"
@@ -653,7 +618,7 @@ onChange={this.handleChange('as_needed')}/>}
           checked={this.state.certs.noogieland.certified}clickable
           color={noogieLand} value="noogieland" 
           onClick={()=>this.handleNoogieLandCert('noogieland')} 
-          id="" />}/>
+          id="noogieland" />}/>
           <br />
 
            <FormControlLabel control={<Chip  
@@ -662,7 +627,7 @@ onChange={this.handleChange('as_needed')}/>}
           checked={this.state.certs.aVsupport.certified}clickable
           color={avSupport} value="aVsupport" 
           onClick={()=>this.handleNoogieLandCert('aVsupport')} 
-          id="" />}/>
+          id="aVsupport" />}/>
           <br />
 
           <FormControlLabel control={<Chip  
@@ -754,24 +719,12 @@ onChange={this.handleChange('as_needed')}/>}
           onClick={()=>this.handleNoogieLandCert('special_three')} 
           id="special_three" />}/>
           <br />
-
-          {/* <FormControlLabel control={<Chip  
-          label="Open To All Volunteers"
-          className={this.props.classes.indChip}
-          checked={this.state.certs.open_to_all.certified}clickable
-          color={openToAllVolunteers} value="open_To_all_" 
-          onClick={()=>this.handleNoogieLandCert('open_to_all')} 
-          id="special_three" />}/> */}
           <br />
           <div className={this.props.classes.switch}>
           {toggleAccess}
-
-           
            {active}
            </div>
            </section>
-         
-
         </div>
         </Dialog>
       </React.Fragment>
