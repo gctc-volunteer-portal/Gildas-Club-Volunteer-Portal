@@ -231,7 +231,7 @@ class RegistrationForm extends Component {
                 className={this.props.classes.textField}
               />
               <FormLabel>
-                What makes you excited about volunteering Gildas Club Twin Cities?
+                What makes you excited about volunteering with Gilda's Club Twin Cities?
               </FormLabel>
               <TextField
                 type="text"

@@ -89,7 +89,6 @@ class OpportunityAdminNoteDialogue extends Component {
   }
 
   render() {
-
     let content = null
     if (this.state.edit == false) {
       content =

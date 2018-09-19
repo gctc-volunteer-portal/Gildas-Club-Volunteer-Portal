@@ -18,8 +18,8 @@ function* getAnnouncements() {
       yield dispatch({
           type: 'GET_ANNOUNCEMENTS_LIST'
       })
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      yield console.log(err);
     }
   }
   function* deleteAnnouncement(action) {
@@ -32,7 +32,6 @@ function* getAnnouncements() {
       })
     } catch (err) {
       yield console.log(err);
-  
     }
   }
   

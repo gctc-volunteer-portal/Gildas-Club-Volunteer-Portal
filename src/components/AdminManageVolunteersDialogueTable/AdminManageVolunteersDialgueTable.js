@@ -30,8 +30,7 @@ const styles = theme => ({
     overflowX: 'auto',
   },
   table: {
-    minWidth: 800,
-    maxHeight: 150,
+    // minWidth: 800,
 
   },
   row: {
@@ -86,7 +85,7 @@ class CustomizedTable extends Component {
   
   
     return (
-      <Paper style={{height: '200px', overflow: 'scroll'}} className={classes.root}>
+      <Paper style={{ height: 500, width: '95%', margin: 50, overflow: 'scroll'}} className={classes.root}>
         <Table className={classes.table} >
           <TableHead>
             <TableRow>

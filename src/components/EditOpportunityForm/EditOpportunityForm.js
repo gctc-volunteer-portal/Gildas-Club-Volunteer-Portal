@@ -60,11 +60,8 @@ class EditOpportunityForm extends Component {
 
   openCloudinary = () => {
     window.cloudinary.openUploadWidget(this.config, (error, result) => {
-        console.log(error, result);
         if (result) {
-          // console.log(result.info.secure_url);
-            let cloudinaryUrl = result.info.secure_url;
-            console.log(cloudinaryUrl);
+            let cloudinaryUrl = result.info.secure_url || 'https://res.cloudinary.com/dhdgecggi/image/upload/v1536937033/Crowdrise_default.png';
             this.setState({
                 // store url to local state BEFORE disptaching an action
                 ...this.state,
@@ -72,7 +69,6 @@ class EditOpportunityForm extends Component {
             })
         }
     })
-    console.log(this.state.uploadImage);
     
 }
 
@@ -114,7 +110,6 @@ class EditOpportunityForm extends Component {
   }
 
   render() {
-    console.log(this.props.certificates);
     
     // map through certifications list, which is stored on redux store, and display them on DOM
     const certificationsList = this.props.certificates.map((certificate, index) => {
@@ -269,7 +264,6 @@ class EditOpportunityForm extends Component {
           <TextField
             label="Upload Image"
             type="text"
-            name=""
             fullWidth
             placeholder={this.props.opportunityToUpdate.upload_image}
             InputLabelProps={{

@@ -3,10 +3,6 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-
-/**
- * GET route template
- */
 router.get('/', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT distinct users.id, users.first_name, users.last_name, user_certifications.certification_id, user_certifications.is_certified
     FROM users
@@ -14,20 +10,13 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     LEFT OUTER JOIN "user_opportunities" ON "users".id = user_opportunities.user_id
     LEFT OUTER JOIN "opportunities" ON opportunities.id = user_opportunities.opportunity_id
     WHERE users.active = true;`)
-.then((results) => {
+    .then((results) => {
     res.send(results.rows)
-    // console.log(results.rows);
-
-}).catch((err) => {
+    })
+    .catch((err) => {    
     console.log(err);
     res.sendStatus(500);
-})
-})
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-
+    })
 });
 
 module.exports = router;

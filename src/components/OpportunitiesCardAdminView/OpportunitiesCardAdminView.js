@@ -110,9 +110,7 @@ class MediaCard extends Component {
         })
     };
 
-    render() {
-        console.log(this.props.certificates);
-        
+    render() {        
         const { classes } = this.props;
         let neededVolunteers = this.props.opportunity.max_volunteers - this.props.opportunity.number_of_volunteers;
         let buttons;
