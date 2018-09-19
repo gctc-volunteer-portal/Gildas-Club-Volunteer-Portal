@@ -48,11 +48,10 @@ class Announcements extends Component {
       }
       else {
         content = (
-          <p>No announcements. Check back later!</p>
+          <p className="announcementsMessage">No announcements. Check back later!</p>
         )
       }
     }
-
 
     return (
       <div>
