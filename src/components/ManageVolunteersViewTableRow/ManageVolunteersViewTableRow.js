@@ -46,7 +46,6 @@ class ManageVolunteersViewTableRow extends Component {
     }
 
     render() {
-console.log(this.props.volunteer);
 
         let editButton = null;
 

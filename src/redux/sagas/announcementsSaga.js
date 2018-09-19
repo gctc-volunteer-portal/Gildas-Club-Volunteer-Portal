@@ -19,7 +19,7 @@ function* getAnnouncements() {
           type: 'GET_ANNOUNCEMENTS_LIST'
       })
     } catch (error) {
-      console.log(error);
+      yield console.log(error);
     }
   }
   function* deleteAnnouncement(action) {
@@ -32,7 +32,6 @@ function* getAnnouncements() {
       })
     } catch (err) {
       yield console.log(err);
-  
     }
   }
   

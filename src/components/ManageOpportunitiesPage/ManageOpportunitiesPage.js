@@ -93,7 +93,6 @@ class InfoPage extends Component {
     };
 
     render() {
-        console.log(this.state.status);
 
         const { classes } = this.props;
         let content = null;

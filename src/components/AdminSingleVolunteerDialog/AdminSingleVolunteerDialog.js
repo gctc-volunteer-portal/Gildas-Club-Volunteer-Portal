@@ -96,7 +96,6 @@ const styles = {
 class AdminSingleVolunteerDialog extends Component {
     constructor(props) {
         super(props);
-    // console.log("this is in the constructor",this.props.currentVolunteer)
         this.state = {
           email: this.props.volunteer.email,
           dynamics_id: this.props.volunteer.dynamics_id,
@@ -182,9 +181,7 @@ handleClose = () => {
 
   getAllVolunteerInfo = (state) =>{
     // let email = this.props.state.indVolunteerInfo.indVolunteerInfo[0]
-    // console.log(email)
     let id = this.props.volunteer.id
-  // console.log(id);
   this.props.dispatch({
     type:'GET_ALL_VOLUNTEER_INFO',
     payload: id
@@ -205,7 +202,6 @@ handleClose = () => {
 
   updateVolunteerInfo = (event) => {
     event.preventDefault()
-    console.log(this.state);
     let volunteerId = this.props.volunteer.id
     let state = this.state
     this.props.dispatch({
@@ -234,7 +230,6 @@ handleClose = () => {
 
   handleNoogieLandCert = (property) => {
 
-   console.log('test:', this.state.certs[property]);
   this.setState({
       ...this.state,
       certs: {
@@ -291,7 +286,6 @@ handleClose = () => {
  
 
   render() {
-  console.log(this.state);
  
     let toggleAccess;
     if(this.state.access_level === 2){

@@ -30,7 +30,7 @@ function* updatePassword (action) {
   try {
     yield call(axios.put, '/api/password/reset-pass', action.payload)
   } catch (error) {
-    console.log(error)
+    yield console.log(error)
   }
 }
 
@@ -38,7 +38,7 @@ function* requestPasswordReset(action) {
   try {
     yield call(axios.put, '/api/password/forgot-pass', action.payload)
   } catch (error) {
-    console.log(error)
+    yield console.log(error)
   }
 }
 

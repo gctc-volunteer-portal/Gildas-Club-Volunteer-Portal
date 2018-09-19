@@ -60,11 +60,9 @@ class CreateOpportunityForm extends Component {
   }
   openCloudinary = () => {
     window.cloudinary.openUploadWidget(this.config, (error, result) => {
-      console.log(error, result);
       if (result) {
 
         let cloudinaryUrl = result.info.secure_url;
-        console.log(cloudinaryUrl);
         this.setState({
           // store url to local state BEFORE disptaching an action
           ...this.state,
