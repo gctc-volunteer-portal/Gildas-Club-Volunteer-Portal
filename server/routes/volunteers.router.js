@@ -3,30 +3,6 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-
-router.get('/', rejectUnauthenticated, (req, res) => {
-    //if certification
-    const queryText = `SELECT distinct on (users.first_name)
-                        users.id,
-                        users.first_name, 
-                        users.last_name, 
-                        users.email, 
-                        users.primary_phone, 
-                        user_certifications.user_id, 
-                        user_certifications.certification_id
-                        FROM users
-                        LEFT OUTER JOIN "user_certifications" ON "users".id= user_certifications.user_id
-                        ORDER BY users.first_name;`;
-    // else query text = select* from users
-    pool.query(queryText)
-        .then((results) => {
-            res.send(results.rows)
-        }).catch((err) => {
-            console.log(err);
-            res.sendStatus(500);
-        })
-});
-
 router.get('/new', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * 
     FROM crosstab (
