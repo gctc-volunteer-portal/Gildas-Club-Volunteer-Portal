@@ -52,10 +52,10 @@ class CreateOpportunityForm extends Component {
   componentDidMount() {
     this.props.dispatch({ type: 'GET_CERTIFICATIONS_LIST' });
     this.config = {
-      cloud_name: process.env.CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_KEY_SECRET,
-      upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET
+      cloud_name: process.env.REACT_APP_CLOUD_NAME,
+      api_key: process.env.REACT_APP_CLOUDINARY_API_KEY,
+      api_secret: process.env.REACT_APP_CLOUDINARY_API_KEY_SECRET,
+      upload_preset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
    }
   }
   openCloudinary = () => {
@@ -71,6 +71,7 @@ class CreateOpportunityForm extends Component {
       }
     })
 
+    
 
   }
   handleInputChangeFor = propertyName => (event) => {
